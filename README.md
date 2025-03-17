@@ -46,7 +46,15 @@ This list provides contact information for state government agencies that handle
 
 [National Association of State Charity Officials (NASCO)](https://www.nasconet.org/)
 
--   NASCO is a resource for information on state charity regulation and provides links to state charity offices.
+-  NASCO is a resource for information on state charity regulation and provides links to state charity offices.
+
+### National Link Coalition:
+
+[National Link Coalition](https://nationallinkcoalition.org/)
+
+-   The Global Resource Center on the Link Between Animal Abuse and Human Violence
+
+[The National Directory of Abuse Investigation Agencies](https://nationallinkcoalition.org/how-do-i-report-suspected-abuse)
 
 -----
 
