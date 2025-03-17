@@ -52,9 +52,10 @@ This list provides contact information for state government agencies that handle
 
 [National Link Coalition](https://nationallinkcoalition.org/)
 
--   The Global Resource Center on the Link Between Animal Abuse and Human Violence
-
 [The National Directory of Abuse Investigation Agencies](https://nationallinkcoalition.org/how-do-i-report-suspected-abuse)
+
+
+-   The Global Resource Center on the Link Between Animal Abuse and Human Violence
 
 -----
 
