@@ -1460,3 +1460,9 @@ If you would like to contribute to this repository, please submit a pull request
 -   [Secretary of State](https://sos.wyo.gov/default.aspx)
     -   [Business/UCC Division](https://sos.wyo.gov/Business/Default.aspx)
     -   [Search](https://wyobiz.wyo.gov/Business/FilingSearch.aspx)
+
+## Disclaimer
+This resource is for informational purposes only and does not constitute legal advice. The information provided is subject to change. Always verify information with the relevant official sources.
+
+## Contributing
+If you would like to contribute to this repository, please submit a pull request or open an issue. Contributions are welcome!
