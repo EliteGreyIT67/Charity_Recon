@@ -12,6 +12,9 @@
   - [National Link Coalition](#national-link-coalition)
 - [General Search Tips & Notes](#general-search-tips--notes)
 - [State-Specific Resources](#state-specific-resources)
+- <details>
+  <summary>Click to expand state-specific resources</summary>
+  
   - [Alabama](#alabama)
   - [Alaska](#alaska)
   - [Arizona](#arizona)
@@ -63,6 +66,7 @@
   - [West Virginia](#west-virginia)
   - [Wisconsin](#wisconsin)
   - [Wyoming](#wyoming)
+  </details>
 - [Disclaimer](#disclaimer)
 - [Contributing](#contributing)
 
@@ -94,7 +98,7 @@ This list provides contact information for state government agencies that handle
 - **Charity Navigator**: [Charity Navigator](https://www.charitynavigator.org/) (Independent charity watchdog providing ratings and analysis)
 - **CharityWatch**: [CharityWatch](https://www.charitywatch.org/) (Independent charity watchdog providing ratings and analysis)
 
----
+--- 
 
 ## US State Government Resources for Consumers & Charities
 
@@ -164,6 +168,9 @@ This list provides contact information for state government agencies that handle
 ---
 
 ## State-Specific Resources
+<details>
+  <summary>Click to expand state-specific resources</summary>
+  
 ### Alabama
 -   [Alabama State Website](https://www.alabama.gov/)
 -   [Alabama Attorney General's Office](https://www.alabamaag.gov/)
@@ -798,7 +805,8 @@ This list provides contact information for state government agencies that handle
 -   [Secretary of State](https://sos.wyo.gov/default.aspx)
     -   [Business/UCC Division](https://sos.wyo.gov/Business/Default.aspx)
     -   [Search](https://wyobiz.wyo.gov/Business/FilingSearch.aspx)
-
+    -   
+</details>
 ---
 
 ## Disclaimer
