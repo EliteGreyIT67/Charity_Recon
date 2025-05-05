@@ -144,7 +144,7 @@ This list provides contact information for state government agencies that handle
 - [The National Directory of Abuse Investigation Agencies](https://nationallinkcoalition.org/how-do-i-report-suspected-abuse)
 - The Global Resource Center on the Link Between Animal Abuse and Human Violence
 
----
+[↑ Back To Top](#contents)
 
 ## General Search Tips & Notes
 - **DBA Names**: Businesses and organizations may operate under a "Doing Business As" (DBA) name that differs from their legal name. Try to find the legal name for more accurate searches.
@@ -165,7 +165,7 @@ This list provides contact information for state government agencies that handle
 
 **It is crucial to cross-reference information gathered from multiple sources to ensure accuracy and identify any inconsistencies.**
 
----
+[↑ Back To Top](#contents)
 
 ## State-Specific Resources
 <details>
@@ -182,6 +182,8 @@ This list provides contact information for state government agencies that handle
     -   [Business Lookup](https://ago.igovsolution.net/online/Lookups/Business.aspx)
 -   [Alabama Agriculture & Industries – Animal Industries](https://agi.alabama.gov/animalindustries/)
 
+[↑ Back To Top](#contents)
+
 ### Alaska
 -   [Alaska State Website](https://www.alaska.gov/)
 -   [Alaska Department of Law](https://law.alaska.gov/index.html)
@@ -195,6 +197,8 @@ This list provides contact information for state government agencies that handle
     -   [Charitable Solicitations Act](https://www.akleg.gov/basis/statutes.asp#45.50.471)
     -   [File a Consumer Complaint](https://law.alaska.gov/department/civil/consumer/cp_complaint.html)
 
+[↑ Back To Top](#contents)
+
 ### Arizona
 -   [Arizona State Website](https://az.gov/)
 -   [Arizona Attorney General](https://www.azag.gov/)
@@ -207,6 +211,8 @@ This list provides contact information for state government agencies that handle
     -   [Public Records Request](https://www.azag.gov/media/public-records-request)
 -   [Arizona Secretary of State](https://azsos.gov/)
     -   [Charity Department](https://apps.azsos.gov/scripts/Charity_Search.dll)
+
+[↑ Back To Top](#contents)
 
 ### Arkansas
 -   [Arkansas State Website](https://portal.arkansas.gov/)
@@ -223,6 +229,8 @@ This list provides contact information for state government agencies that handle
     -   Email: oag@arkansasag.gov
     -   [File a Complaint](https://arkansasag.gov/file-a-complaint/)
 
+[↑ Back To Top](#contents)
+
 ### California
 -   [California State Website](https://www.ca.gov/)
 -   [Office of the Attorney General](https://oag.ca.gov/)
@@ -232,6 +240,8 @@ This list provides contact information for state government agencies that handle
     -   Phone: (916) 210-6400
     -   [Consumer Complaint](https://oag.ca.gov/contact/consumer-complaint-against-business-or-company)
 -   [California Department of Food and Agriculture - Animal Health and Food Safety Services](https://www.cdfa.ca.gov/ahfss/)
+
+[↑ Back To Top](#contents)
 
 ### Colorado
 -   [Colorado State Website](https://www.colorado.gov/)
@@ -248,6 +258,8 @@ This list provides contact information for state government agencies that handle
     -   Address: 1300 Broadway, 7th Floor, Denver, CO 80203
     -   Phone: (800) 222-4444
     -   [File a Complaint](https://coag.gov/file-complaint/)
+      
+[↑ Back To Top](#contents)
 
 ### Connecticut
 -   [Connecticut State Website](https://portal.ct.gov/)
@@ -259,6 +271,8 @@ This list provides contact information for state government agencies that handle
     -   Email: dcp.publiccharities@ct.gov
     -   [File a Complaint](https://portal.ct.gov/dcp/file-a-complaint)
 
+[↑ Back To Top](#contents)
+
 ### Delaware
 - [Delaware State Website](https://delaware.gov/)
 - [Department of Justice, Fraud & Consumer Protection Division](https://attorneygeneral.delaware.gov/fraud/)
@@ -267,6 +281,8 @@ This list provides contact information for state government agencies that handle
  - Email: attorney.general@state.de.us
  - [Consumer Complaints](https://attorneygeneral.delaware.gov/fraud/cmu/complaint/)
 - [Corporate Forms and Certificates for an Exempt Corporation](https://corp.delaware.gov/corpformsexemptcorp09/)
+
+[↑ Back To Top](#contents)
 
 ### District of Columbia
 -   [District of Columbia State Website](https://dc.gov/)
@@ -280,6 +296,8 @@ This list provides contact information for state government agencies that handle
     -   Phone: (202) 727-3400
     -   Email: nonprofit@dc.gov
     -   [Submit a Consumer Complaint](https://oag.dc.gov/consumer-protection/other-consumer-help-agencies-and-websites/submit-consumer-complaint)
+
+[↑ Back To Top](#contents)
 
 ### Florida
 -  [Florida State Website](https://www.myflorida.com/)
@@ -296,6 +314,8 @@ This list provides contact information for state government agencies that handle
 -   [Department of State](https://dos.fl.gov/)
         -   [Division of Corporations](https://dos.fl.gov/sunbiz/)
     -   [Search Records](https://dos.fl.gov/sunbiz/search/)
+
+[↑ Back To Top](#contents)
 
 ### Georgia
 -   [Georgia State Website](https://georgia.gov/)
@@ -314,6 +334,8 @@ This list provides contact information for state government agencies that handle
     -   [Reporting Animal Cruelty](https://agr.georgia.gov/reporting-animal-cruelty)
     -   [All ISDA Laws and Rules](https://agr.georgia.gov/laws-and-rules/all-isda-laws-and-rules#AnimalLaws)
 
+[↑ Back To Top](#contents)
+
 ### Hawaii
 -   [Hawaii State Website](https://portal.ehawaii.gov/)
 -   Office of the Attorney General
@@ -323,6 +345,8 @@ This list provides contact information for state government agencies that handle
     -   Phone: (808) 586-1480
     -   Email: ATG.Charities@hawaii.gov
 -   [Department of Agriculture](https://hdoa.hawaii.gov/)
+
+[↑ Back To Top](#contents)
 
 ### Idaho
 -   [Idaho State Website](https://www.idaho.gov/)
@@ -339,6 +363,8 @@ This list provides contact information for state government agencies that handle
     -   [File a Complaint](https://agri.idaho.gov/animals/complaints-concerns/file-a-complaint/)
     -   [All ISDA Laws and Rules](https://agri.idaho.gov/laws-and-rules/all-isda-laws-and-rules/#AnimalLaws)
 
+[↑ Back To Top](#contents)
+
 ### Illinois
 -   [Illinois State Website](https://www2.illinois.gov/)
 -   [Office of the Attorney General](https://www.illinoisattorneygeneral.gov/)
@@ -352,6 +378,8 @@ This list provides contact information for state government agencies that handle
     -   [Animal Health & Welfare](https://agr.illinois.gov/animals/animalhealth.html)
     -   [A-Z License List](https://agr.illinois.gov/licenses/a-z-license-list.html)
 
+[↑ Back To Top](#contents)
+
 ### Indiana
 -   [Indiana State Website](https://www.in.gov/)
 -   [Office of the Attorney General](https://www.in.gov/attorneygeneral/)
@@ -360,6 +388,8 @@ This list provides contact information for state government agencies that handle
     -   Phone: (317) 232-6330, (800) 382-5516
     -   [Consumer Complaint Form](https://inoag.my.salesforce-sites.com/ConsumerComplaintForm)
 -   [Indiana State Department of Agriculture](https://www.in.gov/isda/)
+
+[↑ Back To Top](#contents)
 
 ### Iowa
 -   [Iowa State Website](https://www.iowa.gov/)
@@ -370,6 +400,8 @@ This list provides contact information for state government agencies that handle
     -   [File a Consumer Complaint](https://www.iowaattorneygeneral.gov/for-consumers/file-a-consumer-complaint)
 -   [Secretary of State](https://sos.iowa.gov/)
     -   [Business Entities Search](https://sos.iowa.gov/search/business/search.aspx)
+
+[↑ Back To Top](#contents)
 
 ### Kansas
 -   [Kansas State Website](https://www.kansas.gov/)
@@ -386,6 +418,8 @@ This list provides contact information for state government agencies that handle
     -   [File a Complaint](https://www.ag.ks.gov/file-a-complaint/charity-fraud)
 -   [Department of Agriculture](https://www.agriculture.ks.gov/)
 
+[↑ Back To Top](#contents)
+
 ### Kentucky
 -   [Kentucky State Website](https://kentucky.gov/)
 -   [Office of the Attorney General](https://ag.ky.gov/Pages/default.aspx)
@@ -398,6 +432,8 @@ This list provides contact information for state government agencies that handle
 -   [Secretary of State](https://sos.ky.gov/Pages/default.aspx)
     -   [Business Filings & Records Online Services](https://sos.ky.gov/bus/business-filings/OnlineServices/Pages/default.aspx)
 -   [Department of Agriculture](https://www.kyagr.com/)
+
+[↑ Back To Top](#contents)
 
 ### Louisiana
 -    [Louisiana State Website](https://www.louisiana.gov/)
@@ -414,6 +450,8 @@ This list provides contact information for state government agencies that handle
     -   [Animals](https://www.ldaf.la.gov/animals)
     -   [File a complaint or report a violation](https://www.ldaf.la.gov/about/contact/complaints)
     -   [Laws, rules, and regulations](https://www.ldaf.la.gov/about/laws-regulations)
+
+[↑ Back To Top](#contents)
 
 ### Maine
 -   [Maine State Website](https://www.maine.gov/)
@@ -432,6 +470,8 @@ This list provides contact information for state government agencies that handle
         -   [Animal Shelters](https://www.maine.gov/dacf/ahw/animal_welfare/shelters.shtml)
         -   [Statutes and Rules](https://www.maine.gov/dacf/ahw/animal_welfare/statutes_rules.shtml)
 
+[↑ Back To Top](#contents)
+
 ### Maryland
 -   [Maryland State Website](https://www.maryland.gov/)
 -   [Office of the Secretary of State](https://sos.maryland.gov/Pages/default.aspx)
@@ -446,6 +486,8 @@ This list provides contact information for state government agencies that handle
     -   [Animal Health Program](https://mda.maryland.gov/AnimalHealth/Pages/default.aspx)
     -   [Regulations](https://mda.maryland.gov/AnimalHealth/Pages/Regulations.aspx)
 
+[↑ Back To Top](#contents)
+
 ### Massachusetts
 -    [Massachusetts State Website](https://www.mass.gov/)
 -   [Office of the Attorney General](https://www.mass.gov/orgs/office-of-the-attorney-general)
@@ -457,6 +499,8 @@ This list provides contact information for state government agencies that handle
 -   [Department of Agricultural Resources](https://www.mass.gov/orgs/massachusetts-department-of-agricultural-resources)
     -   [Division of Animal Health](https://www.mass.gov/info-details/division-of-animal-health)
     -   [Animal Shelter and Rescue Program](https://www.mass.gov/animal-shelter-and-rescue-program)
+
+[↑ Back To Top](#contents)
 
 ### Michigan
 - [Michigan State Website](https://www.michigan.gov/)
@@ -471,6 +515,8 @@ This list provides contact information for state government agencies that handle
     -   [Animal Health](https://www.michigan.gov/mdard/animals)
     -   [File a Complaint](https://www.michigan.gov/mdard/about/contact-mdard)
 
+[↑ Back To Top](#contents)
+
 ### Minnesota
 -   [Minnesota State Website](https://mn.gov/)
 -   [Office of the Attorney General](https://www.ag.state.mn.us/default.asp)
@@ -479,6 +525,8 @@ This list provides contact information for state government agencies that handle
     -   Address: 445 Minnesota Street, St. Paul, MN 55101-2130
     -   Phone: (651) 757-1496, (800) 657-3787
     -   [File a Complaint](https://www.ag.state.mn.us/Charity/FileAComplaint.asp)
+
+[↑ Back To Top](#contents)
 
 ### Mississippi
 -   [Mississippi State Website](https://www.ms.gov/)
@@ -494,6 +542,8 @@ This list provides contact information for state government agencies that handle
     -   Phone: (601) 359-4230, (800) 281-4418
      -   [File a Complaint](https://www.ms.gov/dfa/consumer_complaint/)
 
+[↑ Back To Top](#contents)
+
 ### Missouri
 -   [Missouri State Website](https://www.mo.gov/)
 -   [Office of the Attorney General](https://ago.mo.gov/),
@@ -502,6 +552,8 @@ This list provides contact information for state government agencies that handle
     -   Phone: (573) 751-3321
     -   [Consumer Complaint](https://app.ago.mo.gov/app/consumercomplaint)
 -   [Missouri Business Filings](https://bsd.sos.mo.gov/BusinessEntity/BESearch.aspx?SearchType=0)
+
+[↑ Back To Top](#contents)
 
 ### Montana
 -   [Montana State Website](https://mt.gov/)
@@ -513,6 +565,8 @@ This list provides contact information for state government agencies that handle
     -   [Complaint Against a Non-Profit Organization](https://dojmt.gov/office-of-consumer-protection/complaint-against-a-non-profit-organization/)
 -   [Business Search](https://biz.sosmt.gov/search/business)
 
+[↑ Back To Top](#contents)
+
 ### Nebraska
 -   [Nebraska State Website](https://www.nebraska.gov/)
 -   [Office of the Attorney General](https://ago.nebraska.gov/)
@@ -521,6 +575,8 @@ This list provides contact information for state government agencies that handle
     -   Phone: (402) 471-2682, (800) 727-6432
     -   Email: ago.consumer@nebraska.gov
     -   [File A Complaint](https://www.nebraska.gov/apps-ago-complaints/?preSelect=CP_COMPLAINT)
+
+[↑ Back To Top](#contents)
 
 ### Nevada
 - [Nevada State Website](https://nv.gov/)
@@ -538,6 +594,8 @@ This list provides contact information for state government agencies that handle
     -   [CSU Complaints & FAQ](https://ag.nv.gov/Complaints)
     -   [File a Complaint](https://ag.nv.gov/uploadedFiles/agnvgov/Content/Complaints/BCP-ComplaintForm.pdf)
 
+[↑ Back To Top](#contents)
+
 ### New Hampshire
 -   [New Hampshire State Website](https://www.nh.gov/)
 -   [Office of the Attorney General](https://www.doj.nh.gov/)
@@ -551,6 +609,8 @@ This list provides contact information for state government agencies that handle
     -   [Search](https://quickstart.sos.nh.gov/online/BusinessInquire)
     -   [NH-SOS - Corporation](https://sos.nh.gov/corporation-ucc-securities/corporation/)
 
+[↑ Back To Top](#contents)
+
 ### New Jersey
 - [New Jersey State Website](https://www.nj.gov/)
 -   [Office of Attorney General](https://www.njoag.gov/)
@@ -560,6 +620,8 @@ This list provides contact information for state government agencies that handle
     -   Phone: (973) 504-6215, (800) 242-5846
     -   Email: askconsumeraffairs@dca.lps.state.nj.us
     -   [To File a Complaint](https://www.njconsumeraffairs.gov/Pages/Consumer-Complaints.aspx)
+
+[↑ Back To Top](#contents)
 
 ### New Mexico
 - [New Mexico State Website](https://www.newmexico.gov/)
@@ -571,6 +633,8 @@ This list provides contact information for state government agencies that handle
     -   Email: Charity.Registrar@nmag.gov
     -   [Submit a Complaint](https://nmdoj.gov/get-help/submit-a-complaint/)
 
+[↑ Back To Top](#contents)
+
 ### New York
 - [New York State Website](https://www.ny.gov/)
 -   [Attorney General](https://ag.ny.gov/)
@@ -581,6 +645,8 @@ This list provides contact information for state government agencies that handle
     -   Email: charities.bureau@ag.ny.gov
     -   [File a charity complaint](https://formsnym.ag.ny.gov/OAGOnlineSubmissionForm/faces/OAGCBHome)
 -   [NYS Department of Agriculture and Markets - Division of Animal Industry](https://agriculture.ny.gov/animals)
+
+[↑ Back To Top](#contents)
 
 ### North Carolina
 - [North Carolina State Website](https://www.nc.gov/)
@@ -597,6 +663,8 @@ This list provides contact information for state government agencies that handle
     -   Phone: (919) 716-6000, (877) 566-7226
     -   [File a Complaint](https://ncdoj.gov/file-a-complaint/)
 
+[↑ Back To Top](#contents)
+
 ### North Dakota
 -   [North Dakota State Website](https://www.nd.gov/)
 -   [Secretary of State](https://www.sos.nd.gov/home)
@@ -611,6 +679,8 @@ This list provides contact information for state government agencies that handle
     -   Email: ndag@nd.gov
     -   [General Complaint](https://attorneygeneral.nd.gov/consumer-resources/general-complaint/)
 
+[↑ Back To Top](#contents)
+
 ### Ohio
 -    [Ohio State Website](https://ohio.gov/)
 -   [Attorney General](https://www.ohioattorneygeneral.gov/)
@@ -620,6 +690,8 @@ This list provides contact information for state government agencies that handle
     -   Phone: (614) 466-3180, (800) 282-0515
     -   Email: CharitableLaw@OhioAGO.gov
     -   [File a Complaint](https://charitablecomplaint.ohioattorneygeneral.gov/)
+
+[↑ Back To Top](#contents)
 
 ### Oklahoma
 -    [Oklahoma State Website](https://oklahoma.gov/)
@@ -635,6 +707,8 @@ This list provides contact information for state government agencies that handle
     -   Email: ConsumerProtection@oag.ok.gov
     -   [Charitable Organization Complaint Form(PDF)](https://oklahoma.gov/content/dam/ok/en/oag/documents/complaints/2017charitableorganizationcomplaint.pdf)
 
+[↑ Back To Top](#contents)
+
 ### Oregon
 - [Oregon State Website](https://www.oregon.gov/)
 -   [Attorney General](https://www.doj.state.or.us/)
@@ -648,6 +722,8 @@ This list provides contact information for state government agencies that handle
     -   [Nonprofit Services](https://sos.oregon.gov/business/Pages/nonprofit.aspx)
     -   Address: Public Service Building, 255 Capitol Street NE, Suite 151, Salem, OR 97310-1327
     -   Phone: (503) 986-2200
+
+[↑ Back To Top](#contents)
 
 ### Pennsylvania
 - [Pennsylvania State Website](https://www.pa.gov/)
@@ -663,6 +739,8 @@ This list provides contact information for state government agencies that handle
     -   Phone: (717) 783-2853
     -   [Submit a Complaint](https://www.attorneygeneral.gov/submit-a-complaint/)
 
+[↑ Back To Top](#contents)
+
 ### Rhode Island
 - [Rhode Island State Website](https://www.ri.gov/)
 -   [Dept. of Business Regulation](https://dbr.ri.gov/)
@@ -675,6 +753,8 @@ This list provides contact information for state government agencies that handle
     -   Address: 150 South Main Street, Providence, RI 02903
     -   Phone: (401) 274-4400
     -   [File a Consumer Complaint](https://riag.ri.gov/forms/consumer-complaint)
+
+[↑ Back To Top](#contents)
 
 ### South Carolina
 -   [South Carolina State Website](https://www.sc.gov/)
@@ -689,6 +769,8 @@ This list provides contact information for state government agencies that handle
     -   Phone: (803) 734-3970
     -   [Submit a Complaint](https://www.scag.gov/inside-the-office/legal-services-division/securities/enforcement/submit-a-complaint/)
 
+[↑ Back To Top](#contents)
+
 ### South Dakota
 -   [South Dakota State Website](https://sd.gov/)
 -   [Attorney General](https://atg.sd.gov/)
@@ -699,6 +781,8 @@ This list provides contact information for state government agencies that handle
     -   [Complaint Form](https://consumer.sd.gov/complaintform.aspx)
 -   [Secretary of State](https://sdsos.gov/business-services/corporations/corporate-forms/nonprofit-corporations.aspx)
     -   [Filings Search](https://sosenterprise.sd.gov/BusinessServices/Business/FilingSearch.aspx)
+
+[↑ Back To Top](#contents)
 
 ### Tennessee
 -  [Tennessee State Website](https://www.tn.gov/)
@@ -714,6 +798,8 @@ This list provides contact information for state government agencies that handle
     -   Phone: (615) 741-3491
     -   [Nonprofit Complaint Form(PDF)](https://www.tn.gov/content/dam/tn/attorneygeneral/documents/nonprofits/nonprofitcomplaintform.pdf)
 
+[↑ Back To Top](#contents)
+
 ### Texas
 -  [Texas State Website](https://www.texas.gov/)
 -   [Office of the Attorney General](https://www.texasattorneygeneral.gov/)
@@ -726,6 +812,8 @@ This list provides contact information for state government agencies that handle
     -   Address: P.O. Box 13697, Austin, Texas 78711-3697
     -   Phone: (512) 463-5555
 
+[↑ Back To Top](#contents)
+
 ### Utah
 -  [Utah State Website](https://www.utah.gov/)
 -   [Department of Commerce](https://dcp.utah.gov/)
@@ -735,6 +823,8 @@ This list provides contact information for state government agencies that handle
     -   Email: consumerprotection@utah.gov
     -   [DCP Complaints](https://db.dcp.utah.gov/complaints.html)
 
+[↑ Back To Top](#contents)
+
 ### Vermont
 - [Vermont State Website](https://www.vermont.gov/)
 -   [Office of Attorney General](https://ago.vermont.gov/)
@@ -742,6 +832,8 @@ This list provides contact information for state government agencies that handle
     -   Phone: (802) 656-3183, (800) 649-2424
     -   Email: ago.cap@vermont.gov
     -   [Complaint Form](http://ago.vermont.gov/consumer-assistance-program-complaint-form)
+
+[↑ Back To Top](#contents)
 
 ### Virginia
 -   [Virginia State Website](https://www.virginia.gov/)
@@ -755,6 +847,8 @@ This list provides contact information for state government agencies that handle
     -   Address: 202 North Ninth Street, Richmond, Virginia 23219
     -   Phone: (804) 786-2071
     -   [OAG Online Consumer Complaint Form](https://www.oag.state.va.us/consumercomplaintform/form/start)
+
+[↑ Back To Top](#contents)
 
 ### Washington
 - [Washington State Website](https://wa.gov/)
@@ -770,6 +864,8 @@ This list provides contact information for state government agencies that handle
     -   Email: charities@atg.wa.gov
     -   [General Consumer Complaint Form](https://fortress.wa.gov/atg/formhandler/ago/ComplaintForm.aspx)
 
+[↑ Back To Top](#contents)
+
 ### West Virginia
 - [West Virginia State Website](https://www.wv.gov/)
 -   [Secretary of State](https://sos.wv.gov/)
@@ -783,6 +879,8 @@ This list provides contact information for state government agencies that handle
     -   Address: Post Office Box 1789, Charleston WV 25326
     -   Phone: (304) 558-8986, (800) 368-8808
     -   Email: consumer@wvago.gov
+      
+[↑ Back To Top](#contents)
 
 ### Wisconsin
 - [Wisconsin State Website](https://www.wisconsin.gov/)
@@ -795,6 +893,8 @@ This list provides contact information for state government agencies that handle
     -   Email: DATCPHotline@Wisconsin.gov
 -   [Department of Justice](https://www.doj.state.wi.us/)
     -   [How to File a Consumer Complaint](https://www.doj.state.wi.us/dls/consumer-protection/how-file-consumer-complaint)
+
+[↑ Back To Top](#contents)
 
 ### Wyoming
 -   [Wyoming State Website](https://www.wyo.gov/)
@@ -821,3 +921,5 @@ Contributions are welcome! Please adhere to the repository's [Code of Conduct](C
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
+
+[↑ Back To Top](#contents)
