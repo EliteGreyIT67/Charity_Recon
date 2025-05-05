@@ -1,6 +1,6 @@
 # Charity_Recon
 
-## Table of Contents
+## Contents
 - [Introduction](#introduction)
 - [US State Government Resources for Consumers & Charities](#us-state-government-resources-for-consumers--charities)
   - [Internal Revenue Service (IRS)](#internal-revenue-service-irs)
