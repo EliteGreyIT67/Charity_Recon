@@ -81,23 +81,6 @@ This list provides contact information for state government agencies that handle
 
 **Last Verified:** 2025-03-17
 
----
-
-## US State Government Resources for Consumers & Charities
-
-### Internal Revenue Service (IRS)
-[Internal Revenue Service](https://www.irs.gov/)
-
-- **501(c)3 Lookup**: [Tax Exempt Organization Search](https://apps.irs.gov/app/eos/) (Verify an organization's non-profit (tax-exempt) status)
-- **990 Search**: [Copies of EO returns available](https://www.irs.gov/charities-non-profits/copies-of-scanned-eo-returns-available) (Access an organization's 990 forms, which contain valuable financial details)
-- **Complaint Process**: [IRS complaint process - Tax-Exempt Organizations](https://www.irs.gov/charities-non-profits/irs-complaint-process-tax-exempt-organizations) (Report suspected tax fraud by charities)
-
-### Additional Non-Profit Resources
-- **Candid (formerly GuideStar)**: [Candid](https://candid.org/) (Comprehensive information on non-profits, including 990s, mission statements, and program details)
-- **ProPublica Nonprofit Explorer**: [ProPublica Nonprofit Explorer](https://projects.propublica.org/nonprofits/) (User-friendly tool for searching 990s)
-- **Charity Navigator**: [Charity Navigator](https://www.charitynavigator.org/) (Independent charity watchdog providing ratings and analysis)
-- **CharityWatch**: [CharityWatch](https://www.charitywatch.org/) (Independent charity watchdog providing ratings and analysis)
-
 --- 
 
 ## US State Government Resources for Consumers & Charities
