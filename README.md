@@ -151,8 +151,6 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ## State-Specific Resources
-<details>
-  <summary>Click to expand state-specific resources</summary>
   
 ### Alabama
 -   [Alabama State Website](https://www.alabama.gov/)
@@ -889,7 +887,7 @@ This list provides contact information for state government agencies that handle
     -   [Business/UCC Division](https://sos.wyo.gov/Business/Default.aspx)
     -   [Search](https://wyobiz.wyo.gov/Business/FilingSearch.aspx)
     -   
-</details>
+
 ---
 
 ## Disclaimer
