@@ -135,7 +135,7 @@ These national bodies provide oversight and information relevant to non-profit a
 
 ### United States Department of Agriculture (USDA)
 
-[Home | Animal and Plant Health Inspection Service](https://www.aphis.usda.gov/)
+[Animal and Plant Health Inspection Service](https://www.aphis.usda.gov/)
 
 -   **Animal Care Public Search**: [APHIS Public Search Tool](https://aphis.my.site.com/PublicSearchTool/s/) (Search for USDA-licensed animal facilities, including breeders, dealers, and exhibitors)
 -   **File an Animal Welfare Complaint**: [File an Animal Welfare Complaint](https://www.aphis.usda.gov/awa/regulatory-enforcement/complaint) (Report concerns about the treatment of animals in licensed facilities)
