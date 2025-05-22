@@ -1,20 +1,27 @@
 # Charity_Recon
 
+This guide is designed to help you research and report concerns about non-profit animal rescue organizations, with an added focus on their legal and regulatory obligations. It provides essential resources for consumers, donors, and legal professionals to verify charity registration, report scams, investigate animal welfare issues, and understand relevant legal compliance.
+
+**Last Verified:** 2025-05-22
+
 ## Contents
-- [Introduction](#introduction)
-- [US State Government Resources for Consumers & Charities](#us-state-government-resources-for-consumers--charities)
+
+- [How to Use This Guide](#how-to-use-this-guide)
+- [Key Legal Requirements and Considerations for Animal Rescue Organizations](#key-legal-requirements-and-considerations-for-animal-rescue-organizations)
+- [US National Resources for Animal Rescue Organizations](#us-national-resources-for-animal-rescue-organizations)
   - [Internal Revenue Service (IRS)](#internal-revenue-service-irs)
-  - [Additional Non-Profit Resources](#additional-non-profit-resources)
   - [United States Department of Agriculture (USDA)](#united-states-department-of-agriculture-usda)
   - [Better Business Bureau (BBB)](#better-business-bureau-bbb)
   - [Federal Trade Commission (FTC)](#federal-trade-commission-ftc)
+  - [Federal Bureau of Investigation (FBI)](#federal-bureau-of-investigation-fbi)
   - [National Association of State Charity Officials (NASCO)](#national-association-of-state-charity-officials-nasco)
   - [National Link Coalition](#national-link-coalition)
+  - [Additional Non-Profit Resources](#additional-non-profit-resources)
 - [General Search Tips & Notes](#general-search-tips--notes)
 - [State-Specific Resources](#state-specific-resources)
-- <details>
+  <details>
   <summary>Click to expand state-specific resources</summary>
-  
+
   - [Alabama](#alabama)
   - [Alaska](#alaska)
   - [Arizona](#arizona)
@@ -68,91 +75,143 @@
   - [Wyoming](#wyoming)
   </details>
 - [Disclaimer](#disclaimer)
-- [Contributing](#contributing)
 
-## Introduction
-This list provides contact information for state government agencies that handle consumer complaints and oversee charitable organizations. Use this resource to:
-- Report scams
-- Verify charity registration
-- Research consumer issues
-- Access legal assistance
+## How to Use This Guide
 
-**Audience:** This resource is designed for consumers, legal professionals, and nonprofits looking to navigate charity-related issues.
+1.  **Understand Legal Requirements**: Begin by reviewing the "Key Legal Requirements and Considerations" section to familiarize yourself with the types of regulations animal rescues must adhere to.
+2.  **Start with National Resources**: Check federal agencies (like IRS and USDA) and national non-profit watchdogs for general information, tax-exempt status, and federal compliance.
+3.  **Focus on Animal-Specific Resources**: Pay special attention to resources from the USDA and state-level animal health/welfare divisions, as these are crucial for animal care regulations.
+4.  **Use General Search Tips**: Review the "General Search Tips & Notes" for effective research techniques, including how to look for licensing and compliance records.
+5.  **Consult State-Specific Information**: If the animal rescue operates in a particular state, use the "State-Specific Resources" section to find local regulatory bodies and animal welfare contacts, as state and local laws are highly variable.
+6.  **Cross-Reference Information**: Always verify information from multiple sources to ensure accuracy and identify inconsistencies in reported compliance or practices.
 
-**Last Verified:** 2025-03-17
+## Key Legal Requirements and Considerations for Animal Rescue Organizations
 
---- 
+Non-profit animal rescue organizations are subject to a variety of federal, state, and sometimes local laws and regulations. Understanding these can help in evaluating an organization's legitimacy and compliance.
 
-## US State Government Resources for Consumers & Charities
+### Federal Requirements
+
+-   **IRS 501(c)(3) Status**: To operate as a non-profit and receive tax-deductible donations, an animal rescue must obtain and maintain 501(c)(3) tax-exempt status from the IRS. This requires adherence to specific operational and reporting standards (e.g., filing Form 990 annually).
+-   **USDA Animal Welfare Act (AWA) Compliance**:
+    -   The USDA's Animal and Plant Health Inspection Service (APHIS) regulates certain animal-related activities under the AWA.
+    -   Rescues involved in **interstate transport of animals for sale/adoption, breeding animals for sale**, or operating certain **animal exhibition facilities** may require USDA licenses and be subject to inspections.
+    -   Not all animal rescues fall under USDA licensing, particularly smaller, local, or foster-based rescues that do not engage in activities defined by the AWA. However, larger organizations or those involved in significant transport should be checked.
+
+### State Requirements
+
+State laws vary significantly, but commonly include:
+
+-   **Charity Registration/Solicitation Permits**: Most states require non-profit organizations that solicit donations from the public to register with the state's Attorney General or Secretary of State's office. This ensures transparency in fundraising.
+-   **Non-Profit Corporate Registration**: Organizations must typically register as a non-profit corporation with the state's Secretary of State or equivalent business registration agency.
+-   **Animal Welfare Laws**: States have laws governing animal cruelty, neglect, and minimum standards for animal care in shelters and rescue facilities. These can cover:
+    -   **Facility Standards**: Requirements for housing, sanitation, ventilation, and space.
+    -   **Veterinary Care**: Mandates for vaccinations, spay/neuter, and treatment of illness/injury.
+    -   **Adoption Procedures**: Regulations on screening adopters, adoption contracts, and return policies.
+    -   **Quarantine Periods**: Requirements for holding periods for stray animals.
+-   **Licensing for Animal Shelters/Rescues**: Many states and/or local jurisdictions require animal shelters, pounds, and rescue facilities to obtain specific licenses and be subject to regular inspections by state or local animal control or health departments.
+-   **Health Certificates for Interstate Movement**: When animals are transported across state lines (e.g., from a high-kill shelter in one state to a rescue in another), they often require veterinary health certificates and may be subject to specific quarantine rules in the receiving state.
+
+### Local Requirements
+
+-   **Zoning and Land Use Permits**: Local ordinances dictate where animal rescue facilities can operate (e.g., residential vs. commercial zones).
+-   **Animal Control Ordinances**: Local animal control laws may include limits on the number of animals, leash laws, licensing of individual animals, and specific requirements for animal hoarding situations.
+-   **Local Business Licenses**: Some municipalities may require a general business license even for non-profit operations.
+
+---
+
+## US National Resources for Animal Rescue Organizations
+
+These national bodies provide oversight and information relevant to non-profit animal rescue organizations.
 
 ### Internal Revenue Service (IRS)
+
 [Internal Revenue Service](https://www.irs.gov/)
 
-- **501(c)3 Lookup**: [Tax Exempt Organization Search](https://apps.irs.gov/app/eos/) (Verify an organization's non-profit (tax-exempt) status)
-- **990 Search**: [Copies of EO returns available](https://www.irs.gov/charities-non-profits/copies-of-scanned-eo-returns-available) (Access an organization's 990 forms, which contain valuable financial information)
-- **Complaint Process**: [IRS complaint process - Tax-Exempt Organizations](https://www.irs.gov/charities-non-profits/irs-complaint-process-tax-exempt-organizations) (Report suspected tax fraud by non-profit organizations)
+-   **501(c)3 Lookup**: [Tax Exempt Organization Search](https://apps.irs.gov/app/eos/) (Verify an organization's non-profit (tax-exempt) status)
+-   **990 Search**: [Copies of EO returns available](https://www.irs.gov/charities-non-profits/copies-of-scanned-eo-returns-available) (Access an organization's 990 forms, which contain valuable financial information)
+-   **Complaint Process**: [IRS complaint process - Tax-Exempt Organizations](https://www.irs.gov/charities-non-profits/irs-complaint-process-tax-exempt-organizations) (Report suspected tax fraud by non-profit organizations)
 
-### Additional Non-Profit Resources
-- **Candid (formerly GuideStar)**: [Candid](https://candid.org/) (Comprehensive information on non-profits, including 990s, mission statements, and program details)
-- **ProPublica Nonprofit Explorer**: [ProPublica Nonprofit Explorer](https://projects.propublica.org/nonprofits/) (User-friendly tool for searching 990s)
-- **Charity Navigator**: [Charity Navigator](https://www.charitynavigator.org/) (Independent charity watchdog providing ratings and analysis)
-- **CharityWatch**: [CharityWatch](https://www.charitywatch.org/) (Independent charity watchdog providing ratings and analysis)
+*Note: Federal tax exemption doesn't always mean state registration isn't required. Check state-specific resources.*
 
 ### United States Department of Agriculture (USDA)
+
 [Home | Animal and Plant Health Inspection Service](https://www.aphis.usda.gov/)
 
-- **Animal Care Public Search**: [APHIS Public Search Tool](https://aphis.my.site.com/PublicSearchTool/s/) (Search for USDA-licensed animal facilities, including breeders, dealers, and exhibitors)
-- **File an Animal Welfare Complaint**: [File an Animal Welfare Complaint](https://www.aphis.usda.gov/awa/regulatory-enforcement/complaint) (Report concerns about the treatment of animals in licensed facilities)
+-   **Animal Care Public Search**: [APHIS Public Search Tool](https://aphis.my.site.com/PublicSearchTool/s/) (Search for USDA-licensed animal facilities, including breeders, dealers, and exhibitors)
+-   **File an Animal Welfare Complaint**: [File an Animal Welfare Complaint](https://www.aphis.usda.gov/awa/regulatory-enforcement/complaint) (Report concerns about the treatment of animals in licensed facilities)
 
 ### Better Business Bureau (BBB)
+
 [BBB: The Sign of a Better Business | Better Business Bureau®](https://www.bbb.org/)
 
-- **Search Businesses**: [Search the BBB Directory](https://www.bbb.org/search) (Check the organization's rating and accreditation at the Better Business Bureau)
-- **BBB Scam Tracker**: [Find and Report a Scam](https://www.bbb.org/scamtracker) (Free tool anyone can use to report suspected scams)
+-   **Search Businesses**: [Search the BBB Directory](https://www.bbb.org/search) (Check the organization's rating and accreditation at the Better Business Bureau)
+-   **BBB Scam Tracker**: [Find and Report a Scam](https://www.bbb.org/scamtracker) (Free tool anyone can use to report suspected scams)
+-   **BBB Wise Giving Alliance**: [Find Best Charities To Donate | Charity Ratings, Reviews](https://www.give.org/) (Evaluates charities against comprehensive standards.)
 
 ### Federal Trade Commission (FTC)
+
 [Federal Trade Commission (FTC)](https://www.ftc.gov/)
 
-- **Complaint Assistant**: [ReportFraud.ftc.gov](https://reportfraud.ftc.gov/#/) (Report various types of fraud and deceptive practices, including those related to fundraising, advertising, and more)
-- The FTC investigates deceptive or unfair business practices, including those by non-profit and for-profit entities.
+-   **Complaint Assistant**: [ReportFraud.ftc.gov](https://reportfraud.ftc.gov/#/) (Report various types of fraud and deceptive practices, including those related to fundraising, advertising, and more)
+-   The FTC investigates deceptive or unfair business practices, including those by non-profit and for-profit entities.
+
+### Federal Bureau of Investigation (FBI)
+
+-   [FBI Scams and Safety](https://www.fbi.gov/scams-and-safety) (Information on common scams, including charity fraud.)
+-   [IC3.gov](https://www.ic3.gov/) (Internet Crime Complaint Center for reporting internet-related crime.)
 
 ### National Association of State Charity Officials (NASCO)
+
 [National Association of State Charity Officials (NASCO)](https://www.nasconet.org/)
 
-- NASCO is a resource for information on state charity regulation and provides links to state charity offices.
+-   NASCO is a resource for information on state charity regulation and provides links to state charity offices.
 
 ### National Link Coalition
+
 [National Link Coalition](https://nationallinkcoalition.org/)
 
-- [The National Directory of Abuse Investigation Agencies](https://nationallinkcoalition.org/how-do-i-report-suspected-abuse)
-- The Global Resource Center on the Link Between Animal Abuse and Human Violence
+-   [The National Directory of Abuse Investigation Agencies](https://nationallinkcoalition.org/how-do-i-report-suspected-abuse)
+-   The Global Resource Center on the Link Between Animal Abuse and Human Violence
+
+### Additional Non-Profit Resources
+
+-   **Candid (formerly GuideStar)**: [Candid](https://candid.org/) (Comprehensive information on non-profits, including 990s, mission statements, and program details)
+-   **ProPublica Nonprofit Explorer**: [ProPublica Nonprofit Explorer](https://projects.propublica.org/nonprofits/) (User-friendly tool for searching 990s)
+-   **Charity Navigator**: [Charity Navigator](https://www.charitynavigator.org/) (Independent charity watchdog providing ratings and analysis)
+-   **CharityWatch**: [CharityWatch](https://www.charitywatch.org/) (Independent charity watchdog providing ratings and analysis)
 
 [↑ Back To Top](#contents)
 
-## General Search Tips & Notes
-- **DBA Names**: Businesses and organizations may operate under a "Doing Business As" (DBA) name that differs from their legal name. Try to find the legal name for more accurate searches.
-- **Name Variations**: Try variations of the organization's name (e.g., "Humane Society of X County" vs. "X County Humane Society").
-- **Location**: Use the city/state in your search terms if known.
-- **Abbreviations**: Be aware of common abbreviations (e.g., "SPCA," "HS").
-- **Older Records**: Older records may not be digitized.
-- **Wayback Machine**: If a website is no longer available or content has changed, try using the [Wayback Machine (Internet Archive)](https://archive.org/web/) to view previous versions.
-- **Shell Organizations and Fiscal Sponsors**: Be aware that some organizations may operate as 'shells' with minimal activity, or may be projects under a larger 'fiscal sponsor' organization. This arrangement can affect financial transparency and accountability.
-- **Local Resources**: For local animal control and licensing information, contact your county or city government.
-- **Humane Societies and SPCAs**: Local Humane Societies and SPCAs are typically independent 501(c)(3) non-profits, not branches of a national organization.
-- **Dark Patterns**: Be aware of "dark patterns" – manipulative website designs that can make it difficult to understand donation terms or cancel recurring donations.
-- **News Archives**: Search news archives and Google News for mentions of the organization and key personnel.
-- **Social Media (Use with Caution)**: Social media can sometimes provide insights, but be extremely cautious about the reliability of information found there. Verify information from social media with more reliable sources.
-- **Advanced Search Operators**: Use advanced search operators in search engines (e.g., `site:`, `filetype:`, `intitle:`, `inurl:`, quotation marks for exact phrases) to refine your searches.
-- **Lobbying Disclosures**: For research on national organizations, check [OpenSecrets.org](https://www.opensecrets.org/). For research on state organizations, check the Secretary of State website for that state.
-- **Court Records**: Consider looking up any organizations on [PACER (Public Access to Court Electronic Records)](https://pacer.uscourts.gov/). Note that this website requires registration and charges a fee for document access.
+## General Search Tips & Notes for Animal Rescues
+
+-   **Legal vs. DBA Names**: Animal rescues may operate under a "Doing Business As" (DBA) name different from their legal name. Try to find the legal name for more accurate searches.
+-   **Name Variations**: Try variations of the organization's name (e.g., "Humane Society of X County" vs. "X County Humane Society") and common abbreviations (e.g., "SPCA," "HS").
+-   **Location**: Always include the city/state in your search terms if known.
+-   **Charity's Own Website**: Look for transparency. Does the rescue publish annual reports, financial statements (or Form 990), and a list of its board of directors? Does it clearly state its mission, programs, and how it ensures animal welfare and compliance with regulations? Lack of transparency is a red flag.
+-   **Board of Directors**: Investigate who is on the board. Assess if they are independent and if there are any potential conflicts of interest (e.g., board members doing business with the rescue).
+-   **Review Licenses and Permits**: Actively search for evidence of state or local licenses for animal shelters or rescue operations. These are often public records.
+-   **Check for Inspection Reports**: If a rescue is licensed, regulatory bodies (like state Departments of Agriculture or local animal control) may conduct inspections. Look for public records of these reports, which can reveal compliance issues.
+-   **Older Records & Wayback Machine**: Older records may not be digitized. Use the [Wayback Machine (Internet Archive)](https://archive.org/web/) to view previous website versions if content has changed or is unavailable.
+-   **Shell Organizations and Fiscal Sponsors**: Be aware that some organizations may operate as 'shells' or as projects under a larger 'fiscal sponsor' organization, which can affect financial transparency and accountability.
+-   **Local Animal Control & Licensing**: For local animal control and licensing information, contact your county or city government.
+-   **Independent Local Rescues**: Many local Humane Societies and SPCAs are independent 501(c)(3) non-profits, not direct branches of national organizations like the ASPCA or HSUS.
+-   **Dark Patterns**: Be aware of "dark patterns" – manipulative website designs that can make it difficult to understand donation terms or cancel recurring donations.
+-   **News Archives**: Search news archives (e.g., Google News, local newspaper archives) for mentions of the organization and key personnel. Look for both positive and negative coverage, especially regarding animal welfare incidents or legal issues.
+-   **Social Media (Use with Caution)**: Social media can offer insights but be extremely cautious about reliability. Always verify information from social media with more reliable sources.
+-   **Advanced Search Operators**: Use advanced search operators in search engines (e.g., `site:`, `filetype:`, `intitle:`, `inurl:`, quotation marks for exact phrases) to refine your searches.
+-   **Lobbying Disclosures**: For research on national organizations, check [OpenSecrets.org](https://www.opensecrets.org/). For state organizations, check the Secretary of State website or ethics commission for that state.
+-   **Court Records**: Consider looking up any organizations on [PACER (Public Access to Court Electronic Records)](https://pacer.uscourts.gov/). Note that this website requires registration and charges a fee for document access.
 
 **It is crucial to cross-reference information gathered from multiple sources to ensure accuracy and identify any inconsistencies.**
 
 [↑ Back To Top](#contents)
 
-## State-Specific Resources
-  
+## State-Specific Resources for Animal Rescue Organizations
+
+Each state has agencies that oversee charities and/or animal welfare. This section provides links to the primary contacts for each state. Always check both the Attorney General/Secretary of State and the Department of Agriculture/Animal Health for comprehensive oversight, including specific animal welfare regulations and licensing requirements.
+
 ### Alabama
+
 -   [Alabama State Website](https://www.alabama.gov/)
 -   [Alabama Attorney General's Office](https://www.alabamaag.gov/)
     -   Address: 501 Washington Avenue, Post Office Box 300152, Montgomery, AL 36130
@@ -166,6 +225,7 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Alaska
+
 -   [Alaska State Website](https://www.alaska.gov/)
 -   [Alaska Department of Law](https://law.alaska.gov/index.html)
     -   [Consumer Protection Unit](https://law.alaska.gov/department/civil/consumer/cpindex.html)
@@ -181,6 +241,7 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Arizona
+
 -   [Arizona State Website](https://az.gov/)
 -   [Arizona Attorney General](https://www.azag.gov/)
     -   Address: 1275 W. Washington St, Phoenix, AZ 85007
@@ -196,6 +257,7 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Arkansas
+
 -   [Arkansas State Website](https://portal.arkansas.gov/)
 -   [Arkansas Secretary of State](https://www.sos.arkansas.gov/)
     -   Address: Executive Office State Capitol, Suite 256, 500 Woodlane Avenue, Little Rock, AR 72201
@@ -213,6 +275,7 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### California
+
 -   [California State Website](https://www.ca.gov/)
 -   [Office of the Attorney General](https://oag.ca.gov/)
     -   [Charities](https://oag.ca.gov/charities)
@@ -225,6 +288,7 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Colorado
+
 -   [Colorado State Website](https://www.colorado.gov/)
 -   [Secretary of State](https://www.coloradosos.gov/)
     -   [Charities and Fundraisers](https://www.sos.state.co.us/pubs/charities/charitableHome.html?menuheaders=3)
@@ -233,16 +297,17 @@ This list provides contact information for state government agencies that handle
     -   Email: charitable@coloradosos.gov
     -   [Search](https://www.coloradosos.gov/ccsa/pages/search/basic.xhtml)
     -   [Charitable Solicitations](https://www.sos.state.co.us/pubs/info_center/laws/Title6/Title6Article16.html)
-    -   [File a Complaint(PDF)](https://www.coloradosos.gov/pubs/charities/forms/CHAR_COMP.pdf)
+    -   [File a Complaint (PDF)](https://www.coloradosos.gov/pubs/charities/forms/CHAR_COMP.pdf)
 -   [Colorado Attorney General](https://coag.gov/)
     -   [Consumer Protection](https://coag.gov/office-sections/consumer-protection/)
     -   Address: 1300 Broadway, 7th Floor, Denver, CO 80203
     -   Phone: (800) 222-4444
     -   [File a Complaint](https://coag.gov/file-complaint/)
-      
+
 [↑ Back To Top](#contents)
 
 ### Connecticut
+
 -   [Connecticut State Website](https://portal.ct.gov/)
 -   [Department of Consumer Protection](https://portal.ct.gov/dcp/home), [Public Charities Unit](https://portal.ct.gov/dcp/home/charities/public-charities)
     -   [Charities Information for Consumers](https://portal.ct.gov/dcp/charities/charities-information-for-consumers)
@@ -255,17 +320,19 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Delaware
-- [Delaware State Website](https://delaware.gov/)
-- [Department of Justice, Fraud & Consumer Protection Division](https://attorneygeneral.delaware.gov/fraud/)
- - Address: 820 N. French Street, 5th Floor, Wilmington, DE 19801
- - Phone: (302) 577-8600
- - Email: attorney.general@state.de.us
- - [Consumer Complaints](https://attorneygeneral.delaware.gov/fraud/cmu/complaint/)
-- [Corporate Forms and Certificates for an Exempt Corporation](https://corp.delaware.gov/corpformsexemptcorp09/)
+
+-   [Delaware State Website](https://delaware.gov/)
+-   [Department of Justice, Fraud & Consumer Protection Division](https://attorneygeneral.delaware.gov/fraud/)
+    -   Address: 820 N. French Street, 5th Floor, Wilmington, DE 19801
+    -   Phone: (302) 577-8600
+    -   Email: attorney.general@state.de.us
+    -   [Consumer Complaints](https://attorneygeneral.delaware.gov/fraud/cmu/complaint/)
+-   [Corporate Forms and Certificates for an Exempt Corporation](https://corp.delaware.gov/corpformsexemptcorp09/)
 
 [↑ Back To Top](#contents)
 
 ### District of Columbia
+
 -   [District of Columbia State Website](https://dc.gov/)
 -   [Department of Licensing and Consumer Protection (DLCP)](https://dlcp.dc.gov/node)
     -   Address: 1100 4th Street SW, Washington, DC 20024
@@ -281,7 +348,8 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Florida
--  [Florida State Website](https://www.myflorida.com/)
+
+-   [Florida State Website](https://www.myflorida.com/)
 -   [Florida Department of Agriculture & Consumer Services](https://www.fdacs.gov/)
     -   [Charities](https://www.fdacs.gov/Consumer-Resources/Charities)
     -   [Check-A-Charity](https://csapp.fdacs.gov/CSPublicApp/CheckACharity/CheckACharity.aspx)
@@ -293,12 +361,13 @@ This list provides contact information for state government agencies that handle
     -   Phone: (866) 966-7226
     -   [File A Complaint](https://www.myfloridalegal.com/how-to-contact-us/file-a-complaint)
 -   [Department of State](https://dos.fl.gov/)
-        -   [Division of Corporations](https://dos.fl.gov/sunbiz/)
+    -   [Division of Corporations](https://dos.fl.gov/sunbiz/)
     -   [Search Records](https://dos.fl.gov/sunbiz/search/)
 
 [↑ Back To Top](#contents)
 
 ### Georgia
+
 -   [Georgia State Website](https://georgia.gov/)
 -   [Secretary of State](https://sos.ga.gov/)
     -   [The Charities Division](https://sos.ga.gov/charities-division-georgia-secretary-states-office)
@@ -318,6 +387,7 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Hawaii
+
 -   [Hawaii State Website](https://portal.ehawaii.gov/)
 -   Office of the Attorney General
     -   [Tax & Charities Division](https://ag.hawaii.gov/tax/)
@@ -330,9 +400,10 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Idaho
+
 -   [Idaho State Website](https://www.idaho.gov/)
 -   [Office of the Attorney General](https://www.ag.idaho.gov/)
-    -   [Consumer Protection ](https://ag.idaho.gov/consumer-protection/)
+    -   [Consumer Protection](https://ag.idaho.gov/consumer-protection/)
     -   Address: 954 W. Jefferson St., 2nd Floor, P.O. Box 83720, Boise, ID 83720
     -   Phone: (208) 334-2424, (800) 432-3545
     -   [Complaint Forms](https://www.ag.idaho.gov/office-resources/online-forms/)
@@ -347,6 +418,7 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Illinois
+
 -   [Illinois State Website](https://www2.illinois.gov/)
 -   [Office of the Attorney General](https://www.illinoisattorneygeneral.gov/)
     -   [Charities](https://www.illinoisattorneygeneral.gov/consumer-protection/charities/)
@@ -362,6 +434,7 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Indiana
+
 -   [Indiana State Website](https://www.in.gov/)
 -   [Office of the Attorney General](https://www.in.gov/attorneygeneral/)
     -   [Consumer Protection Division](https://www.in.gov/attorneygeneral/consumer-protection-division/)
@@ -373,6 +446,7 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Iowa
+
 -   [Iowa State Website](https://www.iowa.gov/)
 -   [Department of Justice](https://www.iowaattorneygeneral.gov/)
     -   [Consumer Protection Division](https://www.iowaattorneygeneral.gov/for-consumers)
@@ -385,6 +459,7 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Kansas
+
 -   [Kansas State Website](https://www.kansas.gov/)
 -   [Office of the Secretary of State](https://www.sos.ks.gov/)
     -   [Search](https://www.sos.ks.gov/eforms/BusinessEntity/Search.aspx)
@@ -402,10 +477,11 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Kentucky
+
 -   [Kentucky State Website](https://kentucky.gov/)
 -   [Office of the Attorney General](https://ag.ky.gov/Pages/default.aspx)
     -   [Consumer Protection Division](https://ag.ky.gov/about/Office-Divisions/OCP/Pages/default.aspx)
-    -   [Charitable Organizations Registered(PDF)](https://www.ag.ky.gov/Resources/Consumer-Resources/charity/Documents/charity.pdf)
+    -   [Charitable Organizations Registered (PDF)](https://www.ag.ky.gov/Resources/Consumer-Resources/charity/Documents/charity.pdf)
     -   [Databases, statutes and regulations](https://ag.ky.gov/Resources/Consumer-Resources/charity/Pages/regs.aspx)
     -   Address: 1024 Capital Center Drive, Suite 200, Frankfort, KY 40601
     -   Phone: (502) 696-5389
@@ -417,7 +493,8 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Louisiana
--    [Louisiana State Website](https://www.louisiana.gov/)
+
+-   [Louisiana State Website](https://www.louisiana.gov/)
 -   [Department of Justice](https://www.ag.state.la.us/Home)
     -   [Public Protection Division](https://www.ag.state.la.us/Division/PublicProtection)
     -   [Charity Registration Page](https://www.ag.state.la.us/Charities)
@@ -426,7 +503,7 @@ This list provides contact information for state government agencies that handle
     -   Address: P. O. Box 94095, Baton Rouge, LA 70804-9095
     -   Phone: (225) 326-6465, (800) 351-4889
     -   Email: ConsumerInfo@ag.louisiana.gov
-    -   [Charity Dispute Form(PDF)](https://www.ag.state.la.us/Files/Shared/Documents/CharityDisputeForm.pdf)
+    -   [Charity Dispute Form (PDF)](https://www.ag.state.la.us/Files/Shared/Documents/CharityDisputeForm.pdf)
 -   [Department of Agriculture and Forestry](https://www.ldaf.la.gov/)
     -   [Animals](https://www.ldaf.la.gov/animals)
     -   [File a complaint or report a violation](https://www.ldaf.la.gov/about/contact/complaints)
@@ -435,6 +512,7 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Maine
+
 -   [Maine State Website](https://www.maine.gov/)
 -   [Department of Professional & Financial Regulation](https://www.pfr.maine.gov/ALMSOnline/Welcome.aspx)
     -   [Search](https://www.pfr.maine.gov/ALMSOnline/ALMSQuery/Welcome.aspx)
@@ -454,6 +532,7 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Maryland
+
 -   [Maryland State Website](https://www.maryland.gov/)
 -   [Office of the Secretary of State](https://sos.maryland.gov/Pages/default.aspx)
     -   [Charitable Organizations Division](https://sos.maryland.gov/Charity/Pages/default.aspx)
@@ -470,7 +549,8 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Massachusetts
--    [Massachusetts State Website](https://www.mass.gov/)
+
+-   [Massachusetts State Website](https://www.mass.gov/)
 -   [Office of the Attorney General](https://www.mass.gov/orgs/office-of-the-attorney-general)
     -   [Non-Profit Organizations/Public Charities Division](https://www.mass.gov/orgs/the-attorney-generals-non-profit-organizationspublic-charities-division)
     -   [Public Charities Filing Search](https://masscharities.my.site.com/FilingSearch/s/)
@@ -484,7 +564,8 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Michigan
-- [Michigan State Website](https://www.michigan.gov/)
+
+-   [Michigan State Website](https://www.michigan.gov/)
 -   [Department of the Attorney General](https://www.michigan.gov/ag)
     -   [Charitable Trust Section](https://www.michigan.gov/consumerprotection/charities/charitable-organizations)
     -   [Search for Charities](https://www.ag.state.mi.us/CharitableTrust/frmDisclaimer.aspx)
@@ -499,6 +580,7 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Minnesota
+
 -   [Minnesota State Website](https://mn.gov/)
 -   [Office of the Attorney General](https://www.ag.state.mn.us/default.asp)
     -   [Charities Division](https://www.ag.state.mn.us/Charity/)
@@ -510,6 +592,7 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Mississippi
+
 -   [Mississippi State Website](https://www.ms.gov/)
 -   [Office of the Secretary of State](https://www.sos.ms.gov/)
     -   [Charities Division](https://www.sos.ms.gov/charities)
@@ -521,11 +604,12 @@ This list provides contact information for state government agencies that handle
     -   [Consumer Protection Division](https://attorneygenerallynnfitch.com/divisions/consumer-protection/)
     -   Address: P.O. Box 22947, Jackson, MS 39225-2947
     -   Phone: (601) 359-4230, (800) 281-4418
-     -   [File a Complaint](https://www.ms.gov/dfa/consumer_complaint/)
+    -   [File a Complaint](https://www.ms.gov/dfa/consumer_complaint/)
 
 [↑ Back To Top](#contents)
 
 ### Missouri
+
 -   [Missouri State Website](https://www.mo.gov/)
 -   [Office of the Attorney General](https://ago.mo.gov/),
     -   [Consumer Protection Division, Charities Unit](https://ago.mo.gov/get-help/programs-services-from-a-z/charity/)
@@ -537,6 +621,7 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Montana
+
 -   [Montana State Website](https://mt.gov/)
 -   [Department of Justice](https://dojmt.gov/)
     -   [Consumer Protection Division](https://dojmt.gov/office-of-consumer-protection/)
@@ -549,6 +634,7 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Nebraska
+
 -   [Nebraska State Website](https://www.nebraska.gov/)
 -   [Office of the Attorney General](https://ago.nebraska.gov/)
     -   [Consumer Protection Division](https://protectthegoodlife.nebraska.gov/)
@@ -560,7 +646,8 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Nevada
-- [Nevada State Website](https://nv.gov/)
+
+-   [Nevada State Website](https://nv.gov/)
 -   [Secretary of State](https://www.nvsos.gov/sos)
     -   [Search](https://esos.nv.gov/EntitySearch/OnlineEntitySearch)
     -   [Charitable Organizations](https://www.nvsos.gov/sos/licensing/charitable-organizations)
@@ -578,6 +665,7 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### New Hampshire
+
 -   [New Hampshire State Website](https://www.nh.gov/)
 -   [Office of the Attorney General](https://www.doj.nh.gov/)
     -   [Charitable Trusts](https://www.doj.nh.gov/bureaus/charitable-trusts)
@@ -593,7 +681,8 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### New Jersey
-- [New Jersey State Website](https://www.nj.gov/)
+
+-   [New Jersey State Website](https://www.nj.gov/)
 -   [Office of Attorney General](https://www.njoag.gov/)
     -   [Charities Registration ＆ Investigation Section](https://www.njconsumeraffairs.gov/charities)
     -   [Search For A Charity](https://njconsumeraffairs.nj.gov/public-charity-search-results/)
@@ -605,7 +694,8 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### New Mexico
-- [New Mexico State Website](https://www.newmexico.gov/)
+
+-   [New Mexico State Website](https://www.newmexico.gov/)
 -   [Office of the Attorney General](https://nmdoj.gov/)
     -   [Charities](https://nmdoj.gov/get-help/charities/)
     -   [Charity Search](https://secure.nmag.gov/CharitySearch/)
@@ -617,7 +707,8 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### New York
-- [New York State Website](https://www.ny.gov/)
+
+-   [New York State Website](https://www.ny.gov/)
 -   [Attorney General](https://ag.ny.gov/)
     -   [Charities, Nonprofits & Fundraisers](https://ag.ny.gov/resources/organizations/charities-nonprofits-fundraisers)
     -   [Charities Bureau Registry Search](https://www.charitiesnys.com/RegistrySearch/search_charities.jsp)
@@ -630,7 +721,8 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### North Carolina
-- [North Carolina State Website](https://www.nc.gov/)
+
+-   [North Carolina State Website](https://www.nc.gov/)
 -   [Office of the Secretary of State](https://www.sosnc.gov/)
     -   [Search](https://www.sosnc.gov/search/index/csl)
     -   [Charities Enforcement](https://www.sosnc.gov/divisions/charities/enforcement)
@@ -647,6 +739,7 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### North Dakota
+
 -   [North Dakota State Website](https://www.nd.gov/)
 -   [Secretary of State](https://www.sos.nd.gov/home)
     -   [Charitable Organizations](https://www.sos.nd.gov/business/nonprofit-services/charitable-organizations)
@@ -663,7 +756,8 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Ohio
--    [Ohio State Website](https://ohio.gov/)
+
+-   [Ohio State Website](https://ohio.gov/)
 -   [Attorney General](https://www.ohioattorneygeneral.gov/)
     -   [CHARITABLE OHIO](https://charitable.ohioago.gov/)
     -   [Ohio Attorney General Dave Yost - Services for Business](https://charitableregistration.ohioattorneygeneral.gov/Charities/Research-Charities.aspx)
@@ -675,7 +769,8 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Oklahoma
--    [Oklahoma State Website](https://oklahoma.gov/)
+
+-   [Oklahoma State Website](https://oklahoma.gov/)
 -   [Secretary of State](https://www.sos.ok.gov/)
     -   [Charitable Organizations](https://www.sos.ok.gov/charity/Default.aspx)
     -   [Search Charities/Fundraisers /Solicitors Entities](https://www.sos.ok.gov/corp/charityInquiryFind.aspx)
@@ -686,12 +781,13 @@ This list provides contact information for state government agencies that handle
     -   Address: 313 NE 21st ST, Oklahoma City, OK 73105
     -   Phone: (405) 521-2029
     -   Email: ConsumerProtection@oag.ok.gov
-    -   [Charitable Organization Complaint Form(PDF)](https://oklahoma.gov/content/dam/ok/en/oag/documents/complaints/2017charitableorganizationcomplaint.pdf)
+    -   [Charitable Organization Complaint Form (PDF)](https://oklahoma.gov/content/dam/ok/en/oag/documents/complaints/2017charitableorganizationcomplaint.pdf)
 
 [↑ Back To Top](#contents)
 
 ### Oregon
-- [Oregon State Website](https://www.oregon.gov/)
+
+-   [Oregon State Website](https://www.oregon.gov/)
 -   [Attorney General](https://www.doj.state.or.us/)
     -   [Charitable Activities](https://www.doj.state.or.us/charitable-activities/)
     -   [Search Charities](https://justice.oregon.gov/charities)
@@ -707,7 +803,8 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Pennsylvania
-- [Pennsylvania State Website](https://www.pa.gov/)
+
+-   [Pennsylvania State Website](https://www.pa.gov/)
 -   [Department of State](https://www.pa.gov/agencies/dos.html)
     -   [Charitable Organizations](https://www.pa.gov/agencies/dos/programs/charities/information-for-charities/-charitable-organizations.html)
     -   [Charities](https://www.charities.pa.gov/#/page/default)
@@ -723,7 +820,8 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Rhode Island
-- [Rhode Island State Website](https://www.ri.gov/)
+
+-   [Rhode Island State Website](https://www.ri.gov/)
 -   [Dept. of Business Regulation](https://dbr.ri.gov/)
     -   [Securities Division](https://dbr.ri.gov/divisions/securities/)
     -   [Business Look up](https://elicensing.ri.gov/Lookup/LicenseLookup.aspx)
@@ -738,6 +836,7 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### South Carolina
+
 -   [South Carolina State Website](https://www.sc.gov/)
 -   [Secretary of State](https://sos.sc.gov/)
     -   [Charity Search](https://search.scsos.com/charities)
@@ -753,6 +852,9 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### South Dakota
+
+***No State Charity Registration Required***
+
 -   [South Dakota State Website](https://sd.gov/)
 -   [Attorney General](https://atg.sd.gov/)
     -   [Search](https://consumer.sd.gov/companysearch/)
@@ -766,7 +868,8 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Tennessee
--  [Tennessee State Website](https://www.tn.gov/)
+
+-   [Tennessee State Website](https://www.tn.gov/)
 -   [Secretary of State](https://sos.tn.gov/)
     -   [Charities](https://sos.tn.gov/charities)
     -   [Charities Search](https://tncab.tnsos.gov/portal/registered-charities-search)
@@ -777,12 +880,13 @@ This list provides contact information for state government agencies that handle
     -   [Reviewing Nonprofits and Charitable Trusts/Gifts](https://www.tn.gov/attorneygeneral/working-for-tennessee/reviewing-nonprofits-and-charitable-trusts-gifts.html)
     -   Address: P. O. Box 20207, Nashville, TN 37202-0207
     -   Phone: (615) 741-3491
-    -   [Nonprofit Complaint Form(PDF)](https://www.tn.gov/content/dam/tn/attorneygeneral/documents/nonprofits/nonprofitcomplaintform.pdf)
+    -   [Nonprofit Complaint Form (PDF)](https://www.tn.gov/content/dam/tn/attorneygeneral/documents/nonprofits/nonprofitcomplaintform.pdf)
 
 [↑ Back To Top](#contents)
 
 ### Texas
--  [Texas State Website](https://www.texas.gov/)
+
+-   [Texas State Website](https://www.texas.gov/)
 -   [Office of the Attorney General](https://www.texasattorneygeneral.gov/)
     -   [Charitable Trusts](https://www.texasattorneygeneral.gov/divisions/charitable-trusts)
     -   Address: P.O. Box 12548, Austin, TX 78711-2548
@@ -796,7 +900,8 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Utah
--  [Utah State Website](https://www.utah.gov/)
+
+-   [Utah State Website](https://www.utah.gov/)
 -   [Department of Commerce](https://dcp.utah.gov/)
     -   [Registered Entities Search](https://db.dcp.utah.gov/registered.html)
     -   Address: Heber M. Wells Bldg Offices, 160 East 300 South, 2nd floor, Salt Lake City. UT 84111
@@ -807,7 +912,10 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Vermont
-- [Vermont State Website](https://www.vermont.gov/)
+
+***No State Charity Registration Required***
+
+-   [Vermont State Website](https://www.vermont.gov/)
 -   [Office of Attorney General](https://ago.vermont.gov/)
     -   Address: 109 State Street, Montpelier, VT 05609-1001
     -   Phone: (802) 656-3183, (800) 649-2424
@@ -817,13 +925,14 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Virginia
+
 -   [Virginia State Website](https://www.virginia.gov/)
 -   [Department of Agriculture and Consumer Services](https://www.vdacs.virginia.gov/)
     -   [Charitable Solicitation](https://www.vdacs.virginia.gov/food-charitable-solicitation.shtml)
     -   [Charitable Organization Database](https://cos.vdacs.virginia.gov/cgi-bin/char_search.cgi)
     -   Address: 102 Governor Street, Richmond, Virginia 23219
     -   Phone: (804) 786-1343
-    -   [Charitable Solicitation Complaint Form(PDF)](https://www.vdacs.virginia.gov/pdf/cscomplaint.pdf)
+    -   [Charitable Solicitation Complaint Form (PDF)](https://www.vdacs.virginia.gov/pdf/cscomplaint.pdf)
 -   [Attorney General](https://www.oag.state.va.us/)
     -   Address: 202 North Ninth Street, Richmond, Virginia 23219
     -   Phone: (804) 786-2071
@@ -832,7 +941,8 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Washington
-- [Washington State Website](https://wa.gov/)
+
+-   [Washington State Website](https://wa.gov/)
 -   [Secretary of State](https://www.sos.wa.gov/)
     -   [Corporations & Charities](https://www.sos.wa.gov/corporations-charities#nonprofits_charities)
     -   [Corporations and Charities System](https://ccfs.sos.wa.gov/#/)
@@ -848,7 +958,8 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### West Virginia
-- [West Virginia State Website](https://www.wv.gov/)
+
+-   [West Virginia State Website](https://www.wv.gov/)
 -   [Secretary of State](https://sos.wv.gov/)
     -   [Charitable Organizations](https://sos.wv.gov/business/Pages/Charities.aspx)
     -   [Charities Search](https://erls.wvsos.gov/OnlineCharitiesSearch/Search)
@@ -860,13 +971,16 @@ This list provides contact information for state government agencies that handle
     -   Address: Post Office Box 1789, Charleston WV 25326
     -   Phone: (304) 558-8986, (800) 368-8808
     -   Email: consumer@wvago.gov
-      
+
 [↑ Back To Top](#contents)
 
 ### Wisconsin
-- [Wisconsin State Website](https://www.wisconsin.gov/)
+
+-   [Wisconsin State Website](https://www.wisconsin.gov/)
 -   [Department of Financial Institutions](https://dfi.wi.gov/)
     -   [Charitable & Professional Organizations](https://dfi.wi.gov/Pages/BusinessServices/CharitableProfessionalOrganizations/GeneralInformation.aspx)
+    -   Address: 201 West Washington Avenue, Milwaukee, WI 53703
+    -   Phone: (608) 261-9555
     -   Email: DFICharitableOrgs@dfi.wisconsin.gov
     -   [Registration Search](https://apps.dfi.wi.gov/ice/berg/Registration/Search.aspx)
     -   [Report Charitable Organization Violation](https://dfi.wi.gov/Pages/BusinessServices/CharitableProfessionalOrganizations/ReportViolation.aspx)
@@ -878,29 +992,24 @@ This list provides contact information for state government agencies that handle
 [↑ Back To Top](#contents)
 
 ### Wyoming
+
+***No State Charity Registration Required***
+
 -   [Wyoming State Website](https://www.wyo.gov/)
 -   [Office of the Attorney General](https://ag.wyo.gov/)
     -   [Consumer Protection and Antitrust Unit](https://ag.wyo.gov/law-office-division/consumer-protection-and-antitrust-unit)
     -   Email: AG.Consumer@wyo.gov
     -   [Consumer Complaints](https://ag.wyo.gov/law-office-division/consumer-protection-and-antitrust-unit/consumer-complaints)
 -   [Secretary of State](https://sos.wyo.gov/default.aspx)
+    -   Address: 2020 Carey Avenue, Suites 600 & 700, Cheyenne, WY 82002
+    -   Phone: (307) 777-7311
     -   [Business/UCC Division](https://sos.wyo.gov/Business/Default.aspx)
     -   [Search](https://wyobiz.wyo.gov/Business/FilingSearch.aspx)
-    -   
 
 ---
 
 ## Disclaimer
-This resource is for informational purposes only and does not constitute legal advice. The information provided is subject to change. Always verify information with the relevant official sources.
 
-## Contributing
-If you would like to contribute to this repository, please:
-1. Submit a pull request with your changes.
-2. Open an issue to suggest new resources or improvements.
-
-Contributions are welcome! Please adhere to the repository's [Code of Conduct](CODE_OF_CONDUCT.md) when participating in this project.
-
-## License
-This project is licensed under the [MIT License](LICENSE).
+This resource is for informational purposes only and does not constitute legal advice. The information provided, including website links and contact details, is subject to change. Always verify information with the relevant official sources before making decisions or taking action. The "Last Verified" date indicates the last time this document was reviewed or updated, not that every link was individually re-verified on that date.
 
 [↑ Back To Top](#contents)
