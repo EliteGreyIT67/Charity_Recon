@@ -142,11 +142,11 @@ These national bodies provide oversight and information relevant to non-profit a
 
 ### Better Business Bureau (BBB)
 
-[BBB: The Sign of a Better Business | Better Business Bureau®](https://www.bbb.org/)
+[BBB: Better Business Bureau®](https://www.bbb.org/)
 
 -   **Search Businesses**: [Search the BBB Directory](https://www.bbb.org/search) (Check the organization's rating and accreditation at the Better Business Bureau)
 -   **BBB Scam Tracker**: [Find and Report a Scam](https://www.bbb.org/scamtracker) (Free tool anyone can use to report suspected scams)
--   **BBB Wise Giving Alliance**: [Find Best Charities To Donate | Charity Ratings, Reviews](https://www.give.org/) (Evaluates charities against comprehensive standards.)
+-   **BBB Wise Giving Alliance**: [Find Best Charities To Donate to](https://www.give.org/) (Evaluates charities against comprehensive standards.)
 
 ### Federal Trade Commission (FTC)
 
