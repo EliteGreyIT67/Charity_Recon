@@ -1016,5 +1016,5 @@ This resource is for informational purposes only and does not constitute legal a
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for our community standards.
 
-
-
+## License
+This project is licensed under the [Creative Commons Attribution-ShareAlike 4.0 International License](LICENSE)
