@@ -1,24 +1,163 @@
-# Charity_Recon
+# Charity_Recon: A Resource Guide for Non-Profit Animal Rescue Organizations
 
 **Last Verified:** 2025-05-22
+
+Welcome to Charity Recon!  
+This guide empowers animal rescue organizations, donors, and the public to:
+- Find and verify legitimate animal charities
+- Report scams and fraudulent activity
+- Understand and comply with legal requirements
+- Access key resources for consumer protection, compliance, and legal aid
+
+---
 
 ## Contents
 
 - [How to Use This Guide](#how-to-use-this-guide)
-- [Key Legal Requirements and Considerations for Animal Rescue Organizations](#key-legal-requirements-and-considerations-for-animal-rescue-organizations)
-- [US National Resources for Animal Rescue Organizations](#us-national-resources-for-animal-rescue-organizations)
-  - [Internal Revenue Service (IRS)](#internal-revenue-service-irs)
-  - [United States Department of Agriculture (USDA)](#united-states-department-of-agriculture-usda)
-  - [Better Business Bureau (BBB)](#better-business-bureau-bbb)
-  - [Federal Trade Commission (FTC)](#federal-trade-commission-ftc)
-  - [Federal Bureau of Investigation (FBI)](#federal-bureau-of-investigation-fbi)
-  - [National Association of State Charity Officials (NASCO)](#national-association-of-state-charity-officials-nasco)
-  - [National Link Coalition](#national-link-coalition)
-  - [Additional Non-Profit Resources](#additional-non-profit-resources)
+- [Key Legal Requirements](#key-legal-requirements-and-considerations-for-animal-rescue-organizations)
+- [US National Resources](#us-national-resources-for-animal-rescue-organizations)
 - [General Search Tips & Notes](#general-search-tips--notes-for-animal-rescues)
 - [State-Specific Resources](#state-specific-resources-for-animal-rescue-organizations)
-  <details>
-  <summary>Click to expand state-specific resources</summary>
+- [Disclaimer](#disclaimer)
+
+---
+
+## How to Use This Guide
+
+1. **Review Legal Requirements:** Start with [Key Legal Requirements](#key-legal-requirements-and-considerations-for-animal-rescue-organizations) to understand federal, state, and local regulations for animal rescues.
+2. **Explore National Resources:** Use [U.S. National Resources](#us-national-resources-for-animal-rescue-organizations) for federal compliance, registration, complaint filing, and general information.
+3. **Apply Search & Verification Tips:** The [General Search Tips](#general-search-tips--notes-for-animal-rescues) section shows how to investigate organizations, review records, and spot red flags.
+4. **Find State-Specific Contacts:** Jump to [State-Specific Resources](#state-specific-resources-for-animal-rescue-organizations) for local agency contacts, complaint forms, licensing, and animal welfare authorities.
+5. **Cross-Reference Everything:** Always verify information from multiple sources for accuracy and transparency.
+
+## Key Legal Requirements and Considerations for Animal Rescue Organizations
+
+Animal rescues must comply with various federal, state, and local laws.  
+**Key areas:**
+- **IRS 501(c)(3) Status:** Tax-exempt status required for fundraising and donations.
+- **USDA Animal Welfare Act:** Licenses and compliance for organizations involved in animal transport, sales, or exhibitions.
+- **State Charity Registration:** Most states require registration to solicit donations.
+- **State Animal Welfare Laws:** Cover facility standards, veterinary care, adoption procedures, and more.
+- **Local Zoning & Animal Control:** Check city/county rules for land use, animal limits, and shelter operation.
+
+See details in the full section below.
+
+## Key Legal Requirements and Considerations for Animal Rescue Organizations
+
+Non-profit animal rescue organizations are subject to a variety of federal, state, and sometimes local laws and regulations. Understanding these can help in evaluating an organization's legitimacy and compliance.
+
+### Federal Requirements
+
+-   **IRS 501(c)(3) Status**: To operate as a non-profit and receive tax-deductible donations, an animal rescue must obtain and maintain 501(c)(3) tax-exempt status from the IRS. This requires adherence to specific operational and reporting standards (e.g., filing Form 990 annually).
+-   **USDA Animal Welfare Act (AWA) Compliance**:
+    -   The USDA's Animal and Plant Health Inspection Service (APHIS) regulates certain animal-related activities under the AWA.
+    -   Rescues involved in **interstate transport of animals for sale/adoption, breeding animals for sale**, or operating certain **animal exhibition facilities** may require USDA licenses and be subject to inspections.
+    -   Not all animal rescues fall under USDA licensing, particularly smaller, local, or foster-based rescues that do not engage in activities defined by the AWA. However, larger organizations or those involved in significant transport should be checked.
+
+### State Requirements
+
+State laws vary significantly, but commonly include:
+
+-   **Charity Registration/Solicitation Permits**: Most states require non-profit organizations that solicit donations from the public to register with the state's Attorney General or Secretary of State's office. This ensures transparency in fundraising.
+-   **Non-Profit Corporate Registration**: Organizations must typically register as a non-profit corporation with the state's Secretary of State or equivalent business registration agency.
+-   **Animal Welfare Laws**: States have laws governing animal cruelty, neglect, and minimum standards for animal care in shelters and rescue facilities. These can cover:
+    -   **Facility Standards**: Requirements for housing, sanitation, ventilation, and space.
+    -   **Veterinary Care**: Mandates for vaccinations, spay/neuter, and treatment of illness/injury.
+    -   **Adoption Procedures**: Regulations on screening adopters, adoption contracts, and return policies.
+    -   **Quarantine Periods**: Requirements for holding periods for stray animals.
+-   **Licensing for Animal Shelters/Rescues**: Many states and/or local jurisdictions require animal shelters, pounds, and rescue facilities to obtain specific licenses and be subject to regular inspections by state or local animal control or health departments.
+-   **Health Certificates for Interstate Movement**: When animals are transported across state lines (e.g., from a high-kill shelter in one state to a rescue in another), they often require veterinary health certificates and may be subject to specific quarantine rules in the receiving state.
+
+### Local Requirements
+
+-   **Zoning and Land Use Permits**: Local ordinances dictate where animal rescue facilities can operate (e.g., residential vs. commercial zones).
+-   **Animal Control Ordinances**: Local animal control laws may include limits on the number of animals, leash laws, licensing of individual animals, and specific requirements for animal hoarding situations.
+-   **Local Business Licenses**: Some municipalities may require a general business license even for non-profit operations.
+
+---
+
+## U.S. National Resources for Animal Rescue Organizations
+
+A selection of federal and national organizations for oversight, complaints, and research:
+
+### Internal Revenue Service (IRS)
+[Internal Revenue Service](https://www.irs.gov/)
+-   **501(c)3 Lookup**: [Tax Exempt Organization Search](https://apps.irs.gov/app/eos/) (Verify an organization's non-profit (tax-exempt) status)
+-   **990 Search**: [Copies of EO returns available](https://www.irs.gov/charities-non-profits/copies-of-scanned-eo-returns-available) (Access an organization's 990 forms, which contain valuable financial information)
+-   **Complaint Process**: [IRS complaint process - Tax-Exempt Organizations](https://www.irs.gov/charities-non-profits/irs-complaint-process-tax-exempt-organizations) (Report suspected tax fraud by non-profit organizations)
+*Note: Federal tax exemption doesn't always mean state registration isn't required. Check state-specific resources.*
+
+### United States Department of Agriculture (USDA)
+[Animal and Plant Health Inspection Service](https://www.aphis.usda.gov/)
+-   **Animal Care Public Search**: [APHIS Public Search Tool](https://aphis.my.site.com/PublicSearchTool/s/) (Search for USDA-licensed animal facilities, including breeders, dealers, and exhibitors)
+-   **File an Animal Welfare Complaint**: [File an Animal Welfare Complaint](https://www.aphis.usda.gov/awa/regulatory-enforcement/complaint) (Report concerns about the treatment of animals in licensed facilities)
+
+### Better Business Bureau (BBB)
+[BBB: Better Business Bureau®](https://www.bbb.org/)
+-   **Search Businesses**: [Search the BBB Directory](https://www.bbb.org/search) (Check the organization's rating and accreditation at the Better Business Bureau)
+-   **BBB Scam Tracker**: [Find and Report a Scam](https://www.bbb.org/scamtracker) (Free tool anyone can use to report suspected scams)
+-   **BBB Wise Giving Alliance**: [Find Best Charities To Donate to](https://www.give.org/) (Evaluates charities against comprehensive standards.)
+
+### Federal Trade Commission (FTC)
+[Federal Trade Commission (FTC)](https://www.ftc.gov/)
+-   **Complaint Assistant**: [ReportFraud.ftc.gov](https://reportfraud.ftc.gov/#/) (Report various types of fraud and deceptive practices, including those related to fundraising, advertising, and more)
+-   The FTC investigates deceptive or unfair business practices, including those by non-profit and for-profit entities.
+
+### Federal Bureau of Investigation (FBI)
+-   [FBI Scams and Safety](https://www.fbi.gov/scams-and-safety) (Information on common scams, including charity fraud.)
+-   [IC3 Internet Crime Center](https://www.ic3.gov/) (Internet Crime Complaint Center for reporting internet-related crime.)
+
+### National Association of State Charity Officials (NASCO)
+-   [National Association of State Charity Officials (NASCO)](https://www.nasconet.org/) (NASCO is a resource for information on state charity regulation and provides links to state charity offices.)
+
+### National Link Coalition
+-   [National Link Coalition](https://nationallinkcoalition.org/) (The Global Resource Center on the Link Between Animal Abuse and Human Violence)
+
+-   **Candid (formerly GuideStar)**: [Candid](https://candid.org/) (Comprehensive information on non-profits, including 990s, mission statements, and program details)
+-   **ProPublica Nonprofit Explorer**: [ProPublica Nonprofit Explorer](https://projects.propublica.org/nonprofits/) (User-friendly tool for searching 990s)
+-   **Charity Navigator**: [Charity Navigator](https://www.charitynavigator.org/) (Independent charity watchdog providing ratings and analysis)
+-   **CharityWatch**: [CharityWatch](https://www.charitywatch.org/) (Independent charity watchdog providing ratings and analysis)
+
+[↑ Back To Top](#contents)
+
+---
+
+## General Search Tips & Notes for Animal Rescues
+
+-   **Legal vs. DBA Names**: Animal rescues may operate under a "Doing Business As" (DBA) name different from their legal name. Try to find the legal name for more accurate searches.
+-   **Name Variations**: Try variations of the organization's name (e.g., "Humane Society of X County" vs. "X County Humane Society") and common abbreviations (e.g., "SPCA," "HS").
+-   **Location**: Always include the city/state in your search terms if known.
+-   **Charity's Own Website**: Look for transparency. Does the rescue publish annual reports, financial statements (or Form 990), and a list of its board of directors? Does it clearly state its mission, programs, and how it ensures animal welfare and compliance with regulations? Lack of transparency is a red flag.
+-   **Board of Directors**: Investigate who is on the board. Assess if they are independent and if there are any potential conflicts of interest (e.g., board members doing business with the rescue).
+-   **Review Licenses and Permits**: Actively search for evidence of state or local licenses for animal shelters or rescue operations. These are often public records.
+-   **Check for Inspection Reports**: If a rescue is licensed, regulatory bodies (like state Departments of Agriculture or local animal control) may conduct inspections. Look for public records of these reports, which can reveal compliance issues.
+-   **Older Records & Wayback Machine**: Older records may not be digitized. Use the [Wayback Machine (Internet Archive)](https://archive.org/web/) to view previous website versions if content has changed or is unavailable.
+-   **Shell Organizations and Fiscal Sponsors**: Be aware that some organizations may operate as 'shells' or as projects under a larger 'fiscal sponsor' organization, which can affect financial transparency and accountability.
+-   **Local Animal Control & Licensing**: For local animal control and licensing information, contact your county or city government.
+-   **Independent Local Rescues**: Many local Humane Societies and SPCAs are independent 501(c)(3) non-profits, not direct branches of national organizations like the ASPCA or HSUS.
+-   **Dark Patterns**: Be aware of "dark patterns" – manipulative website designs that can make it difficult to understand donation terms or cancel recurring donations.
+-   **News Archives**: Search news archives (e.g., Google News, local newspaper archives) for mentions of the organization and key personnel. Look for both positive and negative coverage, especially regarding animal welfare incidents or legal issues.
+-   **Social Media (Use with Caution)**: Social media can offer insights but be extremely cautious about reliability. Always verify information from social media with more reliable sources.
+-   **Advanced Search Operators**: Use advanced search operators in search engines (e.g., `site:`, `filetype:`, `intitle:`, `inurl:`, quotation marks for exact phrases) to refine your searches.
+-   **Lobbying Disclosures**: For research on national organizations, check [OpenSecrets.org](https://www.opensecrets.org/). For state organizations, check the Secretary of State website or ethics commission for that state.
+-   **Court Records**: Consider looking up any organizations on [PACER (Public Access to Court Electronic Records)](https://pacer.uscourts.gov/). Note that this website requires registration and charges a fee for document access.
+
+**It is crucial to cross-reference information gathered from multiple sources to ensure accuracy and identify any inconsistencies.**
+
+[↑ Back To Top](#contents)
+
+---
+
+## State-Specific Resources for Animal Rescue Organizations
+
+Each state has its own regulations, registration requirements, and consumer complaint contacts.  
+Use the expandable section below for direct links to your state’s:
+- Attorney General, Secretary of State, or Charity Office
+- Animal welfare agencies and complaint forms
+- Business and nonprofit search tools
+
+<details>
+<summary>Expand for State-by-State Resources</summary>
 
   [Alabama](#alabama)
   [Alaska](#alaska)
@@ -71,142 +210,6 @@
   [West Virginia](#west-virginia)
   [Wisconsin](#wisconsin)
   [Wyoming](#wyoming)
-  </details>
-- [Disclaimer](#disclaimer)
-
-## How to Use This Guide
-
-1.  **Understand Legal Requirements**: Begin by reviewing the "Key Legal Requirements and Considerations" section to familiarize yourself with the types of regulations animal rescues must adhere to.
-2.  **Start with National Resources**: Check federal agencies (like IRS and USDA) and national non-profit watchdogs for general information, tax-exempt status, and federal compliance.
-3.  **Focus on Animal-Specific Resources**: Pay special attention to resources from the USDA and state-level animal health/welfare divisions, as these are crucial for animal care regulations.
-4.  **Use General Search Tips**: Review the "General Search Tips & Notes" for effective research techniques, including how to look for licensing and compliance records.
-5.  **Consult State-Specific Information**: If the animal rescue operates in a particular state, use the "State-Specific Resources" section to find local regulatory bodies and animal welfare contacts, as state and local laws are highly variable.
-6.  **Cross-Reference Information**: Always verify information from multiple sources to ensure accuracy and identify inconsistencies in reported compliance or practices.
-
-## Key Legal Requirements and Considerations for Animal Rescue Organizations
-
-Non-profit animal rescue organizations are subject to a variety of federal, state, and sometimes local laws and regulations. Understanding these can help in evaluating an organization's legitimacy and compliance.
-
-### Federal Requirements
-
--   **IRS 501(c)(3) Status**: To operate as a non-profit and receive tax-deductible donations, an animal rescue must obtain and maintain 501(c)(3) tax-exempt status from the IRS. This requires adherence to specific operational and reporting standards (e.g., filing Form 990 annually).
--   **USDA Animal Welfare Act (AWA) Compliance**:
-    -   The USDA's Animal and Plant Health Inspection Service (APHIS) regulates certain animal-related activities under the AWA.
-    -   Rescues involved in **interstate transport of animals for sale/adoption, breeding animals for sale**, or operating certain **animal exhibition facilities** may require USDA licenses and be subject to inspections.
-    -   Not all animal rescues fall under USDA licensing, particularly smaller, local, or foster-based rescues that do not engage in activities defined by the AWA. However, larger organizations or those involved in significant transport should be checked.
-
-### State Requirements
-
-State laws vary significantly, but commonly include:
-
--   **Charity Registration/Solicitation Permits**: Most states require non-profit organizations that solicit donations from the public to register with the state's Attorney General or Secretary of State's office. This ensures transparency in fundraising.
--   **Non-Profit Corporate Registration**: Organizations must typically register as a non-profit corporation with the state's Secretary of State or equivalent business registration agency.
--   **Animal Welfare Laws**: States have laws governing animal cruelty, neglect, and minimum standards for animal care in shelters and rescue facilities. These can cover:
-    -   **Facility Standards**: Requirements for housing, sanitation, ventilation, and space.
-    -   **Veterinary Care**: Mandates for vaccinations, spay/neuter, and treatment of illness/injury.
-    -   **Adoption Procedures**: Regulations on screening adopters, adoption contracts, and return policies.
-    -   **Quarantine Periods**: Requirements for holding periods for stray animals.
--   **Licensing for Animal Shelters/Rescues**: Many states and/or local jurisdictions require animal shelters, pounds, and rescue facilities to obtain specific licenses and be subject to regular inspections by state or local animal control or health departments.
--   **Health Certificates for Interstate Movement**: When animals are transported across state lines (e.g., from a high-kill shelter in one state to a rescue in another), they often require veterinary health certificates and may be subject to specific quarantine rules in the receiving state.
-
-### Local Requirements
-
--   **Zoning and Land Use Permits**: Local ordinances dictate where animal rescue facilities can operate (e.g., residential vs. commercial zones).
--   **Animal Control Ordinances**: Local animal control laws may include limits on the number of animals, leash laws, licensing of individual animals, and specific requirements for animal hoarding situations.
--   **Local Business Licenses**: Some municipalities may require a general business license even for non-profit operations.
-
----
-
-## US National Resources for Animal Rescue Organizations
-
-These national bodies provide oversight and information relevant to non-profit animal rescue organizations.
-
-### Internal Revenue Service (IRS)
-
-[Internal Revenue Service](https://www.irs.gov/)
-
--   **501(c)3 Lookup**: [Tax Exempt Organization Search](https://apps.irs.gov/app/eos/) (Verify an organization's non-profit (tax-exempt) status)
--   **990 Search**: [Copies of EO returns available](https://www.irs.gov/charities-non-profits/copies-of-scanned-eo-returns-available) (Access an organization's 990 forms, which contain valuable financial information)
--   **Complaint Process**: [IRS complaint process - Tax-Exempt Organizations](https://www.irs.gov/charities-non-profits/irs-complaint-process-tax-exempt-organizations) (Report suspected tax fraud by non-profit organizations)
-
-*Note: Federal tax exemption doesn't always mean state registration isn't required. Check state-specific resources.*
-
-### United States Department of Agriculture (USDA)
-
-[Animal and Plant Health Inspection Service](https://www.aphis.usda.gov/)
-
--   **Animal Care Public Search**: [APHIS Public Search Tool](https://aphis.my.site.com/PublicSearchTool/s/) (Search for USDA-licensed animal facilities, including breeders, dealers, and exhibitors)
--   **File an Animal Welfare Complaint**: [File an Animal Welfare Complaint](https://www.aphis.usda.gov/awa/regulatory-enforcement/complaint) (Report concerns about the treatment of animals in licensed facilities)
-
-### Better Business Bureau (BBB)
-
-[BBB: Better Business Bureau®](https://www.bbb.org/)
-
--   **Search Businesses**: [Search the BBB Directory](https://www.bbb.org/search) (Check the organization's rating and accreditation at the Better Business Bureau)
--   **BBB Scam Tracker**: [Find and Report a Scam](https://www.bbb.org/scamtracker) (Free tool anyone can use to report suspected scams)
--   **BBB Wise Giving Alliance**: [Find Best Charities To Donate to](https://www.give.org/) (Evaluates charities against comprehensive standards.)
-
-### Federal Trade Commission (FTC)
-
-[Federal Trade Commission (FTC)](https://www.ftc.gov/)
-
--   **Complaint Assistant**: [ReportFraud.ftc.gov](https://reportfraud.ftc.gov/#/) (Report various types of fraud and deceptive practices, including those related to fundraising, advertising, and more)
--   The FTC investigates deceptive or unfair business practices, including those by non-profit and for-profit entities.
-
-### Federal Bureau of Investigation (FBI)
-
--   [FBI Scams and Safety](https://www.fbi.gov/scams-and-safety) (Information on common scams, including charity fraud.)
--   [IC3.gov](https://www.ic3.gov/) (Internet Crime Complaint Center for reporting internet-related crime.)
-
-### National Association of State Charity Officials (NASCO)
-
-[National Association of State Charity Officials (NASCO)](https://www.nasconet.org/)
-
--   NASCO is a resource for information on state charity regulation and provides links to state charity offices.
-
-### National Link Coalition
-
-[National Link Coalition](https://nationallinkcoalition.org/)
-
--   [The National Directory of Abuse Investigation Agencies](https://nationallinkcoalition.org/how-do-i-report-suspected-abuse)
--   The Global Resource Center on the Link Between Animal Abuse and Human Violence
-
-### Additional Non-Profit Resources
-
--   **Candid (formerly GuideStar)**: [Candid](https://candid.org/) (Comprehensive information on non-profits, including 990s, mission statements, and program details)
--   **ProPublica Nonprofit Explorer**: [ProPublica Nonprofit Explorer](https://projects.propublica.org/nonprofits/) (User-friendly tool for searching 990s)
--   **Charity Navigator**: [Charity Navigator](https://www.charitynavigator.org/) (Independent charity watchdog providing ratings and analysis)
--   **CharityWatch**: [CharityWatch](https://www.charitywatch.org/) (Independent charity watchdog providing ratings and analysis)
-
-[↑ Back To Top](#contents)
-
-## General Search Tips & Notes for Animal Rescues
-
--   **Legal vs. DBA Names**: Animal rescues may operate under a "Doing Business As" (DBA) name different from their legal name. Try to find the legal name for more accurate searches.
--   **Name Variations**: Try variations of the organization's name (e.g., "Humane Society of X County" vs. "X County Humane Society") and common abbreviations (e.g., "SPCA," "HS").
--   **Location**: Always include the city/state in your search terms if known.
--   **Charity's Own Website**: Look for transparency. Does the rescue publish annual reports, financial statements (or Form 990), and a list of its board of directors? Does it clearly state its mission, programs, and how it ensures animal welfare and compliance with regulations? Lack of transparency is a red flag.
--   **Board of Directors**: Investigate who is on the board. Assess if they are independent and if there are any potential conflicts of interest (e.g., board members doing business with the rescue).
--   **Review Licenses and Permits**: Actively search for evidence of state or local licenses for animal shelters or rescue operations. These are often public records.
--   **Check for Inspection Reports**: If a rescue is licensed, regulatory bodies (like state Departments of Agriculture or local animal control) may conduct inspections. Look for public records of these reports, which can reveal compliance issues.
--   **Older Records & Wayback Machine**: Older records may not be digitized. Use the [Wayback Machine (Internet Archive)](https://archive.org/web/) to view previous website versions if content has changed or is unavailable.
--   **Shell Organizations and Fiscal Sponsors**: Be aware that some organizations may operate as 'shells' or as projects under a larger 'fiscal sponsor' organization, which can affect financial transparency and accountability.
--   **Local Animal Control & Licensing**: For local animal control and licensing information, contact your county or city government.
--   **Independent Local Rescues**: Many local Humane Societies and SPCAs are independent 501(c)(3) non-profits, not direct branches of national organizations like the ASPCA or HSUS.
--   **Dark Patterns**: Be aware of "dark patterns" – manipulative website designs that can make it difficult to understand donation terms or cancel recurring donations.
--   **News Archives**: Search news archives (e.g., Google News, local newspaper archives) for mentions of the organization and key personnel. Look for both positive and negative coverage, especially regarding animal welfare incidents or legal issues.
--   **Social Media (Use with Caution)**: Social media can offer insights but be extremely cautious about reliability. Always verify information from social media with more reliable sources.
--   **Advanced Search Operators**: Use advanced search operators in search engines (e.g., `site:`, `filetype:`, `intitle:`, `inurl:`, quotation marks for exact phrases) to refine your searches.
--   **Lobbying Disclosures**: For research on national organizations, check [OpenSecrets.org](https://www.opensecrets.org/). For state organizations, check the Secretary of State website or ethics commission for that state.
--   **Court Records**: Consider looking up any organizations on [PACER (Public Access to Court Electronic Records)](https://pacer.uscourts.gov/). Note that this website requires registration and charges a fee for document access.
-
-**It is crucial to cross-reference information gathered from multiple sources to ensure accuracy and identify any inconsistencies.**
-
-[↑ Back To Top](#contents)
-
-## State-Specific Resources for Animal Rescue Organizations
-
-Each state has agencies that oversee charities and/or animal welfare. This section provides links to the primary contacts for each state. Always check both the Attorney General/Secretary of State and the Department of Agriculture/Animal Health for comprehensive oversight, including specific animal welfare regulations and licensing requirements.
 
 ### Alabama
 
@@ -1004,6 +1007,8 @@ Each state has agencies that oversee charities and/or animal welfare. This secti
     -   [Business/UCC Division](https://sos.wyo.gov/Business/Default.aspx)
     -   [Search](https://wyobiz.wyo.gov/Business/FilingSearch.aspx)
 
+</details>
+
 ---
 
 ## Disclaimer
@@ -1018,3 +1023,5 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines and [CODE_OF_CONDUCT.md](C
 
 ## License
 This project is licensed under the [Creative Commons Attribution-ShareAlike 4.0 International License](LICENSE)
+
+*Empowering animal rescue organizations and their supporters through transparency and trusted resources.*
