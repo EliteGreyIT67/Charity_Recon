@@ -1,45 +1,47 @@
 # Contributing to Charity_Recon
 
-Thank you for considering contributing to Charity_Recon! We appreciate your help in making this project better.
+Thank you for your interest in contributing to Charity_Recon! Your suggestions and improvements help create a more comprehensive and trustworthy resource for researching charities.
 
 ## How Can I Contribute?
 
-### 1. Reporting Issues
-If you find a bug or have a suggestion, please [open an issue](https://github.com/EliteGreyIT67/Charity_Recon/issues). Include as much detail as possible—steps to reproduce, expected behavior, and screenshots are helpful.
+### 1. Reporting Errors or Outdated Information
 
-### 2. Suggesting Enhancements
-We welcome suggestions for improvements or new features. Please check existing issues before submitting a new one.
+- If you notice any incorrect, outdated, or broken links, please [open an issue](https://github.com/EliteGreyIT67/Charity_Recon/issues).
+- Be as specific as possible—include the section or link, and suggest corrections if you can.
+
+### 2. Suggesting New Resources
+
+- Know of a reputable resource or verification method missing from the documentation? Suggest it by opening an issue or pull request.
+- Include a brief description of the resource and why it’s useful.
 
 ### 3. Submitting Pull Requests
 
 - Fork the repository and clone your fork.
-- Create a branch for your changes:  
-  `git checkout -b my-feature`
-- Make your changes and commit them with clear messages.
-- Push to your fork and create a pull request against the `main` branch.
-- Fill out the pull request template and describe your changes.
+- Create a new branch for your changes:  
+  `git checkout -b update-resource-links`
+- Make your changes in Markdown.
+- Ensure your links work and descriptions are clear.
+- Update or add references where appropriate.
+- Push to your fork and open a pull request against the `main` branch.
+- Briefly describe your changes in the pull request.
 
-#### Coding Standards
+### 4. Documentation Style
 
-- Use clear, descriptive commit messages.
-- Write in Markdown for documentation.
-- Keep changes focused and minimal per pull request.
+- Use clear, concise language.
+- Format all links as `[Name](URL)`.
+- Organize content with proper Markdown headers and lists.
+- Keep the tone neutral and informative.
 
-#### Documentation
+### 5. Reviewing Pull Requests
 
-- If you add or change features, update the documentation.
-- Add examples or explanations in the README or relevant markdown files.
+All pull requests are reviewed by maintainers. Please be responsive to feedback.
 
-### 4. Code Reviews
+### 6. Code of Conduct
 
-All pull requests are reviewed by a maintainer. Please be responsive to feedback.
-
-## Code of Conduct
-
-By participating, you agree to abide by our [Code of Conduct](CODE_OF_CONDUCT.md).
+By participating, you agree to follow our [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## Questions?
 
-If you have questions, open an issue or start a discussion in the Discussions tab.
+Open an issue or use the Discussions tab for questions or ideas.
 
-Thank you for helping to improve Charity_Recon!
+Thank you for helping to keep Charity_Recon up to date and useful!
