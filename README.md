@@ -1,7 +1,5 @@
 # Charity_Recon
 
-This guide is designed to help you research and report concerns about non-profit animal rescue organizations, with an added focus on their legal and regulatory obligations. It provides essential resources for consumers, donors, and legal professionals to verify charity registration, report scams, investigate animal welfare issues, and understand relevant legal compliance.
-
 **Last Verified:** 2025-05-22
 
 ## Contents
