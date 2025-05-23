@@ -17,8 +17,8 @@ This guide is designed to help you research and report concerns about non-profit
   - [National Association of State Charity Officials (NASCO)](#national-association-of-state-charity-officials-nasco)
   - [National Link Coalition](#national-link-coalition)
   - [Additional Non-Profit Resources](#additional-non-profit-resources)
-- [General Search Tips & Notes](#general-search-tips--notes)
-- [State-Specific Resources](#state-specific-resources)
+- [General Search Tips & Notes](#general-search-tips--notes-for-animal-rescues)
+- [State-Specific Resources](#state-specific-resources-for-animal-rescue-organizations)
   <details>
   <summary>Click to expand state-specific resources</summary>
 
