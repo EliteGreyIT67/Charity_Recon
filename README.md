@@ -1,8 +1,8 @@
 # Charity_Recon: A Resource Guide for Non-Profit Animal Rescue Organizations
 
-**Last Verified:** 2025-05-22
+**Last Verified:** 2025-05-23
 
-Welcome to Charity Recon!  
+Welcome to Charity Recon!
 This guide empowers animal rescue organizations, donors, and the public to:
 - Find and verify legitimate animal charities
 - Report scams and fraudulent activity
@@ -24,21 +24,21 @@ This guide empowers animal rescue organizations, donors, and the public to:
 
 ## How to Use This Guide
 
-1. **Review Legal Requirements:** Start with [Key Legal Requirements](#key-legal-requirements-and-considerations-for-animal-rescue-organizations) to understand federal, state, and local regulations for animal rescues.
-2. **Explore National Resources:** Use [U.S. National Resources](#us-national-resources-for-animal-rescue-organizations) for federal compliance, registration, complaint filing, and general information.
-3. **Apply Search & Verification Tips:** The [General Search Tips](#general-search-tips--notes-for-animal-rescues) section shows how to investigate organizations, review records, and spot red flags.
-4. **Find State-Specific Contacts:** Jump to [State-Specific Resources](#state-specific-resources-for-animal-rescue-organizations) for local agency contacts, complaint forms, licensing, and animal welfare authorities.
-5. **Cross-Reference Everything:** Always verify information from multiple sources for accuracy and transparency.
+1.  **Review Legal Requirements:** Start with [Key Legal Requirements](#key-legal-requirements-and-considerations-for-animal-rescue-organizations) to understand federal, state, and local regulations for animal rescues.
+2.  **Explore National Resources:** Use [U.S. National Resources](#us-national-resources-for-animal-rescue-organizations) for federal compliance, registration, complaint filing, and general information.
+3.  **Apply Search & Verification Tips:** The [General Search Tips](#general-search-tips--notes-for-animal-rescues) section shows how to investigate organizations, review records, and spot red flags.
+4.  **Find State-Specific Contacts:** Jump to [State-Specific Resources](#state-specific-resources-for-animal-rescue-organizations) for local agency contacts, complaint forms, licensing, and animal welfare authorities.
+5.  **Cross-Reference Everything:** Always verify information from multiple sources for accuracy and transparency.
 
 ## Key Legal Requirements and Considerations for Animal Rescue Organizations
 
-Animal rescues must comply with various federal, state, and local laws.  
+Animal rescues must comply with various federal, state, and local laws.
 **Key areas:**
-- **IRS 501(c)(3) Status:** Tax-exempt status required for fundraising and donations.
-- **USDA Animal Welfare Act:** Licenses and compliance for organizations involved in animal transport, sales, or exhibitions.
-- **State Charity Registration:** Most states require registration to solicit donations.
-- **State Animal Welfare Laws:** Cover facility standards, veterinary care, adoption procedures, and more.
-- **Local Zoning & Animal Control:** Check city/county rules for land use, animal limits, and shelter operation.
+-   **IRS 501(c)(3) Status:** Tax-exempt status required for fundraising and donations.
+-   **USDA Animal Welfare Act:** Licenses and compliance for organizations involved in animal transport, sales, or exhibitions.
+-   **State Charity Registration:** Most states require registration to solicit donations.
+-   **State Animal Welfare Laws:** Cover facility standards, veterinary care, adoption procedures, and more.
+-   **Local Zoning & Animal Control:** Check city/county rules for land use, animal limits, and shelter operation.
 
 See details in the full section below.
 
@@ -113,7 +113,8 @@ A selection of federal and national organizations for oversight, complaints, and
 ### National Link Coalition
 -   [National Link Coalition](https://nationallinkcoalition.org/) (The Global Resource Center on the Link Between Animal Abuse and Human Violence)
 
--   **Candid (formerly GuideStar)**: [Candid](https://candid.org/) (Comprehensive information on non-profits, including 990s, mission statements, and program details)
+### Additional Non-Profit Resources 
+-   **Candid (formerly GuideStar)**: [Candid](https://candid.org/) (Comprehensive information on non-profits, including 990s, mission statements, and program detaiappsl
 -   **ProPublica Nonprofit Explorer**: [ProPublica Nonprofit Explorer](https://projects.propublica.org/nonprofits/) (User-friendly tool for searching 990s)
 -   **Charity Navigator**: [Charity Navigator](https://www.charitynavigator.org/) (Independent charity watchdog providing ratings and analysis)
 -   **CharityWatch**: [CharityWatch](https://www.charitywatch.org/) (Independent charity watchdog providing ratings and analysis)
@@ -150,7 +151,7 @@ A selection of federal and national organizations for oversight, complaints, and
 
 ## State-Specific Resources for Animal Rescue Organizations
 
-Each state has its own regulations, registration requirements, and consumer complaint contacts.  
+Each state has its own regulations, registration requirements, and consumer complaint contacts.
 Use the expandable section below for direct links to your state’s:
 - Attorney General, Secretary of State, or Charity Office
 - Animal welfare agencies and complaint forms
@@ -384,7 +385,7 @@ Use the expandable section below for direct links to your state’s:
     -   [Search Licenses](https://agr.georgia.gov/search-licenses)
     -   [Animals](https://agr.georgia.gov/animals)
     -   [Reporting Animal Cruelty](https://agr.georgia.gov/reporting-animal-cruelty)
-    -   [All ISDA Laws and Rules](https://agr.georgia.gov/laws-and-rules/all-isda-laws-and-rules#AnimalLaws)
+    -   [All ISDA Laws and Rules](https://agr.georgia.gov/laws-and-rules/all-isda-laws-and-rules/#AnimalLaws)
 
 [↑ Back To Top](#contents)
 
