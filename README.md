@@ -89,6 +89,7 @@ Here are some common red flags to watch for:
 4.  **Find State-Specific Contacts:** Jump to [State-Specific Resources](#state-specific-resources-for-animal-rescue-organizations) for local agency contacts, complaint forms, licensing, and animal welfare authorities.
 5.  **Cross-Reference Everything:** Always verify information from multiple sources for accuracy and transparency.
 
+---
 ## Key Legal Requirements and Considerations for Animal Rescue Organizations
 
 Animal rescues must comply with various federal, state, and local laws.
@@ -100,7 +101,7 @@ Animal rescues must comply with various federal, state, and local laws.
 -   **Local Zoning & Animal Control:** Check city/county rules for land use, animal limits, and shelter operation.
 
 See details in the full section below.
-
+---
 ## Key Legal Requirements and Considerations for Animal Rescue Organizations
 
 Non-profit animal rescue organizations are subject to a variety of federal, state, and sometimes local laws and regulations. Understanding these can help in evaluating an organization's legitimacy and compliance.
