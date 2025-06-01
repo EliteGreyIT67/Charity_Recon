@@ -62,7 +62,7 @@ Use the expandable section below for direct links to your state’s:
 - [Wyoming](#wyoming)
 </details>
 
-### Alabama
+## Alabama
 
 -   [Alabama State Website](https://www.alabama.gov/)
 -   [Alabama Attorney General's Office](https://www.alabamaag.gov/)
@@ -76,7 +76,7 @@ Use the expandable section below for direct links to your state’s:
 
 [↑ Back To Top](#contents)
 
-### Alaska
+## Alaska
 
 -   [Alaska State Website](https://www.alaska.gov/)
 -   [Alaska Department of Law](https://law.alaska.gov/index.html)
@@ -857,7 +857,5 @@ Use the expandable section below for direct links to your state’s:
     -   Phone: (307) 777-7311
     -   [Business/UCC Division](https://sos.wyo.gov/Business/Default.aspx)
     -   [Search](https://wyobiz.wyo.gov/Business/FilingSearch.aspx)
-
-</details>
 
 
