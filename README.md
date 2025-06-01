@@ -80,7 +80,7 @@ Here are some common red flags to watch for:
 - [Key Legal Requirements](#key-legal-requirements-and-considerations-for-animal-rescue-organizations)
 - [US National Resources](#us-national-resources-for-animal-rescue-organizations)
 - [General Search Tips & Notes](#general-search-tips--notes-for-animal-rescues)
-- [State Resources](STATE_RESOURCES.md)
+- [State_Resources](STATE_RESOURCES.md)
 - [Disclaimer](#disclaimer)
 
 ---
