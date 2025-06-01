@@ -1,4 +1,4 @@
-## State-Specific Resources for Animal Rescue Organizations
+# State-Specific Resources for Animal Rescue Organizations
 
 Each state has its own regulations, registration requirements, and consumer complaint contacts.
 Use the expandable section below for direct links to your state’s:
