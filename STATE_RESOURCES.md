@@ -1,10 +1,12 @@
 # State-Specific Resources for Animal Rescue Organizations
 
+*Suggestion: Government agency information, websites, and contact details can change. To ensure the accuracy of this valuable resource, consider periodically verifying the links and information provided below. You might also find it helpful to add a "Last Updated: 06-01-2025" note at the top of this document.*
+
 Each state has its own regulations, registration requirements, and consumer complaint contacts.
 Use the expandable section below for direct links to your state’s:
-- Attorney General, Secretary of State, or Charity Office
-- Animal welfare agencies and complaint forms
-- Business and nonprofit search tools
+ * Attorney General, Secretary of State, or Charity Office
+ * Animal welfare agencies and complaint forms
+ * Business and nonprofit search tools
 
 <details>
 <summary>Expand for State-by-State Resources</summary>
