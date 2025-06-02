@@ -9,6 +9,21 @@ This guide empowers animal rescue organizations, donors, and the public to:
 - Understand and comply with legal requirements
 - Access key resources for consumer protection, compliance, and legal aid
 
+*Empowering animal rescue organizations and their supporters through transparency and trusted resources.*
+
+---
+
+## Contents
+
+- [Why This Guide Matters](#why-this-guide-matters)
+- [Spotting Red Flags](#spotting-red-flags)
+- [How to Use This Guide](#how-to-use-this-guide)
+- [Key Legal Requirements](#key-legal-requirements-and-considerations-for-animal-rescue-organizations)
+- [US National Resources](#us-national-resources-for-animal-rescue-organizations)
+- [General Search Tips & Notes](#general-search-tips--notes-for-animal-rescues)
+- [State_Resources](STATE_RESOURCES.md)
+- [Disclaimer](#disclaimer)
+
 ---
 
 ### Why This Guide Matters: Ensuring Trust and Impact in Animal Rescue
@@ -74,23 +89,12 @@ Here are some common red flags to watch for:
 
 ---
 
-## Contents
-
-- [How to Use This Guide](#how-to-use-this-guide)
-- [Key Legal Requirements](#key-legal-requirements-and-considerations-for-animal-rescue-organizations)
-- [US National Resources](#us-national-resources-for-animal-rescue-organizations)
-- [General Search Tips & Notes](#general-search-tips--notes-for-animal-rescues)
-- [State_Resources](STATE_RESOURCES.md)
-- [Disclaimer](#disclaimer)
-
----
-
 ## How to Use This Guide
 
 1.  **Review Legal Requirements:** Start with [Key Legal Requirements](#key-legal-requirements-and-considerations-for-animal-rescue-organizations) to understand federal, state, and local regulations for animal rescues.
 2.  **Explore National Resources:** Use [U.S. National Resources](#us-national-resources-for-animal-rescue-organizations) for federal compliance, registration, complaint filing, and general information.
 3.  **Apply Search & Verification Tips:** The [General Search Tips](#general-search-tips--notes-for-animal-rescues) section shows how to investigate organizations, review records, and spot red flags.
-4.  **Find State-Specific Contacts:** Jump to [State Resources](State_Resources.md) for local agency contacts, complaint forms, licensing, and animal welfare authorities.
+4.  **Find State-Specific Contacts:** Jump to [State Resources](STATE_RESOURCES.md) for local agency contacts, complaint forms, licensing, and animal welfare authorities.
 5.  **Cross-Reference Everything:** Always verify information from multiple sources for accuracy and transparency.
 
 ---
@@ -233,4 +237,3 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines and [CODE_OF_CONDUCT.md](C
 ## License
 This project is licensed under the [Creative Commons Attribution-ShareAlike 4.0 International License](LICENSE)
 
-*Empowering animal rescue organizations and their supporters through transparency and trusted resources.*
