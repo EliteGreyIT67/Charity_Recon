@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Rescue Compliance Checklist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* style.css content starts here */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 100; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px; /* Max width for the modal */
+            border-radius: 0.5rem; /* Equivalent to Tailwind's rounded-lg */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Example shadow */
+        }
+
+        /* Custom scrollbar for checklist items container */
+        .checklist-items-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        .checklist-items-container::-webkit-scrollbar-track {
+            background: #f1f1f1; /* Light grey track */
+            border-radius: 10px;
+        }
+        .checklist-items-container::-webkit-scrollbar-thumb {
+            background: #888; /* Grey scrollbar thumb */
+            border-radius: 10px;
+        }
+        .checklist-items-container::-webkit-scrollbar-thumb:hover {
+            background: #555; /* Darker grey on hover */
+        }
+        /* style.css content ends here */
+
+        /* Print-specific styles */
+        @media print {
+            body {
+                font-family: 'Times New Roman', Times, serif; /* Use a serif font for printing */
+                color: #000;
+                background-color: #fff;
+            }
+            #app-container {
+                max-width: 100%;
+                margin: 0;
+                padding: 10px; /* Minimal padding for print */
+            }
+            /* Hide non-printable elements */
+            #user-info,
+            #list-view, /* Hide entire list view when printing a checklist */
+            #back-to-list-btn,
+            #delete-checklist-btn,
+            #save-checklist-btn,
+            #print-checklist-btn,
+            #copy-checklist-btn,
+            #status-message,
+            .modal,
+            header button, /* Hides all buttons in header, including back and delete */
+            .mt-8.flex.flex-col.sm\:flex-row.justify-end /* Hides the action buttons container */
+             {
+                display: none !important;
+            }
+
+            #checklist-view {
+                display: block !important; /* Ensure checklist view is visible */
+                box-shadow: none !important;
+                border: none !important;
+            }
+            #checklist-view > header > div:first-child { /* Keep the title part of the header */
+                 margin-bottom: 20px; /* Add some space below title */
+            }
+             #checklist-view > header > button { /* Ensure delete button in header is hidden */
+                display: none !important;
+            }
+
+            #checklist-title {
+                font-size: 24pt !important;
+                color: #000 !important;
+                text-align: left;
+            }
+             #org-name-input-print-header { /* Style for displaying org name in print */
+                display: block;
+                font-size: 18pt;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+            #org-name-input { /* Hide the input field itself */
+                display: none !important;
+            }
+            .bg-white.p-6.rounded-lg.shadow-xl { /* Main content box for checklist */
+                padding: 0 !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+            }
+            #checklist-items-container {
+                max-h: none !important; /* Allow all items to show */
+                overflow-y: visible !important;
+                padding-right: 0 !important;
+            }
+            .mb-6.p-4.border.border-gray-200.rounded-lg.bg-gray-50 { /* Category div */
+                border: 1px solid #ccc !important;
+                background-color: #fff !important;
+                padding: 10px !important;
+                margin-bottom: 15px !important;
+                page-break-inside: avoid; /* Try to keep categories on one page */
+            }
+            .text-lg.font-semibold.text-sky-700.mb-3 { /* Category title */
+                color: #000 !important;
+                font-size: 14pt !important;
+            }
+            .mb-4.p-3.border-b.border-gray-200.last\:border-b-0 { /* Item div */
+                border-bottom: 1px dotted #eee !important;
+                padding: 8px 0 !important;
+                page-break-inside: avoid;
+            }
+            label.flex.items-start.space-x-3.cursor-pointer {
+                align-items: flex-start !important; /* Ensure checkbox and text align well */
+            }
+            input[type="checkbox"] {
+                /* Consider how to represent checked state; browser may handle this. */
+                /* Could add content: '☑ ' or '☐ ' before the item text based on state */
+                margin-right: 5px !important;
+                vertical-align: top;
+            }
+            .text-sm.text-gray-700.flex-grow { /* Item text */
+                color: #000 !important;
+                font-size: 11pt !important;
+            }
+            textarea[data-item-id] {
+                border: 1px solid #ddd !important;
+                background-color: #f9f9f9 !important;
+                font-size: 10pt !important;
+                color: #333 !important;
+                resize: none !important; /* No resize in print */
+                min-height: 30px; /* Ensure notes are visible if short */
+            }
+            a.text-sky-500 {
+                color: #000 !important;
+                text-decoration: none !important; /* Remove underline for cleaner print */
+            }
+            a.text-sky-500::after {
+                content: " (" attr(href) ")"; /* Show URL in print */
+                font-size: 9pt;
+            }
+             span.text-gray-500.text-xs.ml-1::after { /* For link placeholders */
+                content: ""; /* Don't add URL if it's just a placeholder */
+             }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div id="app-container" class="max-w-4xl mx-auto p-4 md:p-6 min-h-screen">
+
+        <!-- User ID Display -->
+        <div id="user-info" class="mb-4 text-xs text-gray-500 text-center">User ID: <span id="user-id-display">Loading...</span></div>
+        
+        <!-- List View -->
+        <div id="list-view">
+            <header class="mb-6 text-center">
+                <h1 class="text-3xl md:text-4xl font-bold text-sky-700">Rescue Compliance Checklists</h1>
+                <p class="text-gray-600 mt-1">Manage and track compliance for animal rescue organizations.</p>
+            </header>
+
+            <button id="new-checklist-btn" class="w-full md:w-auto bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition duration-150 ease-in-out mb-6 flex items-center justify-center space-x-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                <span>Start New Checklist</span>
+            </button>
+
+            <div id="loading-checklists" class="text-center py-4 text-gray-500">Loading checklists...</div>
+            <div id="no-checklists-message" class="text-center py-10 bg-white rounded-lg shadow hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16 h-16 mx-auto text-gray-400 mb-4">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 7.5V6.108c0-1.135.845-2.098 1.976-2.192.353-.026.692-.026 1.032 0 1.13.094 1.976 1.057 1.976 2.192V7.5M8.25 7.5h7.5M8.25 7.5c0 1.135-.845 2.098-1.976 2.192a48.424 48.424 0 0 1-1.123.08A48.455 48.455 0 0 1 3 10.05m14.25-2.55c0 1.135-.845 2.098-1.976 2.192a48.424 48.424 0 0 1-1.123.08a48.455 48.455 0 0 1-2.177-.086M12 10.5h.008v.008H12V10.5Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm1.125 4.5h.008v.008h-.008V15Zm-.375 0a.375.375 0 1 1 .75 0 .375.375 0 0 1-.75 0Zm1.875-1.875a.375.375 0 1 0 0 .75.375.375 0 0 0 0-.75Zm.375 1.875a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                </svg>
+                <p class="text-xl font-semibold text-gray-700">No checklists yet.</p>
+                <p class="text-gray-500">Click "Start New Checklist" to begin.</p>
+            </div>
+            <div id="saved-checklists-container" class="space-y-4">
+                <!-- Saved checklists will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <!-- Checklist View -->
+        <div id="checklist-view" class="hidden">
+            <header class="mb-6 flex items-center justify-between">
+                <div>
+                    <button id="back-to-list-btn" class="text-sky-600 hover:text-sky-800 font-semibold flex items-center space-x-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                        </svg>
+                        <span>Back to List</span>
+                    </button>
+                    <h2 id="checklist-title" class="text-2xl md:text-3xl font-bold text-sky-700 mt-2">New Checklist</h2>
+                </div>
+                <button id="delete-checklist-btn" class="hidden bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:shadow-lg transition duration-150 ease-in-out flex items-center space-x-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12.56 0c.342.052.682.107 1.022.166m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                    </svg>
+                    <span>Delete</span>
+                </button>
+            </header>
+            
+            <div class="bg-white p-6 rounded-lg shadow-xl">
+                <div class="mb-6">
+                    <label for="org-name-input" class="block text-sm font-medium text-gray-700 mb-1">Rescue Organization Name:</label>
+                    <!-- This span will be shown only for print -->
+                    <span id="org-name-input-print-header" class="hidden print:block"></span> 
+                    <input type="text" id="org-name-input" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-sky-500 focus:border-sky-500 print:hidden" placeholder="e.g., Happy Paws Rescue">
+                    <p id="org-name-error" class="text-red-500 text-sm mt-1 hidden print:hidden">Organization name cannot be empty.</p>
+                </div>
+
+                <div id="checklist-items-container" class="space-y-6 max-h-[60vh] overflow-y-auto pr-2">
+                    <!-- Checklist items will be dynamically inserted here -->
+                </div>
+
+                <div class="mt-8 flex flex-col sm:flex-row justify-end space-y-3 sm:space-y-0 sm:space-x-4">
+                     <button id="copy-checklist-btn" class="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition duration-150 ease-in-out flex items-center justify-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
+                        </svg>
+                        <span>Copy Text</span>
+                    </button>
+                     <button id="print-checklist-btn" class="w-full sm:w-auto bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition duration-150 ease-in-out flex items-center justify-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0 1 10.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0 .229 2.523a1.125 1.125 0 0 1-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0c1.253 1.464 2.405 3.06 2.405 4.872A2.25 2.25 0 0 1 18.25 24H5.75A2.25 2.25 0 0 1 3.5 21.872c0-1.812 1.152-3.408 2.405-4.872m11.318 0a2.25 2.25 0 0 0-2.25-2.25H7.75a2.25 2.25 0 0 0-2.25 2.25m13.5 0H4.75" />
+                        </svg>
+                        <span>Print</span>
+                    </button>
+                     <button id="save-checklist-btn" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition duration-150 ease-in-out flex items-center justify-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                        <span>Save Checklist</span>
+                    </button>
+                </div>
+            </div>
+            <div id="status-message" class="mt-4 text-center"></div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmation-modal" class="modal">
+        <div class="modal-content text-center">
+            <h3 id="modal-title" class="text-xl font-semibold mb-4">Are you sure?</h3>
+            <p id="modal-message" class="mb-6 text-gray-600">This action cannot be undone.</p>
+            <div class="flex justify-center space-x-4">
+                <button id="modal-confirm-btn" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-lg">Confirm</button>
+                <button id="modal-cancel-btn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-6 rounded-lg">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // script.js content starts here
+        // Firebase Imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { 
+            getAuth, 
+            signInAnonymously, 
+            signInWithCustomToken, 
+            onAuthStateChanged,
+            setPersistence,
+            inMemoryPersistence 
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { 
+            getFirestore, 
+            doc, 
+            setDoc, 
+            getDoc, 
+            addDoc, 
+            deleteDoc, 
+            collection, 
+            query, 
+            onSnapshot, 
+            serverTimestamp,
+            orderBy
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // --- App Configuration ---
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : { 
+            apiKey: "YOUR_FALLBACK_API_KEY", 
+            authDomain: "YOUR_FALLBACK_PROJECT_ID.firebaseapp.com", 
+            projectId: "YOUR_FALLBACK_PROJECT_ID" 
+        };
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'rescue-checklist-app-default';
+
+        let app;
+        let auth;
+        let db;
+        let userId = null;
+        let isAuthReady = false;
+        let currentChecklistId = null; 
+        let checklistsUnsubscribe = null; 
+
+        const checklistMaster = [
+            { 
+                category: "Federal & State Compliance", 
+                items: [
+                    { id: "fed_irs_status", text: "IRS 501(c)(3) status verified?", link: "https://apps.irs.gov/app/eos/" },
+                    { id: "fed_form_990", text: "IRS Form 990 accessible & reviewed?", linkText: "IRS/ProPublica/Candid" },
+                    { id: "state_charity_reg", text: "Registered with State Charity Officials?", link: "https://www.nasconet.org/", linkText: "NASCO" },
+                    { id: "state_local_licenses", text: "Necessary state/local animal shelter/rescue licenses (if applicable)?" }
+                ]
+            },
+            {
+                category: "Operational Transparency",
+                items: [
+                    { id: "op_legal_dba_name", text: "Legal name and DBA clearly stated?" },
+                    { id: "op_contact_info", text: "Contact information (phone/email) available & responsive?" },
+                    { id: "op_website_mission", text: "Website clearly states mission, programs, and animal welfare practices?" },
+                    { id: "op_board_list", text: "List of Board of Directors publicly available?" },
+                    { id: "op_financial_reports", text: "Financial reports (e.g., annual report) available?" },
+                    { id: "op_adoption_process", text: "Adoption process clearly documented and transparent?" },
+                    { id: "op_sourcing_policy", text: "Animal sourcing policy (where animals come from) clear?" },
+                    { id: "op_medical_records", text: "Medical records (vaccinations, spay/neuter, conditions) provided with adoptions?" }
+                ]
+            },
+            {
+                category: "Reputation & Accountability",
+                items: [
+                    { id: "rep_bbb_rating", text: "Better Business Bureau (BBB) rating checked? Unresolved complaints?", link: "https://www.bbb.org/search" },
+                    { id: "rep_watchdog_sites", text: "Charity watchdog sites checked?", linkText: "Charity Navigator, GuideStar, etc." },
+                    { id: "rep_news_archives", text: "News archives checked for significant negative press or legal issues?" }
+                ]
+            }
+        ];
+
+        // --- UI Elements ---
+        const listView = document.getElementById('list-view');
+        const checklistView = document.getElementById('checklist-view');
+        const newChecklistBtn = document.getElementById('new-checklist-btn');
+        const backToListBtn = document.getElementById('back-to-list-btn');
+        const saveChecklistBtn = document.getElementById('save-checklist-btn');
+        const deleteChecklistBtn = document.getElementById('delete-checklist-btn');
+        const printChecklistBtn = document.getElementById('print-checklist-btn');
+        const copyChecklistBtn = document.getElementById('copy-checklist-btn');
+        const orgNameInput = document.getElementById('org-name-input');
+        const orgNameInputPrintHeader = document.getElementById('org-name-input-print-header');
+        const orgNameError = document.getElementById('org-name-error');
+        const checklistItemsContainer = document.getElementById('checklist-items-container');
+        const checklistTitle = document.getElementById('checklist-title');
+        const savedChecklistsContainer = document.getElementById('saved-checklists-container');
+        const statusMessage = document.getElementById('status-message');
+        const loadingChecklistsMsg = document.getElementById('loading-checklists');
+        const noChecklistsMsg = document.getElementById('no-checklists-message');
+        const userIdDisplay = document.getElementById('user-id-display');
+
+        // Modal Elements
+        const confirmationModal = document.getElementById('confirmation-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalMessage = document.getElementById('modal-message');
+        const modalConfirmBtn = document.getElementById('modal-confirm-btn');
+        const modalCancelBtn = document.getElementById('modal-cancel-btn');
+        let confirmAction = null;
+
+
+        // --- Helper Functions ---
+        function showView(viewToShow) {
+            listView.classList.toggle('hidden', viewToShow !== 'list');
+            checklistView.classList.toggle('hidden', viewToShow !== 'checklist');
+        }
+
+        function showStatus(message, type = 'success', duration = 3000) {
+            statusMessage.textContent = message;
+            statusMessage.className = `mt-4 text-center text-sm ${type === 'success' ? 'text-green-600' : type === 'info' ? 'text-blue-600' : 'text-red-600'}`;
+            if (duration) {
+                setTimeout(() => { statusMessage.textContent = ''; }, duration);
+            }
+        }
+
+        function openConfirmationModal(title, message, onConfirm) {
+            modalTitle.textContent = title;
+            modalMessage.textContent = message;
+            confirmAction = onConfirm;
+            confirmationModal.style.display = 'block';
+        }
+
+        function closeConfirmationModal() {
+            confirmationModal.style.display = 'none';
+            confirmAction = null;
+        }
+
+        // --- Checklist Logic ---
+        function renderChecklistForm(checklistData = null) {
+            checklistItemsContainer.innerHTML = ''; 
+            orgNameInput.value = checklistData ? checklistData.orgName : '';
+             if (orgNameInputPrintHeader) { // Update the print header for org name
+                orgNameInputPrintHeader.textContent = checklistData ? checklistData.orgName : "New Checklist";
+            }
+            currentChecklistId = checklistData ? checklistData.id : null;
+            checklistTitle.textContent = checklistData ? `Edit: ${checklistData.orgName}` : 'New Checklist';
+            deleteChecklistBtn.classList.toggle('hidden', !checklistData);
+            orgNameError.classList.add('hidden'); 
+
+            checklistMaster.forEach(category => {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'mb-6 p-4 border border-gray-200 rounded-lg bg-gray-50';
+                
+                const categoryTitleElement = document.createElement('h3');
+                categoryTitleElement.className = 'text-lg font-semibold text-sky-700 mb-3';
+                categoryTitleElement.textContent = category.category;
+                categoryDiv.appendChild(categoryTitleElement);
+
+                category.items.forEach(itemMaster => {
+                    const itemData = checklistData && checklistData.items ? checklistData.items.find(i => i.id === itemMaster.id) : null;
+                    const isChecked = itemData ? itemData.isChecked : false;
+                    const notes = itemData ? itemData.notes : '';
+
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'mb-4 p-3 border-b border-gray-200 last:border-b-0';
+
+                    const label = document.createElement('label');
+                    label.className = 'flex items-start space-x-3 cursor-pointer';
+
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.checked = isChecked;
+                    checkbox.dataset.itemId = itemMaster.id;
+                    checkbox.className = 'mt-1 h-5 w-5 text-sky-600 border-gray-300 rounded focus:ring-sky-500 shrink-0';
+                    
+                    const itemTextSpan = document.createElement('span');
+                    itemTextSpan.className = 'text-sm text-gray-700 flex-grow';
+                    itemTextSpan.textContent = itemMaster.text;
+
+                    if (itemMaster.link) {
+                        const link = document.createElement('a');
+                        link.href = itemMaster.link;
+                        link.target = '_blank';
+                        link.rel = 'noopener noreferrer';
+                        link.className = 'text-sky-500 hover:underline text-xs ml-1';
+                        link.textContent = ` (${itemMaster.linkText || 'Resource'})`;
+                        itemTextSpan.appendChild(link);
+                    } else if (itemMaster.linkText) {
+                         const linkPlaceholder = document.createElement('span');
+                         linkPlaceholder.className = 'text-gray-500 text-xs ml-1';
+                         linkPlaceholder.textContent = ` (Resource: ${itemMaster.linkText})`;
+                         itemTextSpan.appendChild(linkPlaceholder);
+                    }
+                    
+                    label.appendChild(checkbox);
+                    label.appendChild(itemTextSpan);
+                    itemDiv.appendChild(label);
+
+                    const notesTextarea = document.createElement('textarea');
+                    notesTextarea.dataset.itemId = itemMaster.id;
+                    notesTextarea.value = notes;
+                    notesTextarea.placeholder = 'Optional notes...';
+                    notesTextarea.className = 'mt-2 w-full p-2 border border-gray-300 rounded-md text-sm focus:ring-sky-500 focus:border-sky-500 resize-none';
+                    notesTextarea.rows = 2;
+                    itemDiv.appendChild(notesTextarea);
+                    
+                    categoryDiv.appendChild(itemDiv);
+                });
+                checklistItemsContainer.appendChild(categoryDiv);
+            });
+            showView('checklist');
+        }
+
+        async function handleSaveChecklist() {
+            if (!isAuthReady || !userId) {
+                showStatus("Authentication not ready. Please wait.", 'error');
+                console.error("Save attempt before auth ready or no userId.");
+                return;
+            }
+
+            const orgName = orgNameInput.value.trim();
+            if (orgNameInputPrintHeader) { // Update print header on save
+                orgNameInputPrintHeader.textContent = orgName || "Untitled Checklist";
+            }
+            if (!orgName) {
+                orgNameError.classList.remove('hidden');
+                orgNameInput.focus();
+                showStatus("Organization name is required.", 'error');
+                return;
+            }
+            orgNameError.classList.add('hidden');
+
+            const items = [];
+            checklistMaster.forEach(category => {
+                category.items.forEach(itemMaster => {
+                    const checkbox = checklistItemsContainer.querySelector(`input[type="checkbox"][data-item-id="${itemMaster.id}"]`);
+                    const notesTextarea = checklistItemsContainer.querySelector(`textarea[data-item-id="${itemMaster.id}"]`);
+                    items.push({
+                        id: itemMaster.id,
+                        text: itemMaster.text,
+                        isChecked: checkbox ? checkbox.checked : false,
+                        notes: notesTextarea ? notesTextarea.value.trim() : '' 
+                    });
+                });
+            });
+
+            const checklistDoc = {
+                orgName: orgName,
+                items: items,
+                lastUpdated: serverTimestamp(),
+                userId: userId
+            };
+
+            saveChecklistBtn.disabled = true;
+            saveChecklistBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            showStatus("Saving...", 'info', null);
+
+            try {
+                const collectionPath = `artifacts/${appId}/users/${userId}/rescueChecklists`;
+                if (currentChecklistId) {
+                    const docRef = doc(db, collectionPath, currentChecklistId);
+                    await setDoc(docRef, checklistDoc, { merge: true });
+                    showStatus("Checklist updated successfully!", 'success');
+                } else {
+                    const docRef = await addDoc(collection(db, collectionPath), checklistDoc);
+                    currentChecklistId = docRef.id;
+                    showStatus("Checklist saved successfully!", 'success');
+                }
+                checklistTitle.textContent = `Edit: ${orgName}`;
+                deleteChecklistBtn.classList.remove('hidden');
+            } catch (error) {
+                console.error("Error saving checklist: ", error);
+                showStatus(`Error saving: ${error.message}`, 'error');
+            } finally {
+                saveChecklistBtn.disabled = false;
+                saveChecklistBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        async function handleDeleteChecklist() {
+            if (!currentChecklistId || !isAuthReady || !userId) {
+                showStatus("No checklist selected or not authenticated.", 'error');
+                return;
+            }
+            
+            openConfirmationModal(
+                `Delete "${orgNameInput.value.trim() || 'this checklist'}"?`,
+                "This action is permanent and cannot be undone.",
+                async () => {
+                    closeConfirmationModal();
+                    showStatus("Deleting...", 'info', null);
+                    try {
+                        const collectionPath = `artifacts/${appId}/users/${userId}/rescueChecklists`;
+                        await deleteDoc(doc(db, collectionPath, currentChecklistId));
+                        showStatus("Checklist deleted.", 'success');
+                        currentChecklistId = null;
+                        showView('list');
+                    } catch (error) {
+                        console.error("Error deleting checklist: ", error);
+                        showStatus(`Error deleting: ${error.message}`, 'error');
+                    }
+                }
+            );
+        }
+
+        function handlePrintChecklist() {
+            // Update the org name in the print header right before printing
+            if (orgNameInputPrintHeader) {
+                orgNameInputPrintHeader.textContent = orgNameInput.value.trim() || "Untitled Checklist";
+            }
+            window.print();
+        }
+
+        function handleCopyChecklist() {
+            const orgName = orgNameInput.value.trim();
+            if (!orgName) {
+                showStatus("Please enter an organization name before copying.", 'error');
+                orgNameInput.focus();
+                return;
+            }
+
+            let textToCopy = `Compliance Checklist for: ${orgName}\n`;
+            textToCopy += "==================================================\n\n";
+
+            checklistMaster.forEach(category => {
+                textToCopy += `Category: ${category.category}\n`;
+                textToCopy += "--------------------------------------------------\n";
+                category.items.forEach(itemMaster => {
+                    const checkbox = checklistItemsContainer.querySelector(`input[type="checkbox"][data-item-id="${itemMaster.id}"]`);
+                    const notesTextarea = checklistItemsContainer.querySelector(`textarea[data-item-id="${itemMaster.id}"]`);
+                    
+                    const status = checkbox && checkbox.checked ? "[X]" : "[ ]";
+                    textToCopy += `${status} ${itemMaster.text}\n`;
+                    if (notesTextarea && notesTextarea.value.trim()) {
+                        textToCopy += `    Notes: ${notesTextarea.value.trim()}\n`;
+                    }
+                    if (itemMaster.link) {
+                        textToCopy += `    Resource: ${itemMaster.link}\n`;
+                    } else if (itemMaster.linkText) {
+                        textToCopy += `    Resource Info: ${itemMaster.linkText}\n`;
+                    }
+                    textToCopy += "\n"; 
+                });
+                textToCopy += "\n";
+            });
+
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = textToCopy;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showStatus("Checklist copied to clipboard!", 'success');
+                } else {
+                    showStatus("Failed to copy checklist. Please try again or copy manually.", 'error');
+                }
+            } catch (err) {
+                showStatus("Error copying checklist: " + err.message, 'error');
+                console.error('Fallback: Oops, unable to copy', err);
+            }
+            document.body.removeChild(tempTextArea);
+        }
+
+        // --- List View Logic ---
+        function renderListView(checklists) {
+            savedChecklistsContainer.innerHTML = '';
+            loadingChecklistsMsg.classList.add('hidden');
+
+            if (checklists.length === 0) {
+                noChecklistsMsg.classList.remove('hidden');
+                return;
+            }
+            noChecklistsMsg.classList.add('hidden');
+
+            checklists.forEach(checklist => {
+                const card = document.createElement('div');
+                card.className = 'bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 flex justify-between items-center';
+                
+                const contentDiv = document.createElement('div');
+                const nameEl = document.createElement('h3');
+                nameEl.className = 'text-xl font-semibold text-sky-700';
+                nameEl.textContent = checklist.orgName;
+                contentDiv.appendChild(nameEl);
+
+                const date = checklist.lastUpdated?.toDate ? checklist.lastUpdated.toDate().toLocaleDateString() : 'N/A';
+                const itemsChecked = checklist.items ? checklist.items.filter(item => item.isChecked).length : 0;
+                const totalItems = checklist.items ? checklist.items.length : 0;
+                const progressText = document.createElement('p');
+                progressText.className = 'text-sm text-gray-500';
+                progressText.textContent = `Last updated: ${date} • ${itemsChecked}/${totalItems} items checked`;
+                contentDiv.appendChild(progressText);
+                
+                card.appendChild(contentDiv);
+
+                const actionsDiv = document.createElement('div');
+                const editButton = document.createElement('button');
+                editButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-1 inline-block">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                    </svg> Edit`;
+                editButton.className = 'bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-md text-sm transition';
+                editButton.onclick = () => {
+                    const fullChecklistData = { ...checklist, id: checklist.id };
+                    renderChecklistForm(fullChecklistData);
+                };
+                actionsDiv.appendChild(editButton);
+                card.appendChild(actionsDiv);
+
+                savedChecklistsContainer.appendChild(card);
+            });
+        }
+
+        function loadSavedChecklists() {
+            if (!isAuthReady || !userId) {
+                console.log("Auth not ready or no userId, skipping checklist load.");
+                loadingChecklistsMsg.classList.remove('hidden'); 
+                noChecklistsMsg.classList.add('hidden');
+                savedChecklistsContainer.innerHTML = '';
+                if (auth && !auth.currentUser && userIdDisplay) userIdDisplay.textContent = "Authenticating...";
+                return;
+            }
+            if(loadingChecklistsMsg) loadingChecklistsMsg.classList.remove('hidden'); 
+
+            const collectionPath = `artifacts/${appId}/users/${userId}/rescueChecklists`;
+            const q = query(collection(db, collectionPath), orderBy("lastUpdated", "desc"));
+
+            if (checklistsUnsubscribe) {
+                checklistsUnsubscribe(); 
+            }
+
+            checklistsUnsubscribe = onSnapshot(q, (querySnapshot) => {
+                const checklists = [];
+                querySnapshot.forEach((doc) => {
+                    checklists.push({ id: doc.id, ...doc.data() });
+                });
+                renderListView(checklists);
+            }, (error) => {
+                console.error("Error loading checklists: ", error);
+                showStatus("Error loading checklists.", 'error');
+                if (loadingChecklistsMsg) loadingChecklistsMsg.textContent = "Error loading checklists.";
+                if (noChecklistsMsg) noChecklistsMsg.classList.add('hidden');
+            });
+        }
+
+        // --- Initialization ---
+        async function initApp() {
+            console.log("Initializing app (with print/copy)...");
+            app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
+
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    userId = user.uid;
+                    isAuthReady = true;
+                    console.log("User is signed in with UID:", userId);
+                    if(userIdDisplay) userIdDisplay.textContent = userId;
+                    loadSavedChecklists(); 
+                } else {
+                    console.log("No user signed in. Attempting sign-in...");
+                    if(userIdDisplay) userIdDisplay.textContent = "Authenticating...";
+                    try {
+                        await setPersistence(auth, inMemoryPersistence); 
+                        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                            console.log("Attempting sign in with custom token.");
+                            await signInWithCustomToken(auth, __initial_auth_token);
+                        } else {
+                            console.log("Attempting anonymous sign in.");
+                            await signInAnonymously(auth);
+                        }
+                    } catch (error) {
+                        console.error("Error during sign-in:", error);
+                        if(userIdDisplay) userIdDisplay.textContent = "Auth Error";
+                        isAuthReady = false; 
+                        showStatus("Authentication failed. Some features might not work.", 'error');
+                        if (loadingChecklistsMsg) loadingChecklistsMsg.textContent = "Authentication failed. Cannot load checklists.";
+                        if (noChecklistsMsg) {
+                            noChecklistsMsg.classList.remove('hidden');
+                            const noChecklistsP1 = noChecklistsMsg.querySelector('p.text-xl');
+                            if(noChecklistsP1) noChecklistsP1.textContent = "Authentication Failed";
+                            const noChecklistsP2 = noChecklistsMsg.querySelector('p.text-gray-500');
+                            if(noChecklistsP2) noChecklistsP2.textContent = "Unable to load or save checklists.";
+                        }
+                    }
+                }
+            });
+
+            // Event Listeners
+            if (newChecklistBtn) newChecklistBtn.addEventListener('click', () => {
+                currentChecklistId = null;
+                renderChecklistForm();
+            });
+            if (backToListBtn) backToListBtn.addEventListener('click', () => {
+                showView('list');
+            });
+            if (saveChecklistBtn) saveChecklistBtn.addEventListener('click', handleSaveChecklist);
+            if (deleteChecklistBtn) deleteChecklistBtn.addEventListener('click', handleDeleteChecklist);
+            if (printChecklistBtn) printChecklistBtn.addEventListener('click', handlePrintChecklist);
+            if (copyChecklistBtn) copyChecklistBtn.addEventListener('click', handleCopyChecklist);
+            
+            if (modalConfirmBtn) modalConfirmBtn.addEventListener('click', () => {
+                if (typeof confirmAction === 'function') {
+                    confirmAction();
+                }
+            });
+            if (modalCancelBtn) modalCancelBtn.addEventListener('click', closeConfirmationModal);
+            
+            window.onclick = function(event) {
+                if (event.target == confirmationModal) {
+                    closeConfirmationModal();
+                }
+            }
+             // Update print header when org name input changes
+            if (orgNameInput && orgNameInputPrintHeader) {
+                orgNameInput.addEventListener('input', () => {
+                    orgNameInputPrintHeader.textContent = orgNameInput.value.trim() || "Untitled Checklist";
+                });
+            }
+
+            showView('list'); // Initial view
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initApp);
+        } else {
+            initApp();
+        }
+    </script>
+</body>
+</html>
+
