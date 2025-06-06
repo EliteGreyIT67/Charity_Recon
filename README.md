@@ -28,7 +28,9 @@ This guide empowers animal rescue organizations, donors, and the public to:
 
 ## Interactive Tools
 
-* [Animal Rescue Compliance Checklist App](tools/animal_checklist_app/index.html) - An interactive tool to help you assess rescue organizations.
+* [Animal Rescue Compliance Checklist App](https://elitegreyit67.github.io/Charity_Recon/tools/animal_checklist_app/index.html) - An interactive tool to help you assess rescue organizations.
+
+
 
 ![Screenshot](tools/animal_checklist_app/Screenshot.png)
 
