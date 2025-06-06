@@ -26,6 +26,12 @@ This guide empowers animal rescue organizations, donors, and the public to:
 
 ---
 
+## Interactive Tools
+
+* [Animal Rescue Compliance Checklist App](tools/animal_checklist_app/index.html) - An interactive tool to help you assess rescue organizations.
+
+---
+
 ## Why This Guide Matters: Ensuring Trust and Impact in Animal Rescue
 
 Welcome to the Charity Recon Guide for Animal Rescue Organizations. If you're involved in animal welfare, whether as a founder, a dedicated volunteer, a donor, or simply a concerned citizen, you understand the passion and commitment that drives this vital work. Every day, countless animals rely on the **integrity and effectiveness** of rescue groups to find safety, healing, and forever homes.
