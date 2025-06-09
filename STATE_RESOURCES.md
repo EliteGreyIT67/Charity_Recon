@@ -1,3 +1,4 @@
+<a id="contents"></a>
 # State-Specific Resources for Animal Rescue Organizations
 
 *Suggestion: Government agency information, websites, and contact details can change. To ensure the accuracy of this valuable resource, consider periodically verifying the links and information provided below. You might also find it helpful to add a "Last Updated: 06-01-2025" note at the top of this document.*
