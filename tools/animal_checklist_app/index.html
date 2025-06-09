@@ -101,7 +101,7 @@
                 color: #000;
                 background-color: #fff;
             }
-            #app-container {
+            #app-container, #user-info {
                 max-width: 100%; margin: 0; padding: 10px; box-shadow: none; border: none;
             }
             header, .action-buttons-container, .list-view-actions, #status-message, .modal {
@@ -147,15 +147,21 @@
 
     <div id="app-container" class="max-w-5xl mx-auto p-4 md:p-8">
         
+        <!-- User Info Display -->
+        <div id="user-info" class="mb-4 p-3 bg-sky-100 border border-sky-200 text-sky-800 rounded-lg text-sm text-center hidden">
+            <p><strong>Status:</strong> <span id="auth-status">Initializing...</span></p>
+            <p class="mt-1"><strong>User ID:</strong> <span id="user-id"></span></p>
+        </div>
+
         <!-- List View -->
         <div id="list-view">
             <header class="mb-8 text-center">
                 <h1 class="text-4xl md:text-5xl font-bold text-slate-800">Rescue Compliance</h1>
-                <p class="text-slate-500 mt-2 text-lg">Your offline checklists for ensuring animal welfare standards.</p>
+                <p class="text-slate-500 mt-2 text-lg">Your cloud-synced checklists for ensuring animal welfare standards.</p>
             </header>
 
             <div class="list-view-actions mb-8">
-                <button id="new-checklist-btn" class="w-full sm:w-auto bg-sky-500 hover:bg-sky-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 ease-in-out flex items-center justify-center space-x-2 transform hover:-translate-y-0.5">
+                <button id="new-checklist-btn" class="w-full sm:w-auto bg-sky-500 hover:bg-sky-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 ease-in-out flex items-center justify-center space-x-2 transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
                     </svg>
@@ -164,13 +170,13 @@
             </div>
 
             <div id="no-checklists-message" class="text-center py-16 bg-white rounded-lg shadow-sm hidden">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 mx-auto text-slate-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                 <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 mx-auto text-slate-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
                 <p class="text-2xl font-semibold text-slate-700">No checklists found.</p>
                 <p class="text-slate-500">Click "Start New Checklist" to begin your first one.</p>
             </div>
-            <div id="saved-checklists-container" class="space-y-4">
+             <div id="saved-checklists-container" class="space-y-4">
                 <!-- Saved checklists will be dynamically inserted here -->
             </div>
         </div>
@@ -249,11 +255,22 @@
         </div>
     </div>
 
-    <script>
-        // --- App Configuration ---
-        const LOCAL_STORAGE_KEY = 'rescueChecklistsApp_checklists_v2'; 
-        let currentChecklistId = null; 
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, addDoc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
+        // --- App State & Firebase References ---
+        let db, auth;
+        let currentChecklistId = null;
+        let checklistUnsubscribe = null; // To detach the real-time listener
+        let userId = null; // The current user's ID
+        let isAuthReady = false; // Flag to track if authentication is complete
+        
+        // --- App Configuration ---
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         const checklistMaster = [
             { 
                 category: "Federal & State Compliance", 
@@ -310,16 +327,14 @@
             modalMessage: document.getElementById('modal-message'),
             modalConfirmBtn: document.getElementById('modal-confirm-btn'),
             modalCancelBtn: document.getElementById('modal-cancel-btn'),
+            userInfo: document.getElementById('user-info'),
+            authStatus: document.getElementById('auth-status'),
+            userIdDisplay: document.getElementById('user-id'),
         };
         let confirmAction = null;
 
         // --- Helper Functions ---
         const helpers = {
-            generateUUID: () => 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
-                const r = Math.random() * 16 | 0;
-                const v = c === 'x' ? r : (r & 0x3 | 0x8);
-                return v.toString(16);
-            }),
             showView: (viewToShow) => {
                 ui.listView.classList.toggle('hidden', viewToShow !== 'list');
                 ui.checklistView.classList.toggle('hidden', viewToShow !== 'checklist');
@@ -349,42 +364,34 @@
             }
         };
 
-        // --- Data Logic (localStorage) ---
-        const data = {
-            getAll: () => {
-                try {
-                    const checklistsJSON = localStorage.getItem(LOCAL_STORAGE_KEY);
-                    return checklistsJSON ? JSON.parse(checklistsJSON) : [];
-                } catch (e) {
-                    console.error("Error reading from localStorage:", e);
-                    return [];
-                }
-            },
-            saveAll: (checklists) => {
-                try {
-                    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(checklists));
-                } catch (e) {
-                    console.error("Error saving to localStorage:", e);
-                    helpers.showStatus("Could not save checklists. Storage may be full.", 'error');
-                }
-            }
-        };
-        
         // --- Rendering Logic ---
-        function renderChecklistForm(checklistData = null) {
-            ui.checklistItemsContainer.innerHTML = ''; 
-            ui.orgNameInput.value = checklistData ? checklistData.orgName : '';
-            if (ui.orgNameInputPrintHeader) {
-                ui.orgNameInputPrintHeader.textContent = checklistData ? checklistData.orgName : "New Checklist";
+        async function renderChecklistForm(checklistId = null) {
+            currentChecklistId = checklistId;
+            let checklistData = null;
+
+            if (checklistId) {
+                // Fetch a single checklist document from Firestore
+                const docRef = doc(db, `artifacts/${appId}/users/${userId}/checklists`, checklistId);
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    checklistData = { id: docSnap.id, ...docSnap.data() };
+                } else {
+                    console.error("Checklist not found!");
+                    helpers.showStatus("Could not find the selected checklist.", 'error');
+                    return;
+                }
             }
-            currentChecklistId = checklistData ? checklistData.id : null;
-            ui.checklistTitle.textContent = checklistData ? checklistData.orgName : 'New Checklist';
-            ui.deleteChecklistBtn.classList.toggle('hidden', !checklistData);
+            
+            ui.checklistItemsContainer.innerHTML = ''; 
+            ui.orgNameInput.value = checklistData?.orgName || '';
+            ui.orgNameInputPrintHeader.textContent = checklistData?.orgName || "New Checklist";
+            ui.checklistTitle.textContent = checklistData?.orgName || 'New Checklist';
+            ui.deleteChecklistBtn.classList.toggle('hidden', !checklistId);
             ui.orgNameError.classList.add('hidden'); 
 
             checklistMaster.forEach(category => {
                 const categoryDiv = document.createElement('div');
-                categoryDiv.className = 'category-block';
+                categoryDiv.className = 'category-block bg-slate-50/50 p-4 rounded-lg border border-slate-200/80';
                 
                 const categoryTitleElement = document.createElement('h3');
                 categoryTitleElement.className = 'category-title text-xl font-semibold text-slate-700 mb-4 pb-2 border-b border-slate-200';
@@ -463,20 +470,21 @@
             ui.savedChecklistsContainer.innerHTML = '';
 
             const hasChecklists = checklists.length > 0;
-            ui.noChecklistsMsg.classList.toggle('hidden', !hasChecklists);
+            ui.noChecklistsMsg.classList.toggle('hidden', hasChecklists);
             if (!hasChecklists) return;
-
+            
+            // Sort checklists by last updated date (newest first)
             checklists.sort((a, b) => new Date(b.lastUpdated) - new Date(a.lastUpdated));
 
             checklists.forEach(checklist => {
                 const card = document.createElement('div');
                 card.className = 'bg-white p-5 rounded-xl shadow-sm hover:shadow-lg border border-transparent hover:border-sky-500 transition-all duration-200 cursor-pointer';
-                card.onclick = () => renderChecklistForm(checklist); 
+                card.onclick = () => renderChecklistForm(checklist.id); 
 
                 const itemsChecked = checklist.items?.filter(item => item.isChecked).length ?? 0;
                 const totalItems = checklistMaster.flatMap(c => c.items).length;
                 const progress = totalItems > 0 ? Math.round((itemsChecked / totalItems) * 100) : 0;
-                const date = checklist.lastUpdated ? new Date(checklist.lastUpdated).toLocaleDateString() : 'N/A';
+                const date = checklist.lastUpdated ? new Date(checklist.lastUpdated).toLocaleString() : 'N/A';
 
                 card.innerHTML = `
                     <div class="flex justify-between items-start">
@@ -497,13 +505,13 @@
             });
         }
         
-        function loadSavedChecklists() {
-            const checklists = data.getAll();
-            renderListView(checklists);
-        }
+        // --- Event Handlers & Firestore Logic ---
+        async function handleSaveChecklist() {
+            if (!isAuthReady) {
+                helpers.showStatus("Authentication not ready. Please wait.", 'error');
+                return;
+            }
 
-        // --- Event Handlers ---
-        function handleSaveChecklist() {
             const orgName = ui.orgNameInput.value.trim();
             if (ui.orgNameInputPrintHeader) {
                 ui.orgNameInputPrintHeader.textContent = orgName || "Untitled Checklist";
@@ -528,9 +536,7 @@
                 })
             );
 
-            const allChecklists = data.getAll();
             const checklistDoc = {
-                id: currentChecklistId || helpers.generateUUID(),
                 orgName: orgName,
                 items: items,
                 lastUpdated: new Date().toISOString() 
@@ -540,68 +546,73 @@
             ui.saveChecklistBtn.classList.add('opacity-50', 'cursor-not-allowed');
             helpers.showStatus("Saving...", 'info', null);
 
-            const index = allChecklists.findIndex(cl => cl.id === currentChecklistId);
-            if (index !== -1) {
-                allChecklists[index] = checklistDoc;
-            } else {
-                allChecklists.push(checklistDoc);
-                currentChecklistId = checklistDoc.id;
-            }
-            
-            data.saveAll(allChecklists);
-            loadSavedChecklists();
+            try {
+                if (currentChecklistId) {
+                    // Update an existing document
+                    const docRef = doc(db, `artifacts/${appId}/users/${userId}/checklists`, currentChecklistId);
+                    await setDoc(docRef, checklistDoc, { merge: true });
+                } else {
+                    // Create a new document
+                    const collectionRef = collection(db, `artifacts/${appId}/users/${userId}/checklists`);
+                    const newDocRef = await addDoc(collectionRef, checklistDoc);
+                    currentChecklistId = newDocRef.id; // Get the new ID
+                }
+                
+                helpers.showStatus("Checklist saved successfully!", 'success');
+                ui.checklistTitle.textContent = orgName;
+                ui.deleteChecklistBtn.classList.remove('hidden');
 
-            helpers.showStatus("Checklist saved successfully!", 'success');
-            ui.checklistTitle.textContent = orgName;
-            ui.deleteChecklistBtn.classList.remove('hidden');
-            ui.saveChecklistBtn.disabled = false;
-            ui.saveChecklistBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            } catch (error) {
+                console.error("Error saving checklist: ", error);
+                helpers.showStatus("Error saving checklist. See console for details.", 'error');
+            } finally {
+                ui.saveChecklistBtn.disabled = false;
+                ui.saveChecklistBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
         }
 
         function handleDeleteChecklist() {
-            if (!currentChecklistId) return;
+            if (!currentChecklistId || !isAuthReady) return;
             
             helpers.openConfirmationModal(
                 `Delete "${ui.orgNameInput.value.trim() || 'this checklist'}"?`,
                 "This action is permanent and cannot be recovered.",
-                () => {
+                async () => {
                     helpers.closeConfirmationModal();
                     helpers.showStatus("Deleting...", 'info', null);
-                    let allChecklists = data.getAll().filter(cl => cl.id !== currentChecklistId);
-                    data.saveAll(allChecklists);
-                    
-                    currentChecklistId = null;
-                    loadSavedChecklists();
-                    helpers.showView('list');
-                    helpers.showStatus("Checklist deleted.", 'info', 2000);
+                    try {
+                        const docRef = doc(db, `artifacts/${appId}/users/${userId}/checklists`, currentChecklistId);
+                        await deleteDoc(docRef);
+                        
+                        currentChecklistId = null;
+                        helpers.showView('list'); // Switch back to list view
+                        helpers.showStatus("Checklist deleted.", 'info', 2000);
+                        // The real-time listener will automatically update the list view
+                    } catch (error) {
+                        console.error("Error deleting checklist: ", error);
+                        helpers.showStatus("Failed to delete checklist.", 'error');
+                    }
                 }
             );
         }
 
         function handlePrintChecklist() {
-            // This prepares the title for the print view.
             if (ui.orgNameInputPrintHeader) {
                 ui.orgNameInputPrintHeader.textContent = ui.orgNameInput.value.trim() || "Untitled Checklist";
             }
-            // Triggers the browser's print dialog.
             window.print();
         }
         
-        // **FIXED** Fallback function for copying text to the clipboard
         function fallbackCopyTextToClipboard(text) {
             const textArea = document.createElement("textarea");
             textArea.value = text;
-            
-            // Make the textarea invisible and out of the way
             textArea.style.top = "0";
             textArea.style.left = "0";
             textArea.style.position = "fixed";
             textArea.style.opacity = "0";
-
             document.body.appendChild(textArea);
             textArea.focus();
             textArea.select();
-
             try {
                 const successful = document.execCommand('copy');
                 const msg = successful ? 'Checklist copied to clipboard!' : 'Failed to copy checklist.';
@@ -610,11 +621,9 @@
                 console.error('Fallback copy failed', err);
                 helpers.showStatus('Failed to copy. Please copy manually.', 'error');
             }
-
             document.body.removeChild(textArea);
         }
 
-        // **FIXED** More robust copy handler
         function handleCopyChecklist() {
             const orgName = ui.orgNameInput.value.trim();
             if (!orgName) {
@@ -622,15 +631,12 @@
                 ui.orgNameInput.focus();
                 return;
             }
-
             let textToCopy = `Compliance Checklist for: ${orgName}\n========================================\n\n`;
-
             checklistMaster.forEach(category => {
                 textToCopy += `CATEGORY: ${category.category.toUpperCase()}\n----------------------------------------\n`;
                 category.items.forEach(itemMaster => {
                     const checkbox = ui.checklistItemsContainer.querySelector(`input[data-item-id="${itemMaster.id}"]`);
                     const notesTextarea = ui.checklistItemsContainer.querySelector(`textarea[data-item-id="${itemMaster.id}"]`);
-                    
                     const status = checkbox?.checked ? "[X]" : "[ ]";
                     textToCopy += `${status} ${itemMaster.text}\n`;
                     if (notesTextarea?.value.trim()) {
@@ -643,32 +649,100 @@
                 });
                 textToCopy += "\n";
             });
-            
-            // Use modern Clipboard API if available and in a secure context
             if (navigator.clipboard && window.isSecureContext) {
                 navigator.clipboard.writeText(textToCopy).then(() => {
                     helpers.showStatus("Checklist copied to clipboard!", 'success');
                 }).catch(err => {
-                    console.warn('Clipboard API failed, trying fallback.', err);
-                    fallbackCopyTextToClipboard(textToCopy); // Use fallback if modern API fails
+                    fallbackCopyTextToClipboard(textToCopy);
                 });
             } else {
-                // Use fallback for HTTP or older browsers
                 fallbackCopyTextToClipboard(textToCopy);
             }
         }
 
+        function listenForChecklists() {
+            // Detach any previous listener
+            if (checklistUnsubscribe) {
+                checklistUnsubscribe();
+            }
+            const checklistsCollection = collection(db, `artifacts/${appId}/users/${userId}/checklists`);
+            const q = query(checklistsCollection);
+
+            checklistUnsubscribe = onSnapshot(q, (querySnapshot) => {
+                const checklists = [];
+                querySnapshot.forEach((doc) => {
+                    checklists.push({ id: doc.id, ...doc.data() });
+                });
+                renderListView(checklists);
+            }, (error) => {
+                console.error("Error listening for checklist updates: ", error);
+                helpers.showStatus("Could not fetch real-time updates.", 'error');
+            });
+        }
+
         // --- App Initialization ---
-        function initApp() {
-            console.log("Initializing Redesigned Checklist App (Fixed)...");
+        async function initApp() {
+            console.log("Initializing Firebase Checklist App...");
+
+            // Initialize Firebase
+            try {
+                const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+            } catch (error) {
+                console.error("Firebase initialization failed:", error);
+                ui.authStatus.textContent = "Error: Firebase config is missing or invalid.";
+                ui.authStatus.parentElement.classList.remove('hidden');
+                return;
+            }
+
+            // Set up Authentication
+            onAuthStateChanged(auth, async (user) => {
+                isAuthReady = true;
+                if (user) {
+                    // User is signed in.
+                    userId = user.uid;
+                    ui.authStatus.textContent = "Authenticated";
+                    ui.userIdDisplay.textContent = userId;
+                    ui.userInfo.classList.remove('hidden');
+                    ui.newChecklistBtn.disabled = false;
+                    
+                    // Start listening for data now that we are authenticated
+                    listenForChecklists();
+                    helpers.showView('list');
+
+                } else {
+                    // User is signed out.
+                    ui.authStatus.textContent = "Not Authenticated";
+                    userId = null;
+                    ui.userInfo.classList.remove('hidden');
+                    ui.newChecklistBtn.disabled = true;
+                    // Detach listener if user logs out
+                     if (checklistUnsubscribe) checklistUnsubscribe();
+                }
+            });
             
+            // Sign in the user
+            try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+            } catch (error) {
+                 console.error("Authentication failed: ", error);
+                 ui.authStatus.textContent = `Authentication Failed: ${error.message}`;
+                 ui.userInfo.classList.remove('hidden');
+            }
+
+            // Standard event listeners
             ui.newChecklistBtn?.addEventListener('click', () => {
-                currentChecklistId = null;
-                renderChecklistForm();
+                if(isAuthReady) renderChecklistForm();
             });
             ui.backToListBtn?.addEventListener('click', () => {
                 helpers.showView('list');
-                loadSavedChecklists();
+                // No need to reload, onSnapshot handles it
             });
             ui.saveChecklistBtn?.addEventListener('click', handleSaveChecklist);
             ui.deleteChecklistBtn?.addEventListener('click', handleDeleteChecklist);
@@ -687,11 +761,9 @@
             ui.orgNameInput?.addEventListener('input', () => {
                 ui.checklistTitle.textContent = ui.orgNameInput.value.trim() || "New Checklist";
             });
-
-            loadSavedChecklists();
-            helpers.showView('list'); 
         }
 
+        // Wait for the DOM to be ready before initializing
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', initApp);
         } else {
