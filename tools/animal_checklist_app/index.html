@@ -104,7 +104,7 @@
             #app-container, #user-info {
                 max-width: 100%; margin: 0; padding: 10px; box-shadow: none; border: none;
             }
-            header, .action-buttons-container, .list-view-actions, #status-message, .modal {
+            header, .action-buttons-container, .list-view-actions, #status-message, .modal, #search-container {
                 display: none !important;
             }
             #checklist-view {
@@ -133,7 +133,7 @@
                 border-bottom: 1px dotted #ccc !important; padding: 8px 0 !important; page-break-inside: avoid;
             }
             input[type="checkbox"] { display: inline-block !important; vertical-align: top; margin-top: 4px; }
-            .custom-checkbox { display: none !important; } /* Hide custom, show native for print */
+            .custom-checkbox { display: none !important; }
 
             .item-text { color: #000 !important; font-size: 11pt !important; }
             textarea { display: block !important; border: 1px solid #ddd !important; background-color: #f9f9f9 !important; font-size: 10pt !important; color: #333 !important; resize: none !important; min-height: 30px; -webkit-print-color-adjust: exact; }
@@ -150,7 +150,7 @@
         <!-- User Info Display -->
         <div id="user-info" class="mb-4 p-3 bg-sky-100 border border-sky-200 text-sky-800 rounded-lg text-sm text-center hidden">
             <p><strong>Status:</strong> <span id="auth-status">Initializing...</span></p>
-            <p class="mt-1"><strong>User ID:</strong> <span id="user-id"></span></p>
+            <p class="mt-1"><strong>User ID:</strong> <span id="user-id" class="font-mono break-all"></span></p>
         </div>
 
         <!-- List View -->
@@ -160,21 +160,29 @@
                 <p class="text-slate-500 mt-2 text-lg">Your cloud-synced checklists for ensuring animal welfare standards.</p>
             </header>
 
-            <div class="list-view-actions mb-8">
+            <div class="list-view-actions mb-6 flex flex-col sm:flex-row gap-3">
                 <button id="new-checklist-btn" class="w-full sm:w-auto bg-sky-500 hover:bg-sky-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 ease-in-out flex items-center justify-center space-x-2 transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
-                    </svg>
-                    <span>Start New Checklist</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
+                    <span>Start New</span>
                 </button>
+                <button id="import-checklist-btn" class="w-full sm:w-auto bg-slate-600 hover:bg-slate-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 ease-in-out flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                    <span>Import Shared</span>
+                </button>
+            </div>
+            
+            <!-- Search Container -->
+            <div id="search-container" class="mb-8 relative">
+                <input type="text" id="search-input" placeholder="Search by organization name..." class="w-full p-4 pl-12 border border-slate-300 rounded-lg shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-shadow">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                </div>
             </div>
 
             <div id="no-checklists-message" class="text-center py-16 bg-white rounded-lg shadow-sm hidden">
-                 <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 mx-auto text-slate-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
+                 <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 mx-auto text-slate-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                 <p class="text-2xl font-semibold text-slate-700">No checklists found.</p>
-                <p class="text-slate-500">Click "Start New Checklist" to begin your first one.</p>
+                <p class="text-slate-500">Click "Start New" to begin, or "Import Shared" to add one from a colleague.</p>
             </div>
              <div id="saved-checklists-container" class="space-y-4">
                 <!-- Saved checklists will be dynamically inserted here -->
@@ -187,9 +195,7 @@
                 <div id="checklist-title-container" class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                     <div>
                         <button id="back-to-list-btn" class="text-sky-600 hover:text-sky-800 font-semibold flex items-center space-x-1.5 group mb-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg>
                             <span>Back to List</span>
                         </button>
                         <h2 id="checklist-title" class="text-3xl md:text-4xl font-bold text-slate-800">New Checklist</h2>
@@ -203,36 +209,30 @@
                 </div>
             </header>
             
-            <div id="checklist-items-container" class="space-y-8 max-h-[60vh] overflow-y-auto pr-3 -mr-3">
-                <!-- Checklist items will be dynamically inserted here -->
-            </div>
+            <div id="checklist-items-container" class="space-y-8 max-h-[60vh] overflow-y-auto pr-3 -mr-3"></div>
 
             <div class="action-buttons-container mt-8 pt-6 border-t border-slate-200 flex flex-col-reverse sm:flex-row sm:justify-between sm:items-center gap-4">
                 <button id="delete-checklist-btn" class="hidden w-full sm:w-auto text-red-600 hover:text-white hover:bg-red-600 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 border border-red-500 hover:border-red-600">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                    </svg>
-                    <span>Delete Checklist</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                    <span>Delete</span>
                 </button>
 
-                <div class="flex flex-col sm:flex-row sm:justify-end gap-3">
+                <div class="flex flex-col sm:flex-row sm:justify-end gap-3 flex-wrap">
+                     <button id="share-checklist-btn" class="w-full sm:w-auto bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 px-5 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12s-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" /></svg>
+                        <span>Share</span>
+                    </button>
                      <button id="copy-checklist-btn" class="w-full sm:w-auto bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold py-3 px-5 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                        </svg>
-                        <span>Copy Text</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                        <span>Copy</span>
                     </button>
                      <button id="print-checklist-btn" class="w-full sm:w-auto bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold py-3 px-5 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                           <path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H7a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm-8-14h14M5 7h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V9a2 2 0 012-2z" />
-                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H7a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm-8-14h14M5 7h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V9a2 2 0 012-2z" /></svg>
                         <span>Print</span>
                     </button>
                      <button id="save-checklist-btn" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 ease-in-out flex items-center justify-center space-x-2 transform hover:-translate-y-0.5">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                           <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                        </svg>
-                        <span>Save Checklist</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                        <span>Save</span>
                     </button>
                 </div>
             </div>
@@ -240,17 +240,41 @@
         </div>
     </div>
 
-    <!-- Confirmation Modal -->
+    <!-- Modals -->
     <div id="confirmation-modal" class="modal">
         <div class="modal-content text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 bg-red-100 text-red-600 p-2 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 bg-red-100 text-red-600 p-2 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
             <h3 id="modal-title" class="text-xl font-semibold text-slate-800 mb-2">Are you sure?</h3>
             <p id="modal-message" class="mb-8 text-slate-500">This action cannot be undone.</p>
             <div class="flex justify-center space-x-4">
                 <button id="modal-cancel-btn" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
                 <button id="modal-confirm-btn" class="flex-1 bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">Confirm</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="share-modal" class="modal">
+        <div class="modal-content text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 bg-indigo-100 text-indigo-600 p-2 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12s-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" /></svg>
+            <h3 class="text-xl font-semibold text-slate-800 mb-2">Share this Checklist</h3>
+            <p class="mb-4 text-slate-500">Give this ID to another user so they can import a copy of this checklist.</p>
+            <div class="p-3 bg-slate-100 rounded-lg font-mono text-slate-700 text-center break-words border border-slate-200 mb-6" id="share-id-display"></div>
+            <div class="flex justify-center space-x-4">
+                <button id="share-modal-close-btn" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-3 px-6 rounded-lg transition-colors">Close</button>
+                <button id="share-modal-copy-btn" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">Copy ID</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="import-modal" class="modal">
+        <div class="modal-content">
+             <h3 class="text-xl font-semibold text-slate-800 mb-4 text-center">Import Shared Checklist</h3>
+             <label for="import-id-input" class="block text-sm font-medium text-slate-600 mb-2">Enter Share ID:</label>
+             <input type="text" id="import-id-input" class="w-full p-3 border border-slate-300 rounded-lg shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500" placeholder="Paste the Share ID here">
+             <div id="import-status-message" class="mt-3 text-center text-sm font-medium"></div>
+            <div class="flex justify-center space-x-4 mt-6">
+                <button id="import-modal-cancel-btn" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
+                <button id="import-modal-confirm-btn" class="flex-1 bg-slate-600 hover:bg-slate-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">Import</button>
             </div>
         </div>
     </div>
@@ -260,48 +284,22 @@
         // Import Firebase modules
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, addDoc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, addDoc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, query, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // --- App State & Firebase References ---
         let db, auth;
-        let currentChecklistId = null;
+        let currentChecklistData = null; // Holds the full data object of the checklist being viewed
         let checklistUnsubscribe = null; // To detach the real-time listener
-        let userId = null; // The current user's ID
-        let isAuthReady = false; // Flag to track if authentication is complete
-        
+        let userId = null; 
+        let isAuthReady = false; 
+        let allChecklistsFromFirestore = []; // Master list from Firestore
+
         // --- App Configuration ---
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         const checklistMaster = [
-            { 
-                category: "Federal & State Compliance", 
-                items: [
-                    { id: "fed_irs_status", text: "IRS 501(c)(3) status verified?", link: "https://apps.irs.gov/app/eos/" },
-                    { id: "fed_form_990", text: "IRS Form 990 accessible & reviewed?", linkText: "IRS/ProPublica/Candid" },
-                    { id: "state_charity_reg", text: "Registered with State Charity Officials?", link: "https://www.nasconet.org/", linkText: "NASCO" },
-                    { id: "state_local_licenses", text: "Necessary state/local animal shelter/rescue licenses obtained (if applicable)?" }
-                ]
-            },
-            {
-                category: "Operational Transparency",
-                items: [
-                    { id: "op_legal_dba_name", text: "Legal name and DBA (Doing Business As) are clearly stated?" },
-                    { id: "op_contact_info", text: "Verifiable contact information (phone/email) is available and responsive?" },
-                    { id: "op_website_mission", text: "Website clearly states mission, programs, and animal welfare practices?" },
-                    { id: "op_board_list", text: "A list of the Board of Directors is publicly available?" },
-                    { id: "op_financial_reports", text: "Financial reports (e.g., annual report, Form 990) are available for review?" },
-                    { id: "op_adoption_process", text: "Adoption process is clearly documented and transparent?" },
-                    { id: "op_sourcing_policy", text: "Animal sourcing policy (where animals come from) is clear?" },
-                    { id: "op_medical_records", text: "Comprehensive medical records (vaccinations, spay/neuter, conditions) are provided with adoptions?" }
-                ]
-            },
-            {
-                category: "Reputation & Accountability",
-                items: [
-                    { id: "rep_bbb_rating", text: "Better Business Bureau (BBB) rating checked for unresolved complaints?", link: "https://www.bbb.org/scamtracker/lookupscam" },
-                    { id: "rep_watchdog_sites", text: "Charity watchdog sites (e.g., Charity Navigator, GuideStar) reviewed?", linkText: "Charity Navigator, GuideStar, etc." },
-                    { id: "rep_news_archives", text: "News archives and search engines checked for significant negative press or legal issues?" }
-                ]
-            }
+            { category: "Federal & State Compliance", items: [{ id: "fed_irs_status", text: "IRS 501(c)(3) status verified?", link: "https://apps.irs.gov/app/eos/" }, { id: "fed_form_990", text: "IRS Form 990 accessible & reviewed?", linkText: "IRS/ProPublica/Candid" }, { id: "state_charity_reg", text: "Registered with State Charity Officials?", link: "https://www.nasconet.org/", linkText: "NASCO" }, { id: "state_local_licenses", text: "Necessary state/local animal shelter/rescue licenses obtained (if applicable)?" }] },
+            { category: "Operational Transparency", items: [{ id: "op_legal_dba_name", text: "Legal name and DBA (Doing Business As) are clearly stated?" }, { id: "op_contact_info", text: "Verifiable contact information (phone/email) is available and responsive?" }, { id: "op_website_mission", text: "Website clearly states mission, programs, and animal welfare practices?" }, { id: "op_board_list", text: "A list of the Board of Directors is publicly available?" }, { id: "op_financial_reports", text: "Financial reports (e.g., annual report, Form 990) are available for review?" }, { id: "op_adoption_process", text: "Adoption process is clearly documented and transparent?" }, { id: "op_sourcing_policy", text: "Animal sourcing policy (where animals come from) is clear?" }, { id: "op_medical_records", text: "Comprehensive medical records (vaccinations, spay/neuter, conditions) are provided with adoptions?" }] },
+            { category: "Reputation & Accountability", items: [{ id: "rep_bbb_rating", text: "Better Business Bureau (BBB) rating checked for unresolved complaints?", link: "https://www.bbb.org/scamtracker/lookupscam" }, { id: "rep_watchdog_sites", text: "Charity watchdog sites (e.g., Charity Navigator, GuideStar) reviewed?", linkText: "Charity Navigator, GuideStar, etc." }, { id: "rep_news_archives", text: "News archives and search engines checked for significant negative press or legal issues?" }] }
         ];
 
         // --- UI Element Cache ---
@@ -309,9 +307,11 @@
             listView: document.getElementById('list-view'),
             checklistView: document.getElementById('checklist-view'),
             newChecklistBtn: document.getElementById('new-checklist-btn'),
+            importChecklistBtn: document.getElementById('import-checklist-btn'),
             backToListBtn: document.getElementById('back-to-list-btn'),
             saveChecklistBtn: document.getElementById('save-checklist-btn'),
             deleteChecklistBtn: document.getElementById('delete-checklist-btn'),
+            shareChecklistBtn: document.getElementById('share-checklist-btn'),
             printChecklistBtn: document.getElementById('print-checklist-btn'),
             copyChecklistBtn: document.getElementById('copy-checklist-btn'),
             orgNameInput: document.getElementById('org-name-input'),
@@ -327,6 +327,16 @@
             modalMessage: document.getElementById('modal-message'),
             modalConfirmBtn: document.getElementById('modal-confirm-btn'),
             modalCancelBtn: document.getElementById('modal-cancel-btn'),
+            shareModal: document.getElementById('share-modal'),
+            shareIdDisplay: document.getElementById('share-id-display'),
+            shareModalCopyBtn: document.getElementById('share-modal-copy-btn'),
+            shareModalCloseBtn: document.getElementById('share-modal-close-btn'),
+            importModal: document.getElementById('import-modal'),
+            importIdInput: document.getElementById('import-id-input'),
+            importStatusMessage: document.getElementById('import-status-message'),
+            importModalConfirmBtn: document.getElementById('import-modal-confirm-btn'),
+            importModalCancelBtn: document.getElementById('import-modal-cancel-btn'),
+            searchInput: document.getElementById('search-input'),
             userInfo: document.getElementById('user-info'),
             authStatus: document.getElementById('auth-status'),
             userIdDisplay: document.getElementById('user-id'),
@@ -340,92 +350,73 @@
                 ui.checklistView.classList.toggle('hidden', viewToShow !== 'checklist');
                 window.scrollTo(0, 0);
             },
-            showStatus: (message, type = 'success', duration = 3000) => {
-                const colors = {
-                    success: 'text-green-600',
-                    info: 'text-sky-600',
-                    error: 'text-red-600'
-                };
-                ui.statusMessage.textContent = message;
-                ui.statusMessage.className = `mt-4 text-center font-medium ${colors[type] || colors.info}`;
-                if (duration) {
-                    setTimeout(() => { ui.statusMessage.textContent = ''; }, duration);
-                }
+            showStatus: (element, message, type = 'success', duration = 3000) => {
+                const colors = { success: 'text-green-600', info: 'text-sky-600', error: 'text-red-600' };
+                element.textContent = message;
+                element.className = `${element.className.split(' ').filter(c => !c.startsWith('text-')).join(' ')} ${colors[type] || colors.info}`;
+                if (duration) setTimeout(() => { element.textContent = ''; }, duration);
             },
+            openModal: (modalElement) => { modalElement.style.display = 'block'; },
+            closeModal: (modalElement) => { modalElement.style.display = 'none'; },
             openConfirmationModal: (title, message, onConfirm) => {
                 ui.modalTitle.textContent = title;
                 ui.modalMessage.textContent = message;
                 confirmAction = onConfirm;
-                ui.confirmationModal.style.display = 'block';
-            },
-            closeConfirmationModal: () => {
-                ui.confirmationModal.style.display = 'none';
-                confirmAction = null;
+                helpers.openModal(ui.confirmationModal);
             }
         };
 
         // --- Rendering Logic ---
         async function renderChecklistForm(checklistId = null) {
-            currentChecklistId = checklistId;
-            let checklistData = null;
-
+            currentChecklistData = null; // Reset
             if (checklistId) {
-                // Fetch a single checklist document from Firestore
                 const docRef = doc(db, `artifacts/${appId}/users/${userId}/checklists`, checklistId);
                 const docSnap = await getDoc(docRef);
                 if (docSnap.exists()) {
-                    checklistData = { id: docSnap.id, ...docSnap.data() };
+                    currentChecklistData = { id: docSnap.id, ...docSnap.data() };
                 } else {
                     console.error("Checklist not found!");
-                    helpers.showStatus("Could not find the selected checklist.", 'error');
+                    helpers.showStatus(ui.statusMessage, "Could not find the selected checklist.", 'error');
                     return;
                 }
             }
             
             ui.checklistItemsContainer.innerHTML = ''; 
-            ui.orgNameInput.value = checklistData?.orgName || '';
-            ui.orgNameInputPrintHeader.textContent = checklistData?.orgName || "New Checklist";
-            ui.checklistTitle.textContent = checklistData?.orgName || 'New Checklist';
+            ui.orgNameInput.value = currentChecklistData?.orgName || '';
+            ui.orgNameInputPrintHeader.textContent = currentChecklistData?.orgName || "New Checklist";
+            ui.checklistTitle.textContent = currentChecklistData?.orgName || 'New Checklist';
             ui.deleteChecklistBtn.classList.toggle('hidden', !checklistId);
+            ui.shareChecklistBtn.classList.toggle('hidden', !checklistId);
             ui.orgNameError.classList.add('hidden'); 
 
             checklistMaster.forEach(category => {
                 const categoryDiv = document.createElement('div');
                 categoryDiv.className = 'category-block bg-slate-50/50 p-4 rounded-lg border border-slate-200/80';
-                
                 const categoryTitleElement = document.createElement('h3');
                 categoryTitleElement.className = 'category-title text-xl font-semibold text-slate-700 mb-4 pb-2 border-b border-slate-200';
                 categoryTitleElement.textContent = category.category;
                 categoryDiv.appendChild(categoryTitleElement);
-
                 const itemsWrapper = document.createElement('div');
                 itemsWrapper.className = 'space-y-5';
-                
                 category.items.forEach(itemMaster => {
-                    const itemData = checklistData?.items?.find(i => i.id === itemMaster.id);
+                    const itemData = currentChecklistData?.items?.find(i => i.id === itemMaster.id);
                     const isChecked = itemData?.isChecked ?? false;
                     const notes = itemData?.notes ?? '';
-
                     const itemDiv = document.createElement('div');
                     itemDiv.className = 'checklist-item';
-
                     const label = document.createElement('label');
                     label.className = 'flex items-start space-x-4';
-
                     const checkbox = document.createElement('input');
                     checkbox.type = 'checkbox';
                     checkbox.checked = isChecked;
                     checkbox.dataset.itemId = itemMaster.id;
                     checkbox.className = 'custom-checkbox shrink-0';
-                    
                     const itemTextContainer = document.createElement('div');
                     itemTextContainer.className = 'flex-grow';
-
                     const itemTextSpan = document.createElement('span');
                     itemTextSpan.className = 'item-text text-base text-slate-700';
                     itemTextSpan.textContent = itemMaster.text;
                     itemTextContainer.appendChild(itemTextSpan);
-
                     if (itemMaster.link || itemMaster.linkText) {
                         const linkWrapper = document.createElement('div');
                         linkWrapper.className = 'mt-1';
@@ -445,11 +436,9 @@
                         }
                         itemTextContainer.appendChild(linkWrapper);
                     }
-                    
                     label.appendChild(checkbox);
                     label.appendChild(itemTextContainer);
                     itemDiv.appendChild(label);
-
                     const notesTextarea = document.createElement('textarea');
                     notesTextarea.dataset.itemId = itemMaster.id;
                     notesTextarea.value = notes;
@@ -457,7 +446,6 @@
                     notesTextarea.className = 'mt-3 w-full p-2 bg-slate-50 border border-slate-200 rounded-md text-sm focus:ring-1 focus:ring-sky-500 focus:border-sky-500 focus:bg-white resize-y transition';
                     notesTextarea.rows = 2;
                     itemDiv.appendChild(notesTextarea);
-                    
                     itemsWrapper.appendChild(itemDiv);
                 });
                 categoryDiv.appendChild(itemsWrapper);
@@ -466,171 +454,199 @@
             helpers.showView('checklist');
         }
 
+        function filterAndRenderListView() {
+            const searchTerm = ui.searchInput.value.trim().toLowerCase();
+            if (!searchTerm) {
+                renderListView(allChecklistsFromFirestore);
+                return;
+            }
+            const filteredChecklists = allChecklistsFromFirestore.filter(checklist => 
+                checklist.orgName.toLowerCase().includes(searchTerm)
+            );
+            renderListView(filteredChecklists);
+        }
+
         function renderListView(checklists) {
             ui.savedChecklistsContainer.innerHTML = '';
-
             const hasChecklists = checklists.length > 0;
-            ui.noChecklistsMsg.classList.toggle('hidden', hasChecklists);
-            if (!hasChecklists) return;
-            
-            // Sort checklists by last updated date (newest first)
-            checklists.sort((a, b) => new Date(b.lastUpdated) - new Date(a.lastUpdated));
+            ui.noChecklistsMsg.classList.toggle('hidden', ui.searchInput.value || hasChecklists);
+            if (!hasChecklists && ui.searchInput.value) {
+                ui.noChecklistsMsg.querySelector('p.text-2xl').textContent = 'No checklists match your search.';
+                ui.noChecklistsMsg.querySelector('p.text-slate-500').textContent = 'Try a different search term or clear the search.';
+            } else if (!hasChecklists) {
+                ui.noChecklistsMsg.querySelector('p.text-2xl').textContent = 'No checklists found.';
+                ui.noChecklistsMsg.querySelector('p.text-slate-500').textContent = 'Click "Start New" to begin, or "Import Shared" to add one from a colleague.';
+            }
+
+            checklists.sort((a, b) => new Date(b.lastUpdated.toDate()) - new Date(a.lastUpdated.toDate()));
 
             checklists.forEach(checklist => {
                 const card = document.createElement('div');
                 card.className = 'bg-white p-5 rounded-xl shadow-sm hover:shadow-lg border border-transparent hover:border-sky-500 transition-all duration-200 cursor-pointer';
                 card.onclick = () => renderChecklistForm(checklist.id); 
-
                 const itemsChecked = checklist.items?.filter(item => item.isChecked).length ?? 0;
                 const totalItems = checklistMaster.flatMap(c => c.items).length;
                 const progress = totalItems > 0 ? Math.round((itemsChecked / totalItems) * 100) : 0;
-                const date = checklist.lastUpdated ? new Date(checklist.lastUpdated).toLocaleString() : 'N/A';
-
-                card.innerHTML = `
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <h3 class="text-xl font-bold text-slate-800">${checklist.orgName}</h3>
-                            <p class="text-sm text-slate-500 mt-1">Last updated: ${date}</p>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-lg font-semibold text-sky-600">${progress}%</p>
-                            <p class="text-xs text-slate-400">${itemsChecked}/${totalItems} complete</p>
-                        </div>
-                    </div>
-                    <div class="mt-4 w-full bg-slate-200 rounded-full h-2.5">
-                        <div class="bg-sky-500 h-2.5 rounded-full" style="width: ${progress}%"></div>
-                    </div>
-                `;
+                const date = checklist.lastUpdated?.toDate().toLocaleString() ?? 'N/A';
+                card.innerHTML = `<div class="flex justify-between items-start"><div><h3 class="text-xl font-bold text-slate-800">${checklist.orgName}</h3><p class="text-sm text-slate-500 mt-1">Last updated: ${date}</p></div><div class="text-right"><p class="text-lg font-semibold text-sky-600">${progress}%</p><p class="text-xs text-slate-400">${itemsChecked}/${totalItems} complete</p></div></div><div class="mt-4 w-full bg-slate-200 rounded-full h-2.5"><div class="bg-sky-500 h-2.5 rounded-full" style="width: ${progress}%"></div></div>`;
                 ui.savedChecklistsContainer.appendChild(card);
             });
         }
         
         // --- Event Handlers & Firestore Logic ---
         async function handleSaveChecklist() {
-            if (!isAuthReady) {
-                helpers.showStatus("Authentication not ready. Please wait.", 'error');
-                return;
-            }
-
+            if (!isAuthReady) return helpers.showStatus(ui.statusMessage, "Authentication not ready. Please wait.", 'error');
             const orgName = ui.orgNameInput.value.trim();
-            if (ui.orgNameInputPrintHeader) {
-                ui.orgNameInputPrintHeader.textContent = orgName || "Untitled Checklist";
-            }
             if (!orgName) {
                 ui.orgNameError.classList.remove('hidden');
                 ui.orgNameInput.focus();
-                helpers.showStatus("Organization name is required.", 'error');
-                return;
+                return helpers.showStatus(ui.statusMessage, "Organization name is required.", 'error');
             }
             ui.orgNameError.classList.add('hidden');
-
-            const items = checklistMaster.flatMap(category => 
-                category.items.map(itemMaster => {
-                    const checkbox = ui.checklistItemsContainer.querySelector(`input[data-item-id="${itemMaster.id}"]`);
-                    const notesTextarea = ui.checklistItemsContainer.querySelector(`textarea[data-item-id="${itemMaster.id}"]`);
-                    return {
-                        id: itemMaster.id,
-                        isChecked: checkbox?.checked ?? false,
-                        notes: notesTextarea?.value.trim() ?? '' 
-                    };
-                })
-            );
-
-            const checklistDoc = {
-                orgName: orgName,
-                items: items,
-                lastUpdated: new Date().toISOString() 
-            };
-
+            const items = checklistMaster.flatMap(category => category.items.map(itemMaster => {
+                const checkbox = ui.checklistItemsContainer.querySelector(`input[data-item-id="${itemMaster.id}"]`);
+                const notesTextarea = ui.checklistItemsContainer.querySelector(`textarea[data-item-id="${itemMaster.id}"]`);
+                return { id: itemMaster.id, isChecked: checkbox?.checked ?? false, notes: notesTextarea?.value.trim() ?? '' };
+            }));
+            const checklistDoc = { orgName, items, lastUpdated: serverTimestamp() };
             ui.saveChecklistBtn.disabled = true;
-            ui.saveChecklistBtn.classList.add('opacity-50', 'cursor-not-allowed');
-            helpers.showStatus("Saving...", 'info', null);
-
+            helpers.showStatus(ui.statusMessage, "Saving...", 'info', null);
             try {
-                if (currentChecklistId) {
-                    // Update an existing document
-                    const docRef = doc(db, `artifacts/${appId}/users/${userId}/checklists`, currentChecklistId);
+                let docRef;
+                if (currentChecklistData?.id) {
+                    docRef = doc(db, `artifacts/${appId}/users/${userId}/checklists`, currentChecklistData.id);
                     await setDoc(docRef, checklistDoc, { merge: true });
                 } else {
-                    // Create a new document
                     const collectionRef = collection(db, `artifacts/${appId}/users/${userId}/checklists`);
                     const newDocRef = await addDoc(collectionRef, checklistDoc);
-                    currentChecklistId = newDocRef.id; // Get the new ID
+                    currentChecklistData = { id: newDocRef.id, ...checklistDoc }; // Update state
                 }
-                
-                helpers.showStatus("Checklist saved successfully!", 'success');
+                helpers.showStatus(ui.statusMessage, "Checklist saved successfully!", 'success');
                 ui.checklistTitle.textContent = orgName;
                 ui.deleteChecklistBtn.classList.remove('hidden');
-
+                ui.shareChecklistBtn.classList.remove('hidden');
             } catch (error) {
                 console.error("Error saving checklist: ", error);
-                helpers.showStatus("Error saving checklist. See console for details.", 'error');
+                helpers.showStatus(ui.statusMessage, "Error saving checklist.", 'error');
             } finally {
                 ui.saveChecklistBtn.disabled = false;
-                ui.saveChecklistBtn.classList.remove('opacity-50', 'cursor-not-allowed');
             }
         }
 
         function handleDeleteChecklist() {
-            if (!currentChecklistId || !isAuthReady) return;
-            
+            if (!currentChecklistData?.id || !isAuthReady) return;
             helpers.openConfirmationModal(
-                `Delete "${ui.orgNameInput.value.trim() || 'this checklist'}"?`,
+                `Delete "${currentChecklistData.orgName || 'this checklist'}"?`,
                 "This action is permanent and cannot be recovered.",
                 async () => {
-                    helpers.closeConfirmationModal();
-                    helpers.showStatus("Deleting...", 'info', null);
+                    helpers.closeModal(ui.confirmationModal);
+                    helpers.showStatus(ui.statusMessage, "Deleting...", 'info', null);
                     try {
-                        const docRef = doc(db, `artifacts/${appId}/users/${userId}/checklists`, currentChecklistId);
-                        await deleteDoc(docRef);
-                        
-                        currentChecklistId = null;
-                        helpers.showView('list'); // Switch back to list view
-                        helpers.showStatus("Checklist deleted.", 'info', 2000);
-                        // The real-time listener will automatically update the list view
+                        await deleteDoc(doc(db, `artifacts/${appId}/users/${userId}/checklists`, currentChecklistData.id));
+                        currentChecklistData = null;
+                        helpers.showView('list');
+                        helpers.showStatus(ui.statusMessage, "Checklist deleted.", 'info', 2000);
                     } catch (error) {
                         console.error("Error deleting checklist: ", error);
-                        helpers.showStatus("Failed to delete checklist.", 'error');
+                        helpers.showStatus(ui.statusMessage, "Failed to delete checklist.", 'error');
                     }
                 }
             );
         }
 
-        function handlePrintChecklist() {
-            if (ui.orgNameInputPrintHeader) {
-                ui.orgNameInputPrintHeader.textContent = ui.orgNameInput.value.trim() || "Untitled Checklist";
+        async function handleShareChecklist() {
+            if (!currentChecklistData?.id) return;
+            helpers.showStatus(ui.statusMessage, 'Generating Share ID...', 'info', null);
+
+            try {
+                let shareId = currentChecklistData.shareId;
+                if (!shareId) {
+                    const sharedDocData = {
+                        ownerId: userId,
+                        orgName: currentChecklistData.orgName,
+                        items: currentChecklistData.items
+                    };
+                    const sharedDocRef = await addDoc(collection(db, `artifacts/${appId}/public/data/sharedChecklists`), sharedDocData);
+                    shareId = sharedDocRef.id;
+
+                    // Atomically add the shareId to the original document
+                    const originalDocRef = doc(db, `artifacts/${appId}/users/${userId}/checklists`, currentChecklistData.id);
+                    await updateDoc(originalDocRef, { shareId: shareId });
+                    currentChecklistData.shareId = shareId; // Update local state
+                }
+                
+                ui.shareIdDisplay.textContent = shareId;
+                helpers.showStatus(ui.statusMessage, 'Share ID is ready!', 'success');
+                helpers.openModal(ui.shareModal);
+
+            } catch (error) {
+                console.error("Error creating share link:", error);
+                helpers.showStatus(ui.statusMessage, 'Could not create Share ID.', 'error');
             }
-            window.print();
         }
         
-        function fallbackCopyTextToClipboard(text) {
+        async function handleImportConfirm() {
+            const shareId = ui.importIdInput.value.trim();
+            if (!shareId) return helpers.showStatus(ui.importStatusMessage, 'Please enter a Share ID.', 'error');
+
+            ui.importModalConfirmBtn.disabled = true;
+            helpers.showStatus(ui.importStatusMessage, 'Importing...', 'info', null);
+            
+            try {
+                const docRef = doc(db, `artifacts/${appId}/public/data/sharedChecklists`, shareId);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    const newChecklist = {
+                        orgName: `[Imported] ${data.orgName}`,
+                        items: data.items,
+                        lastUpdated: serverTimestamp()
+                    };
+                    await addDoc(collection(db, `artifacts/${appId}/users/${userId}/checklists`), newChecklist);
+                    helpers.showStatus(ui.importStatusMessage, 'Import successful!', 'success');
+                    setTimeout(() => helpers.closeModal(ui.importModal), 1500);
+                } else {
+                    helpers.showStatus(ui.importStatusMessage, 'Invalid Share ID. Checklist not found.', 'error');
+                }
+            } catch (error) {
+                console.error("Error importing checklist:", error);
+                helpers.showStatus(ui.importStatusMessage, 'An error occurred during import.', 'error');
+            } finally {
+                ui.importModalConfirmBtn.disabled = false;
+            }
+        }
+
+
+        function fallbackCopyTextToClipboard(text, statusElement, successMsg) {
             const textArea = document.createElement("textarea");
             textArea.value = text;
-            textArea.style.top = "0";
-            textArea.style.left = "0";
-            textArea.style.position = "fixed";
-            textArea.style.opacity = "0";
+            textArea.style.position = "fixed"; textArea.style.opacity = "0";
             document.body.appendChild(textArea);
             textArea.focus();
             textArea.select();
             try {
                 const successful = document.execCommand('copy');
-                const msg = successful ? 'Checklist copied to clipboard!' : 'Failed to copy checklist.';
-                helpers.showStatus(msg, successful ? 'success' : 'error');
+                helpers.showStatus(statusElement, successful ? successMsg : 'Copy failed.', successful ? 'success' : 'error');
             } catch (err) {
-                console.error('Fallback copy failed', err);
-                helpers.showStatus('Failed to copy. Please copy manually.', 'error');
+                helpers.showStatus(statusElement, 'Copy failed.', 'error');
             }
             document.body.removeChild(textArea);
         }
 
-        function handleCopyChecklist() {
-            const orgName = ui.orgNameInput.value.trim();
-            if (!orgName) {
-                helpers.showStatus("Please enter an organization name before copying.", 'error');
-                ui.orgNameInput.focus();
-                return;
+        function copyToClipboard(text, statusElement, successMsg) {
+             if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(() => {
+                    helpers.showStatus(statusElement, successMsg, 'success');
+                }).catch(err => fallbackCopyTextToClipboard(text, statusElement, successMsg));
+            } else {
+                fallbackCopyTextToClipboard(text, statusElement, successMsg);
             }
+        }
+        
+        function handleCopyChecklistText() {
+            const orgName = ui.orgNameInput.value.trim();
+            if (!orgName) return helpers.showStatus(ui.statusMessage, "Please enter an organization name.", 'error');
             let textToCopy = `Compliance Checklist for: ${orgName}\n========================================\n\n`;
             checklistMaster.forEach(category => {
                 textToCopy += `CATEGORY: ${category.category.toUpperCase()}\n----------------------------------------\n`;
@@ -639,52 +655,34 @@
                     const notesTextarea = ui.checklistItemsContainer.querySelector(`textarea[data-item-id="${itemMaster.id}"]`);
                     const status = checkbox?.checked ? "[X]" : "[ ]";
                     textToCopy += `${status} ${itemMaster.text}\n`;
-                    if (notesTextarea?.value.trim()) {
-                        textToCopy += `    Notes: ${notesTextarea.value.trim()}\n`;
-                    }
-                    if (itemMaster.link) {
-                        textToCopy += `    Resource: ${itemMaster.link}\n`;
-                    }
+                    if (notesTextarea?.value.trim()) textToCopy += `    Notes: ${notesTextarea.value.trim()}\n`;
+                    if (itemMaster.link) textToCopy += `    Resource: ${itemMaster.link}\n`;
                     textToCopy += "\n"; 
                 });
                 textToCopy += "\n";
             });
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(textToCopy).then(() => {
-                    helpers.showStatus("Checklist copied to clipboard!", 'success');
-                }).catch(err => {
-                    fallbackCopyTextToClipboard(textToCopy);
-                });
-            } else {
-                fallbackCopyTextToClipboard(textToCopy);
-            }
+            copyToClipboard(textToCopy, ui.statusMessage, 'Checklist text copied!');
         }
 
-        function listenForChecklists() {
-            // Detach any previous listener
-            if (checklistUnsubscribe) {
-                checklistUnsubscribe();
-            }
-            const checklistsCollection = collection(db, `artifacts/${appId}/users/${userId}/checklists`);
-            const q = query(checklistsCollection);
 
+        function listenForChecklists() {
+            if (checklistUnsubscribe) checklistUnsubscribe();
+            const q = query(collection(db, `artifacts/${appId}/users/${userId}/checklists`));
             checklistUnsubscribe = onSnapshot(q, (querySnapshot) => {
-                const checklists = [];
+                allChecklistsFromFirestore = [];
                 querySnapshot.forEach((doc) => {
-                    checklists.push({ id: doc.id, ...doc.data() });
+                    allChecklistsFromFirestore.push({ id: doc.id, ...doc.data() });
                 });
-                renderListView(checklists);
+                filterAndRenderListView(); // Render based on current search term
             }, (error) => {
                 console.error("Error listening for checklist updates: ", error);
-                helpers.showStatus("Could not fetch real-time updates.", 'error');
+                helpers.showStatus(ui.statusMessage, "Could not fetch real-time updates.", 'error');
             });
         }
 
         // --- App Initialization ---
         async function initApp() {
-            console.log("Initializing Firebase Checklist App...");
-
-            // Initialize Firebase
+            console.log("Initializing Firebase Checklist App v2...");
             try {
                 const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
                 const app = initializeApp(firebaseConfig);
@@ -692,38 +690,35 @@
                 auth = getAuth(app);
             } catch (error) {
                 console.error("Firebase initialization failed:", error);
-                ui.authStatus.textContent = "Error: Firebase config is missing or invalid.";
-                ui.authStatus.parentElement.classList.remove('hidden');
+                ui.authStatus.textContent = "Error: Firebase config missing or invalid.";
+                ui.userInfo.classList.remove('hidden');
                 return;
             }
 
-            // Set up Authentication
             onAuthStateChanged(auth, async (user) => {
                 isAuthReady = true;
                 if (user) {
-                    // User is signed in.
                     userId = user.uid;
                     ui.authStatus.textContent = "Authenticated";
                     ui.userIdDisplay.textContent = userId;
                     ui.userInfo.classList.remove('hidden');
                     ui.newChecklistBtn.disabled = false;
-                    
-                    // Start listening for data now that we are authenticated
+                    ui.importChecklistBtn.disabled = false;
                     listenForChecklists();
                     helpers.showView('list');
-
                 } else {
-                    // User is signed out.
-                    ui.authStatus.textContent = "Not Authenticated";
                     userId = null;
+                    isAuthReady = false;
+                    ui.authStatus.textContent = "Not Authenticated";
                     ui.userInfo.classList.remove('hidden');
                     ui.newChecklistBtn.disabled = true;
-                    // Detach listener if user logs out
-                     if (checklistUnsubscribe) checklistUnsubscribe();
+                    ui.importChecklistBtn.disabled = true;
+                    if (checklistUnsubscribe) checklistUnsubscribe();
+                    allChecklistsFromFirestore = [];
+                    renderListView([]);
                 }
             });
             
-            // Sign in the user
             try {
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
                     await signInWithCustomToken(auth, __initial_auth_token);
@@ -736,39 +731,27 @@
                  ui.userInfo.classList.remove('hidden');
             }
 
-            // Standard event listeners
-            ui.newChecklistBtn?.addEventListener('click', () => {
-                if(isAuthReady) renderChecklistForm();
-            });
-            ui.backToListBtn?.addEventListener('click', () => {
-                helpers.showView('list');
-                // No need to reload, onSnapshot handles it
-            });
-            ui.saveChecklistBtn?.addEventListener('click', handleSaveChecklist);
-            ui.deleteChecklistBtn?.addEventListener('click', handleDeleteChecklist);
-            ui.printChecklistBtn?.addEventListener('click', handlePrintChecklist);
-            ui.copyChecklistBtn?.addEventListener('click', handleCopyChecklist);
-            
-            ui.modalConfirmBtn?.addEventListener('click', () => confirmAction?.());
-            ui.modalCancelBtn?.addEventListener('click', helpers.closeConfirmationModal);
-            
-            window.addEventListener('click', (event) => {
-                if (event.target == ui.confirmationModal) {
-                    helpers.closeConfirmationModal();
-                }
-            });
-            
-            ui.orgNameInput?.addEventListener('input', () => {
-                ui.checklistTitle.textContent = ui.orgNameInput.value.trim() || "New Checklist";
-            });
+            // Event Listeners
+            ui.newChecklistBtn.addEventListener('click', () => { if(isAuthReady) renderChecklistForm(); });
+            ui.backToListBtn.addEventListener('click', () => { helpers.showView('list'); filterAndRenderListView(); });
+            ui.saveChecklistBtn.addEventListener('click', handleSaveChecklist);
+            ui.deleteChecklistBtn.addEventListener('click', handleDeleteChecklist);
+            ui.printChecklistBtn.addEventListener('click', () => { if (ui.orgNameInputPrintHeader) { ui.orgNameInputPrintHeader.textContent = ui.orgNameInput.value.trim() || "Untitled Checklist"; } window.print(); });
+            ui.copyChecklistBtn.addEventListener('click', handleCopyChecklistText);
+            ui.shareChecklistBtn.addEventListener('click', handleShareChecklist);
+            ui.importChecklistBtn.addEventListener('click', () => { ui.importIdInput.value = ''; ui.importStatusMessage.textContent = ''; helpers.openModal(ui.importModal); });
+            ui.searchInput.addEventListener('input', filterAndRenderListView);
+            ui.orgNameInput.addEventListener('input', () => { ui.checklistTitle.textContent = ui.orgNameInput.value.trim() || "New Checklist"; });
+
+            // Modal Listeners
+            ui.modalConfirmBtn.addEventListener('click', () => confirmAction?.());
+            [ui.modalCancelBtn, ui.shareModalCloseBtn, ui.importModalCancelBtn].forEach(btn => btn.addEventListener('click', () => btn.closest('.modal').style.display = 'none'));
+            ui.shareModalCopyBtn.addEventListener('click', () => copyToClipboard(ui.shareIdDisplay.textContent, ui.shareIdDisplay, 'ID Copied!'));
+            ui.importModalConfirmBtn.addEventListener('click', handleImportConfirm);
+            window.addEventListener('click', (event) => { if (event.target.classList.contains('modal')) helpers.closeModal(event.target); });
         }
 
-        // Wait for the DOM to be ready before initializing
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initApp);
-        } else {
-            initApp();
-        }
+        document.addEventListener('DOMContentLoaded', initApp);
     </script>
 </body>
 </html>
