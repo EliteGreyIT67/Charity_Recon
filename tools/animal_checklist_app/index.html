@@ -208,11 +208,21 @@
             </header>
 
             <div id="verification-tools" class="mb-6">
-                <h3 class="text-lg font-semibold text-slate-700 border-b pb-2 mb-3">Verification Tools</h3>
-                <button id="open-ein-modal-btn" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
-                    <span>IRS EIN Lookup</span>
-                </button>
+                <h3 class="text-lg font-semibold text-slate-700 border-b pb-2 mb-4">Verification Tools</h3>
+                <div class="flex flex-wrap gap-3">
+                    <button id="open-ein-modal-btn" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
+                        <span>IRS EIN Lookup</span>
+                    </button>
+                    <button id="open-bbb-modal-btn" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 1.944A11.954 11.954 0 012.166 5C2.056 5.649 2 6.319 2 7c0 5.225 3.34 9.67 8 11.317C14.66 16.67 18 12.225 18 7c0-.682-.057-1.35-.166-2.001A11.954 11.954 0 0110 1.944zM10 6a1 1 0 011 1v3l3 3-1.414 1.414L9 10.414V7a1 1 0 011-1z" clip-rule="evenodd" /></svg>
+                        <span>BBB Scam Tracker</span>
+                    </button>
+                    <button id="open-nasco-modal-btn" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" /></svg>
+                        <span>State Charity Regulators</span>
+                    </button>
+                </div>
             </div>
             
             <div id="checklist-items-container" class="space-y-8 max-h-[60vh] overflow-y-auto pr-3 -mr-3"></div>
@@ -301,6 +311,40 @@
         </div>
     </div>
 
+    <div id="bbb-scam-modal" class="modal">
+        <div class="modal-content text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 bg-slate-100 text-slate-600 p-2 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+            <h3 class="text-xl font-semibold text-slate-800 mb-2">Open BBB Scam Tracker</h3>
+            <p class="mb-8 text-slate-500">The Better Business Bureau's Scam Tracker website will be opened in a new browser tab.</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
+                <button id="bbb-modal-cancel-btn" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
+                <a href="https://www.bbb.org/scamtracker/lookupscam" target="_blank" rel="noopener noreferrer" id="bbb-modal-confirm-link" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center">
+                    Continue to BBB.org
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="nasco-reg-modal" class="modal">
+        <div class="modal-content text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 bg-slate-100 text-slate-600 p-2 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <h3 class="text-xl font-semibold text-slate-800 mb-2">Open State Regulator List</h3>
+            <p class="mb-8 text-slate-500">The National Association of State Charity Officials (NASCO) website will be opened in a new browser tab.</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
+                <button id="nasco-modal-cancel-btn" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
+                <a href="https://www.nasconet.org/resources/state-government/" target="_blank" rel="noopener noreferrer" id="nasco-modal-confirm-link" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center">
+                    Continue to NASCOnet.org
+                </a>
+            </div>
+        </div>
+    </div>
+
+
     <!-- Firebase SDK -->
     <script type="module">
         // Import Firebase modules
@@ -378,6 +422,14 @@
             einLookupModal: document.getElementById('ein-lookup-modal'),
             einModalCancelBtn: document.getElementById('ein-modal-cancel-btn'),
             einModalConfirmLink: document.getElementById('ein-modal-confirm-link'),
+            openBbbModalBtn: document.getElementById('open-bbb-modal-btn'),
+            bbbScamModal: document.getElementById('bbb-scam-modal'),
+            bbbModalCancelBtn: document.getElementById('bbb-modal-cancel-btn'),
+            bbbModalConfirmLink: document.getElementById('bbb-modal-confirm-link'),
+            openNascoModalBtn: document.getElementById('open-nasco-modal-btn'),
+            nascoRegModal: document.getElementById('nasco-reg-modal'),
+            nascoModalCancelBtn: document.getElementById('nasco-modal-cancel-btn'),
+            nascoModalConfirmLink: document.getElementById('nasco-modal-confirm-link'),
         };
         let confirmAction = null;
 
@@ -795,13 +847,15 @@
             ui.searchInput.addEventListener('input', filterAndRenderListView);
             ui.orgNameInput.addEventListener('input', () => { ui.checklistTitle.textContent = ui.orgNameInput.value.trim() || "New Checklist"; });
             ui.openEinModalBtn.addEventListener('click', () => helpers.openModal(ui.einLookupModal));
+            ui.openBbbModalBtn.addEventListener('click', () => helpers.openModal(ui.bbbScamModal));
+            ui.openNascoModalBtn.addEventListener('click', () => helpers.openModal(ui.nascoRegModal));
             
             // Modal Listeners
             ui.modalConfirmBtn.addEventListener('click', () => confirmAction?.());
-            [ui.modalCancelBtn, ui.shareModalCloseBtn, ui.importModalCancelBtn, ui.einModalCancelBtn].forEach(btn => btn.addEventListener('click', () => btn.closest('.modal').style.display = 'none'));
+            [ui.modalCancelBtn, ui.shareModalCloseBtn, ui.importModalCancelBtn, ui.einModalCancelBtn, ui.bbbModalCancelBtn, ui.nascoModalCancelBtn].forEach(btn => btn.addEventListener('click', () => btn.closest('.modal').style.display = 'none'));
             ui.shareModalCopyBtn.addEventListener('click', () => copyToClipboard(ui.shareIdDisplay.textContent, ui.shareIdDisplay, 'ID Copied!'));
             ui.importModalConfirmBtn.addEventListener('click', handleImportConfirm);
-            ui.einModalConfirmLink.addEventListener('click', () => helpers.closeModal(ui.einLookupModal));
+            [ui.einModalConfirmLink, ui.bbbModalConfirmLink, ui.nascoModalConfirmLink].forEach(link => link.addEventListener('click', () => helpers.closeModal(link.closest('.modal'))));
             window.addEventListener('click', (event) => { if (event.target.classList.contains('modal')) helpers.closeModal(event.target); });
         }
 
