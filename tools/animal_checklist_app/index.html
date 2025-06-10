@@ -288,14 +288,26 @@
 
         // --- App State & Firebase References ---
         let db, auth;
-        let currentChecklistData = null; // Holds the full data object of the checklist being viewed
-        let checklistUnsubscribe = null; // To detach the real-time listener
+        let currentChecklistData = null; 
+        let checklistUnsubscribe = null; 
         let userId = null; 
         let isAuthReady = false; 
-        let allChecklistsFromFirestore = []; // Master list from Firestore
+        let allChecklistsFromFirestore = []; 
 
         // --- App Configuration ---
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        
+        // --- Firebase Configuration ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyCSLAD2acFHCmf8bkJwQx_puLcb-HARyJE",
+            authDomain: "rescue-compliance-app.firebaseapp.com",
+            projectId: "rescue-compliance-app",
+            storageBucket: "rescue-compliance-app.firebasestorage.app",
+            messagingSenderId: "354094080932",
+            appId: "1:354094080932:web:7c9aeb9b0036e6542d5731",
+            measurementId: "G-CL6TNFWL0L"
+        };
+
         const checklistMaster = [
             { category: "Federal & State Compliance", items: [{ id: "fed_irs_status", text: "IRS 501(c)(3) status verified?", link: "https://apps.irs.gov/app/eos/" }, { id: "fed_form_990", text: "IRS Form 990 accessible & reviewed?", linkText: "IRS/ProPublica/Candid" }, { id: "state_charity_reg", text: "Registered with State Charity Officials?", link: "https://www.nasconet.org/", linkText: "NASCO" }, { id: "state_local_licenses", text: "Necessary state/local animal shelter/rescue licenses obtained (if applicable)?" }] },
             { category: "Operational Transparency", items: [{ id: "op_legal_dba_name", text: "Legal name and DBA (Doing Business As) are clearly stated?" }, { id: "op_contact_info", text: "Verifiable contact information (phone/email) is available and responsive?" }, { id: "op_website_mission", text: "Website clearly states mission, programs, and animal welfare practices?" }, { id: "op_board_list", text: "A list of the Board of Directors is publicly available?" }, { id: "op_financial_reports", text: "Financial reports (e.g., annual report, Form 990) are available for review?" }, { id: "op_adoption_process", text: "Adoption process is clearly documented and transparent?" }, { id: "op_sourcing_policy", text: "Animal sourcing policy (where animals come from) is clear?" }, { id: "op_medical_records", text: "Comprehensive medical records (vaccinations, spay/neuter, conditions) are provided with adoptions?" }] },
@@ -368,7 +380,7 @@
 
         // --- Rendering Logic ---
         async function renderChecklistForm(checklistId = null) {
-            currentChecklistData = null; // Reset
+            currentChecklistData = null; 
             if (checklistId) {
                 const docRef = doc(db, `artifacts/${appId}/users/${userId}/checklists`, checklistId);
                 const docSnap = await getDoc(docRef);
@@ -456,29 +468,31 @@
 
         function filterAndRenderListView() {
             const searchTerm = ui.searchInput.value.trim().toLowerCase();
-            if (!searchTerm) {
-                renderListView(allChecklistsFromFirestore);
-                return;
-            }
-            const filteredChecklists = allChecklistsFromFirestore.filter(checklist => 
-                checklist.orgName.toLowerCase().includes(searchTerm)
-            );
-            renderListView(filteredChecklists);
+            const checklistsToRender = searchTerm 
+                ? allChecklistsFromFirestore.filter(c => c.orgName.toLowerCase().includes(searchTerm))
+                : allChecklistsFromFirestore;
+
+            renderListView(checklistsToRender);
         }
 
         function renderListView(checklists) {
             ui.savedChecklistsContainer.innerHTML = '';
-            const hasChecklists = checklists.length > 0;
-            ui.noChecklistsMsg.classList.toggle('hidden', ui.searchInput.value || hasChecklists);
-            if (!hasChecklists && ui.searchInput.value) {
-                ui.noChecklistsMsg.querySelector('p.text-2xl').textContent = 'No checklists match your search.';
-                ui.noChecklistsMsg.querySelector('p.text-slate-500').textContent = 'Try a different search term or clear the search.';
-            } else if (!hasChecklists) {
+            const hasAnyChecklists = allChecklistsFromFirestore.length > 0;
+            const hasRenderedChecklists = checklists.length > 0;
+
+            if (!hasAnyChecklists) {
+                ui.noChecklistsMsg.classList.remove('hidden');
                 ui.noChecklistsMsg.querySelector('p.text-2xl').textContent = 'No checklists found.';
                 ui.noChecklistsMsg.querySelector('p.text-slate-500').textContent = 'Click "Start New" to begin, or "Import Shared" to add one from a colleague.';
+            } else if (!hasRenderedChecklists) {
+                 ui.noChecklistsMsg.classList.remove('hidden');
+                 ui.noChecklistsMsg.querySelector('p.text-2xl').textContent = 'No checklists match your search.';
+                 ui.noChecklistsMsg.querySelector('p.text-slate-500').textContent = 'Try a different search term or clear the search.';
+            } else {
+                ui.noChecklistsMsg.classList.add('hidden');
             }
 
-            checklists.sort((a, b) => new Date(b.lastUpdated.toDate()) - new Date(a.lastUpdated.toDate()));
+            checklists.sort((a, b) => (b.lastUpdated?.toDate() || 0) - (a.lastUpdated?.toDate() || 0));
 
             checklists.forEach(checklist => {
                 const card = document.createElement('div');
@@ -512,15 +526,18 @@
             ui.saveChecklistBtn.disabled = true;
             helpers.showStatus(ui.statusMessage, "Saving...", 'info', null);
             try {
-                let docRef;
-                if (currentChecklistData?.id) {
-                    docRef = doc(db, `artifacts/${appId}/users/${userId}/checklists`, currentChecklistData.id);
+                let currentId = currentChecklistData?.id;
+                if (currentId) {
+                    const docRef = doc(db, `artifacts/${appId}/users/${userId}/checklists`, currentId);
                     await setDoc(docRef, checklistDoc, { merge: true });
                 } else {
                     const collectionRef = collection(db, `artifacts/${appId}/users/${userId}/checklists`);
                     const newDocRef = await addDoc(collectionRef, checklistDoc);
-                    currentChecklistData = { id: newDocRef.id, ...checklistDoc }; // Update state
+                    currentId = newDocRef.id;
                 }
+                const savedDocRef = await getDoc(doc(db, `artifacts/${appId}/users/${userId}/checklists`, currentId));
+                currentChecklistData = {id: savedDocRef.id, ...savedDocRef.data()};
+
                 helpers.showStatus(ui.statusMessage, "Checklist saved successfully!", 'success');
                 ui.checklistTitle.textContent = orgName;
                 ui.deleteChecklistBtn.classList.remove('hidden');
@@ -569,10 +586,9 @@
                     const sharedDocRef = await addDoc(collection(db, `artifacts/${appId}/public/data/sharedChecklists`), sharedDocData);
                     shareId = sharedDocRef.id;
 
-                    // Atomically add the shareId to the original document
                     const originalDocRef = doc(db, `artifacts/${appId}/users/${userId}/checklists`, currentChecklistData.id);
                     await updateDoc(originalDocRef, { shareId: shareId });
-                    currentChecklistData.shareId = shareId; // Update local state
+                    currentChecklistData.shareId = shareId; 
                 }
                 
                 ui.shareIdDisplay.textContent = shareId;
@@ -616,7 +632,6 @@
                 ui.importModalConfirmBtn.disabled = false;
             }
         }
-
 
         function fallbackCopyTextToClipboard(text, statusElement, successMsg) {
             const textArea = document.createElement("textarea");
@@ -664,7 +679,6 @@
             copyToClipboard(textToCopy, ui.statusMessage, 'Checklist text copied!');
         }
 
-
         function listenForChecklists() {
             if (checklistUnsubscribe) checklistUnsubscribe();
             const q = query(collection(db, `artifacts/${appId}/users/${userId}/checklists`));
@@ -673,31 +687,37 @@
                 querySnapshot.forEach((doc) => {
                     allChecklistsFromFirestore.push({ id: doc.id, ...doc.data() });
                 });
-                filterAndRenderListView(); // Render based on current search term
+                filterAndRenderListView();
             }, (error) => {
                 console.error("Error listening for checklist updates: ", error);
-                helpers.showStatus(ui.statusMessage, "Could not fetch real-time updates.", 'error');
             });
         }
 
         // --- App Initialization ---
         async function initApp() {
-            console.log("Initializing Firebase Checklist App v2...");
+            console.log("Initializing Firebase Checklist App v3...");
             try {
-                const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
-                const app = initializeApp(firebaseConfig);
+                const configFromEnv = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+                const finalConfig = (firebaseConfigFromUser && firebaseConfigFromUser.apiKey) ? firebaseConfigFromUser : configFromEnv;
+                
+                if (!finalConfig.apiKey) {
+                    throw new Error("Firebase configuration is missing or invalid.");
+                }
+
+                const app = initializeApp(finalConfig);
                 db = getFirestore(app);
                 auth = getAuth(app);
             } catch (error) {
                 console.error("Firebase initialization failed:", error);
                 ui.authStatus.textContent = "Error: Firebase config missing or invalid.";
+                ui.userIdDisplay.textContent = "Please add your firebaseConfigFromUser object in the HTML file.";
                 ui.userInfo.classList.remove('hidden');
                 return;
             }
 
             onAuthStateChanged(auth, async (user) => {
-                isAuthReady = true;
                 if (user) {
+                    isAuthReady = true;
                     userId = user.uid;
                     ui.authStatus.textContent = "Authenticated";
                     ui.userIdDisplay.textContent = userId;
@@ -707,9 +727,10 @@
                     listenForChecklists();
                     helpers.showView('list');
                 } else {
-                    userId = null;
                     isAuthReady = false;
+                    userId = null;
                     ui.authStatus.textContent = "Not Authenticated";
+                    ui.userIdDisplay.textContent = "";
                     ui.userInfo.classList.remove('hidden');
                     ui.newChecklistBtn.disabled = true;
                     ui.importChecklistBtn.disabled = true;
@@ -720,8 +741,9 @@
             });
             
             try {
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
+                const tokenFromEnv = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+                if (tokenFromEnv) {
+                    await signInWithCustomToken(auth, tokenFromEnv);
                 } else {
                     await signInAnonymously(auth);
                 }
@@ -739,7 +761,7 @@
             ui.printChecklistBtn.addEventListener('click', () => { if (ui.orgNameInputPrintHeader) { ui.orgNameInputPrintHeader.textContent = ui.orgNameInput.value.trim() || "Untitled Checklist"; } window.print(); });
             ui.copyChecklistBtn.addEventListener('click', handleCopyChecklistText);
             ui.shareChecklistBtn.addEventListener('click', handleShareChecklist);
-            ui.importChecklistBtn.addEventListener('click', () => { ui.importIdInput.value = ''; ui.importStatusMessage.textContent = ''; helpers.openModal(ui.importModal); });
+            ui.importChecklistBtn.addEventListener('click', () => { if(isAuthReady) { ui.importIdInput.value = ''; ui.importStatusMessage.textContent = ''; helpers.openModal(ui.importModal); }});
             ui.searchInput.addEventListener('input', filterAndRenderListView);
             ui.orgNameInput.addEventListener('input', () => { ui.checklistTitle.textContent = ui.orgNameInput.value.trim() || "New Checklist"; });
 
