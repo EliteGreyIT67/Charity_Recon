@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script>
-        // Set theme on initial load to prevent FOUC (Flash of Unstyled Content)
+        // This script runs immediately to prevent a "flash" of the wrong theme.
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark')
         } else {
@@ -189,13 +189,11 @@
             </button>
         </div>
 
-        <!-- User Info Display -->
         <div id="user-info" class="mb-4 p-3 bg-sky-100 dark:bg-sky-900/50 border border-sky-200 dark:border-sky-800 text-sky-800 dark:text-sky-300 rounded-lg text-sm text-center hidden">
             <p><strong>Status:</strong> <span id="auth-status">Initializing...</span></p>
             <p class="mt-1"><strong>User ID:</strong> <span id="user-id" class="font-mono break-all"></span></p>
         </div>
 
-        <!-- List View -->
         <div id="list-view">
             <header class="mb-8 text-center">
                 <h1 class="text-4xl md:text-5xl font-bold text-slate-800 dark:text-slate-200">Rescue Compliance</h1>
@@ -212,7 +210,7 @@
                     <span>Import Shared</span>
                 </button>
             </div>
-            <!-- Search Container -->
+            
             <div id="search-container" class="mb-8 relative">
                 <input type="text" id="search-input" placeholder="Search by organization name..." class="w-full p-4 pl-12 border border-slate-300 dark:border-slate-600 dark:bg-slate-800 rounded-lg shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-shadow dark:placeholder-slate-400">
                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -229,7 +227,6 @@
                 </div>
         </div>
 
-        <!-- Checklist View -->
         <div id="checklist-view" class="hidden bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-2xl shadow-lg">
             <header class="mb-6 pb-6 border-b border-slate-200 dark:border-slate-700">
                 <div id="checklist-title-container" class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
@@ -302,7 +299,6 @@
         </div>
     </div>
 
-    <!-- Modals -->
     <div id="confirmation-modal" class="modal">
         <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 p-2 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
@@ -407,7 +403,6 @@
     </div>
 
 
-    <!-- Firebase SDK -->
     <script type="module">
         // Import Firebase modules
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
@@ -421,6 +416,8 @@
         let userId = null; 
         let isAuthReady = false; 
         let allChecklistsFromFirestore = []; 
+        let ui = {};
+        let confirmAction = null;
 
         // --- App Configuration ---
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
@@ -443,64 +440,65 @@
         ];
 
         // --- UI Element Cache ---
-        const ui = {
-            listView: document.getElementById('list-view'),
-            checklistView: document.getElementById('checklist-view'),
-            newChecklistBtn: document.getElementById('new-checklist-btn'),
-            importChecklistBtn: document.getElementById('import-checklist-btn'),
-            backToListBtn: document.getElementById('back-to-list-btn'),
-            saveChecklistBtn: document.getElementById('save-checklist-btn'),
-            deleteChecklistBtn: document.getElementById('delete-checklist-btn'),
-            shareChecklistBtn: document.getElementById('share-checklist-btn'),
-            printChecklistBtn: document.getElementById('print-checklist-btn'),
-            copyChecklistBtn: document.getElementById('copy-checklist-btn'),
-            orgNameInput: document.getElementById('org-name-input'),
-            orgNameInputPrintHeader: document.getElementById('org-name-input-print-header'),
-            orgNameError: document.getElementById('org-name-error'),
-            checklistItemsContainer: document.getElementById('checklist-items-container'),
-            checklistTitle: document.getElementById('checklist-title'),
-            savedChecklistsContainer: document.getElementById('saved-checklists-container'),
-            statusMessage: document.getElementById('status-message'),
-            noChecklistsMsg: document.getElementById('no-checklists-message'),
-            confirmationModal: document.getElementById('confirmation-modal'),
-            modalTitle: document.getElementById('modal-title'),
-            modalMessage: document.getElementById('modal-message'),
-            modalConfirmBtn: document.getElementById('modal-confirm-btn'),
-            modalCancelBtn: document.getElementById('modal-cancel-btn'),
-            shareModal: document.getElementById('share-modal'),
-            shareIdDisplay: document.getElementById('share-id-display'),
-            shareModalCopyBtn: document.getElementById('share-modal-copy-btn'),
-            shareModalCloseBtn: document.getElementById('share-modal-close-btn'),
-            importModal: document.getElementById('import-modal'),
-            importIdInput: document.getElementById('import-id-input'),
-            importStatusMessage: document.getElementById('import-status-message'),
-            importModalConfirmBtn: document.getElementById('import-modal-confirm-btn'),
-            importModalCancelBtn: document.getElementById('import-modal-cancel-btn'),
-            searchInput: document.getElementById('search-input'),
-            userInfo: document.getElementById('user-info'),
-            authStatus: document.getElementById('auth-status'),
-            userIdDisplay: document.getElementById('user-id'),
-            openEinModalBtn: document.getElementById('open-ein-modal-btn'),
-            einLookupModal: document.getElementById('ein-lookup-modal'),
-            einModalCancelBtn: document.getElementById('ein-modal-cancel-btn'),
-            einModalConfirmLink: document.getElementById('ein-modal-confirm-link'),
-            openPropublicaModalBtn: document.getElementById('open-propublica-modal-btn'),
-            propublicaLookupModal: document.getElementById('propublica-lookup-modal'),
-            propublicaModalCancelBtn: document.getElementById('propublica-modal-cancel-btn'),
-            propublicaModalConfirmLink: document.getElementById('propublica-modal-confirm-link'),
-            openBbbModalBtn: document.getElementById('open-bbb-modal-btn'),
-            bbbScamModal: document.getElementById('bbb-scam-modal'),
-            bbbModalCancelBtn: document.getElementById('bbb-modal-cancel-btn'),
-            bbbModalConfirmLink: document.getElementById('bbb-modal-confirm-link'),
-            openNascoModalBtn: document.getElementById('open-nasco-modal-btn'),
-            nascoRegModal: document.getElementById('nasco-reg-modal'),
-            nascoModalCancelBtn: document.getElementById('nasco-modal-cancel-btn'),
-            nascoModalConfirmLink: document.getElementById('nasco-modal-confirm-link'),
-            darkModeToggle: document.getElementById('dark-mode-toggle'),
-            sunIcon: document.getElementById('sun-icon'),
-            moonIcon: document.getElementById('moon-icon'),
-        };
-        let confirmAction = null;
+        function cacheDOMElements() {
+            ui = {
+                listView: document.getElementById('list-view'),
+                checklistView: document.getElementById('checklist-view'),
+                newChecklistBtn: document.getElementById('new-checklist-btn'),
+                importChecklistBtn: document.getElementById('import-checklist-btn'),
+                backToListBtn: document.getElementById('back-to-list-btn'),
+                saveChecklistBtn: document.getElementById('save-checklist-btn'),
+                deleteChecklistBtn: document.getElementById('delete-checklist-btn'),
+                shareChecklistBtn: document.getElementById('share-checklist-btn'),
+                printChecklistBtn: document.getElementById('print-checklist-btn'),
+                copyChecklistBtn: document.getElementById('copy-checklist-btn'),
+                orgNameInput: document.getElementById('org-name-input'),
+                orgNameInputPrintHeader: document.getElementById('org-name-input-print-header'),
+                orgNameError: document.getElementById('org-name-error'),
+                checklistItemsContainer: document.getElementById('checklist-items-container'),
+                checklistTitle: document.getElementById('checklist-title'),
+                savedChecklistsContainer: document.getElementById('saved-checklists-container'),
+                statusMessage: document.getElementById('status-message'),
+                noChecklistsMsg: document.getElementById('no-checklists-message'),
+                confirmationModal: document.getElementById('confirmation-modal'),
+                modalTitle: document.getElementById('modal-title'),
+                modalMessage: document.getElementById('modal-message'),
+                modalConfirmBtn: document.getElementById('modal-confirm-btn'),
+                modalCancelBtn: document.getElementById('modal-cancel-btn'),
+                shareModal: document.getElementById('share-modal'),
+                shareIdDisplay: document.getElementById('share-id-display'),
+                shareModalCopyBtn: document.getElementById('share-modal-copy-btn'),
+                shareModalCloseBtn: document.getElementById('share-modal-close-btn'),
+                importModal: document.getElementById('import-modal'),
+                importIdInput: document.getElementById('import-id-input'),
+                importStatusMessage: document.getElementById('import-status-message'),
+                importModalConfirmBtn: document.getElementById('import-modal-confirm-btn'),
+                importModalCancelBtn: document.getElementById('import-modal-cancel-btn'),
+                searchInput: document.getElementById('search-input'),
+                userInfo: document.getElementById('user-info'),
+                authStatus: document.getElementById('auth-status'),
+                userIdDisplay: document.getElementById('user-id'),
+                openEinModalBtn: document.getElementById('open-ein-modal-btn'),
+                einLookupModal: document.getElementById('ein-lookup-modal'),
+                einModalCancelBtn: document.getElementById('ein-modal-cancel-btn'),
+                einModalConfirmLink: document.getElementById('ein-modal-confirm-link'),
+                openPropublicaModalBtn: document.getElementById('open-propublica-modal-btn'),
+                propublicaLookupModal: document.getElementById('propublica-lookup-modal'),
+                propublicaModalCancelBtn: document.getElementById('propublica-modal-cancel-btn'),
+                propublicaModalConfirmLink: document.getElementById('propublica-modal-confirm-link'),
+                openBbbModalBtn: document.getElementById('open-bbb-modal-btn'),
+                bbbScamModal: document.getElementById('bbb-scam-modal'),
+                bbbModalCancelBtn: document.getElementById('bbb-modal-cancel-btn'),
+                bbbModalConfirmLink: document.getElementById('bbb-modal-confirm-link'),
+                openNascoModalBtn: document.getElementById('open-nasco-modal-btn'),
+                nascoRegModal: document.getElementById('nasco-reg-modal'),
+                nascoModalCancelBtn: document.getElementById('nasco-modal-cancel-btn'),
+                nascoModalConfirmLink: document.getElementById('nasco-modal-confirm-link'),
+                darkModeToggle: document.getElementById('dark-mode-toggle'),
+                sunIcon: document.getElementById('sun-icon'),
+                moonIcon: document.getElementById('moon-icon'),
+            };
+        }
 
         // --- Helper Functions ---
         const helpers = {
@@ -527,13 +525,13 @@
             applyTheme: (theme) => {
                 if (theme === 'dark') {
                     document.documentElement.classList.add('dark');
-                    ui.sunIcon.classList.add('hidden');
-                    ui.moonIcon.classList.remove('hidden');
+                    if (ui.sunIcon) ui.sunIcon.classList.add('hidden');
+                    if (ui.moonIcon) ui.moonIcon.classList.remove('hidden');
                     localStorage.theme = 'dark';
                 } else {
                     document.documentElement.classList.remove('dark');
-                    ui.sunIcon.classList.remove('hidden');
-                    ui.moonIcon.classList.add('hidden');
+                    if (ui.sunIcon) ui.sunIcon.classList.remove('hidden');
+                    if (ui.moonIcon) ui.moonIcon.classList.add('hidden');
                     localStorage.theme = 'light';
                 }
             }
@@ -856,11 +854,18 @@
 
         // --- App Initialization ---
         async function initApp() {
-            // Theme setup
+            cacheDOMElements(); // Cache all DOM elements right away.
+            
+            // Set initial theme and attach listener.
             const savedTheme = localStorage.getItem('theme');
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             helpers.applyTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
-            
+
+            ui.darkModeToggle.addEventListener('click', () => {
+                const isDark = document.documentElement.classList.contains('dark');
+                helpers.applyTheme(isDark ? 'light' : 'dark');
+            });
+
             console.log("Initializing Firebase Checklist App v5 (Public)...");
             try {
                 // Use the firebaseConfig object defined in this file.
@@ -923,7 +928,7 @@
                  ui.userInfo.classList.remove('hidden');
             }
 
-            // Event Listeners
+            // Event Listeners for main app functionality
             ui.newChecklistBtn.addEventListener('click', () => { if(isAuthReady) renderChecklistForm(); });
             ui.backToListBtn.addEventListener('click', () => { helpers.showView('list'); filterAndRenderListView(); });
             ui.saveChecklistBtn.addEventListener('click', handleSaveChecklist);
@@ -938,10 +943,6 @@
             ui.openPropublicaModalBtn.addEventListener('click', () => helpers.openModal(ui.propublicaLookupModal));
             ui.openBbbModalBtn.addEventListener('click', () => helpers.openModal(ui.bbbScamModal));
             ui.openNascoModalBtn.addEventListener('click', () => helpers.openModal(ui.nascoRegModal));
-            ui.darkModeToggle.addEventListener('click', () => {
-                const isDark = document.documentElement.classList.contains('dark');
-                helpers.applyTheme(isDark ? 'light' : 'dark');
-            });
             
             // Modal Listeners
             ui.modalConfirmBtn.addEventListener('click', () => confirmAction?.());
