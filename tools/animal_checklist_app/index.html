@@ -170,7 +170,6 @@
                     <span>Import Shared</span>
                 </button>
             </div>
-            
             <!-- Search Container -->
             <div id="search-container" class="mb-8 relative">
                 <input type="text" id="search-input" placeholder="Search by organization name..." class="w-full p-4 pl-12 border border-slate-300 rounded-lg shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-shadow">
@@ -185,8 +184,7 @@
                 <p class="text-slate-500">Click "Start New" to begin, or "Import Shared" to add one from a colleague.</p>
             </div>
              <div id="saved-checklists-container" class="space-y-4">
-                <!-- Saved checklists will be dynamically inserted here -->
-            </div>
+                </div>
         </div>
 
         <!-- Checklist View -->
@@ -309,7 +307,7 @@
         };
         
         const checklistMaster = [
-            { category: "Federal & State Compliance", items: [{ id: "fed_irs_status", text: "IRS 501(c)(3) status verified?", link: "https://apps.irs.gov/app/eos/" }, { id: "fed_form_990", text: "IRS Form 990 accessible & reviewed?", linkText: "IRS/ProPublica/Candid" }, { id: "state_charity_reg", text: "Registered with State Charity Officials?", link: "https://www.nasconet.org/resources/state-government/", linkText: "NASCO" }, { id: "state_local_licenses", text: "Necessary state/local animal shelter/rescue licenses obtained (if applicable)?" }] },
+            { category: "Federal & State Compliance", items: [{ id: "fed_irs_status", text: "IRS 501(c)(3) status verified?", link: "https://apps.irs.gov/app/eos/" }, { id: "fed_form_990", text: "IRS Form 990 accessible & reviewed?", linkText: "IRS/ProPublica/Candid" }, { id: "state_charity_reg", text: "Registered with State Charity Officials?", link: "https://www.nasconet.org/resources/state-government/", linkText: "NASCO" }, { id: "review_solicitation_reg", text: "Review charitable solicitation registrations?", link: "https://www.nasconet.org/resources/state-government/", linkText: "NASCO" }, { id: "state_local_licenses", text: "Necessary state/local animal shelter/rescue licenses obtained (if applicable)?" }] },
             { category: "Operational Transparency", items: [{ id: "op_legal_dba_name", text: "Legal name and DBA (Doing Business As) are clearly stated?" }, { id: "op_contact_info", text: "Verifiable contact information (phone/email) is available and responsive?" }, { id: "op_website_mission", text: "Website clearly states mission, programs, and animal welfare practices?" }, { id: "op_board_list", text: "A list of the Board of Directors is publicly available?" }, { id: "op_financial_reports", text: "Financial reports (e.g., annual report, Form 990) are available for review?" }, { id: "op_adoption_process", text: "Adoption process is clearly documented and transparent?" }, { id: "op_sourcing_policy", text: "Animal sourcing policy (where animals come from) is clear?" }, { id: "op_medical_records", text: "Comprehensive medical records (vaccinations, spay/neuter, conditions) are provided with adoptions?" }] },
             { category: "Reputation & Accountability", items: [{ id: "rep_bbb_rating", text: "Better Business Bureau (BBB) rating checked for unresolved complaints?", link: "https://www.bbb.org/scamtracker/lookupscam" }, { id: "rep_watchdog_sites", text: "Charity watchdog sites (e.g., Charity Navigator, GuideStar) reviewed?", linkText: "Charity Navigator, GuideStar, etc." }, { id: "rep_news_archives", text: "News archives and search engines checked for significant negative press or legal issues?" }] }
         ];
@@ -781,4 +779,3 @@
     </script>
 </body>
 </html>
-
