@@ -32,7 +32,7 @@ This guide empowers animal rescue organizations, donors, and the public to:
 
 
 
-![Screenshot](tools/animal_checklist_app/Screenshot.png)
+![Screenshot](https://imgur.com/ghk8Efk.png)
 
 ---
 
