@@ -472,6 +472,10 @@ Use the expandable section below for direct links to your state’s:
     -   Phone: (573) 751-3321
     -   [Consumer Complaint](https://app.ago.mo.gov/app/consumercomplaint)
 -   [Missouri Business Filings](https://bsd.sos.mo.gov/BusinessEntity/BESearch.aspx?SearchType=0)
+-   [Missouri Department of Agriculture - Animal Health Division](https://agriculture.mo.gov/animals/ACFA/)
+    -   Address: 1616 Missouri Blvd PO Box 630 Jefferson City, MO 65109
+    -   Email: Animal.Health@mda.mo.gov
+    -   Phone: (573) 751-3377
 
 [↑ Back To Top](#contents)
 
