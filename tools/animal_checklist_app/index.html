@@ -135,7 +135,7 @@
             #app-container, #user-info {
                 max-width: 100%; margin: 0; padding: 10px; box-shadow: none; border: none;
             }
-            header, .action-buttons-container, .list-view-actions, #status-message, .modal, #search-container, #verification-tools, #dark-mode-toggle {
+            header, .action-buttons-container, .list-view-actions, #status-message, .modal, #search-container, #verification-tools, #dark-mode-toggle, .edit-button, .delete-button, .add-item-button, .add-category-button, .attachment-actions, .file-input-wrapper {
                 display: none !important;
             }
             #checklist-view {
@@ -270,17 +270,24 @@
                         <span>CharityWatch</span>
                     </button>
                     <button id="open-bbb-modal-btn" class="bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 1.944A11.954 11.954 0 012.166 5C2.056 5.649 2 6.319 2 7c0 5.225 3.34 9.67 8 11.317C14.66 16.67 18 12.225 18 7c0-.682-.057-1.35-.166-2.001A11.954 11.954 0 0110 1.944zM10 6a1 1 0 011 1v3l3 3-1.414 1.414L9 10.414V7a1 1 0 011-1z" clip-rule="evenodd" /></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor"><path fill-rule="evenodd" d="M10 1.944A11.954 11.954 0 012.166 5C2.056 5.649 2 6.319 2 7c0 5.225 3.34 9.67 8 11.317C14.66 16.67 18 12.225 18 7c0-.682-.057-1.35-.166-2.001A11.954 11.954 0 0110 1.944zM10 6a1 1 0 011 1v3l3 3-1.414 1.414L9 10.414V7a1 1 0 011-1z" clip-rule="evenodd" /></svg>
                         <span>BBB Scam Tracker</span>
                     </button>
                     <button id="open-nasco-modal-btn" class="bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" /></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor"><path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" /></svg>
                         <span>State Regulators</span>
                     </button>
                 </div>
             </div>
             
             <div id="checklist-items-container" class="space-y-8 max-h-[60vh] overflow-y-auto pr-3 -mr-3"></div>
+
+            <!-- Add new category button -->
+            <button id="add-category-btn" class="mt-6 w-full bg-slate-300 hover:bg-slate-400 text-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
+                <span>Add New Category</span>
+            </button>
+
 
             <div class="action-buttons-container mt-8 pt-6 border-t border-slate-200 dark:border-slate-700 flex flex-col-reverse sm:flex-row sm:justify-between sm:items-center gap-4">
                 <button id="delete-checklist-btn" class="hidden w-full sm:w-auto text-red-600 dark:text-red-500 hover:text-white hover:bg-red-600 dark:hover:bg-red-500 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 border border-red-500 dark:border-red-500 hover:border-red-600 dark:hover:border-red-500">
@@ -455,6 +462,20 @@
             </div>
         </div>
     </div>
+    
+    <!-- Modal for adding/editing items/categories -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg">
+            <h3 id="edit-modal-title" class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-4 text-center"></h3>
+            <label for="edit-modal-input" class="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-2"></label>
+            <input type="text" id="edit-modal-input" class="w-full p-3 border border-slate-300 dark:border-slate-600 dark:bg-slate-900 rounded-lg shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 dark:placeholder-slate-400" placeholder="">
+            <p id="edit-modal-error" class="text-red-500 dark:text-red-400 text-sm mt-1 hidden"></p>
+            <div class="flex justify-center space-x-4 mt-6">
+                <button id="edit-modal-cancel-btn" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
+                <button id="edit-modal-save-btn" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">Save</button>
+            </div>
+        </div>
+    </div>
 
 
     <script type="module">
@@ -462,9 +483,10 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, getDoc, addDoc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, query, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, deleteObject, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
 
         // --- App State & Firebase References ---
-        let db, auth;
+        let db, auth, storage;
         let currentChecklistData = null; 
         let checklistUnsubscribe = null; 
         let userId = null; 
@@ -487,10 +509,34 @@
             measurementId: "G-CL6TNFWL0L"
         };
         
-        const checklistMaster = [
-            { category: "Federal & State Compliance", items: [{ id: "fed_irs_status", text: "IRS 501(c)(3) status verified?", link: "https://apps.irs.gov/app/eos/" }, { id: "fed_form_990", text: "IRS Form 990 accessible & reviewed?", linkText: "IRS/ProPublica/Candid" }, {id: "fed_aphis_license", text: "APHIS license status verified (if applicable)?", link: "https://aphis.my.site.com/PublicSearchTool/s/" }, { id: "state_charity_reg", text: "Registered with State Charity Officials?", link: "https://www.nasconet.org/resources/state-government/", linkText: "NASCO" }, { id: "review_solicitation_reg", text: "Review charitable solicitation registrations?", link: "https://www.nasconet.org/resources/state-government/", linkText: "NASCO" }, { id: "state_local_licenses", text: "Necessary state/local animal shelter/rescue licenses obtained (if applicable)?" }] },
-            { category: "Operational Transparency", items: [{ id: "op_legal_dba_name", text: "Legal name and DBA (Doing Business As) are clearly stated?" }, { id: "op_contact_info", text: "Verifiable contact information (phone/email) is available and responsive?" }, { id: "op_website_mission", text: "Website clearly states mission, programs, and animal welfare practices?" }, { id: "op_board_list", text: "A list of the Board of Directors is publicly available?" }, { id: "op_financial_reports", text: "Financial reports (e.g., annual report, Form 990) are available for review?" }, { id: "op_adoption_process", text: "Adoption process is clearly documented and transparent?" }, { id: "op_sourcing_policy", text: "Animal sourcing policy (where animals come from) is clear?" }, { id: "op_medical_records", text: "Comprehensive medical records (vaccinations, spay/neuter, conditions) are provided with adoptions?" }] },
-            { category: "Reputation & Accountability", items: [{ id: "rep_bbb_rating", text: "Better Business Bureau (BBB) rating checked for unresolved complaints?", link: "https://www.bbb.org/scamtracker/lookupscam" }, { id: "rep_watchdog_sites", text: "Charity watchdog sites (e.g., Charity Navigator, GuideStar) reviewed?", linkText: "Charity Navigator, GuideStar, etc." }, { id: "rep_news_archives", text: "News archives and search engines checked for significant negative press or legal issues?" }] }
+        // Master checklist structure to be used as a template for new checklists
+        // Each item now has a 'categoryId' to link it to its category
+        // And 'isCustom' flag to distinguish default from user-added items
+        // Attachments array added to each item
+        const checklistMasterTemplate = [
+            { id: "cat_fed_state", name: "Federal & State Compliance", isCustom: false, items: [
+                { id: "fed_irs_status", text: "IRS 501(c)(3) status verified?", link: "https://apps.irs.gov/app/eos/", isCustom: false, attachments: [] },
+                { id: "fed_form_990", text: "IRS Form 990 accessible & reviewed?", linkText: "IRS/ProPublica/Candid", isCustom: false, attachments: [] },
+                { id: "fed_aphis_license", text: "APHIS license status verified (if applicable)?", link: "https://aphis.my.site.com/PublicSearchTool/s/", isCustom: false, attachments: [] },
+                { id: "state_charity_reg", text: "Registered with State Charity Officials?", link: "https://www.nasconet.org/resources/state-government/", linkText: "NASCO", isCustom: false, attachments: [] },
+                { id: "review_solicitation_reg", text: "Review charitable solicitation registrations?", link: "https://www.nasconet.org/resources/state-government/", linkText: "NASCO", isCustom: false, attachments: [] },
+                { id: "state_local_licenses", text: "Necessary state/local animal shelter/rescue licenses obtained (if applicable)?", isCustom: false, attachments: [] }
+            ]},
+            { id: "cat_operational_trans", name: "Operational Transparency", isCustom: false, items: [
+                { id: "op_legal_dba_name", text: "Legal name and DBA (Doing Business As) are clearly stated?", isCustom: false, attachments: [] },
+                { id: "op_contact_info", text: "Verifiable contact information (phone/email) is available and responsive?", isCustom: false, attachments: [] },
+                { id: "op_website_mission", text: "Website clearly states mission, programs, and animal welfare practices?", isCustom: false, attachments: [] },
+                { id: "op_board_list", text: "A list of the Board of Directors is publicly available?", isCustom: false, attachments: [] },
+                { id: "op_financial_reports", text: "Financial reports (e.g., annual report, Form 990) are available for review?", isCustom: false, attachments: [] },
+                { id: "op_adoption_process", text: "Adoption process is clearly documented and transparent?", isCustom: false, attachments: [] },
+                { id: "op_sourcing_policy", text: "Animal sourcing policy (where animals come from) is clear?", isCustom: false, attachments: [] },
+                { id: "op_medical_records", text: "Comprehensive medical records (vaccinations, spay/neuter, conditions) are provided with adoptions?", isCustom: false, attachments: [] }
+            ]},
+            { id: "cat_reputation_acc", name: "Reputation & Accountability", isCustom: false, items: [
+                { id: "rep_bbb_rating", text: "Better Business Bureau (BBB) rating checked for unresolved complaints?", link: "https://www.bbb.org/scamtracker/lookupscam", isCustom: false, attachments: [] },
+                { id: "rep_watchdog_sites", text: "Charity watchdog sites (e.g., Charity Navigator, GuideStar) reviewed?", linkText: "Charity Navigator, GuideStar, etc.", isCustom: false, attachments: [] },
+                { id: "rep_news_archives", text: "News archives and search engines checked for significant negative press or legal issues?", isCustom: false, attachments: [] }
+            ]}
         ];
 
         // --- UI Element Cache ---
@@ -571,6 +617,15 @@
                 darkModeToggle: document.getElementById('dark-mode-toggle'),
                 sunIcon: document.getElementById('sun-icon'),
                 moonIcon: document.getElementById('moon-icon'),
+
+                // New elements for customization
+                addCategoryBtn: document.getElementById('add-category-btn'),
+                editModal: document.getElementById('edit-modal'),
+                editModalTitle: document.getElementById('edit-modal-title'),
+                editModalInput: document.getElementById('edit-modal-input'),
+                editModalError: document.getElementById('edit-modal-error'),
+                editModalCancelBtn: document.getElementById('edit-modal-cancel-btn'),
+                editModalSaveBtn: document.getElementById('edit-modal-save-btn'),
             };
         }
 
@@ -595,6 +650,37 @@
                 ui.modalMessage.textContent = message;
                 confirmAction = onConfirm;
                 helpers.openModal(ui.confirmationModal);
+            },
+            openEditModal: (title, placeholder, currentValue, onSave, onCancel, validationFn = (val) => val.trim() !== '') => {
+                ui.editModalTitle.textContent = title;
+                ui.editModalInput.placeholder = placeholder;
+                ui.editModalInput.value = currentValue;
+                ui.editModalError.classList.add('hidden');
+                
+                const handleSave = () => {
+                    const newValue = ui.editModalInput.value.trim();
+                    if (validationFn(newValue)) {
+                        onSave(newValue);
+                        helpers.closeModal(ui.editModal);
+                        ui.editModalSaveBtn.removeEventListener('click', handleSave);
+                        ui.editModalCancelBtn.removeEventListener('click', handleCancel);
+                    } else {
+                        ui.editModalError.textContent = "Input cannot be empty.";
+                        ui.editModalError.classList.remove('hidden');
+                    }
+                };
+
+                const handleCancel = () => {
+                    onCancel();
+                    helpers.closeModal(ui.editModal);
+                    ui.editModalSaveBtn.removeEventListener('click', handleSave);
+                    ui.editModalCancelBtn.removeEventListener('click', handleCancel);
+                };
+
+                ui.editModalSaveBtn.addEventListener('click', handleSave);
+                ui.editModalCancelBtn.addEventListener('click', handleCancel);
+
+                helpers.openModal(ui.editModal);
             },
             applyTheme: (theme) => {
                 if (theme === 'dark') {
@@ -624,6 +710,14 @@
                     helpers.showStatus(ui.statusMessage, "Could not find the selected checklist.", 'error');
                     return;
                 }
+            } else {
+                // For a new checklist, initialize with a deep copy of the template
+                currentChecklistData = { 
+                    id: null, 
+                    orgName: '', 
+                    categories: JSON.parse(JSON.stringify(checklistMasterTemplate)), // Deep copy
+                    lastUpdated: null 
+                };
             }
             
             ui.checklistItemsContainer.innerHTML = ''; 
@@ -634,70 +728,213 @@
             ui.shareChecklistBtn.classList.toggle('hidden', !checklistId);
             ui.orgNameError.classList.add('hidden'); 
 
-            checklistMaster.forEach(category => {
+            currentChecklistData.categories.forEach(category => {
                 const categoryDiv = document.createElement('div');
                 categoryDiv.className = 'category-block bg-slate-50/50 dark:bg-slate-800/50 p-4 rounded-lg border border-slate-200/80 dark:border-slate-700/80';
+                categoryDiv.dataset.categoryId = category.id;
+
+                const categoryHeader = document.createElement('div');
+                categoryHeader.className = 'flex justify-between items-center mb-4 pb-2 border-b border-slate-200 dark:border-slate-700';
+                
                 const categoryTitleElement = document.createElement('h3');
-                categoryTitleElement.className = 'category-title text-xl font-semibold text-slate-700 dark:text-slate-300 mb-4 pb-2 border-b border-slate-200 dark:border-slate-700';
-                categoryTitleElement.textContent = category.category;
-                categoryDiv.appendChild(categoryTitleElement);
+                categoryTitleElement.className = 'category-title text-xl font-semibold text-slate-700 dark:text-slate-300 flex-grow';
+                categoryTitleElement.textContent = category.name;
+                categoryHeader.appendChild(categoryTitleElement);
+
+                // Category action buttons (edit/delete)
+                const categoryActions = document.createElement('div');
+                categoryActions.className = 'flex space-x-2';
+                
+                // Edit Category Name Button
+                const editCategoryBtn = document.createElement('button');
+                editCategoryBtn.className = 'edit-button p-1 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400';
+                editCategoryBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.38-2.827-2.828z" /></svg>`;
+                editCategoryBtn.title = 'Edit category name';
+                editCategoryBtn.addEventListener('click', () => editCategoryName(category.id, category.name));
+                categoryActions.appendChild(editCategoryBtn);
+
+                // Delete Category Button (only for custom categories)
+                if (category.isCustom) {
+                    const deleteCategoryBtn = document.createElement('button');
+                    deleteCategoryBtn.className = 'delete-button p-1 rounded-full hover:bg-red-100 dark:hover:bg-red-900/40 text-red-500 dark:text-red-400';
+                    deleteCategoryBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm6 0a1 1 0 11-2 0v6a1 1 0 112 0V8z" clip-rule="evenodd" /></svg>`;
+                    deleteCategoryBtn.title = 'Delete category';
+                    deleteCategoryBtn.addEventListener('click', () => deleteCategory(category.id, category.name));
+                    categoryActions.appendChild(deleteCategoryBtn);
+                }
+                
+                categoryHeader.appendChild(categoryActions);
+                categoryDiv.appendChild(categoryHeader);
+
                 const itemsWrapper = document.createElement('div');
                 itemsWrapper.className = 'space-y-5';
-                category.items.forEach(itemMaster => {
-                    const itemData = currentChecklistData?.items?.find(i => i.id === itemMaster.id);
-                    const isChecked = itemData?.isChecked ?? false;
-                    const notes = itemData?.notes ?? '';
+                
+                // Sort items by a custom field if needed, or by their original order (from data structure)
+                category.items.forEach(item => {
                     const itemDiv = document.createElement('div');
-                    itemDiv.className = 'checklist-item';
+                    itemDiv.className = 'checklist-item border-b border-slate-100 dark:border-slate-700 pb-4 last:border-b-0'; // Add border for visual separation
+                    itemDiv.dataset.itemId = item.id;
+                    itemDiv.dataset.categoryId = category.id;
+
                     const label = document.createElement('label');
-                    label.className = 'flex items-start space-x-4';
+                    label.className = 'flex items-start space-x-4 mb-2';
                     const checkbox = document.createElement('input');
                     checkbox.type = 'checkbox';
-                    checkbox.checked = isChecked;
-                    checkbox.dataset.itemId = itemMaster.id;
-                    checkbox.className = 'custom-checkbox shrink-0';
+                    checkbox.checked = item.isChecked ?? false;
+                    checkbox.dataset.itemId = item.id;
+                    checkbox.dataset.categoryId = category.id;
+                    checkbox.className = 'custom-checkbox shrink-0 mt-1';
+                    
                     const itemTextContainer = document.createElement('div');
-                    itemTextContainer.className = 'flex-grow';
+                    itemTextContainer.className = 'flex-grow flex justify-between items-center';
                     const itemTextSpan = document.createElement('span');
-                    itemTextSpan.className = 'item-text text-base text-slate-700 dark:text-slate-300';
-                    itemTextSpan.textContent = itemMaster.text;
+                    itemTextSpan.className = 'item-text text-base text-slate-700 dark:text-slate-300 flex-grow';
+                    itemTextSpan.textContent = item.text;
                     itemTextContainer.appendChild(itemTextSpan);
-                    if (itemMaster.link || itemMaster.linkText) {
+
+                    // Item action buttons (edit/delete)
+                    const itemActions = document.createElement('div');
+                    itemActions.className = 'flex space-x-2 shrink-0 ml-2';
+
+                    // Edit Item Text Button
+                    const editItemBtn = document.createElement('button');
+                    editItemBtn.className = 'edit-button p-1 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400';
+                    editItemBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.38-2.827-2.828z" /></svg>`;
+                    editItemBtn.title = 'Edit item text';
+                    editItemBtn.addEventListener('click', () => editItemText(category.id, item.id, item.text));
+                    itemActions.appendChild(editItemBtn);
+
+                    // Delete Item Button (only for custom items)
+                    if (item.isCustom) {
+                        const deleteItemBtn = document.createElement('button');
+                        deleteItemBtn.className = 'delete-button p-1 rounded-full hover:bg-red-100 dark:hover:bg-red-900/40 text-red-500 dark:text-red-400';
+                        deleteItemBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm6 0a1 1 0 11-2 0v6a1 1 0 112 0V8z" clip-rule="evenodd" /></svg>`;
+                        deleteItemBtn.title = 'Delete item';
+                        deleteItemBtn.addEventListener('click', () => deleteItem(category.id, item.id, item.text));
+                        itemActions.appendChild(deleteItemBtn);
+                    }
+                    itemTextContainer.appendChild(itemActions);
+
+
+                    label.appendChild(checkbox);
+                    label.appendChild(itemTextContainer);
+                    itemDiv.appendChild(label);
+
+                    // Render resource links
+                    if (item.link || item.linkText) {
                         const linkWrapper = document.createElement('div');
-                        linkWrapper.className = 'mt-1';
-                        if (itemMaster.link) {
+                        linkWrapper.className = 'mt-1 mb-2 pl-8'; // Indent under checkbox
+                        if (item.link) {
                             const link = document.createElement('a');
-                            link.href = itemMaster.link;
+                            link.href = item.link;
                             link.target = '_blank';
                             link.rel = 'noopener noreferrer';
                             link.className = 'text-sky-600 dark:text-sky-400 hover:underline text-sm font-medium';
-                            link.textContent = itemMaster.linkText || 'Visit Resource';
+                            link.textContent = item.linkText || 'Visit Resource';
                             linkWrapper.appendChild(link);
                         } else {
                              const linkPlaceholder = document.createElement('span');
                              linkPlaceholder.className = 'link-placeholder text-slate-500 dark:text-slate-400 text-sm';
-                             linkPlaceholder.textContent = `(e.g., ${itemMaster.linkText})`;
+                             linkPlaceholder.textContent = `(e.g., ${item.linkText})`;
                              linkWrapper.appendChild(linkPlaceholder);
                         }
-                        itemTextContainer.appendChild(linkWrapper);
+                        itemDiv.appendChild(linkWrapper);
                     }
-                    label.appendChild(checkbox);
-                    label.appendChild(itemTextContainer);
-                    itemDiv.appendChild(label);
+
+                    // Notes Textarea
                     const notesTextarea = document.createElement('textarea');
-                    notesTextarea.dataset.itemId = itemMaster.id;
-                    notesTextarea.value = notes;
+                    notesTextarea.dataset.itemId = item.id;
+                    notesTextarea.dataset.categoryId = category.id;
+                    notesTextarea.value = item.notes ?? '';
                     notesTextarea.placeholder = 'Optional notes...';
-                    notesTextarea.className = 'mt-3 w-full p-2 bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-md text-sm focus:ring-1 focus:ring-sky-500 focus:border-sky-500 focus:bg-white dark:focus:bg-slate-800 resize-y transition';
+                    notesTextarea.className = 'mt-2 w-full p-2 bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-md text-sm focus:ring-1 focus:ring-sky-500 focus:border-sky-500 focus:bg-white dark:focus:bg-slate-800 resize-y transition';
                     notesTextarea.rows = 2;
                     itemDiv.appendChild(notesTextarea);
+
+                    // Attachments Section
+                    const attachmentsContainer = document.createElement('div');
+                    attachmentsContainer.className = 'attachments-container mt-3 pl-8'; // Indent
+                    attachmentsContainer.innerHTML = `<p class="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-2">Attachments:</p>`;
+                    
+                    const attachmentsList = document.createElement('ul');
+                    attachmentsList.className = 'space-y-1';
+
+                    // Display existing attachments
+                    (item.attachments || []).forEach(attachment => {
+                        const attachmentLi = document.createElement('li');
+                        attachmentLi.className = 'flex items-center justify-between text-sm text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-700 p-2 rounded-md';
+                        attachmentLi.innerHTML = `
+                            <a href="${attachment.url}" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-2 text-sky-600 dark:text-sky-400 hover:underline">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.102 1.101" /></svg>
+                                <span>${attachment.fileName}</span>
+                            </a>
+                            <button class="delete-attachment-btn text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 p-1 rounded-full hover:bg-red-100 dark:hover:bg-red-900/40" data-file-name="${attachment.fileName}" data-file-url="${attachment.url}" data-item-id="${item.id}" data-category-id="${category.id}" title="Delete attachment">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm6 0a1 1 0 11-2 0v6a1 1 0 112 0V8z" clip-rule="evenodd" /></svg>
+                            </button>
+                        `;
+                        attachmentsList.appendChild(attachmentLi);
+                    });
+
+                    attachmentsContainer.appendChild(attachmentsList);
+
+                    // Add Attachment button
+                    const addAttachmentDiv = document.createElement('div');
+                    addAttachmentDiv.className = 'file-input-wrapper mt-2';
+                    addAttachmentDiv.innerHTML = `
+                        <input type="file" id="file-input-${item.id}" class="hidden" data-item-id="${item.id}" data-category-id="${category.id}">
+                        <button class="add-attachment-btn w-full bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-2 px-3 rounded-lg text-sm transition-colors duration-200 flex items-center justify-center space-x-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                            <span>Add Attachment</span>
+                        </button>
+                        <div class="attachment-upload-status mt-2 text-center text-sm hidden"></div>
+                    `;
+                    attachmentsContainer.appendChild(addAttachmentDiv);
+                    itemDiv.appendChild(attachmentsContainer);
+
                     itemsWrapper.appendChild(itemDiv);
                 });
+                
+                // Add new item button for the category
+                const addItemBtn = document.createElement('button');
+                addItemBtn.className = 'add-item-button mt-4 w-full bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-2 px-3 rounded-lg text-sm transition-colors duration-200 flex items-center justify-center space-x-2';
+                addItemBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg><span>Add New Item</span>`;
+                addItemBtn.dataset.categoryId = category.id;
+                itemsWrapper.appendChild(addItemBtn);
+
                 categoryDiv.appendChild(itemsWrapper);
                 ui.checklistItemsContainer.appendChild(categoryDiv);
             });
             helpers.showView('checklist');
+            attachDynamicEventListeners(); // Re-attach listeners for new elements
         }
+
+        // Attaches listeners to dynamically created elements
+        function attachDynamicEventListeners() {
+            // Checkbox and Notes listeners
+            ui.checklistItemsContainer.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                checkbox.onchange = handleSaveChecklist;
+            });
+            ui.checklistItemsContainer.querySelectorAll('textarea').forEach(textarea => {
+                textarea.oninput = handleSaveChecklist;
+            });
+
+            // Add new item button listener
+            ui.checklistItemsContainer.querySelectorAll('.add-item-button').forEach(btn => {
+                btn.onclick = () => addItem(btn.dataset.categoryId);
+            });
+
+            // Attachment listeners
+            ui.checklistItemsContainer.querySelectorAll('.add-attachment-btn').forEach(btn => {
+                btn.onclick = () => btn.previousElementSibling.click(); // Trigger file input
+            });
+            ui.checklistItemsContainer.querySelectorAll('input[type="file"]').forEach(input => {
+                input.onchange = (event) => handleAttachmentUpload(event, input.dataset.categoryId, input.dataset.itemId);
+            });
+            ui.checklistItemsContainer.querySelectorAll('.delete-attachment-btn').forEach(btn => {
+                btn.onclick = () => deleteAttachment(btn.dataset.categoryId, btn.dataset.itemId, btn.dataset.fileName, btn.dataset.fileUrl);
+            });
+        }
+
 
         function filterAndRenderListView() {
             const searchTerm = ui.searchInput.value.trim().toLowerCase();
@@ -731,8 +968,15 @@
                 const card = document.createElement('div');
                 card.className = 'bg-white dark:bg-slate-800 p-5 rounded-xl shadow-sm hover:shadow-lg border border-transparent hover:border-sky-500 transition-all duration-200 cursor-pointer';
                 card.onclick = () => renderChecklistForm(checklist.id); 
-                const itemsChecked = checklist.items?.filter(item => item.isChecked).length ?? 0;
-                const totalItems = checklistMaster.flatMap(c => c.items).length;
+                
+                // Calculate total items from the stored categories and items
+                let totalItems = 0;
+                let itemsChecked = 0;
+                checklist.categories?.forEach(cat => {
+                    totalItems += cat.items.length;
+                    itemsChecked += cat.items.filter(item => item.isChecked).length;
+                });
+
                 const progress = totalItems > 0 ? Math.round((itemsChecked / totalItems) * 100) : 0;
                 const date = checklist.lastUpdated?.toDate().toLocaleString() ?? 'N/A';
                 card.innerHTML = `<div class="flex justify-between items-start"><div><h3 class="text-xl font-bold text-slate-800 dark:text-slate-200">${checklist.orgName}</h3><p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Last updated: ${date}</p></div><div class="text-right"><p class="text-lg font-semibold text-sky-600 dark:text-sky-400">${progress}%</p><p class="text-xs text-slate-400 dark:text-slate-500">${itemsChecked}/${totalItems} complete</p></div></div><div class="mt-4 w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2.5"><div class="bg-sky-500 dark:bg-sky-500 h-2.5 rounded-full" style="width: ${progress}%"></div></div>`;
@@ -740,8 +984,211 @@
             });
         }
         
+        // --- Customization Logic ---
+        function addCategory() {
+            helpers.openEditModal(
+                'Add New Category',
+                'Enter new category name',
+                '',
+                (newName) => {
+                    const newId = `custom_cat_${crypto.randomUUID()}`;
+                    currentChecklistData.categories.push({
+                        id: newId,
+                        name: newName,
+                        isCustom: true,
+                        items: []
+                    });
+                    handleSaveChecklist(true); // Save and re-render
+                },
+                () => { /* Cancelled */ },
+                (val) => val.trim() !== '' // Validation: not empty
+            );
+        }
+
+        function editCategoryName(categoryId, currentName) {
+            helpers.openEditModal(
+                'Edit Category Name',
+                'Enter new category name',
+                currentName,
+                (newName) => {
+                    const category = currentChecklistData.categories.find(c => c.id === categoryId);
+                    if (category) {
+                        category.name = newName;
+                        handleSaveChecklist(true);
+                    }
+                },
+                () => { /* Cancelled */ },
+                (val) => val.trim() !== ''
+            );
+        }
+
+        function deleteCategory(categoryId, categoryName) {
+            helpers.openConfirmationModal(
+                `Delete "${categoryName}" category?`,
+                "This will permanently remove this category and all its items.",
+                async () => {
+                    helpers.closeModal(ui.confirmationModal);
+                    currentChecklistData.categories = currentChecklistData.categories.filter(c => c.id !== categoryId);
+                    handleSaveChecklist(true); // Save and re-render
+                }
+            );
+        }
+
+        function addItem(categoryId) {
+            helpers.openEditModal(
+                'Add New Item',
+                'Enter new checklist item description',
+                '',
+                (newItemText) => {
+                    const category = currentChecklistData.categories.find(c => c.id === categoryId);
+                    if (category) {
+                        const newId = `custom_item_${crypto.randomUUID()}`;
+                        category.items.push({
+                            id: newId,
+                            text: newItemText,
+                            isChecked: false,
+                            notes: '',
+                            isCustom: true,
+                            attachments: []
+                        });
+                        handleSaveChecklist(true); // Save and re-render
+                    }
+                },
+                () => { /* Cancelled */ },
+                (val) => val.trim() !== ''
+            );
+        }
+
+        function editItemText(categoryId, itemId, currentText) {
+             helpers.openEditModal(
+                'Edit Item Text',
+                'Enter new item description',
+                currentText,
+                (newText) => {
+                    const category = currentChecklistData.categories.find(c => c.id === categoryId);
+                    const item = category?.items.find(i => i.id === itemId);
+                    if (item) {
+                        item.text = newText;
+                        handleSaveChecklist(true);
+                    }
+                },
+                () => { /* Cancelled */ },
+                (val) => val.trim() !== ''
+            );
+        }
+
+        function deleteItem(categoryId, itemId, itemText) {
+            helpers.openConfirmationModal(
+                `Delete "${itemText}" item?`,
+                "This will permanently remove this checklist item and its attachments.",
+                async () => {
+                    helpers.closeModal(ui.confirmationModal);
+                    const category = currentChecklistData.categories.find(c => c.id === categoryId);
+                    if (category) {
+                        const itemToDelete = category.items.find(item => item.id === itemId);
+                        if (itemToDelete && itemToDelete.attachments) {
+                            // Delete all associated files from storage first
+                            for (const attachment of itemToDelete.attachments) {
+                                await deleteFileFromStorage(itemId, attachment.fileName);
+                            }
+                        }
+                        category.items = category.items.filter(i => i.id !== itemId);
+                        handleSaveChecklist(true); // Save and re-render
+                    }
+                }
+            );
+        }
+
+
+        // --- Attachment Logic ---
+        async function handleAttachmentUpload(event, categoryId, itemId) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const uploadStatusElement = event.target.nextElementSibling; // The div right after the button
+            uploadStatusElement.classList.remove('hidden');
+            helpers.showStatus(uploadStatusElement, `Uploading "${file.name}"...`, 'info', null);
+
+            try {
+                // Firebase Storage path: /artifacts/{appId}/users/{userId}/attachments/{checklistId}/{itemId}/{fileName}
+                const storageRef = ref(storage, `artifacts/${appId}/users/${userId}/attachments/${currentChecklistData.id}/${itemId}/${file.name}`);
+                const snapshot = await uploadBytes(storageRef, file);
+                const downloadURL = await getDownloadURL(snapshot.ref);
+
+                const category = currentChecklistData.categories.find(c => c.id === categoryId);
+                const item = category?.items.find(i => i.id === itemId);
+                
+                if (item) {
+                    if (!item.attachments) item.attachments = [];
+                    // Check for duplicates before adding
+                    if (!item.attachments.some(att => att.fileName === file.name)) {
+                        item.attachments.push({
+                            fileName: file.name,
+                            url: downloadURL,
+                            type: file.type,
+                            size: file.size,
+                            uploadedAt: serverTimestamp()
+                        });
+                        await handleSaveChecklist(true); // Save the updated checklist data with attachment metadata
+                        helpers.showStatus(uploadStatusElement, `"${file.name}" uploaded successfully!`, 'success');
+                    } else {
+                        helpers.showStatus(uploadStatusElement, `"${file.name}" already exists.`, 'info');
+                    }
+                }
+            } catch (error) {
+                console.error("Error uploading attachment:", error);
+                helpers.showStatus(uploadStatusElement, `Upload failed for "${file.name}".`, 'error');
+            } finally {
+                event.target.value = ''; // Clear file input
+                setTimeout(() => uploadStatusElement.classList.add('hidden'), 3000); // Hide status after some time
+            }
+        }
+
+        async function deleteAttachment(categoryId, itemId, fileName, fileUrl) {
+            helpers.openConfirmationModal(
+                `Delete "${fileName}"?`,
+                "This will permanently remove the attachment from this item.",
+                async () => {
+                    helpers.closeModal(ui.confirmationModal);
+                    try {
+                        // Delete from Firebase Storage
+                        await deleteFileFromStorage(itemId, fileName);
+
+                        // Remove from Firestore data
+                        const category = currentChecklistData.categories.find(c => c.id === categoryId);
+                        const item = category?.items.find(i => i.id === itemId);
+                        if (item) {
+                            item.attachments = (item.attachments || []).filter(att => att.fileName !== fileName);
+                            await handleSaveChecklist(true); // Save updated checklist
+                            helpers.showStatus(ui.statusMessage, `Attachment "${fileName}" deleted.`, 'info');
+                        }
+                    } catch (error) {
+                        console.error("Error deleting attachment:", error);
+                        helpers.showStatus(ui.statusMessage, `Failed to delete attachment "${fileName}".`, 'error');
+                    }
+                }
+            );
+        }
+
+        async function deleteFileFromStorage(itemId, fileName) {
+            const fileRef = ref(storage, `artifacts/${appId}/users/${userId}/attachments/${currentChecklistData.id}/${itemId}/${fileName}`);
+            try {
+                await deleteObject(fileRef);
+                console.log(`File ${fileName} deleted from storage.`);
+            } catch (error) {
+                // Ignore if file not found, otherwise log
+                if (error.code === 'storage/object-not-found') {
+                    console.warn(`File ${fileName} not found in storage, skipping deletion.`);
+                } else {
+                    console.error(`Error deleting file ${fileName} from storage:`, error);
+                    throw error; // Re-throw to propagate the error
+                }
+            }
+        }
+
+
         // --- Event Handlers & Firestore Logic ---
-        async function handleSaveChecklist() {
+        async function handleSaveChecklist(reRender = false) {
             if (!isAuthReady) return helpers.showStatus(ui.statusMessage, "Authentication not ready. Please wait.", 'error');
             const orgName = ui.orgNameInput.value.trim();
             if (!orgName) {
@@ -750,28 +1197,46 @@
                 return helpers.showStatus(ui.statusMessage, "Organization name is required.", 'error');
             }
             ui.orgNameError.classList.add('hidden');
-            const items = checklistMaster.flatMap(category => category.items.map(itemMaster => {
-                const checkbox = ui.checklistItemsContainer.querySelector(`input[data-item-id="${itemMaster.id}"]`);
-                const notesTextarea = ui.checklistItemsContainer.querySelector(`textarea[data-item-id="${itemMaster.id}"]`);
-                return { id: itemMaster.id, isChecked: checkbox?.checked ?? false, notes: notesTextarea?.value.trim() ?? '' };
-            }));
-            const checklistDoc = { orgName, items, lastUpdated: serverTimestamp() };
+            
+            // Collect current state from UI for saving
+            currentChecklistData.orgName = orgName;
+            currentChecklistData.lastUpdated = serverTimestamp();
+
+            // Update item states from the UI
+            currentChecklistData.categories.forEach(category => {
+                category.items.forEach(item => {
+                    const checkbox = ui.checklistItemsContainer.querySelector(`input[data-item-id="${item.id}"][data-category-id="${category.id}"]`);
+                    const notesTextarea = ui.checklistItemsContainer.querySelector(`textarea[data-item-id="${item.id}"][data-category-id="${category.id}"]`);
+                    item.isChecked = checkbox?.checked ?? false;
+                    item.notes = notesTextarea?.value.trim() ?? '';
+                    // Attachments are handled directly in attachment functions
+                });
+            });
+
             ui.saveChecklistBtn.disabled = true;
-            helpers.showStatus(ui.statusMessage, "Saving...", 'info', null);
+            if (!reRender) helpers.showStatus(ui.statusMessage, "Saving...", 'info', null);
+            
             try {
                 let currentId = currentChecklistData?.id;
                 if (currentId) {
                     const docRef = doc(db, `artifacts/${appId}/users/${userId}/checklists`, currentId);
-                    await setDoc(docRef, checklistDoc, { merge: true });
+                    await setDoc(docRef, currentChecklistData, { merge: true });
                 } else {
                     const collectionRef = collection(db, `artifacts/${appId}/users/${userId}/checklists`);
-                    const newDocRef = await addDoc(collectionRef, checklistDoc);
+                    const newDocRef = await addDoc(collectionRef, currentChecklistData);
                     currentId = newDocRef.id;
+                    currentChecklistData.id = currentId; // Update state with new ID
                 }
-                const savedDocRef = await getDoc(doc(db, `artifacts/${appId}/users/${userId}/checklists`, currentId));
-                currentChecklistData = {id: savedDocRef.id, ...savedDocRef.data()};
+                // Fetch the saved doc to ensure all server-stamped fields are accurate
+                const savedDocSnap = await getDoc(doc(db, `artifacts/${appId}/users/${userId}/checklists`, currentId));
+                currentChecklistData = {id: savedDocSnap.id, ...savedDocSnap.data()};
 
-                helpers.showStatus(ui.statusMessage, "Checklist saved successfully!", 'success');
+
+                if (reRender) {
+                    renderChecklistForm(currentChecklistData.id); // Re-render to reflect structure changes
+                } else {
+                    helpers.showStatus(ui.statusMessage, "Checklist saved successfully!", 'success');
+                }
                 ui.checklistTitle.textContent = orgName;
                 ui.deleteChecklistBtn.classList.remove('hidden');
                 ui.shareChecklistBtn.classList.remove('hidden');
@@ -783,22 +1248,33 @@
             }
         }
 
-        function handleDeleteChecklist() {
+        async function handleDeleteChecklist() {
             if (!currentChecklistData?.id || !isAuthReady) return;
             helpers.openConfirmationModal(
                 `Delete "${currentChecklistData.orgName || 'this checklist'}"?`,
-                "This action is permanent and cannot be recovered.",
+                "This action is permanent and cannot be recovered. All associated attachments will also be deleted.",
                 async () => {
                     helpers.closeModal(ui.confirmationModal);
                     helpers.showStatus(ui.statusMessage, "Deleting...", 'info', null);
                     try {
+                        // Delete all attachments from storage first
+                        const allItems = currentChecklistData.categories.flatMap(cat => cat.items);
+                        for (const item of allItems) {
+                            if (item.attachments) {
+                                for (const attachment of item.attachments) {
+                                    await deleteFileFromStorage(item.id, attachment.fileName);
+                                }
+                            }
+                        }
+
+                        // Delete the checklist document
                         await deleteDoc(doc(db, `artifacts/${appId}/users/${userId}/checklists`, currentChecklistData.id));
                         currentChecklistData = null;
                         helpers.showView('list');
-                        helpers.showStatus(ui.statusMessage, "Checklist deleted.", 'info', 2000);
+                        helpers.showStatus(ui.statusMessage, "Checklist and all attachments deleted.", 'info', 3000);
                     } catch (error) {
-                        console.error("Error deleting checklist: ", error);
-                        helpers.showStatus(ui.statusMessage, "Failed to delete checklist.", 'error');
+                        console.error("Error deleting checklist and/or attachments: ", error);
+                        helpers.showStatus(ui.statusMessage, "Failed to delete checklist and/or some attachments.", 'error');
                     }
                 }
             );
@@ -811,10 +1287,24 @@
             try {
                 let shareId = currentChecklistData.shareId;
                 if (!shareId) {
+                    // For sharing, we flatten the categories and items into a single array for easier import,
+                    // but maintain the category structure conceptually.
                     const sharedDocData = {
                         ownerId: userId,
                         orgName: currentChecklistData.orgName,
-                        items: currentChecklistData.items
+                        categories: currentChecklistData.categories.map(cat => ({
+                            id: cat.id,
+                            name: cat.name,
+                            isCustom: cat.isCustom,
+                            items: cat.items.map(item => ({
+                                id: item.id,
+                                text: item.text,
+                                link: item.link,
+                                linkText: item.linkText,
+                                isCustom: item.isCustom
+                                // Attachments, isChecked, notes are *not* shared
+                            }))
+                        }))
                     };
                     const sharedDocRef = await addDoc(collection(db, `artifacts/${appId}/public/data/sharedChecklists`), sharedDocData);
                     shareId = sharedDocRef.id;
@@ -847,9 +1337,25 @@
 
                 if (docSnap.exists()) {
                     const data = docSnap.data();
+                    const importedCategories = data.categories.map(cat => ({
+                        id: cat.id,
+                        name: cat.name,
+                        isCustom: cat.isCustom,
+                        items: cat.items.map(item => ({
+                            id: item.id,
+                            text: item.text,
+                            link: item.link,
+                            linkText: item.linkText,
+                            isCustom: item.isCustom,
+                            isChecked: false, // Imported items start unchecked
+                            notes: '', // Imported items start with no notes
+                            attachments: [] // Imported items start with no attachments
+                        }))
+                    }));
+
                     const newChecklist = {
                         orgName: `[Imported] ${data.orgName}`,
-                        items: data.items,
+                        categories: importedCategories,
                         lastUpdated: serverTimestamp()
                     };
                     await addDoc(collection(db, `artifacts/${appId}/users/${userId}/checklists`), newChecklist);
@@ -896,15 +1402,20 @@
             const orgName = ui.orgNameInput.value.trim();
             if (!orgName) return helpers.showStatus(ui.statusMessage, "Please enter an organization name.", 'error');
             let textToCopy = `Compliance Checklist for: ${orgName}\n========================================\n\n`;
-            checklistMaster.forEach(category => {
-                textToCopy += `CATEGORY: ${category.category.toUpperCase()}\n----------------------------------------\n`;
-                category.items.forEach(itemMaster => {
-                    const checkbox = ui.checklistItemsContainer.querySelector(`input[data-item-id="${itemMaster.id}"]`);
-                    const notesTextarea = ui.checklistItemsContainer.querySelector(`textarea[data-item-id="${itemMaster.id}"]`);
-                    const status = checkbox?.checked ? "[X]" : "[ ]";
-                    textToCopy += `${status} ${itemMaster.text}\n`;
-                    if (notesTextarea?.value.trim()) textToCopy += `    Notes: ${notesTextarea.value.trim()}\n`;
-                    if (itemMaster.link) textToCopy += `    Resource: ${itemMaster.link}\n`;
+            
+            currentChecklistData.categories.forEach(category => {
+                textToCopy += `CATEGORY: ${category.name.toUpperCase()}\n----------------------------------------\n`;
+                category.items.forEach(item => {
+                    const status = item.isChecked ? "[X]" : "[ ]";
+                    textToCopy += `${status} ${item.text}\n`;
+                    if (item.notes.trim()) textToCopy += `    Notes: ${item.notes.trim()}\n`;
+                    if (item.link) textToCopy += `    Resource: ${item.link}\n`;
+                    if (item.attachments && item.attachments.length > 0) {
+                        textToCopy += `    Attachments:\n`;
+                        item.attachments.forEach(att => {
+                            textToCopy += `        - ${att.fileName}: ${att.url}\n`;
+                        });
+                    }
                     textToCopy += "\n"; 
                 });
                 textToCopy += "\n";
@@ -954,6 +1465,7 @@
                 const app = initializeApp(finalConfig);
                 db = getFirestore(app);
                 auth = getAuth(app);
+                storage = getStorage(app); // Initialize Firebase Storage
             } catch (error) {
                 console.error("Firebase initialization failed:", error);
                 ui.authStatus.textContent = "Error: " + error.message;
@@ -1011,6 +1523,9 @@
             ui.searchInput.addEventListener('input', filterAndRenderListView);
             ui.orgNameInput.addEventListener('input', () => { ui.checklistTitle.textContent = ui.orgNameInput.value.trim() || "New Checklist"; });
             
+            // New for customization
+            ui.addCategoryBtn.addEventListener('click', addCategory);
+
             // External Tool Modal Buttons
             ui.openEinModalBtn.addEventListener('click', () => helpers.openModal(ui.einLookupModal));
             ui.openPropublicaModalBtn.addEventListener('click', () => helpers.openModal(ui.propublicaLookupModal));
@@ -1025,8 +1540,14 @@
             [
                 ui.modalCancelBtn, ui.shareModalCloseBtn, ui.importModalCancelBtn, 
                 ui.einModalCancelBtn, ui.propublicaModalCancelBtn, ui.bbbModalCancelBtn, ui.nascoModalCancelBtn, 
-                ui.aphisModalCancelBtn, ui.charityNavModalCancelBtn, ui.charityWatchModalCancelBtn
-            ].forEach(btn => btn.addEventListener('click', () => btn.closest('.modal').style.display = 'none'));
+                ui.aphisModalCancelBtn, ui.charityNavModalCancelBtn, ui.charityWatchModalCancelBtn,
+                ui.editModalCancelBtn, ui.editModalSaveBtn // Edit modal handlers are managed internally by helpers.openEditModal
+            ].forEach(btn => {
+                // Ensure event listeners are added only once, and are generic for modal closing
+                if (btn.id === 'modal-confirm-btn') return; // Handled by confirmAction
+                if (btn.id === 'edit-modal-save-btn' || btn.id === 'edit-modal-cancel-btn') return; // Handled by openEditModal
+                btn.addEventListener('click', () => helpers.closeModal(btn.closest('.modal')));
+            });
             
             ui.shareModalCopyBtn.addEventListener('click', () => copyToClipboard(ui.shareIdDisplay.textContent, ui.shareIdDisplay, 'ID Copied!'));
             ui.importModalConfirmBtn.addEventListener('click', handleImportConfirm);
@@ -1036,10 +1557,16 @@
                 ui.aphisModalConfirmLink, ui.charityNavModalConfirmLink, ui.charityWatchModalConfirmLink
             ].forEach(link => link.addEventListener('click', () => helpers.closeModal(link.closest('.modal'))));
             
-            window.addEventListener('click', (event) => { if (event.target.classList.contains('modal')) helpers.closeModal(event.target); });
+            // General click listener for clicking outside modals
+            window.addEventListener('click', (event) => { 
+                if (event.target.classList.contains('modal')) {
+                    helpers.closeModal(event.target); 
+                }
+            });
         }
 
         document.addEventListener('DOMContentLoaded', initApp);
     </script>
 </body>
 </html>
+
