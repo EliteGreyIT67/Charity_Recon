@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animal Rescue Compliance Checklist</title>
+    <title>AI-Powered Animal Rescue Compliance Checklist</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,6 +20,8 @@
         /* --- Base & Font Styles --- */
         body {
             font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         /* --- Custom Scrollbar --- */
@@ -31,18 +33,19 @@
         }
         .checklist-items-container::-webkit-scrollbar-thumb {
             background: #94a3b8; /* slate-400 */
+            border-radius: 4px;
         }
         .checklist-items-container::-webkit-scrollbar-thumb:hover {
             background: #64748b; /* slate-500 */
         }
         .dark .checklist-items-container::-webkit-scrollbar-track {
-             background: #334155;/* slate-700 */
+             background: #1e293b;/* slate-800 */
         }
         .dark .checklist-items-container::-webkit-scrollbar-thumb {
-            background: #64748b; /* slate-500 */
+            background: #475569; /* slate-600 */
         }
         .dark .checklist-items-container::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;/* slate-400 */
+            background: #64748b;/* slate-500 */
         }
         
         /* --- Custom Checkbox --- */
@@ -55,7 +58,7 @@
             width: 1.25em;
             height: 1.25em;
             border: 0.15em solid #cbd5e1; /* slate-300 */
-            border-radius: 0.25em;
+            border-radius: 0.375em; /* rounded-md */
             transform: translateY(-0.075em);
             display: grid;
             place-content: center;
@@ -77,17 +80,28 @@
             clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
         }
         .custom-checkbox:checked {
+            background: #0ea5e9; /* sky-500 */
             border-color: #0ea5e9; /* sky-500 */
         }
         .dark .custom-checkbox:checked {
+            background: #38bdf8; /* sky-400 */
             border-color: #38bdf8; /* sky-400 */
         }
         .dark .custom-checkbox::before {
-             box-shadow: inset 1em 1em #38bdf8;/* sky-400 */
+             box-shadow: inset 1em 1em #fff;
+        }
+        .custom-checkbox:checked::before {
+             box-shadow: inset 1em 1em #fff;
+             transform: scale(1);
         }
         .custom-checkbox:focus-visible {
-            outline: max(2px, 0.15em) solid #0ea5e9;
-            outline-offset: max(2px, 0.15em);
+            outline: 2px solid #38bdf8; /* sky-400 */
+            outline-offset: 2px;
+        }
+        .custom-checkbox:disabled {
+            border-color: #e2e8f0; /* slate-200 */
+            background-color: #f1f5f9; /* slate-100 */
+            cursor: not-allowed;
         }
 
         /* --- Modal Styles --- */
@@ -103,13 +117,37 @@
             background-color: rgba(15, 23, 42, 0.6); /* slate-900 with opacity */
             padding-top: 60px;
             backdrop-filter: blur(4px);
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .modal.is-open {
+            opacity: 1;
         }
         .modal-content {
             margin: 5% auto;
             padding: 2rem;
             width: 90%;
             max-width: 450px;
-            border-radius: 0.75rem;
+            border-radius: 0.75rem; /* rounded-xl */
+            transform: scale(0.95);
+            transition: transform 0.3s ease-in-out;
+        }
+        .modal.is-open .modal-content {
+            transform: scale(1);
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            animation: spin 1s linear infinite;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #3498db;
+            border-radius: 50%;
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* --- Print Styles --- */
@@ -119,12 +157,12 @@
                 background-color: rgb(255 255 255 / var(--tw-bg-opacity)) !important;
                 color: #000 !important;
             }
-             .dark body, .dark #app-container, .dark #checklist-view, .dark .category-block, .dark textarea {
+             .dark body, .dark #app-container, .dark #checklist-view, .dark .category-block, .dark textarea, .dark #gemini-summary-modal .modal-content {
                  background-color: #fff !important;
                  color: #000 !important;
                  border-color: #ccc !important;
             }
-             .dark #checklist-title, .dark .category-title, .dark .item-text, .dark a {
+             .dark #checklist-title, .dark .category-title, .dark .item-text, .dark a, .dark #gemini-summary-modal h3, .dark #gemini-summary-modal pre {
                  color: #000 !important;
             }
             body {
@@ -135,51 +173,58 @@
             #app-container, #user-info {
                 max-width: 100%; margin: 0; padding: 10px; box-shadow: none; border: none;
             }
-            header, .action-buttons-container, .list-view-actions, #status-message, .modal, #search-container, #verification-tools, #dark-mode-toggle, .edit-button, .delete-button, .add-item-button, .add-category-button, .attachment-actions, .file-input-wrapper {
+            header, .action-buttons-container, .list-view-actions, #status-message, .modal:not(#gemini-summary-modal.is-printing), #search-container, #verification-tools, #dark-mode-toggle, .edit-button, .delete-button, .add-item-button, .add-category-button, .attachment-actions, .file-input-wrapper, .category-actions, #gemini-summary-modal-actions {
                 display: none !important;
             }
+            #gemini-summary-modal.is-printing {
+                position: static;
+                display: block !important;
+                background-color: #fff !important;
+                padding-top: 0;
+                overflow: visible;
+                height: auto;
+                width: 100%;
+            }
+            #gemini-summary-modal.is-printing .modal-content {
+                max-width: 100%;
+                box-shadow: none;
+                border: none;
+                margin: 0;
+                padding: 1rem;
+            }
             #checklist-view {
-                display: block !important; box-shadow: none !important; border: none !important; padding: 0 !important;
+                display: none !important; 
             }
             #checklist-title-container {
-                border-bottom: 2px solid #000;
-                padding-bottom: 10px;
-                margin-bottom: 20px;
+                border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 20px;
             }
-            #checklist-title {
-                font-size: 22pt !important;
-            }
-            #org-name-input-print-header {
-                display: block; font-size: 16pt; font-weight: bold; margin-top: 5px;
-            }
+            #checklist-title { font-size: 22pt !important; }
+            #org-name-input-print-header { display: block; font-size: 16pt; font-weight: bold; margin-top: 5px; }
             #org-name-input, #back-to-list-btn { display: none !important; }
-
-            .category-block {
-                border: 1px solid #ccc !important; padding: 10px !important; margin-bottom: 15px !important; page-break-inside: avoid; border-radius: 0 !important; box-shadow: none !important;
-            }
-            .category-title {
-                font-size: 14pt !important; border-bottom: 1px solid #666; padding-bottom: 5px; margin-bottom: 10px;
-            }
-            .checklist-item {
-                border-bottom: 1px dotted #ccc !important; padding: 8px 0 !important; page-break-inside: avoid;
-            }
+            .category-block { border: 1px solid #ccc !important; padding: 10px !important; margin-bottom: 15px !important; page-break-inside: avoid; border-radius: 0 !important; box-shadow: none !important; }
+            .category-title { font-size: 14pt !important; border-bottom: 1px solid #666; padding-bottom: 5px; margin-bottom: 10px; }
+            .checklist-item { border-bottom: 1px dotted #ccc !important; padding: 8px 0 !important; page-break-inside: avoid; }
             input[type="checkbox"] { display: inline-block !important; vertical-align: top; margin-top: 4px; }
             .custom-checkbox { display: none !important; }
-
             .item-text { font-size: 11pt !important; }
             textarea { display: block !important; border: 1px solid #ddd !important; font-size: 10pt !important; resize: none !important; min-height: 30px; -webkit-print-color-adjust: exact; }
             a { text-decoration: none !important; }
             a::after { content: " (" attr(href) ")"; font-size: 9pt; }
             .link-placeholder::after { content: ""; }
+            #gemini-summary-text pre {
+                white-space: pre-wrap;
+                font-family: 'Times New Roman', Times, serif;
+                font-size: 12pt;
+            }
         }
     </style>
 </head>
-<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-300">
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200">
 
-    <div id="app-container" class="relative max-w-5xl mx-auto p-4 md:p-8">
+    <div id="app-container" class="relative max-w-7xl mx-auto p-4 md:p-8">
         
-        <div class="absolute top-4 right-4 z-20">
-            <button id="dark-mode-toggle" class="p-2 rounded-full bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300 transition-colors" aria-label="Toggle dark mode">
+        <div class="absolute top-6 right-6 z-20">
+            <button id="dark-mode-toggle" class="p-2 rounded-full bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-500 dark:text-slate-400 transition-colors" aria-label="Toggle dark mode">
                 <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
@@ -189,92 +234,93 @@
             </button>
         </div>
 
-        <div id="user-info" class="mb-4 p-3 bg-sky-100 dark:bg-sky-900/50 border border-sky-200 dark:border-sky-800 text-sky-800 dark:text-sky-300 rounded-lg text-sm text-center hidden">
+        <div id="user-info" class="mb-6 p-3 bg-sky-100 dark:bg-sky-900/50 border border-sky-200 dark:border-sky-800 text-sky-800 dark:text-sky-300 rounded-lg text-sm text-center hidden">
             <p><strong>Status:</strong> <span id="auth-status">Initializing...</span></p>
-            <p class="mt-1"><strong>User ID:</strong> <span id="user-id" class="font-mono break-all"></span></p>
+            <p class="mt-1"><strong>User ID:</strong> <span id="user-id" class="font-mono break-all text-xs"></span></p>
         </div>
 
         <div id="list-view">
-            <header class="mb-8 text-center">
-                <h1 class="text-4xl md:text-5xl font-bold text-slate-800 dark:text-slate-200">Rescue Compliance</h1>
-                <p class="text-slate-500 dark:text-slate-400 mt-2 text-lg">Your cloud-synced checklists for ensuring animal welfare standards.</p>
+            <header class="mb-10 text-center">
+                <h1 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-slate-100">Rescue Compliance</h1>
+                <p class="text-slate-500 dark:text-slate-400 mt-3 text-lg max-w-2xl mx-auto">Your AI-powered, cloud-synced checklists for ensuring animal welfare standards.</p>
             </header>
 
-            <div class="list-view-actions mb-6 flex flex-col sm:flex-row gap-3">
-                <button id="new-checklist-btn" class="w-full sm:w-auto bg-sky-500 hover:bg-sky-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 ease-in-out flex items-center justify-center space-x-2 transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
-                    <span>Start New</span>
+            <div class="list-view-actions mb-8 flex flex-col sm:flex-row gap-4">
+                <button id="new-checklist-btn" class="w-full sm:w-auto bg-sky-500 hover:bg-sky-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 ease-in-out flex items-center justify-center space-x-2.5 transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 dark:focus:ring-offset-slate-900">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" /></svg>
+                    <span>Start New Checklist</span>
                 </button>
-                <button id="import-checklist-btn" class="w-full sm:w-auto bg-slate-600 hover:bg-slate-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 ease-in-out flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                <button id="import-checklist-btn" class="w-full sm:w-auto bg-slate-600 hover:bg-slate-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 ease-in-out flex items-center justify-center space-x-2.5 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500 dark:focus:ring-offset-slate-900">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
                     <span>Import Shared</span>
                 </button>
             </div>
             
             <div id="search-container" class="mb-8 relative">
-                <input type="text" id="search-input" placeholder="Search by organization name..." class="w-full p-4 pl-12 border border-slate-300 dark:border-slate-600 dark:bg-slate-800 rounded-lg shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-shadow dark:placeholder-slate-400">
+                <input type="text" id="search-input" placeholder="Search by organization name..." class="w-full p-4 pl-12 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-lg shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-shadow dark:placeholder-slate-400">
                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-400 dark:text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 dark:text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                 </div>
             </div>
 
-            <div id="no-checklists-message" class="text-center py-16 bg-white dark:bg-slate-800 rounded-lg shadow-sm hidden">
+            <div id="no-checklists-message" class="text-center py-20 bg-white dark:bg-slate-800/50 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700/50 hidden">
                  <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 mx-auto text-slate-300 dark:text-slate-600 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-                <p class="text-2xl font-semibold text-slate-700 dark:text-slate-300">No checklists found.</p>
-                <p class="text-slate-500 dark:text-slate-400">Click "Start New" to begin, or "Import Shared" to add one from a colleague.</p>
+                <p class="text-2xl font-semibold text-slate-700 dark:text-slate-300 mt-2">No checklists yet</p>
+                <p class="text-slate-500 dark:text-slate-400 mt-1">Click "Start New" to begin, or "Import Shared" to add one from a colleague.</p>
             </div>
-             <div id="saved-checklists-container" class="space-y-4">
-                </div>
+             <div id="saved-checklists-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Checklist cards will be rendered here -->
+            </div>
         </div>
 
-        <div id="checklist-view" class="hidden bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-2xl shadow-lg">
-            <header class="mb-6 pb-6 border-b border-slate-200 dark:border-slate-700">
+        <div id="checklist-view" class="hidden bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-2xl shadow-xl">
+            <header class="mb-8 pb-6 border-b border-slate-200 dark:border-slate-700">
                 <div id="checklist-title-container" class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                     <div>
-                        <button id="back-to-list-btn" class="text-sky-600 dark:text-sky-400 hover:text-sky-800 dark:hover:text-sky-300 font-semibold flex items-center space-x-1.5 group mb-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg>
+                        <button id="back-to-list-btn" class="text-sky-600 dark:text-sky-400 hover:text-sky-800 dark:hover:text-sky-300 font-semibold flex items-center space-x-1.5 group mb-3 text-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg>
                             <span>Back to List</span>
                         </button>
-                        <h2 id="checklist-title" class="text-3xl md:text-4xl font-bold text-slate-800 dark:text-slate-200">New Checklist</h2>
+                        <h2 id="checklist-title" class="text-3xl md:text-4xl font-bold text-slate-800 dark:text-slate-100">New Checklist</h2>
                         <span id="org-name-input-print-header" class="hidden print:block"></span> 
                     </div>
                 </div>
                  <div class="mt-6">
-                    <label for="org-name-input" class="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-1">Rescue Organization Name</label>
-                    <input type="text" id="org-name-input" class="w-full p-3 border border-slate-300 dark:border-slate-600 dark:bg-slate-900 rounded-lg shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-shadow dark:placeholder-slate-400" placeholder="e.g., Happy Paws Rescue">
-                    <p id="org-name-error" class="text-red-500 dark:text-red-400 text-sm mt-1 hidden">Organization name cannot be empty.</p>
+                    <label for="org-name-input" class="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-2">Rescue Organization Name</label>
+                    <input type="text" id="org-name-input" class="w-full p-3 border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900/70 rounded-lg shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-all dark:placeholder-slate-400 text-lg" placeholder="e.g., Happy Paws Rescue">
+                    <p id="org-name-error" class="text-red-500 dark:text-red-400 text-sm mt-1.5 hidden">Organization name cannot be empty.</p>
                 </div>
             </header>
 
-            <div id="verification-tools" class="mb-6">
-                <h3 class="text-lg font-semibold text-slate-700 dark:text-slate-300 border-b dark:border-slate-700 pb-2 mb-4">Verification Tools</h3>
+            <div id="verification-tools" class="mb-8">
+                <h3 class="text-lg font-semibold text-slate-700 dark:text-slate-300 mb-4">Verification Tools</h3>
                 <div class="flex flex-wrap gap-3">
-                     <button id="open-ein-modal-btn" class="bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
+                     <button id="open-ein-modal-btn" class="tool-btn">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
                         <span>IRS EIN Lookup</span>
                     </button>
-                    <button id="open-propublica-modal-btn" class="bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
+                    <button id="open-propublica-modal-btn" class="tool-btn">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" /><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd" /></svg>
                         <span>ProPublica</span>
                     </button>
-                    <button id="open-aphis-modal-btn" class="bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
+                    <button id="open-aphis-modal-btn" class="tool-btn">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zM9.043 4.258a.75.75 0 01.166-.445l.42-.42a.75.75 0 011.06 0l.42.42a.75.75 0 01.166.445c.03.14.043.284.043.432 0 1.102-.89 1.99-1.99 1.99S8 5.79 8 4.69c0-.148.013-.292.043-.432zM7.25 7.5A.75.75 0 006.5 8.25v3.5A.75.75 0 008 12.54V15a.75.75 0 001.5 0v-2.5a.75.75 0 00-.75-.75h-.5a.75.75 0 00-.75.75v.19l-1.72 1.72a.75.75 0 101.06 1.06l1.97-1.97a2.25 2.25 0 011.591-.659h.659a2.25 2.25 0 011.591.659l1.97 1.97a.75.75 0 101.06-1.06L13 11.81V9.75A.75.75 0 0012 9h-.5A.75.75 0 0010.75 9.75v2.79a.75.75 0 001.28.53l.5-.5a.75.75 0 00-1.06-1.06l-.22.22V8.25A.75.75 0 0010.25 7.5h-3z" clip-rule="evenodd" /></svg>
                         <span>APHIS Search</span>
                     </button>
-                    <button id="open-charitynav-modal-btn" class="bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
+                    <button id="open-charitynav-modal-btn" class="tool-btn">
                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
                         <span>Charity Navigator</span>
                     </button>
-                    <button id="open-charitywatch-modal-btn" class="bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
+                    <button id="open-charitywatch-modal-btn" class="tool-btn">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9 5a1 1 0 112 0v2.25a.75.75 0 01-1.5 0V5zM10 12a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd" /></svg>
                         <span>CharityWatch</span>
                     </button>
-                    <button id="open-bbb-modal-btn" class="bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor"><path fill-rule="evenodd" d="M10 1.944A11.954 11.954 0 012.166 5C2.056 5.649 2 6.319 2 7c0 5.225 3.34 9.67 8 11.317C14.66 16.67 18 12.225 18 7c0-.682-.057-1.35-.166-2.001A11.954 11.954 0 0110 1.944zM10 6a1 1 0 011 1v3l3 3-1.414 1.414L9 10.414V7a1 1 0 011-1z" clip-rule="evenodd" /></svg>
-                        <span>BBB Scam Tracker</span>
+                    <button id="open-bbb-modal-btn" class="tool-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" /></svg>
+                        <span>BBB</span>
                     </button>
-                    <button id="open-nasco-modal-btn" class="bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor"><path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" /></svg>
+                    <button id="open-nasco-modal-btn" class="tool-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" /></svg>
                         <span>State Regulators</span>
                     </button>
                 </div>
@@ -283,200 +329,154 @@
             <div id="checklist-items-container" class="space-y-8 max-h-[60vh] overflow-y-auto pr-3 -mr-3"></div>
 
             <!-- Add new category button -->
-            <button id="add-category-btn" class="mt-6 w-full bg-slate-300 hover:bg-slate-400 text-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
+            <button id="add-category-btn" class="mt-8 w-full bg-slate-100 hover:bg-slate-200 text-slate-600 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-300 font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 border border-slate-300 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 dark:focus:ring-offset-slate-800">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
                 <span>Add New Category</span>
             </button>
 
 
-            <div class="action-buttons-container mt-8 pt-6 border-t border-slate-200 dark:border-slate-700 flex flex-col-reverse sm:flex-row sm:justify-between sm:items-center gap-4">
-                <button id="delete-checklist-btn" class="hidden w-full sm:w-auto text-red-600 dark:text-red-500 hover:text-white hover:bg-red-600 dark:hover:bg-red-500 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 border border-red-500 dark:border-red-500 hover:border-red-600 dark:hover:border-red-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+            <div class="action-buttons-container mt-10 pt-6 border-t border-slate-200 dark:border-slate-700 flex flex-col-reverse sm:flex-row sm:justify-between sm:items-center gap-4">
+                <button id="delete-checklist-btn" class="hidden w-full sm:w-auto text-red-600 dark:text-red-500 hover:text-white hover:bg-red-600 dark:hover:bg-red-500 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 border border-red-300 dark:border-red-500/50 hover:border-red-600 dark:hover:border-red-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm6 0a1 1 0 11-2 0v6a1 1 0 112 0V8z" clip-rule="evenodd" /></svg>
                     <span>Delete</span>
                 </button>
 
                 <div class="flex flex-col sm:flex-row sm:justify-end gap-3 flex-wrap">
-                     <button id="share-checklist-btn" class="w-full sm:w-auto bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 px-5 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12s-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367-2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" /></svg>
+                     <button id="gemini-summary-btn" class="action-btn-secondary bg-purple-200 hover:bg-purple-300 text-purple-800 dark:bg-purple-600/50 dark:hover:bg-purple-600/80 dark:text-purple-200 hidden">
+                        <span class="gemini-btn-content flex items-center justify-center space-x-2">
+                           ✨
+                           <span>Generate Summary</span>
+                        </span>
+                     </button>
+                     <button id="share-checklist-btn" class="action-btn-secondary hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" /></svg>
                         <span>Share</span>
                     </button>
-                     <button id="copy-checklist-btn" class="w-full sm:w-auto bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-3 px-5 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                     <button id="copy-checklist-btn" class="action-btn-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z" /><path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h6a2 2 0 00-2-2H5z" /></svg>
                         <span>Copy</span>
                     </button>
-                     <button id="print-checklist-btn" class="w-full sm:w-auto bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-3 px-5 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H7a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm-8-14h14M5 7h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V9a2 2 0 012-2z" /></svg>
+                     <button id="print-checklist-btn" class="action-btn-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 4v3H4a2 2 0 00-2 2v6a2 2 0 002 2h1v-1a1 1 0 011-1h10a1 1 0 011 1v1h1a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm8 0H7v3h6V4zm0 8H7v4h6v-4z" clip-rule="evenodd" /></svg>
                         <span>Print</span>
                     </button>
-                     <button id="save-checklist-btn" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 ease-in-out flex items-center justify-center space-x-2 transform hover:-translate-y-0.5">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                        <span>Save</span>
+                     <button id="save-checklist-btn" class="action-btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                        <span>Save Checklist</span>
                     </button>
                 </div>
             </div>
-            <div id="status-message" class="mt-4 text-center font-medium"></div>
+            <div id="status-message" class="mt-4 text-center font-medium h-6"></div>
         </div>
     </div>
-
+    
+    <!-- MODALS -->
     <div id="confirmation-modal" class="modal">
-        <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 p-2 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
-            <h3 id="modal-title" class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-2">Are you sure?</h3>
+        <div class="modal-content bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-lg text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 mx-auto mb-4 bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 p-3 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+            <h3 id="modal-title" class="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Are you sure?</h3>
             <p id="modal-message" class="mb-8 text-slate-500 dark:text-slate-400">This action cannot be undone.</p>
             <div class="flex justify-center space-x-4">
-                <button id="modal-cancel-btn" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
-                <button id="modal-confirm-btn" class="flex-1 bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">Confirm</button>
+                <button id="modal-cancel-btn" class="modal-btn-secondary">Cancel</button>
+                <button id="modal-confirm-btn" class="modal-btn-danger">Confirm</button>
             </div>
         </div>
     </div>
     
     <div id="share-modal" class="modal">
-        <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 p-2 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12s-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367-2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" /></svg>
-            <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-2">Share this Checklist</h3>
-            <p class="mb-4 text-slate-500 dark:text-slate-400">Give this ID to another user so they can import a copy of this checklist.</p>
-            <div class="p-3 bg-slate-100 dark:bg-slate-700 rounded-lg font-mono text-slate-700 dark:text-slate-200 text-center break-words border border-slate-200 dark:border-slate-600 mb-6" id="share-id-display"></div>
+        <div class="modal-content bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-lg text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 mx-auto mb-4 bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 p-3 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12s-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367-2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" /></svg>
+            <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Share this Checklist</h3>
+            <p class="mb-5 text-slate-500 dark:text-slate-400">Give this ID to another user so they can import a copy.</p>
+            <div class="p-3 bg-slate-100 dark:bg-slate-900/70 rounded-lg font-mono text-slate-700 dark:text-slate-200 text-center break-words border border-slate-200 dark:border-slate-700 mb-8" id="share-id-display"></div>
             <div class="flex justify-center space-x-4">
-                <button id="share-modal-close-btn" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Close</button>
-                <button id="share-modal-copy-btn" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">Copy ID</button>
+                <button id="share-modal-close-btn" class="modal-btn-secondary">Close</button>
+                <button id="share-modal-copy-btn" class="modal-btn-primary bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500">Copy ID</button>
             </div>
         </div>
     </div>
 
     <div id="import-modal" class="modal">
-        <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg">
-             <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-4 text-center">Import Shared Checklist</h3>
+        <div class="modal-content bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-lg">
+             <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-5 text-center">Import Shared Checklist</h3>
              <label for="import-id-input" class="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-2">Enter Share ID:</label>
-             <input type="text" id="import-id-input" class="w-full p-3 border border-slate-300 dark:border-slate-600 dark:bg-slate-900 rounded-lg shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 dark:placeholder-slate-400" placeholder="Paste the Share ID here">
-             <div id="import-status-message" class="mt-3 text-center text-sm font-medium"></div>
+             <input type="text" id="import-id-input" class="w-full p-3 border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900/70 rounded-lg shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 dark:placeholder-slate-400" placeholder="Paste the Share ID here">
+             <div id="import-status-message" class="mt-3 text-center text-sm font-medium h-5"></div>
             <div class="flex justify-center space-x-4 mt-6">
-                <button id="import-modal-cancel-btn" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
-                <button id="import-modal-confirm-btn" class="flex-1 bg-slate-600 hover:bg-slate-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">Import</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="ein-lookup-modal" class="modal">
-        <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 p-2 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-            <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-2">Open IRS Search Tool</h3>
-            <p class="mb-8 text-slate-500 dark:text-slate-400">The official IRS tool will be opened in a new browser tab.</p>
-            <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
-                <button id="ein-modal-cancel-btn" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
-                <a href="https://apps.irs.gov/app/eos/" target="_blank" rel="noopener noreferrer" id="ein-modal-confirm-link" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center">
-                    Continue to IRS.gov
-                </a>
-            </div>
-        </div>
-    </div>
-    <div id="propublica-lookup-modal" class="modal">
-        <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 p-2 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-            <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-2">Open ProPublica Nonprofit Explorer</h3>
-            <p class="mb-8 text-slate-500 dark:text-slate-400">The ProPublica Nonprofit Explorer website will be opened in a new browser tab.</p>
-            <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
-                <button id="propublica-modal-cancel-btn" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
-                <a href="https://projects.propublica.org/nonprofits/" target="_blank" rel="noopener noreferrer" id="propublica-modal-confirm-link" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center">
-                    Continue to ProPublica
-                </a>
-            </div>
-        </div>
-    </div>
-    <div id="bbb-scam-modal" class="modal">
-        <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 p-2 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-            </svg>
-            <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-2">Open BBB Scam Tracker</h3>
-            <p class="mb-8 text-slate-500 dark:text-slate-400">The Better Business Bureau's website will be opened in a new browser tab.</p>
-            <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
-                <button id="bbb-modal-cancel-btn" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
-                <a href="https://www.bbb.org/scamtracker/lookupscam" target="_blank" rel="noopener noreferrer" id="bbb-modal-confirm-link" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center">
-                    Continue to BBB.org
-                </a>
-            </div>
-        </div>
-    </div>
-    <div id="nasco-reg-modal" class="modal">
-        <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 p-2 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-2">Open State Regulator List</h3>
-            <p class="mb-8 text-slate-500 dark:text-slate-400">The NASCO website will be opened in a new browser tab.</p>
-            <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
-                <button id="nasco-modal-cancel-btn" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
-                <a href="https://www.nasconet.org/resources/state-government/" target="_blank" rel="noopener noreferrer" id="nasco-modal-confirm-link" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center">
-                    Continue to NASCOnet.org
-                </a>
-            </div>
-        </div>
-    </div>
-    <div id="aphis-lookup-modal" class="modal">
-        <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 p-2 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-            <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-2">Open APHIS Search Tool</h3>
-            <p class="mb-8 text-slate-500 dark:text-slate-400">The USDA APHIS search tool will be opened in a new browser tab.</p>
-            <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
-                <button id="aphis-modal-cancel-btn" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
-                <a href="https://aphis.my.site.com/PublicSearchTool/s/" target="_blank" rel="noopener noreferrer" id="aphis-modal-confirm-link" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center">
-                    Continue to APHIS
-                </a>
-            </div>
-        </div>
-    </div>
-    <div id="charitynav-lookup-modal" class="modal">
-        <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 p-2 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-            <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-2">Open Charity Navigator</h3>
-            <p class="mb-8 text-slate-500 dark:text-slate-400">The Charity Navigator website will be opened in a new browser tab.</p>
-            <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
-                <button id="charitynav-modal-cancel-btn" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
-                <a href="https://www.charitynavigator.org/" target="_blank" rel="noopener noreferrer" id="charitynav-modal-confirm-link" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center">
-                    Continue to Charity Navigator
-                </a>
-            </div>
-        </div>
-    </div>
-    <div id="charitywatch-lookup-modal" class="modal">
-        <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 p-2 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-            <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-2">Open CharityWatch</h3>
-            <p class="mb-8 text-slate-500 dark:text-slate-400">The CharityWatch website will be opened in a new browser tab.</p>
-            <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
-                <button id="charitywatch-modal-cancel-btn" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
-                <a href="https://www.charitywatch.org/" target="_blank" rel="noopener noreferrer" id="charitywatch-modal-confirm-link" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center">
-                    Continue to CharityWatch.org
-                </a>
+                <button id="import-modal-cancel-btn" class="modal-btn-secondary">Cancel</button>
+                <button id="import-modal-confirm-btn" class="modal-btn-primary bg-slate-600 hover:bg-slate-700 focus:ring-slate-500">Import</button>
             </div>
         </div>
     </div>
     
-    <!-- Modal for adding/editing items/categories -->
-    <div id="edit-modal" class="modal">
-        <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg">
-            <h3 id="edit-modal-title" class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-4 text-center"></h3>
-            <label for="edit-modal-input" class="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-2"></label>
-            <input type="text" id="edit-modal-input" class="w-full p-3 border border-slate-300 dark:border-slate-600 dark:bg-slate-900 rounded-lg shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 dark:placeholder-slate-400" placeholder="">
-            <p id="edit-modal-error" class="text-red-500 dark:text-red-400 text-sm mt-1 hidden"></p>
-            <div class="flex justify-center space-x-4 mt-6">
-                <button id="edit-modal-cancel-btn" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
-                <button id="edit-modal-save-btn" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">Save</button>
+    <div id="gemini-summary-modal" class="modal">
+        <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg" style="max-width: 650px;">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-100">✨ AI-Generated Summary</h3>
+                <button id="gemini-summary-modal-close-btn" class="action-icon-btn">&times;</button>
+            </div>
+            <div id="gemini-summary-text" class="p-4 bg-slate-100 dark:bg-slate-900/70 rounded-lg max-h-[60vh] overflow-y-auto border border-slate-200 dark:border-slate-700">
+                <pre class="text-sm text-slate-700 dark:text-slate-300 whitespace-pre-wrap font-sans"></pre>
+            </div>
+             <p id="gemini-summary-status" class="mt-3 text-center text-sm font-medium h-5"></p>
+            <div id="gemini-summary-modal-actions" class="flex justify-end space-x-4 mt-6">
+                <button id="gemini-summary-print-btn" class="modal-btn-secondary">Print Summary</button>
+                <button id="gemini-summary-copy-btn" class="modal-btn-primary bg-purple-600 hover:bg-purple-700 focus:ring-purple-500">Copy Summary</button>
             </div>
         </div>
     </div>
 
+    <!-- External Link Modals -->
+    <div id="ein-lookup-modal" class="modal"><div class="external-link-modal-content" data-link="https://apps.irs.gov/app/eos/" data-title="Open IRS Search Tool" data-sitename="IRS.gov"></div></div>
+    <div id="propublica-lookup-modal" class="modal"><div class="external-link-modal-content" data-link="https://projects.propublica.org/nonprofits/" data-title="Open ProPublica Nonprofit Explorer" data-sitename="ProPublica"></div></div>
+    <div id="bbb-scam-modal" class="modal"><div class="external-link-modal-content" data-link="https://www.bbb.org/scamtracker/lookupscam" data-title="Open BBB Scam Tracker" data-sitename="BBB.org"></div></div>
+    <div id="nasco-reg-modal" class="modal"><div class="external-link-modal-content" data-link="https://www.nasconet.org/resources/state-government/" data-title="Open State Regulator List" data-sitename="NASCOnet.org"></div></div>
+    <div id="aphis-lookup-modal" class="modal"><div class="external-link-modal-content" data-link="https://aphis.my.site.com/PublicSearchTool/s/" data-title="Open APHIS Search Tool" data-sitename="APHIS"></div></div>
+    <div id="charitynav-lookup-modal" class="modal"><div class="external-link-modal-content" data-link="https://www.charitynavigator.org/" data-title="Open Charity Navigator" data-sitename="Charity Navigator"></div></div>
+    <div id="charitywatch-lookup-modal" class="modal"><div class="external-link-modal-content" data-link="https://www.charitywatch.org/" data-title="Open CharityWatch" data-sitename="CharityWatch.org"></div></div>
+    
+    <!-- Modal for adding/editing items/categories -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-lg">
+            <h3 id="edit-modal-title" class="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-5 text-center">Edit Item</h3>
+            <div>
+                <label for="edit-modal-input" id="edit-modal-label" class="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-2">Name</label>
+                <input type="text" id="edit-modal-input" class="w-full p-3 border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900/70 rounded-lg shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 dark:placeholder-slate-400" placeholder="">
+                <p id="edit-modal-error" class="text-red-500 dark:text-red-400 text-sm mt-1.5 hidden"></p>
+            </div>
+            <div class="flex justify-center space-x-4 mt-6">
+                <button id="edit-modal-cancel-btn" class="modal-btn-secondary">Cancel</button>
+                <button id="edit-modal-save-btn" class="modal-btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tailwind CSS class templates for JS -->
+    <script>
+      // Store Tailwind class strings here to avoid purging and for easier use in JS
+      const tailwind = {
+        toolBtn: `tool-btn bg-slate-200 hover:bg-slate-300 text-slate-600 dark:bg-slate-700/70 dark:hover:bg-slate-600/70 dark:text-slate-300 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 dark:focus:ring-offset-slate-800`,
+        actionBtnPrimary: `action-btn-primary w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 ease-in-out flex items-center justify-center space-x-2 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 dark:focus:ring-offset-slate-800`,
+        actionBtnSecondary: `action-btn-secondary w-full sm:w-auto bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-3 px-5 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 dark:focus:ring-offset-slate-800`,
+        modalBtnPrimary: 'modal-btn-primary flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 dark:focus:ring-offset-slate-800',
+        modalBtnSecondary: 'modal-btn-secondary flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-400 dark:focus:ring-offset-slate-800',
+        modalBtnDanger: 'modal-btn-danger flex-1 bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 dark:focus:ring-offset-slate-800',
+        externalLinkModalHTML: `
+            <div class="modal-content bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-lg text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 mx-auto mb-4 bg-sky-100 dark:bg-sky-900/40 text-sky-600 dark:text-sky-400 p-3 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+                <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-2"></h3>
+                <p class="mb-8 text-slate-500 dark:text-slate-400">This external website will be opened in a new browser tab.</p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
+                    <button class="modal-btn-secondary external-link-cancel">Cancel</button>
+                    <a href="" target="_blank" rel="noopener noreferrer" class="modal-btn-primary external-link-confirm">
+                        Continue to <span class="font-bold ml-1"></span>
+                    </a>
+                </div>
+            </div>`
+      };
+    </script>
 
     <script type="module">
         // Import Firebase modules
@@ -494,25 +494,14 @@
         let allChecklistsFromFirestore = []; 
         let ui = {};
         let confirmAction = null;
+        let currentEditContext = {};
 
         // --- App Configuration ---
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-            apiKey: "AIzaSyCSLAD2acFHCmf8bkJwQx_puLcb-HARyJE",
-            authDomain: "rescue-compliance-app.firebaseapp.com",
-            projectId: "rescue-compliance-app",
-            storageBucket: "rescue-compliance-app.firebasestorage.app",
-            messagingSenderId: "354094080932",
-            appId: "1:354094080932:web:7c9aeb9b0036e6542d5731",
-            measurementId: "G-CL6TNFWL0L"
-        };
+        const firebaseConfigFromEnv = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        const firebaseConfig = firebaseConfigFromEnv;
         
         // Master checklist structure to be used as a template for new checklists
-        // Each item now has a 'categoryId' to link it to its category
-        // And 'isCustom' flag to distinguish default from user-added items
-        // Attachments array added to each item
         const checklistMasterTemplate = [
             { id: "cat_fed_state", name: "Federal & State Compliance", isCustom: false, items: [
                 { id: "fed_irs_status", text: "IRS 501(c)(3) status verified?", link: "https://apps.irs.gov/app/eos/", isCustom: false, attachments: [] },
@@ -542,93 +531,83 @@
         // --- UI Element Cache ---
         function cacheDOMElements() {
             ui = {
+                // Main Views
                 listView: document.getElementById('list-view'),
                 checklistView: document.getElementById('checklist-view'),
+                
+                // List View Elements
                 newChecklistBtn: document.getElementById('new-checklist-btn'),
                 importChecklistBtn: document.getElementById('import-checklist-btn'),
+                searchInput: document.getElementById('search-input'),
+                noChecklistsMsg: document.getElementById('no-checklists-message'),
+                savedChecklistsContainer: document.getElementById('saved-checklists-container'),
+
+                // Checklist View Elements
                 backToListBtn: document.getElementById('back-to-list-btn'),
-                saveChecklistBtn: document.getElementById('save-checklist-btn'),
+                checklistTitle: document.getElementById('checklist-title'),
+                orgNameInput: document.getElementById('org-name-input'),
+                orgNameError: document.getElementById('org-name-error'),
+                orgNameInputPrintHeader: document.getElementById('org-name-input-print-header'),
+                checklistItemsContainer: document.getElementById('checklist-items-container'),
+                addCategoryBtn: document.getElementById('add-category-btn'),
+                statusMessage: document.getElementById('status-message'),
+                
+                // Action Buttons
                 deleteChecklistBtn: document.getElementById('delete-checklist-btn'),
                 shareChecklistBtn: document.getElementById('share-checklist-btn'),
-                printChecklistBtn: document.getElementById('print-checklist-btn'),
                 copyChecklistBtn: document.getElementById('copy-checklist-btn'),
-                orgNameInput: document.getElementById('org-name-input'),
-                orgNameInputPrintHeader: document.getElementById('org-name-input-print-header'),
-                orgNameError: document.getElementById('org-name-error'),
-                checklistItemsContainer: document.getElementById('checklist-items-container'),
-                checklistTitle: document.getElementById('checklist-title'),
-                savedChecklistsContainer: document.getElementById('saved-checklists-container'),
-                statusMessage: document.getElementById('status-message'),
-                noChecklistsMsg: document.getElementById('no-checklists-message'),
+                printChecklistBtn: document.getElementById('print-checklist-btn'),
+                saveChecklistBtn: document.getElementById('save-checklist-btn'),
+                geminiSummaryBtn: document.getElementById('gemini-summary-btn'),
+                
+                // User/Auth
+                userInfo: document.getElementById('user-info'),
+                authStatus: document.getElementById('auth-status'),
+                userIdDisplay: document.getElementById('user-id'),
+                
+                // Theme
+                darkModeToggle: document.getElementById('dark-mode-toggle'),
+                sunIcon: document.getElementById('sun-icon'),
+                moonIcon: document.getElementById('moon-icon'),
+                
+                // Modals
                 confirmationModal: document.getElementById('confirmation-modal'),
                 modalTitle: document.getElementById('modal-title'),
                 modalMessage: document.getElementById('modal-message'),
                 modalConfirmBtn: document.getElementById('modal-confirm-btn'),
                 modalCancelBtn: document.getElementById('modal-cancel-btn'),
+                
                 shareModal: document.getElementById('share-modal'),
                 shareIdDisplay: document.getElementById('share-id-display'),
                 shareModalCopyBtn: document.getElementById('share-modal-copy-btn'),
                 shareModalCloseBtn: document.getElementById('share-modal-close-btn'),
+                
                 importModal: document.getElementById('import-modal'),
                 importIdInput: document.getElementById('import-id-input'),
                 importStatusMessage: document.getElementById('import-status-message'),
                 importModalConfirmBtn: document.getElementById('import-modal-confirm-btn'),
                 importModalCancelBtn: document.getElementById('import-modal-cancel-btn'),
-                searchInput: document.getElementById('search-input'),
-                userInfo: document.getElementById('user-info'),
-                authStatus: document.getElementById('auth-status'),
-                userIdDisplay: document.getElementById('user-id'),
                 
-                openEinModalBtn: document.getElementById('open-ein-modal-btn'),
-                einLookupModal: document.getElementById('ein-lookup-modal'),
-                einModalCancelBtn: document.getElementById('ein-modal-cancel-btn'),
-                einModalConfirmLink: document.getElementById('ein-modal-confirm-link'),
-
-                openPropublicaModalBtn: document.getElementById('open-propublica-modal-btn'),
-                propublicaLookupModal: document.getElementById('propublica-lookup-modal'),
-                propublicaModalCancelBtn: document.getElementById('propublica-modal-cancel-btn'),
-                propublicaModalConfirmLink: document.getElementById('propublica-modal-confirm-link'),
-
-                openBbbModalBtn: document.getElementById('open-bbb-modal-btn'),
-                bbbScamModal: document.getElementById('bbb-scam-modal'),
-                bbbModalCancelBtn: document.getElementById('bbb-modal-cancel-btn'),
-                bbbModalConfirmLink: document.getElementById('bbb-modal-confirm-link'),
-
-                openNascoModalBtn: document.getElementById('open-nasco-modal-btn'),
-                nascoRegModal: document.getElementById('nasco-reg-modal'),
-                nascoModalCancelBtn: document.getElementById('nasco-modal-cancel-btn'),
-                nascoModalConfirmLink: document.getElementById('nasco-modal-confirm-link'),
-                
-                openAphisModalBtn: document.getElementById('open-aphis-modal-btn'),
-                aphisLookupModal: document.getElementById('aphis-lookup-modal'),
-                aphisModalCancelBtn: document.getElementById('aphis-modal-cancel-btn'),
-                aphisModalConfirmLink: document.getElementById('aphis-modal-confirm-link'),
-
-                openCharityNavModalBtn: document.getElementById('open-charitynav-modal-btn'),
-                charityNavLookupModal: document.getElementById('charitynav-lookup-modal'),
-                charityNavModalCancelBtn: document.getElementById('charitynav-modal-cancel-btn'),
-                charityNavModalConfirmLink: document.getElementById('charitynav-modal-confirm-link'),
-                
-                openCharityWatchModalBtn: document.getElementById('open-charitywatch-modal-btn'),
-                charityWatchLookupModal: document.getElementById('charitywatch-lookup-modal'),
-                charityWatchModalCancelBtn: document.getElementById('charitywatch-modal-cancel-btn'),
-                charityWatchModalConfirmLink: document.getElementById('charitywatch-modal-confirm-link'),
-
-                darkModeToggle: document.getElementById('dark-mode-toggle'),
-                sunIcon: document.getElementById('sun-icon'),
-                moonIcon: document.getElementById('moon-icon'),
-
-                // New elements for customization
-                addCategoryBtn: document.getElementById('add-category-btn'),
                 editModal: document.getElementById('edit-modal'),
                 editModalTitle: document.getElementById('edit-modal-title'),
+                editModalLabel: document.getElementById('edit-modal-label'),
                 editModalInput: document.getElementById('edit-modal-input'),
                 editModalError: document.getElementById('edit-modal-error'),
                 editModalCancelBtn: document.getElementById('edit-modal-cancel-btn'),
                 editModalSaveBtn: document.getElementById('edit-modal-save-btn'),
+                
+                geminiSummaryModal: document.getElementById('gemini-summary-modal'),
+                geminiSummaryText: document.getElementById('gemini-summary-text').querySelector('pre'),
+                geminiSummaryStatus: document.getElementById('gemini-summary-status'),
+                geminiSummaryCopyBtn: document.getElementById('gemini-summary-copy-btn'),
+                geminiSummaryPrintBtn: document.getElementById('gemini-summary-print-btn'),
+                geminiSummaryModalCloseBtn: document.getElementById('gemini-summary-modal-close-btn'),
+                
+                externalLinkModals: document.querySelectorAll('.external-link-modal-content'),
+                toolBtns: document.querySelectorAll('[id^="open-"][id$="-modal-btn"]'),
             };
         }
-
+        
         // --- Helper Functions ---
         const helpers = {
             showView: (viewToShow) => {
@@ -640,46 +619,38 @@
                 const colors = { success: 'text-green-600', info: 'text-sky-600', error: 'text-red-600' };
                 const darkColors = { success: 'dark:text-green-400', info: 'dark:text-sky-400', error: 'dark:text-red-400' };
                 element.textContent = message;
-                element.className = `mt-4 text-center font-medium ${colors[type] || colors.info} ${darkColors[type] || darkColors.info}`;
-                if (duration) setTimeout(() => { element.textContent = ''; }, duration);
+                element.className = `text-center font-medium transition-opacity duration-300 ${colors[type] || colors.info} ${darkColors[type] || darkColors.info}`;
+                element.style.opacity = 1;
+                if (duration) setTimeout(() => { element.style.opacity = 0; }, duration);
             },
-            openModal: (modalElement) => { modalElement.style.display = 'block'; },
-            closeModal: (modalElement) => { modalElement.style.display = 'none'; },
+            openModal: (modalElement) => {
+                modalElement.style.display = 'block';
+                setTimeout(() => modalElement.classList.add('is-open'), 10);
+            },
+            closeModal: (modalElement) => {
+                modalElement.classList.remove('is-open');
+                setTimeout(() => {
+                    modalElement.style.display = 'none';
+                    if(modalElement.id === 'edit-modal') { // clean up edit modal listeners
+                       ui.editModalSaveBtn.removeEventListener('click', handleEditModalSave);
+                    }
+                }, 300); // Wait for animation
+            },
             openConfirmationModal: (title, message, onConfirm) => {
                 ui.modalTitle.textContent = title;
                 ui.modalMessage.textContent = message;
-                confirmAction = onConfirm;
+                confirmAction = onConfirm; // Set the action to be performed on confirm
                 helpers.openModal(ui.confirmationModal);
             },
-            openEditModal: (title, placeholder, currentValue, onSave, onCancel, validationFn = (val) => val.trim() !== '') => {
-                ui.editModalTitle.textContent = title;
-                ui.editModalInput.placeholder = placeholder;
-                ui.editModalInput.value = currentValue;
+            openEditModal: (context) => {
+                currentEditContext = context;
+                ui.editModalTitle.textContent = context.title;
+                ui.editModalLabel.textContent = context.label;
+                ui.editModalInput.placeholder = context.placeholder;
+                ui.editModalInput.value = context.currentValue;
                 ui.editModalError.classList.add('hidden');
                 
-                const handleSave = () => {
-                    const newValue = ui.editModalInput.value.trim();
-                    if (validationFn(newValue)) {
-                        onSave(newValue);
-                        helpers.closeModal(ui.editModal);
-                        ui.editModalSaveBtn.removeEventListener('click', handleSave);
-                        ui.editModalCancelBtn.removeEventListener('click', handleCancel);
-                    } else {
-                        ui.editModalError.textContent = "Input cannot be empty.";
-                        ui.editModalError.classList.remove('hidden');
-                    }
-                };
-
-                const handleCancel = () => {
-                    onCancel();
-                    helpers.closeModal(ui.editModal);
-                    ui.editModalSaveBtn.removeEventListener('click', handleSave);
-                    ui.editModalCancelBtn.removeEventListener('click', handleCancel);
-                };
-
-                ui.editModalSaveBtn.addEventListener('click', handleSave);
-                ui.editModalCancelBtn.addEventListener('click', handleCancel);
-
+                ui.editModalSaveBtn.addEventListener('click', handleEditModalSave);
                 helpers.openModal(ui.editModal);
             },
             applyTheme: (theme) => {
@@ -694,11 +665,147 @@
                     if (ui.moonIcon) ui.moonIcon.classList.add('hidden');
                     localStorage.theme = 'light';
                 }
+            },
+            generateId: (prefix) => `${prefix}_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`,
+            toggleButtonLoading: (button, isLoading) => {
+                const content = button.querySelector('.gemini-btn-content');
+                if (isLoading) {
+                    button.disabled = true;
+                    content.innerHTML = `<div class="spinner"></div>`;
+                } else {
+                    button.disabled = false;
+                    content.innerHTML = `✨ <span>${button.dataset.originalText}</span>`;
+                }
             }
         };
 
+        function handleEditModalSave() {
+            const newValue = ui.editModalInput.value.trim();
+            if (currentEditContext.validationFn(newValue)) {
+                currentEditContext.onSave(newValue);
+                helpers.closeModal(ui.editModal);
+            } else {
+                ui.editModalError.textContent = "Input cannot be empty.";
+                ui.editModalError.classList.remove('hidden');
+            }
+        }
+
+        // --- Gemini API Integration ---
+        async function callGemini(prompt, isJson = false) {
+            const apiKey = ""; // Will be handled by the execution environment
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+            
+            let payload = {
+                contents: [{ role: "user", parts: [{ text: prompt }] }],
+            };
+            
+            if(isJson) {
+                payload.generationConfig = {
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: "OBJECT",
+                        properties: { "suggestions": { type: "ARRAY", items: { type: "STRING" } } }
+                    }
+                }
+            }
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (!response.ok) {
+                    const errorBody = await response.json();
+                    console.error("Gemini API Error:", errorBody);
+                    throw new Error(`API Error: ${errorBody.error?.message || response.statusText}`);
+                }
+
+                const result = await response.json();
+                
+                if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts[0]) {
+                    return result.candidates[0].content.parts[0].text;
+                } else {
+                    console.error("Unexpected API response structure:", result);
+                    throw new Error("Invalid response from Gemini API.");
+                }
+            } catch (error) {
+                console.error("Failed to call Gemini API:", error);
+                throw error;
+            }
+        }
+        
+        async function handleSuggestItems(event) {
+            const button = event.currentTarget;
+            const { categoryId, categoryName } = button.dataset;
+            helpers.toggleButtonLoading(button, true);
+
+            try {
+                const category = currentChecklistData.categories.find(c => c.id === categoryId);
+                const existingItems = category.items.map(item => item.text).join('; ');
+                
+                const prompt = `You are an expert in animal welfare and non-profit compliance. For a compliance checklist for an animal rescue organization named "${currentChecklistData.orgName}", I am working on the category: "${categoryName}". The existing items are: "${existingItems}". Please suggest 3 to 5 additional, specific, and actionable checklist items for this category that are not already on the list. Focus on practical verification steps. Provide your response as a JSON object with a single key 'suggestions' which is an array of strings.`;
+
+                const jsonString = await callGemini(prompt, true);
+                const result = JSON.parse(jsonString);
+                
+                if (result.suggestions && result.suggestions.length > 0) {
+                    result.suggestions.forEach(suggestionText => {
+                        if (!category.items.some(item => item.text.toLowerCase() === suggestionText.toLowerCase())) {
+                            category.items.push({
+                                id: helpers.generateId('item'),
+                                text: suggestionText,
+                                isChecked: false, notes: '', isCustom: true, attachments: []
+                            });
+                        }
+                    });
+                    await handleSaveChecklist(true); // Save and re-render
+                    helpers.showStatus(ui.statusMessage, 'AI suggestions added!', 'success');
+                } else {
+                    helpers.showStatus(ui.statusMessage, 'AI returned no new suggestions.', 'info');
+                }
+
+            } catch (error) {
+                helpers.showStatus(ui.statusMessage, 'Could not get AI suggestions.', 'error');
+            } finally {
+                helpers.toggleButtonLoading(button, false);
+            }
+        }
+
+        async function handleGenerateSummary() {
+            helpers.toggleButtonLoading(ui.geminiSummaryBtn, true);
+            ui.geminiSummaryText.textContent = ''; // Clear previous summary
+            
+            try {
+                let checklistContent = `Organization Name: ${currentChecklistData.orgName}\n\n`;
+                currentChecklistData.categories.forEach(category => {
+                    checklistContent += `Category: ${category.name}\n`;
+                    category.items.forEach(item => {
+                        checklistContent += `- ${item.isChecked ? "[X]" : "[ ]"} ${item.text}\n`;
+                        if (item.notes) {
+                            checklistContent += `  Notes: ${item.notes}\n`;
+                        }
+                    });
+                    checklistContent += '\n';
+                });
+
+                const prompt = `You are a compliance officer evaluating an animal rescue organization. Based on the following checklist data, please write a concise summary report. The report should have three sections: "Completed Items" (a brief overview of what has been verified), "Action Required" (highlighting unchecked items and any concerning notes), and an "Overall Assessment" (a brief concluding thought on the organization's compliance status based on the provided data). Be professional and objective. Here is the data:\n\n${checklistContent}`;
+
+                const summary = await callGemini(prompt, false);
+                ui.geminiSummaryText.textContent = summary;
+                helpers.openModal(ui.geminiSummaryModal);
+
+            } catch (error) {
+                helpers.showStatus(ui.statusMessage, 'Could not generate AI summary.', 'error');
+            } finally {
+                helpers.toggleButtonLoading(ui.geminiSummaryBtn, false);
+            }
+        }
+        
         // --- Rendering Logic ---
         async function renderChecklistForm(checklistId = null) {
+            // ... (rest of the function is the same, but with the suggest button added)
             currentChecklistData = null; 
             if (checklistId) {
                 const docRef = doc(db, `artifacts/${appId}/users/${userId}/checklists`, checklistId);
@@ -711,11 +818,10 @@
                     return;
                 }
             } else {
-                // For a new checklist, initialize with a deep copy of the template
                 currentChecklistData = { 
                     id: null, 
                     orgName: '', 
-                    categories: JSON.parse(JSON.stringify(checklistMasterTemplate)), // Deep copy
+                    categories: JSON.parse(JSON.stringify(checklistMasterTemplate)),
                     lastUpdated: null 
                 };
             }
@@ -726,40 +832,47 @@
             ui.checklistTitle.textContent = currentChecklistData?.orgName || 'New Checklist';
             ui.deleteChecklistBtn.classList.toggle('hidden', !checklistId);
             ui.shareChecklistBtn.classList.toggle('hidden', !checklistId);
+            ui.geminiSummaryBtn.classList.toggle('hidden', !checklistId);
             ui.orgNameError.classList.add('hidden'); 
 
             currentChecklistData.categories.forEach(category => {
                 const categoryDiv = document.createElement('div');
-                categoryDiv.className = 'category-block bg-slate-50/50 dark:bg-slate-800/50 p-4 rounded-lg border border-slate-200/80 dark:border-slate-700/80';
+                categoryDiv.className = 'category-block bg-slate-50/50 dark:bg-slate-800/50 p-5 rounded-xl border border-slate-200/80 dark:border-slate-700/80 shadow-sm';
                 categoryDiv.dataset.categoryId = category.id;
 
                 const categoryHeader = document.createElement('div');
-                categoryHeader.className = 'flex justify-between items-center mb-4 pb-2 border-b border-slate-200 dark:border-slate-700';
+                categoryHeader.className = 'flex justify-between items-center mb-4 gap-4';
                 
                 const categoryTitleElement = document.createElement('h3');
-                categoryTitleElement.className = 'category-title text-xl font-semibold text-slate-700 dark:text-slate-300 flex-grow';
+                categoryTitleElement.className = 'category-title text-xl font-semibold text-slate-800 dark:text-slate-200 flex-grow';
                 categoryTitleElement.textContent = category.name;
                 categoryHeader.appendChild(categoryTitleElement);
-
-                // Category action buttons (edit/delete)
-                const categoryActions = document.createElement('div');
-                categoryActions.className = 'flex space-x-2';
                 
-                // Edit Category Name Button
+                const categoryActions = document.createElement('div');
+                categoryActions.className = 'category-actions flex items-center space-x-2 shrink-0';
+                
+                // ✨ AI Suggest Items Button
+                const suggestBtn = document.createElement('button');
+                suggestBtn.className = 'action-btn-secondary bg-purple-200 hover:bg-purple-300 text-purple-800 dark:bg-purple-600/50 dark:hover:bg-purple-600/80 dark:text-purple-200 text-xs px-3 py-1.5';
+                suggestBtn.dataset.categoryId = category.id;
+                suggestBtn.dataset.categoryName = category.name;
+                suggestBtn.dataset.originalText = 'Suggest Items';
+                suggestBtn.innerHTML = `<span class="gemini-btn-content flex items-center justify-center space-x-2">✨ <span>Suggest Items</span></span>`;
+                categoryActions.appendChild(suggestBtn);
+
                 const editCategoryBtn = document.createElement('button');
-                editCategoryBtn.className = 'edit-button p-1 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400';
+                editCategoryBtn.className = 'action-icon-btn';
                 editCategoryBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.38-2.827-2.828z" /></svg>`;
                 editCategoryBtn.title = 'Edit category name';
-                editCategoryBtn.addEventListener('click', () => editCategoryName(category.id, category.name));
+                editCategoryBtn.addEventListener('click', (e) => { e.stopPropagation(); editCategoryName(category.id, category.name); });
                 categoryActions.appendChild(editCategoryBtn);
 
-                // Delete Category Button (only for custom categories)
                 if (category.isCustom) {
                     const deleteCategoryBtn = document.createElement('button');
-                    deleteCategoryBtn.className = 'delete-button p-1 rounded-full hover:bg-red-100 dark:hover:bg-red-900/40 text-red-500 dark:text-red-400';
+                    deleteCategoryBtn.className = 'action-icon-btn-danger';
                     deleteCategoryBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm6 0a1 1 0 11-2 0v6a1 1 0 112 0V8z" clip-rule="evenodd" /></svg>`;
                     deleteCategoryBtn.title = 'Delete category';
-                    deleteCategoryBtn.addEventListener('click', () => deleteCategory(category.id, category.name));
+                    deleteCategoryBtn.addEventListener('click', (e) => { e.stopPropagation(); deleteCategory(category.id, category.name); });
                     categoryActions.appendChild(deleteCategoryBtn);
                 }
                 
@@ -769,10 +882,9 @@
                 const itemsWrapper = document.createElement('div');
                 itemsWrapper.className = 'space-y-5';
                 
-                // Sort items by a custom field if needed, or by their original order (from data structure)
-                category.items.forEach(item => {
+                (category.items || []).forEach(item => {
                     const itemDiv = document.createElement('div');
-                    itemDiv.className = 'checklist-item border-b border-slate-100 dark:border-slate-700 pb-4 last:border-b-0'; // Add border for visual separation
+                    itemDiv.className = 'checklist-item border-t border-slate-200 dark:border-slate-700/80 pt-5';
                     itemDiv.dataset.itemId = item.id;
                     itemDiv.dataset.categoryId = category.id;
 
@@ -786,31 +898,28 @@
                     checkbox.className = 'custom-checkbox shrink-0 mt-1';
                     
                     const itemTextContainer = document.createElement('div');
-                    itemTextContainer.className = 'flex-grow flex justify-between items-center';
+                    itemTextContainer.className = 'flex-grow flex justify-between items-start gap-2';
                     const itemTextSpan = document.createElement('span');
                     itemTextSpan.className = 'item-text text-base text-slate-700 dark:text-slate-300 flex-grow';
                     itemTextSpan.textContent = item.text;
                     itemTextContainer.appendChild(itemTextSpan);
 
-                    // Item action buttons (edit/delete)
                     const itemActions = document.createElement('div');
-                    itemActions.className = 'flex space-x-2 shrink-0 ml-2';
+                    itemActions.className = 'flex space-x-1 shrink-0';
 
-                    // Edit Item Text Button
                     const editItemBtn = document.createElement('button');
-                    editItemBtn.className = 'edit-button p-1 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400';
+                    editItemBtn.className = 'action-icon-btn';
                     editItemBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.38-2.827-2.828z" /></svg>`;
                     editItemBtn.title = 'Edit item text';
-                    editItemBtn.addEventListener('click', () => editItemText(category.id, item.id, item.text));
+                    editItemBtn.addEventListener('click', (e) => { e.stopPropagation(); editItemText(category.id, item.id, item.text); });
                     itemActions.appendChild(editItemBtn);
 
-                    // Delete Item Button (only for custom items)
                     if (item.isCustom) {
                         const deleteItemBtn = document.createElement('button');
-                        deleteItemBtn.className = 'delete-button p-1 rounded-full hover:bg-red-100 dark:hover:bg-red-900/40 text-red-500 dark:text-red-400';
+                        deleteItemBtn.className = 'action-icon-btn-danger';
                         deleteItemBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm6 0a1 1 0 11-2 0v6a1 1 0 112 0V8z" clip-rule="evenodd" /></svg>`;
                         deleteItemBtn.title = 'Delete item';
-                        deleteItemBtn.addEventListener('click', () => deleteItem(category.id, item.id, item.text));
+                        deleteItemBtn.addEventListener('click', (e) => { e.stopPropagation(); deleteItem(category.id, item.id, item.text); });
                         itemActions.appendChild(deleteItemBtn);
                     }
                     itemTextContainer.appendChild(itemActions);
@@ -820,17 +929,16 @@
                     label.appendChild(itemTextContainer);
                     itemDiv.appendChild(label);
 
-                    // Render resource links
                     if (item.link || item.linkText) {
                         const linkWrapper = document.createElement('div');
-                        linkWrapper.className = 'mt-1 mb-2 pl-8'; // Indent under checkbox
+                        linkWrapper.className = 'mt-1 mb-2 pl-8';
                         if (item.link) {
                             const link = document.createElement('a');
                             link.href = item.link;
                             link.target = '_blank';
                             link.rel = 'noopener noreferrer';
-                            link.className = 'text-sky-600 dark:text-sky-400 hover:underline text-sm font-medium';
-                            link.textContent = item.linkText || 'Visit Resource';
+                            link.className = 'text-sky-600 dark:text-sky-400 hover:underline text-sm font-medium inline-flex items-center gap-1';
+                            link.innerHTML = `<span>${item.linkText || 'Visit Resource'}</span> <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>`;
                             linkWrapper.appendChild(link);
                         } else {
                              const linkPlaceholder = document.createElement('span');
@@ -841,34 +949,30 @@
                         itemDiv.appendChild(linkWrapper);
                     }
 
-                    // Notes Textarea
                     const notesTextarea = document.createElement('textarea');
                     notesTextarea.dataset.itemId = item.id;
                     notesTextarea.dataset.categoryId = category.id;
                     notesTextarea.value = item.notes ?? '';
                     notesTextarea.placeholder = 'Optional notes...';
-                    notesTextarea.className = 'mt-2 w-full p-2 bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-md text-sm focus:ring-1 focus:ring-sky-500 focus:border-sky-500 focus:bg-white dark:focus:bg-slate-800 resize-y transition';
+                    notesTextarea.className = 'mt-2 w-full p-2 bg-slate-100 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-700 rounded-md text-sm focus:ring-1 focus:ring-sky-500 focus:border-sky-500 focus:bg-white dark:focus:bg-slate-900/80 resize-y transition';
                     notesTextarea.rows = 2;
                     itemDiv.appendChild(notesTextarea);
 
-                    // Attachments Section
                     const attachmentsContainer = document.createElement('div');
-                    attachmentsContainer.className = 'attachments-container mt-3 pl-8'; // Indent
+                    attachmentsContainer.className = 'attachments-container mt-3 pl-8';
                     attachmentsContainer.innerHTML = `<p class="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-2">Attachments:</p>`;
-                    
                     const attachmentsList = document.createElement('ul');
-                    attachmentsList.className = 'space-y-1';
+                    attachmentsList.className = 'space-y-2';
 
-                    // Display existing attachments
                     (item.attachments || []).forEach(attachment => {
                         const attachmentLi = document.createElement('li');
-                        attachmentLi.className = 'flex items-center justify-between text-sm text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-700 p-2 rounded-md';
+                        attachmentLi.className = 'flex items-center justify-between text-sm text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-700/50 p-2 rounded-md';
                         attachmentLi.innerHTML = `
-                            <a href="${attachment.url}" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-2 text-sky-600 dark:text-sky-400 hover:underline">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.102 1.101" /></svg>
-                                <span>${attachment.fileName}</span>
+                            <a href="${attachment.url}" target="_blank" rel="noopener noreferrer" class="flex-grow flex items-center space-x-2 text-sky-600 dark:text-sky-400 hover:underline truncate">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.102 1.101" /></svg>
+                                <span class="truncate" title="${attachment.fileName}">${attachment.fileName}</span>
                             </a>
-                            <button class="delete-attachment-btn text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 p-1 rounded-full hover:bg-red-100 dark:hover:bg-red-900/40" data-file-name="${attachment.fileName}" data-file-url="${attachment.url}" data-item-id="${item.id}" data-category-id="${category.id}" title="Delete attachment">
+                            <button class="delete-attachment-btn action-icon-btn-danger ml-2 shrink-0" data-file-name="${attachment.fileName}" data-file-url="${attachment.url}" data-item-id="${item.id}" data-category-id="${category.id}" title="Delete attachment">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm6 0a1 1 0 11-2 0v6a1 1 0 112 0V8z" clip-rule="evenodd" /></svg>
                             </button>
                         `;
@@ -877,12 +981,11 @@
 
                     attachmentsContainer.appendChild(attachmentsList);
 
-                    // Add Attachment button
                     const addAttachmentDiv = document.createElement('div');
-                    addAttachmentDiv.className = 'file-input-wrapper mt-2';
+                    addAttachmentDiv.className = 'file-input-wrapper mt-3';
                     addAttachmentDiv.innerHTML = `
                         <input type="file" id="file-input-${item.id}" class="hidden" data-item-id="${item.id}" data-category-id="${category.id}">
-                        <button class="add-attachment-btn w-full bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-2 px-3 rounded-lg text-sm transition-colors duration-200 flex items-center justify-center space-x-2">
+                        <button class="add-attachment-btn w-full bg-slate-200/70 hover:bg-slate-300/70 text-slate-600 dark:bg-slate-700/80 dark:hover:bg-slate-600/80 dark:text-slate-300 font-semibold py-2 px-3 rounded-lg text-sm transition-colors duration-200 flex items-center justify-center space-x-2 border border-slate-300 dark:border-slate-600">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
                             <span>Add Attachment</span>
                         </button>
@@ -894,9 +997,8 @@
                     itemsWrapper.appendChild(itemDiv);
                 });
                 
-                // Add new item button for the category
                 const addItemBtn = document.createElement('button');
-                addItemBtn.className = 'add-item-button mt-4 w-full bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-2 px-3 rounded-lg text-sm transition-colors duration-200 flex items-center justify-center space-x-2';
+                addItemBtn.className = 'add-item-button mt-5 w-full bg-slate-100 hover:bg-slate-200 text-slate-600 dark:bg-slate-700/60 dark:hover:bg-slate-600/60 dark:text-slate-300 font-semibold py-2 px-3 rounded-lg text-sm transition-colors duration-200 flex items-center justify-center space-x-2 border border-dashed border-slate-300 dark:border-slate-600';
                 addItemBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg><span>Add New Item</span>`;
                 addItemBtn.dataset.categoryId = category.id;
                 itemsWrapper.appendChild(addItemBtn);
@@ -905,36 +1007,34 @@
                 ui.checklistItemsContainer.appendChild(categoryDiv);
             });
             helpers.showView('checklist');
-            attachDynamicEventListeners(); // Re-attach listeners for new elements
+            attachDynamicEventListeners();
         }
 
-        // Attaches listeners to dynamically created elements
         function attachDynamicEventListeners() {
-            // Checkbox and Notes listeners
             ui.checklistItemsContainer.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-                checkbox.onchange = handleSaveChecklist;
+                checkbox.onchange = handleChecklistDataChange;
             });
             ui.checklistItemsContainer.querySelectorAll('textarea').forEach(textarea => {
-                textarea.oninput = handleSaveChecklist;
+                textarea.oninput = handleChecklistDataChange;
             });
-
-            // Add new item button listener
             ui.checklistItemsContainer.querySelectorAll('.add-item-button').forEach(btn => {
                 btn.onclick = () => addItem(btn.dataset.categoryId);
             });
-
-            // Attachment listeners
             ui.checklistItemsContainer.querySelectorAll('.add-attachment-btn').forEach(btn => {
-                btn.onclick = () => btn.previousElementSibling.click(); // Trigger file input
+                btn.onclick = () => btn.previousElementSibling.click();
             });
             ui.checklistItemsContainer.querySelectorAll('input[type="file"]').forEach(input => {
                 input.onchange = (event) => handleAttachmentUpload(event, input.dataset.categoryId, input.dataset.itemId);
             });
             ui.checklistItemsContainer.querySelectorAll('.delete-attachment-btn').forEach(btn => {
-                btn.onclick = () => deleteAttachment(btn.dataset.categoryId, btn.dataset.itemId, btn.dataset.fileName, btn.dataset.fileUrl);
+                btn.onclick = (e) => { e.stopPropagation(); deleteAttachment(btn.dataset.categoryId, btn.dataset.itemId, btn.dataset.fileName, btn.dataset.fileUrl); };
+            });
+            // Attach listener for the new AI buttons
+            ui.checklistItemsContainer.querySelectorAll('[data-original-text="Suggest Items"]').forEach(btn => {
+                btn.addEventListener('click', handleSuggestItems);
             });
         }
-
+        // ... (The rest of the JS functions like filterAndRenderListView, renderListView, customization logic, attachment logic, etc., remain largely the same) ...
 
         function filterAndRenderListView() {
             const searchTerm = ui.searchInput.value.trim().toLowerCase();
@@ -952,7 +1052,7 @@
 
             if (!hasAnyChecklists) {
                 ui.noChecklistsMsg.classList.remove('hidden');
-                ui.noChecklistsMsg.querySelector('p.text-2xl').textContent = 'No checklists found.';
+                ui.noChecklistsMsg.querySelector('p.text-2xl').textContent = 'No checklists yet';
                 ui.noChecklistsMsg.querySelector('p.text-slate-500').textContent = 'Click "Start New" to begin, or "Import Shared" to add one from a colleague.';
             } else if (!hasRenderedChecklists) {
                  ui.noChecklistsMsg.classList.remove('hidden');
@@ -966,83 +1066,102 @@
 
             checklists.forEach(checklist => {
                 const card = document.createElement('div');
-                card.className = 'bg-white dark:bg-slate-800 p-5 rounded-xl shadow-sm hover:shadow-lg border border-transparent hover:border-sky-500 transition-all duration-200 cursor-pointer';
+                card.className = 'bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md hover:shadow-xl border border-slate-200 dark:border-slate-700 hover:border-sky-500 dark:hover:border-sky-500 transition-all duration-300 cursor-pointer flex flex-col';
                 card.onclick = () => renderChecklistForm(checklist.id); 
                 
-                // Calculate total items from the stored categories and items
                 let totalItems = 0;
                 let itemsChecked = 0;
                 checklist.categories?.forEach(cat => {
-                    totalItems += cat.items.length;
-                    itemsChecked += cat.items.filter(item => item.isChecked).length;
+                    totalItems += (cat.items || []).length;
+                    itemsChecked += (cat.items || []).filter(item => item.isChecked).length;
                 });
 
                 const progress = totalItems > 0 ? Math.round((itemsChecked / totalItems) * 100) : 0;
                 const date = checklist.lastUpdated?.toDate().toLocaleString() ?? 'N/A';
-                card.innerHTML = `<div class="flex justify-between items-start"><div><h3 class="text-xl font-bold text-slate-800 dark:text-slate-200">${checklist.orgName}</h3><p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Last updated: ${date}</p></div><div class="text-right"><p class="text-lg font-semibold text-sky-600 dark:text-sky-400">${progress}%</p><p class="text-xs text-slate-400 dark:text-slate-500">${itemsChecked}/${totalItems} complete</p></div></div><div class="mt-4 w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2.5"><div class="bg-sky-500 dark:bg-sky-500 h-2.5 rounded-full" style="width: ${progress}%"></div></div>`;
+                
+                card.innerHTML = `
+                    <div class="flex-grow">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 truncate pr-8">${checklist.orgName}</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1 mb-4">Last updated: ${date}</p>
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-xs font-medium text-slate-500 dark:text-slate-400">${itemsChecked} / ${totalItems} items complete</span>
+                            <span class="text-sm font-semibold text-sky-600 dark:text-sky-400">${progress}%</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                            <div class="bg-sky-500 dark:bg-sky-500 h-2 rounded-full transition-all duration-500" style="width: ${progress}%"></div>
+                        </div>
+                    </div>`;
                 ui.savedChecklistsContainer.appendChild(card);
             });
         }
         
         // --- Customization Logic ---
         function addCategory() {
-            helpers.openEditModal(
-                'Add New Category',
-                'Enter new category name',
-                '',
-                (newName) => {
-                    const newId = `custom_cat_${crypto.randomUUID()}`;
-                    currentChecklistData.categories.push({
-                        id: newId,
-                        name: newName,
-                        isCustom: true,
-                        items: []
-                    });
-                    handleSaveChecklist(true); // Save and re-render
+            helpers.openEditModal({
+                title: 'Add New Category',
+                label: 'Category Name',
+                placeholder: 'e.g., Veterinary Care Standards',
+                currentValue: '',
+                onSave: (newName) => {
+                    const newId = helpers.generateId('cat');
+                    currentChecklistData.categories.push({ id: newId, name: newName, isCustom: true, items: [] });
+                    handleSaveChecklist(true);
                 },
-                () => { /* Cancelled */ },
-                (val) => val.trim() !== '' // Validation: not empty
-            );
+                validationFn: (val) => val.trim() !== ''
+            });
         }
 
         function editCategoryName(categoryId, currentName) {
-            helpers.openEditModal(
-                'Edit Category Name',
-                'Enter new category name',
-                currentName,
-                (newName) => {
+            helpers.openEditModal({
+                title: 'Edit Category Name',
+                label: 'Category Name',
+                placeholder: 'Enter new category name',
+                currentValue: currentName,
+                onSave: (newName) => {
                     const category = currentChecklistData.categories.find(c => c.id === categoryId);
                     if (category) {
                         category.name = newName;
                         handleSaveChecklist(true);
                     }
                 },
-                () => { /* Cancelled */ },
-                (val) => val.trim() !== ''
-            );
+                validationFn: (val) => val.trim() !== ''
+            });
         }
 
         function deleteCategory(categoryId, categoryName) {
             helpers.openConfirmationModal(
                 `Delete "${categoryName}" category?`,
-                "This will permanently remove this category and all its items.",
+                "This will permanently remove this category and all its items and attachments.",
                 async () => {
                     helpers.closeModal(ui.confirmationModal);
+                    const categoryToDelete = currentChecklistData.categories.find(c => c.id === categoryId);
+                    if (categoryToDelete) {
+                        for (const item of categoryToDelete.items) {
+                             if (item.attachments) {
+                                for (const attachment of item.attachments) {
+                                    await deleteFileFromStorage(item.id, attachment.fileName);
+                                }
+                            }
+                        }
+                    }
                     currentChecklistData.categories = currentChecklistData.categories.filter(c => c.id !== categoryId);
-                    handleSaveChecklist(true); // Save and re-render
+                    handleSaveChecklist(true);
                 }
             );
         }
 
         function addItem(categoryId) {
-            helpers.openEditModal(
-                'Add New Item',
-                'Enter new checklist item description',
-                '',
-                (newItemText) => {
+            helpers.openEditModal({
+                title: 'Add New Item',
+                label: 'Item Description',
+                placeholder: 'Enter new checklist item',
+                currentValue: '',
+                onSave: (newItemText) => {
                     const category = currentChecklistData.categories.find(c => c.id === categoryId);
                     if (category) {
-                        const newId = `custom_item_${crypto.randomUUID()}`;
+                        const newId = helpers.generateId('item');
                         category.items.push({
                             id: newId,
                             text: newItemText,
@@ -1051,20 +1170,20 @@
                             isCustom: true,
                             attachments: []
                         });
-                        handleSaveChecklist(true); // Save and re-render
+                        handleSaveChecklist(true);
                     }
                 },
-                () => { /* Cancelled */ },
-                (val) => val.trim() !== ''
-            );
+                validationFn: (val) => val.trim() !== ''
+            });
         }
 
         function editItemText(categoryId, itemId, currentText) {
-             helpers.openEditModal(
-                'Edit Item Text',
-                'Enter new item description',
-                currentText,
-                (newText) => {
+            helpers.openEditModal({
+                title: 'Edit Item Text',
+                label: 'Item Description',
+                placeholder: 'Enter new item description',
+                currentValue: currentText,
+                onSave: (newText) => {
                     const category = currentChecklistData.categories.find(c => c.id === categoryId);
                     const item = category?.items.find(i => i.id === itemId);
                     if (item) {
@@ -1072,28 +1191,26 @@
                         handleSaveChecklist(true);
                     }
                 },
-                () => { /* Cancelled */ },
-                (val) => val.trim() !== ''
-            );
+                validationFn: (val) => val.trim() !== ''
+            });
         }
 
         function deleteItem(categoryId, itemId, itemText) {
             helpers.openConfirmationModal(
-                `Delete "${itemText}" item?`,
-                "This will permanently remove this checklist item and its attachments.",
+                `Delete "${itemText}"?`,
+                "This will permanently remove this item and its attachments.",
                 async () => {
                     helpers.closeModal(ui.confirmationModal);
                     const category = currentChecklistData.categories.find(c => c.id === categoryId);
                     if (category) {
                         const itemToDelete = category.items.find(item => item.id === itemId);
-                        if (itemToDelete && itemToDelete.attachments) {
-                            // Delete all associated files from storage first
+                        if (itemToDelete?.attachments) {
                             for (const attachment of itemToDelete.attachments) {
-                                await deleteFileFromStorage(itemId, attachment.fileName);
+                                await deleteFileFromStorage(itemToDelete.id, attachment.fileName);
                             }
                         }
                         category.items = category.items.filter(i => i.id !== itemId);
-                        handleSaveChecklist(true); // Save and re-render
+                        handleSaveChecklist(true);
                     }
                 }
             );
@@ -1105,42 +1222,38 @@
             const file = event.target.files[0];
             if (!file) return;
 
-            const uploadStatusElement = event.target.nextElementSibling; // The div right after the button
+            const uploadStatusElement = event.target.closest('.file-input-wrapper').querySelector('.attachment-upload-status');
             uploadStatusElement.classList.remove('hidden');
-            helpers.showStatus(uploadStatusElement, `Uploading "${file.name}"...`, 'info', null);
+            helpers.showStatus(uploadStatusElement, `Uploading...`, 'info', null);
 
             try {
-                // Firebase Storage path: /artifacts/{appId}/users/{userId}/attachments/{checklistId}/{itemId}/{fileName}
+                if (!currentChecklistData.id) {
+                     await handleSaveChecklist(false); // Auto-save before upload
+                     if (!currentChecklistData.id) { // Check if save was successful
+                        helpers.showStatus(uploadStatusElement, 'Save checklist before adding files.', 'error');
+                        return;
+                     }
+                }
                 const storageRef = ref(storage, `artifacts/${appId}/users/${userId}/attachments/${currentChecklistData.id}/${itemId}/${file.name}`);
                 const snapshot = await uploadBytes(storageRef, file);
                 const downloadURL = await getDownloadURL(snapshot.ref);
 
-                const category = currentChecklistData.categories.find(c => c.id === categoryId);
-                const item = category?.items.find(i => i.id === itemId);
-                
+                const item = currentChecklistData.categories.find(c => c.id === categoryId)?.items.find(i => i.id === itemId);
                 if (item) {
                     if (!item.attachments) item.attachments = [];
-                    // Check for duplicates before adding
                     if (!item.attachments.some(att => att.fileName === file.name)) {
-                        item.attachments.push({
-                            fileName: file.name,
-                            url: downloadURL,
-                            type: file.type,
-                            size: file.size,
-                            uploadedAt: serverTimestamp()
-                        });
-                        await handleSaveChecklist(true); // Save the updated checklist data with attachment metadata
-                        helpers.showStatus(uploadStatusElement, `"${file.name}" uploaded successfully!`, 'success');
+                        item.attachments.push({ fileName: file.name, url: downloadURL, type: file.type, size: file.size });
+                        await handleSaveChecklist(true); // Re-render to show new attachment
+                        helpers.showStatus(uploadStatusElement, `Upload complete!`, 'success', 2000);
                     } else {
-                        helpers.showStatus(uploadStatusElement, `"${file.name}" already exists.`, 'info');
+                        helpers.showStatus(uploadStatusElement, `File already exists.`, 'info', 2000);
                     }
                 }
             } catch (error) {
                 console.error("Error uploading attachment:", error);
-                helpers.showStatus(uploadStatusElement, `Upload failed for "${file.name}".`, 'error');
+                helpers.showStatus(uploadStatusElement, `Upload failed.`, 'error', 3000);
             } finally {
-                event.target.value = ''; // Clear file input
-                setTimeout(() => uploadStatusElement.classList.add('hidden'), 3000); // Hide status after some time
+                event.target.value = '';
             }
         }
 
@@ -1151,95 +1264,94 @@
                 async () => {
                     helpers.closeModal(ui.confirmationModal);
                     try {
-                        // Delete from Firebase Storage
                         await deleteFileFromStorage(itemId, fileName);
-
-                        // Remove from Firestore data
-                        const category = currentChecklistData.categories.find(c => c.id === categoryId);
-                        const item = category?.items.find(i => i.id === itemId);
+                        const item = currentChecklistData.categories.find(c => c.id === categoryId)?.items.find(i => i.id === itemId);
                         if (item) {
                             item.attachments = (item.attachments || []).filter(att => att.fileName !== fileName);
-                            await handleSaveChecklist(true); // Save updated checklist
-                            helpers.showStatus(ui.statusMessage, `Attachment "${fileName}" deleted.`, 'info');
+                            await handleSaveChecklist(true);
+                            helpers.showStatus(ui.statusMessage, `Attachment deleted.`, 'info');
                         }
                     } catch (error) {
                         console.error("Error deleting attachment:", error);
-                        helpers.showStatus(ui.statusMessage, `Failed to delete attachment "${fileName}".`, 'error');
+                        helpers.showStatus(ui.statusMessage, `Failed to delete attachment.`, 'error');
                     }
                 }
             );
         }
 
         async function deleteFileFromStorage(itemId, fileName) {
+            if (!currentChecklistData.id) return;
             const fileRef = ref(storage, `artifacts/${appId}/users/${userId}/attachments/${currentChecklistData.id}/${itemId}/${fileName}`);
             try {
                 await deleteObject(fileRef);
-                console.log(`File ${fileName} deleted from storage.`);
             } catch (error) {
-                // Ignore if file not found, otherwise log
-                if (error.code === 'storage/object-not-found') {
-                    console.warn(`File ${fileName} not found in storage, skipping deletion.`);
-                } else {
+                if (error.code !== 'storage/object-not-found') {
                     console.error(`Error deleting file ${fileName} from storage:`, error);
-                    throw error; // Re-throw to propagate the error
+                    throw error;
                 }
             }
         }
 
-
         // --- Event Handlers & Firestore Logic ---
-        async function handleSaveChecklist(reRender = false) {
-            if (!isAuthReady) return helpers.showStatus(ui.statusMessage, "Authentication not ready. Please wait.", 'error');
+        function handleChecklistDataChange() {
+            if (!isAuthReady) {
+                helpers.showStatus(ui.statusMessage, "Authentication not ready. Please wait.", 'error');
+                return false;
+            }
+            
             const orgName = ui.orgNameInput.value.trim();
             if (!orgName) {
                 ui.orgNameError.classList.remove('hidden');
                 ui.orgNameInput.focus();
-                return helpers.showStatus(ui.statusMessage, "Organization name is required.", 'error');
+                return false;
             }
             ui.orgNameError.classList.add('hidden');
             
-            // Collect current state from UI for saving
             currentChecklistData.orgName = orgName;
-            currentChecklistData.lastUpdated = serverTimestamp();
-
-            // Update item states from the UI
             currentChecklistData.categories.forEach(category => {
-                category.items.forEach(item => {
-                    const checkbox = ui.checklistItemsContainer.querySelector(`input[data-item-id="${item.id}"][data-category-id="${category.id}"]`);
-                    const notesTextarea = ui.checklistItemsContainer.querySelector(`textarea[data-item-id="${item.id}"][data-category-id="${category.id}"]`);
-                    item.isChecked = checkbox?.checked ?? false;
-                    item.notes = notesTextarea?.value.trim() ?? '';
-                    // Attachments are handled directly in attachment functions
+                (category.items || []).forEach(item => {
+                    const checkbox = ui.checklistItemsContainer.querySelector(`input[data-item-id="${item.id}"]`);
+                    const notesTextarea = ui.checklistItemsContainer.querySelector(`textarea[data-item-id="${item.id}"]`);
+                    if(checkbox) item.isChecked = checkbox.checked;
+                    if(notesTextarea) item.notes = notesTextarea.value.trim();
                 });
             });
+            return true;
+        }
+        
+        async function handleSaveChecklist(reRender = false) {
+            if(!handleChecklistDataChange()) {
+                 helpers.showStatus(ui.statusMessage, "Organization name is required.", 'error');
+                 return;
+            }
 
             ui.saveChecklistBtn.disabled = true;
-            if (!reRender) helpers.showStatus(ui.statusMessage, "Saving...", 'info', null);
+            helpers.showStatus(ui.statusMessage, "Saving...", 'info', null);
             
             try {
-                let currentId = currentChecklistData?.id;
-                if (currentId) {
-                    const docRef = doc(db, `artifacts/${appId}/users/${userId}/checklists`, currentId);
-                    await setDoc(docRef, currentChecklistData, { merge: true });
+                const dataToSave = {
+                    ...currentChecklistData,
+                    lastUpdated: serverTimestamp()
+                };
+
+                if (currentChecklistData.id) {
+                    const docRef = doc(db, `artifacts/${appId}/users/${userId}/checklists`, currentChecklistData.id);
+                    await setDoc(docRef, dataToSave, { merge: true });
                 } else {
                     const collectionRef = collection(db, `artifacts/${appId}/users/${userId}/checklists`);
-                    const newDocRef = await addDoc(collectionRef, currentChecklistData);
-                    currentId = newDocRef.id;
-                    currentChecklistData.id = currentId; // Update state with new ID
+                    const newDocRef = await addDoc(collectionRef, dataToSave);
+                    currentChecklistData.id = newDocRef.id;
                 }
-                // Fetch the saved doc to ensure all server-stamped fields are accurate
-                const savedDocSnap = await getDoc(doc(db, `artifacts/${appId}/users/${userId}/checklists`, currentId));
-                currentChecklistData = {id: savedDocSnap.id, ...savedDocSnap.data()};
-
-
+                
                 if (reRender) {
-                    renderChecklistForm(currentChecklistData.id); // Re-render to reflect structure changes
-                } else {
-                    helpers.showStatus(ui.statusMessage, "Checklist saved successfully!", 'success');
+                    await renderChecklistForm(currentChecklistData.id);
                 }
-                ui.checklistTitle.textContent = orgName;
+                
+                helpers.showStatus(ui.statusMessage, "Checklist saved successfully!", 'success');
+                ui.checklistTitle.textContent = currentChecklistData.orgName;
                 ui.deleteChecklistBtn.classList.remove('hidden');
                 ui.shareChecklistBtn.classList.remove('hidden');
+                ui.geminiSummaryBtn.classList.remove('hidden');
             } catch (error) {
                 console.error("Error saving checklist: ", error);
                 helpers.showStatus(ui.statusMessage, "Error saving checklist.", 'error');
@@ -1248,17 +1360,17 @@
             }
         }
 
+
         async function handleDeleteChecklist() {
             if (!currentChecklistData?.id || !isAuthReady) return;
             helpers.openConfirmationModal(
                 `Delete "${currentChecklistData.orgName || 'this checklist'}"?`,
-                "This action is permanent and cannot be recovered. All associated attachments will also be deleted.",
+                "This action is permanent. All associated items and attachments will be deleted.",
                 async () => {
                     helpers.closeModal(ui.confirmationModal);
                     helpers.showStatus(ui.statusMessage, "Deleting...", 'info', null);
                     try {
-                        // Delete all attachments from storage first
-                        const allItems = currentChecklistData.categories.flatMap(cat => cat.items);
+                        const allItems = currentChecklistData.categories.flatMap(cat => cat.items || []);
                         for (const item of allItems) {
                             if (item.attachments) {
                                 for (const attachment of item.attachments) {
@@ -1266,15 +1378,13 @@
                                 }
                             }
                         }
-
-                        // Delete the checklist document
                         await deleteDoc(doc(db, `artifacts/${appId}/users/${userId}/checklists`, currentChecklistData.id));
                         currentChecklistData = null;
                         helpers.showView('list');
-                        helpers.showStatus(ui.statusMessage, "Checklist and all attachments deleted.", 'info', 3000);
+                        helpers.showStatus(ui.statusMessage, "Checklist deleted.", 'info', 3000);
                     } catch (error) {
-                        console.error("Error deleting checklist and/or attachments: ", error);
-                        helpers.showStatus(ui.statusMessage, "Failed to delete checklist and/or some attachments.", 'error');
+                        console.error("Error deleting checklist:", error);
+                        helpers.showStatus(ui.statusMessage, "Failed to delete checklist.", 'error');
                     }
                 }
             );
@@ -1287,39 +1397,29 @@
             try {
                 let shareId = currentChecklistData.shareId;
                 if (!shareId) {
-                    // For sharing, we flatten the categories and items into a single array for easier import,
-                    // but maintain the category structure conceptually.
                     const sharedDocData = {
                         ownerId: userId,
                         orgName: currentChecklistData.orgName,
                         categories: currentChecklistData.categories.map(cat => ({
-                            id: cat.id,
-                            name: cat.name,
-                            isCustom: cat.isCustom,
-                            items: cat.items.map(item => ({
-                                id: item.id,
-                                text: item.text,
-                                link: item.link,
-                                linkText: item.linkText,
-                                isCustom: item.isCustom
-                                // Attachments, isChecked, notes are *not* shared
+                            id: cat.id, name: cat.name, isCustom: cat.isCustom,
+                            items: (cat.items || []).map(item => ({
+                                id: item.id, text: item.text, link: item.link, linkText: item.linkText, isCustom: item.isCustom
                             }))
                         }))
                     };
                     const sharedDocRef = await addDoc(collection(db, `artifacts/${appId}/public/data/sharedChecklists`), sharedDocData);
                     shareId = sharedDocRef.id;
 
-                    const originalDocRef = doc(db, `artifacts/${appId}/users/${userId}/checklists`, currentChecklistData.id);
-                    await updateDoc(originalDocRef, { shareId: shareId });
+                    await updateDoc(doc(db, `artifacts/${appId}/users/${userId}/checklists`, currentChecklistData.id), { shareId });
                     currentChecklistData.shareId = shareId; 
                 }
                 
                 ui.shareIdDisplay.textContent = shareId;
-                helpers.showStatus(ui.statusMessage, 'Share ID is ready!', 'success');
+                helpers.showStatus(ui.statusMessage, 'Share ID ready!', 'success');
                 helpers.openModal(ui.shareModal);
 
             } catch (error) {
-                console.error("Error creating share link:", error);
+                console.error("Error creating share ID:", error);
                 helpers.showStatus(ui.statusMessage, 'Could not create Share ID.', 'error');
             }
         }
@@ -1338,35 +1438,24 @@
                 if (docSnap.exists()) {
                     const data = docSnap.data();
                     const importedCategories = data.categories.map(cat => ({
-                        id: cat.id,
-                        name: cat.name,
-                        isCustom: cat.isCustom,
-                        items: cat.items.map(item => ({
-                            id: item.id,
-                            text: item.text,
-                            link: item.link,
-                            linkText: item.linkText,
-                            isCustom: item.isCustom,
-                            isChecked: false, // Imported items start unchecked
-                            notes: '', // Imported items start with no notes
-                            attachments: [] // Imported items start with no attachments
-                        }))
+                        ...cat,
+                        items: (cat.items || []).map(item => ({ ...item, isChecked: false, notes: '', attachments: [] }))
                     }));
 
-                    const newChecklist = {
+                    await addDoc(collection(db, `artifacts/${appId}/users/${userId}/checklists`), {
                         orgName: `[Imported] ${data.orgName}`,
                         categories: importedCategories,
                         lastUpdated: serverTimestamp()
-                    };
-                    await addDoc(collection(db, `artifacts/${appId}/users/${userId}/checklists`), newChecklist);
+                    });
+                    
                     helpers.showStatus(ui.importStatusMessage, 'Import successful!', 'success');
                     setTimeout(() => helpers.closeModal(ui.importModal), 1500);
                 } else {
-                    helpers.showStatus(ui.importStatusMessage, 'Invalid Share ID. Checklist not found.', 'error');
+                    helpers.showStatus(ui.importStatusMessage, 'Invalid Share ID.', 'error');
                 }
             } catch (error) {
                 console.error("Error importing checklist:", error);
-                helpers.showStatus(ui.importStatusMessage, 'An error occurred during import.', 'error');
+                helpers.showStatus(ui.importStatusMessage, 'An error occurred.', 'error');
             } finally {
                 ui.importModalConfirmBtn.disabled = false;
             }
@@ -1380,8 +1469,8 @@
             textArea.focus();
             textArea.select();
             try {
-                const successful = document.execCommand('copy');
-                helpers.showStatus(statusElement, successful ? successMsg : 'Copy failed.', successful ? 'success' : 'error');
+                document.execCommand('copy');
+                helpers.showStatus(statusElement, successMsg, 'success');
             } catch (err) {
                 helpers.showStatus(statusElement, 'Copy failed.', 'error');
             }
@@ -1399,26 +1488,20 @@
         }
         
         function handleCopyChecklistText() {
-            const orgName = ui.orgNameInput.value.trim();
-            if (!orgName) return helpers.showStatus(ui.statusMessage, "Please enter an organization name.", 'error');
-            let textToCopy = `Compliance Checklist for: ${orgName}\n========================================\n\n`;
+            if(!handleChecklistDataChange()) return helpers.showStatus(ui.statusMessage, "Please enter an organization name.", 'error');
             
+            let textToCopy = `Compliance Checklist for: ${currentChecklistData.orgName}\n========================================\n\n`;
             currentChecklistData.categories.forEach(category => {
                 textToCopy += `CATEGORY: ${category.name.toUpperCase()}\n----------------------------------------\n`;
-                category.items.forEach(item => {
-                    const status = item.isChecked ? "[X]" : "[ ]";
-                    textToCopy += `${status} ${item.text}\n`;
-                    if (item.notes.trim()) textToCopy += `    Notes: ${item.notes.trim()}\n`;
+                (category.items || []).forEach(item => {
+                    textToCopy += `${item.isChecked ? "[X]" : "[ ]"} ${item.text}\n`;
+                    if (item.notes) textToCopy += `    Notes: ${item.notes}\n`;
                     if (item.link) textToCopy += `    Resource: ${item.link}\n`;
-                    if (item.attachments && item.attachments.length > 0) {
-                        textToCopy += `    Attachments:\n`;
-                        item.attachments.forEach(att => {
-                            textToCopy += `        - ${att.fileName}: ${att.url}\n`;
-                        });
+                    if (item.attachments?.length) {
+                        textToCopy += `    Attachments: ${item.attachments.map(a => a.fileName).join(', ')}\n`;
                     }
                     textToCopy += "\n"; 
                 });
-                textToCopy += "\n";
             });
             copyToClipboard(textToCopy, ui.statusMessage, 'Checklist text copied!');
         }
@@ -1427,71 +1510,61 @@
             if (checklistUnsubscribe) checklistUnsubscribe();
             const q = query(collection(db, `artifacts/${appId}/users/${userId}/checklists`));
             checklistUnsubscribe = onSnapshot(q, (querySnapshot) => {
-                allChecklistsFromFirestore = [];
-                querySnapshot.forEach((doc) => {
-                    allChecklistsFromFirestore.push({ id: doc.id, ...doc.data() });
-                });
+                allChecklistsFromFirestore = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                 filterAndRenderListView();
-            }, (error) => {
-                console.error("Error listening for checklist updates: ", error);
-            });
+            }, console.error);
         }
 
         // --- App Initialization ---
         async function initApp() {
             cacheDOMElements(); 
             
-            // Set initial theme and attach listener.
-            const savedTheme = localStorage.getItem('theme');
+            // Set initial theme
+            const savedTheme = localStorage.theme;
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             helpers.applyTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
 
-            ui.darkModeToggle.addEventListener('click', () => {
-                const isDark = document.documentElement.classList.contains('dark');
-                helpers.applyTheme(isDark ? 'light' : 'dark');
+            // Apply Tailwind classes from templates
+            document.querySelectorAll('.tool-btn').forEach(btn => btn.className = tailwind.toolBtn);
+            document.querySelectorAll('.action-btn-primary').forEach(btn => btn.className = tailwind.actionBtnPrimary);
+            document.querySelectorAll('.action-btn-secondary').forEach(btn => btn.className = tailwind.actionBtnSecondary);
+
+            // Initialize external link modals
+            ui.externalLinkModals.forEach(modalContent => {
+                modalContent.innerHTML = tailwind.externalLinkModalHTML;
+                modalContent.querySelector('h3').textContent = modalContent.dataset.title;
+                const link = modalContent.querySelector('.external-link-confirm');
+                link.href = modalContent.dataset.link;
+                link.querySelector('span').textContent = modalContent.dataset.sitename;
             });
 
-            console.log("Initializing Firebase Checklist App v5 (Public)...");
+            // Initialize Firebase
             try {
-                const configFromEnv = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-                const finalConfig = (firebaseConfig && firebaseConfig.apiKey) 
-                    ? firebaseConfig
-                    : configFromEnv;
-
-                if (!finalConfig || !finalConfig.apiKey) {
-                    throw new Error("Firebase configuration is missing.");
-                }
-
-                const app = initializeApp(finalConfig);
+                if (!firebaseConfig?.apiKey) throw new Error("Firebase config missing.");
+                const app = initializeApp(firebaseConfig);
                 db = getFirestore(app);
                 auth = getAuth(app);
-                storage = getStorage(app); // Initialize Firebase Storage
+                storage = getStorage(app);
             } catch (error) {
-                console.error("Firebase initialization failed:", error);
+                console.error("Firebase init failed:", error);
                 ui.authStatus.textContent = "Error: " + error.message;
-                ui.userInfo.classList.remove('hidden');
                 return;
             }
 
+            // Authentication
             onAuthStateChanged(auth, async (user) => {
+                isAuthReady = !!user;
+                userId = user?.uid;
+                ui.authStatus.textContent = user ? "Authenticated" : "Not Authenticated";
+                ui.userIdDisplay.textContent = userId || "";
+                ui.userInfo.classList.toggle('hidden', !user);
+                ui.newChecklistBtn.disabled = !user;
+                ui.importChecklistBtn.disabled = !user;
+                
                 if (user) {
-                    isAuthReady = true;
-                    userId = user.uid;
-                    ui.authStatus.textContent = "Authenticated";
-                    ui.userIdDisplay.textContent = userId;
-                    ui.userInfo.classList.remove('hidden');
-                    ui.newChecklistBtn.disabled = false;
-                    ui.importChecklistBtn.disabled = false;
                     listenForChecklists();
                     helpers.showView('list');
                 } else {
-                    isAuthReady = false;
-                    userId = null;
-                    ui.authStatus.textContent = "Not Authenticated";
-                    ui.userIdDisplay.textContent = "";
-                    ui.userInfo.classList.remove('hidden');
-                    ui.newChecklistBtn.disabled = true;
-                    ui.importChecklistBtn.disabled = true;
                     if (checklistUnsubscribe) checklistUnsubscribe();
                     allChecklistsFromFirestore = [];
                     renderListView([]);
@@ -1499,22 +1572,20 @@
             });
             
             try {
-                const tokenFromEnv = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-                if (tokenFromEnv) {
-                    await signInWithCustomToken(auth, tokenFromEnv);
-                } else {
-                    await signInAnonymously(auth);
-                }
+                const token = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+                if (token) await signInWithCustomToken(auth, token);
+                else await signInAnonymously(auth);
             } catch (error) {
-                 console.error("Authentication failed: ", error);
-                 ui.authStatus.textContent = `Authentication Failed: ${error.message}`;
+                 console.error("Auth failed: ", error);
+                 ui.authStatus.textContent = `Auth Failed: ${error.message}`;
                  ui.userInfo.classList.remove('hidden');
             }
 
-            // --- Event Listeners ---
+            // --- Static Event Listeners ---
+            ui.darkModeToggle.addEventListener('click', () => helpers.applyTheme(document.documentElement.classList.contains('dark') ? 'light' : 'dark'));
             ui.newChecklistBtn.addEventListener('click', () => { if(isAuthReady) renderChecklistForm(); });
             ui.backToListBtn.addEventListener('click', () => { helpers.showView('list'); filterAndRenderListView(); });
-            ui.saveChecklistBtn.addEventListener('click', handleSaveChecklist);
+            ui.saveChecklistBtn.addEventListener('click', () => handleSaveChecklist(false));
             ui.deleteChecklistBtn.addEventListener('click', handleDeleteChecklist);
             ui.printChecklistBtn.addEventListener('click', () => { if (ui.orgNameInputPrintHeader) { ui.orgNameInputPrintHeader.textContent = ui.orgNameInput.value.trim() || "Untitled Checklist"; } window.print(); });
             ui.copyChecklistBtn.addEventListener('click', handleCopyChecklistText);
@@ -1522,47 +1593,49 @@
             ui.importChecklistBtn.addEventListener('click', () => { if(isAuthReady) { ui.importIdInput.value = ''; ui.importStatusMessage.textContent = ''; helpers.openModal(ui.importModal); }});
             ui.searchInput.addEventListener('input', filterAndRenderListView);
             ui.orgNameInput.addEventListener('input', () => { ui.checklistTitle.textContent = ui.orgNameInput.value.trim() || "New Checklist"; });
-            
-            // New for customization
             ui.addCategoryBtn.addEventListener('click', addCategory);
 
-            // External Tool Modal Buttons
-            ui.openEinModalBtn.addEventListener('click', () => helpers.openModal(ui.einLookupModal));
-            ui.openPropublicaModalBtn.addEventListener('click', () => helpers.openModal(ui.propublicaLookupModal));
-            ui.openBbbModalBtn.addEventListener('click', () => helpers.openModal(ui.bbbScamModal));
-            ui.openNascoModalBtn.addEventListener('click', () => helpers.openModal(ui.nascoRegModal));
-            ui.openAphisModalBtn.addEventListener('click', () => helpers.openModal(ui.aphisLookupModal));
-            ui.openCharityNavModalBtn.addEventListener('click', () => helpers.openModal(ui.charityNavLookupModal));
-            ui.openCharityWatchModalBtn.addEventListener('click', () => helpers.openModal(ui.charityWatchLookupModal));
-            
-            // All Modal Close/Confirm Buttons
-            ui.modalConfirmBtn.addEventListener('click', () => confirmAction?.());
-            [
-                ui.modalCancelBtn, ui.shareModalCloseBtn, ui.importModalCancelBtn, 
-                ui.einModalCancelBtn, ui.propublicaModalCancelBtn, ui.bbbModalCancelBtn, ui.nascoModalCancelBtn, 
-                ui.aphisModalCancelBtn, ui.charityNavModalCancelBtn, ui.charityWatchModalCancelBtn,
-                ui.editModalCancelBtn, ui.editModalSaveBtn // Edit modal handlers are managed internally by helpers.openEditModal
-            ].forEach(btn => {
-                // Ensure event listeners are added only once, and are generic for modal closing
-                if (btn.id === 'modal-confirm-btn') return; // Handled by confirmAction
-                if (btn.id === 'edit-modal-save-btn' || btn.id === 'edit-modal-cancel-btn') return; // Handled by openEditModal
-                btn.addEventListener('click', () => helpers.closeModal(btn.closest('.modal')));
+            // Gemini Feature Listeners
+            ui.geminiSummaryBtn.dataset.originalText = 'Generate Summary';
+            ui.geminiSummaryBtn.addEventListener('click', handleGenerateSummary);
+            ui.geminiSummaryCopyBtn.addEventListener('click', () => copyToClipboard(ui.geminiSummaryText.textContent, ui.geminiSummaryStatus, 'Summary Copied!'));
+            ui.geminiSummaryPrintBtn.addEventListener('click', () => {
+                ui.geminiSummaryModal.classList.add('is-printing');
+                window.print();
+                ui.geminiSummaryModal.classList.remove('is-printing');
             });
-            
-            ui.shareModalCopyBtn.addEventListener('click', () => copyToClipboard(ui.shareIdDisplay.textContent, ui.shareIdDisplay, 'ID Copied!'));
-            ui.importModalConfirmBtn.addEventListener('click', handleImportConfirm);
 
-            [
-                ui.einModalConfirmLink, ui.propublicaModalConfirmLink, ui.bbbModalConfirmLink, ui.nascoModalConfirmLink,
-                ui.aphisModalConfirmLink, ui.charityNavModalConfirmLink, ui.charityWatchModalConfirmLink
-            ].forEach(link => link.addEventListener('click', () => helpers.closeModal(link.closest('.modal'))));
-            
-            // General click listener for clicking outside modals
-            window.addEventListener('click', (event) => { 
-                if (event.target.classList.contains('modal')) {
-                    helpers.closeModal(event.target); 
-                }
+
+            // Modal Listeners
+            ui.modalConfirmBtn.addEventListener('click', () => confirmAction?.());
+            ui.importModalConfirmBtn.addEventListener('click', handleImportConfirm);
+            ui.shareModalCopyBtn.addEventListener('click', () => copyToClipboard(ui.shareIdDisplay.textContent, ui.shareIdDisplay.parentElement.querySelector('p'), 'ID Copied!'));
+            ui.editModalCancelBtn.addEventListener('click', () => helpers.closeModal(ui.editModal));
+
+            ui.toolBtns.forEach(btn => btn.addEventListener('click', () => {
+                const modalId = btn.id.replace('open-', '').replace('-btn', '');
+                helpers.openModal(document.getElementById(modalId));
+            }));
+
+            // Generic modal close listeners
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', (event) => {
+                    if (event.target === modal || event.target.closest('[id$="-cancel-btn"]') || event.target.closest('[id$="-close-btn"]') || event.target.closest('.external-link-cancel')) {
+                        helpers.closeModal(modal);
+                    }
+                });
             });
+            document.querySelectorAll('a.external-link-confirm').forEach(link => {
+                link.addEventListener('click', () => helpers.closeModal(link.closest('.modal')));
+            });
+
+            // Add classes for custom action icons
+            const style = document.createElement('style');
+            style.textContent = `
+              .action-icon-btn { @apply p-1.5 rounded-full hover:bg-slate-200 dark:hover:bg-slate-600/80 text-slate-500 dark:text-slate-400 transition-colors; }
+              .action-icon-btn-danger { @apply p-1.5 rounded-full hover:bg-red-100 dark:hover:bg-red-900/40 text-red-500 dark:text-red-400 transition-colors; }
+            `;
+            document.head.appendChild(style);
         }
 
         document.addEventListener('DOMContentLoaded', initApp);
