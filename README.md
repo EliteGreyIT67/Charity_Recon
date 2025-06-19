@@ -10,9 +10,10 @@ Welcome to Charity Recon! This guide empowers animal rescue organizations, donor
 
 ## Quick Start Guide for Donors
 In a hurry? Here are three essential steps to quickly vet an organization:
- 1. Verify 501(c)(3) Status: Use the [IRS Tax Exempt Organization Search](https://apps.irs.gov/app/eos/) to confirm the organization is a registered charity.
- 2. Review Financials: Look up the organization on [ProPublica Nonprofit Explorer](https://projects.propublica.org/nonprofits/) to see their annual IRS Form 990 filings. Check their revenue, expenses, and executive compensation.
- 3. Check State Registration: Find your state's charity official via [NASCO](https://www.nasconet.org/) to ensure they are registered to solicit donations in your state.
+ 1. Verify Registered Status: Use the appropriate national or regional charity registrar to confirm the organization is a registered non-profit. See the [International Resources](#international-resources) section for country-specific starting points.
+ 2. Verify 501(c)(3) Status: Use the [IRS Tax Exempt Organization Search](https://apps.irs.gov/app/eos/) to confirm the organization is a registered charity.
+ 3. Review Financials: Look up the organization on [ProPublica Nonprofit Explorer](https://projects.propublica.org/nonprofits/) to see their annual IRS Form 990 filings. Check their revenue, expenses, and executive compensation.
+ 4. Check State Registration: Find your state's charity official via [NASCO](https://www.nasconet.org/) to ensure they are registered to solicit donations in your state.
 
 ---
 
@@ -99,7 +100,7 @@ A red flag isn't proof of wrongdoing, but a signal to investigate further.
 
 | Red Flag | What It Looks Like | Why It Matters |
 |---|---|---|
-| Lack of Transparency | Refuses to provide IRS Form 990, vague answers about donation use, unclear adoption process. | Reputable charities are open. Secrecy can hide mismanagement, financial instability, or unethical practices. |
+| Lack of Transparency | Refuses to provide financial information, vague answers about donation use, unclear adoption process. | Reputable charities are open. Secrecy can hide mismanagement, financial instability, or unethical practices. |
 | High-Pressure Tactics | Aggressive, emotional appeals for money without clear, detailed plans or evidence of past success. | May indicate a focus on fundraising over mission. Legitimate rescues communicate needs with clarity and respect. |
 | Evasive About Animals | Unclear about where animals come from (sourcing) or their policies for returns or euthanasia (disposition). | Ethical rescues are transparent. Evasiveness can hide connections to puppy mills or irresponsible outcome policies. |
 | Poor Animal Care | Animals appear unwell, facility is dirty, or they can't provide complete vet records (vaccines, spay/neuter). | Proper medical care is a fundamental, non-negotiable aspect of animal welfare. Cutting corners here is a major concern. |
@@ -165,7 +166,10 @@ Use these resources to conduct your research.
 ### **International Resources**
 This guide is primarily U.S.-focused, but similar principles apply globally. Here are starting points for other countries:
 - **Canada**: [Canada Revenue Agency - Charities listing](https://apps.cra-arc.gc.ca/ebci/hacc/srch/pub/dsplyBscSrch)
-- **United Kingdom**: [GOV.UK - Find a charity](https://www.gov.uk/find-charity-information)
+- **Germany**: [Federal Central Tax Office (Bundeszentralamt für Steuern) - Register of Charitable Organizations](https://www.bzst.de/EN/Businesses/Non-Profit/Charity_Register/Overview/overview_node.html)
+- **Ireland**: [Charities Regulator - Register of Charities](https://www.charitiesregulator.ie/en/information-for-the-public/search-the-register-of-charities)
+- **Japan**: While there is no single central government database, many legitimate non-profits are registered as "Specified Nonprofit Corporations" and may be found through the Cabinet Office's NPO portal or are members of the [Japan Association of Charitable Organizations (JACO).](https://www.jaco.or.jp/)
+- **United Kingdom**: [GOV.UK - Find a charity](https://www.gov.uk/find-charity-information) (for England and Wales), [Scottish Charity Regulator (OSCR)](https://www.oscr.org.uk/) (for Scotland), and the [Charity Commission for Northern Ireland](https://www.charitycommissionni.org.uk/) (for Northern Ireland).
 - **Australia**: [Australian Charities and Not-for-profits Commission (ACNC)](https://www.acnc.gov.au/charity)
 - **New Zealand**: [Charities Services Register](https://charities.govt.nz/)
 
