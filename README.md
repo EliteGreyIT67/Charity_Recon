@@ -149,19 +149,19 @@ Use these resources to conduct your research.
 
 ### National Resources (U.S.)
 **Charity Databases & Watchdogs**:
-- **ProPublica Nonprofit Explorer**: projects.propublica.org/nonprofits/ - User-friendly tool for searching and viewing IRS Form 990s.
-- **Candid (GuideStar)**: candid.org - Comprehensive data on non-profits.
-- **Charity Navigator**: charitynavigator.org - Ratings and analysis of larger charities.
-- **CharityWatch**: charitywatch.org - In-depth analysis and ratings from a tough watchdog.
-- **BBB Wise Giving Alliance**: give.org - Evaluates charities against 20 standards of accountability.
+- **ProPublica Nonprofit Explorer**: [projects.propublica.org/nonprofits/](projects.propublica.org/nonprofits/) - User-friendly tool for searching and viewing IRS Form 990s.
+- **Candid (GuideStar)**: [candid.org](candid.org) - Comprehensive data on non-profits.
+- **Charity Navigator**: [charitynavigator.org](charitynavigator.org) - Ratings and analysis of larger charities.
+- **CharityWatch**: [charitywatch.org](charitywatch.org) - In-depth analysis and ratings from a tough watchdog.
+- **BBB Wise Giving Alliance**: [give.org](give.org) - Evaluates charities against 20 standards of accountability.
 
 **Government Oversight & Complaint Filing**:
-- **IRS - Tax Exempt Organization Search**: apps.irs.gov/app/eos/ - Verify non-profit status.
-- **IRS - File a Complaint**: irs.gov/charities-non-profits/irs-complaint-process-tax-exempt-organizations
-- **USDA - Animal Welfare Complaints**: aphis.usda.gov/awa/regulatory-enforcement/complaint
-- **FTC - Report Fraud**: ReportFraud.ftc.gov - For deceptive practices.
-- **FBI - Internet Crime Complaint Center (IC3)**: ic3.gov
-- **NASCO - State Charity Officials**: nasconet.org - Links to all state-level charity regulators.
+- **IRS - Tax Exempt Organization Search**: [apps.irs.gov/app/eos/](apps.irs.gov/app/eos/) - Verify non-profit status.
+- **IRS - File a Complaint**: [irs.gov/charities-non-profits/irs-complaint-process-tax-exempt-organizations](irs.gov/charities-non-profits/irs-complaint-process-tax-exempt-organizations)
+- **USDA - Animal Welfare Complaints**: [aphis.usda.gov/awa/regulatory-enforcement/complaint](aphis.usda.gov/awa/regulatory-enforcement/complaint)
+- **FTC - Report Fraud**: [ReportFraud.ftc.gov](ReportFraud.ftc.gov) - For deceptive practices.
+- **FBI - Internet Crime Complaint Center (IC3)**: [ic3.gov](ic3.gov)
+- **NASCO - State Charity Officials**: [nasconet.org](nasconet.org) - Links to all state-level charity regulators.
 
 ### **International Resources**
 This guide is primarily U.S.-focused, but similar principles apply globally. Here are starting points for other countries:
