@@ -28,8 +28,8 @@ In a hurry? Here are three essential steps to quickly vet an organization:
 - [Common Fraud & Scam Tactics to Watch For](#common-fraud--scam-tactics-to-watch-for)
 - [Key Legal & Compliance Requirements](#key-legal--compliance-requirements)
 - [Resource Hub](#resource-hub)
-   * [National Resources (U.S.)](#national-resources-us)
-   * [International Resources](#international-resources)
+   - [National Resources (U.S.)](#national-resources-us)
+   - [International Resources](#international-resources)
 - [Advanced Investigation Tips](#advanced-investigation-tips)
 - [Glossary of Common Terms](#glossary-of-common-terms)
 - [State-Specific Resources](STATE_RESOURCES.md)
@@ -38,8 +38,8 @@ In a hurry? Here are three essential steps to quickly vet an organization:
 ---
 
 ## Interactive Tools
- * [Animal Rescue Compliance Checklist App](https://elitegreyit67.github.io/Charity_Recon/tools/animal_checklist_app/index.html)
-   * An interactive tool to help donors, volunteers, and adopters assess an organization's transparency and compliance based on the principles in this guide.
+- [Animal Rescue Compliance Checklist App](https://elitegreyit67.github.io/Charity_Recon/tools/animal_checklist_app/index.html)
+  - An interactive tool to help donors, volunteers, and adopters assess an organization's transparency and compliance based on the principles in this guide.
 
 ![Screenshot](https://imgur.com/ghk8Efk.png)
 
@@ -51,10 +51,10 @@ Welcome to the Charity Recon Guide for Animal Rescue Organizations. If you're in
 However, the world of charity can be complex. From navigating intricate legal requirements to ensuring financial transparency and upholding the highest ethical standards, running or supporting an animal rescue demands diligence beyond just a love for animals. Mismanagement, even unintentional, can not only jeopardize an organization's future but, more critically, harm the very animals it aims to save and erode public trust.
 
 This guide is your essential companion in promoting transparency, accountability, and excellence within the animal rescue community. We've compiled critical information, practical tips, and valuable resources to help you:
- * Understand and fulfill key legal obligations at federal, state, and local levels.
- * Identify reputable organizations and discern potential red flags, ensuring your efforts and donations truly make a difference.
- * Access vital national and state-specific contacts for compliance, licensing, and animal welfare authorities.
- * Empower yourself with the knowledge to establish, operate, or support animal rescues with confidence and integrity.
+- Understand and fulfill key legal obligations at federal, state, and local levels.
+- Identify reputable organizations and discern potential red flags, ensuring your efforts and donations truly make a difference.
+- Access vital national and state-specific contacts for compliance, licensing, and animal welfare authorities.
+- Empower yourself with the knowledge to establish, operate, or support animal rescues with confidence and integrity.
 
 By utilizing the principles and tools outlined here, you contribute to a stronger, more trustworthy animal welfare sector, ensuring that every effort translates into the best possible outcome for animals in need. Let's work together to build a foundation of trust, one rescue at a time.
 
@@ -160,10 +160,10 @@ Use these resources to conduct your research.
 - **IRS - File a Complaint**: [irs.gov/charities-non-profits/irs-complaint-process-tax-exempt-organizations](https://irs.gov/charities-non-profits/irs-complaint-process-tax-exempt-organizations)
 - **USDA - Animal Welfare Complaints**: [aphis.usda.gov/awa/regulatory-enforcement/complaint](https://aphis.usda.gov/awa/regulatory-enforcement/complaint)
 - **FTC - Report Fraud**: [ReportFraud.ftc.gov](https://ReportFraud.ftc.gov) - For deceptive practices.
-- **FBI - Internet Crime Complaint Center (IC3)**: [ic3.gov](https://ic3.gov)
-- **NASCO - State Charity Officials**: [nasconet.org](nasconet.org) - Links to all state-level charity regulators.
+- **FBI - Internet Crime Complaint Center (IC3)**: [https://ic3.gov](ic3.gov)
+- **NASCO - State Charity Officials**: [nasconet.org](https://nasconet.org) - Links to all state-level charity regulators.
 
-### **International Resources**
+### International Resources
 This guide is primarily U.S.-focused, but similar principles apply globally. Here are starting points for other countries:
 - **Canada**: [Canada Revenue Agency - Charities listing](https://apps.cra-arc.gc.ca/ebci/hacc/srch/pub/dsplyBscSrch)
 - **Germany**: [Federal Central Tax Office (Bundeszentralamt für Steuern) - Register of Charitable Organizations](https://www.bzst.de/EN/Businesses/Non-Profit/Charity_Register/Overview/overview_node.html)
