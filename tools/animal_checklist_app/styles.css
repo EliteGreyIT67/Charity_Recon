@@ -1,3 +1,34 @@
+/* Define CSS variables for colors */
+:root {
+    /* Scrollbar */
+    --scrollbar-track-bg: #e2e8f0; /* slate-200 */
+    --scrollbar-thumb-bg: #94a3b8; /* slate-400 */
+    --scrollbar-thumb-hover-bg: #64748b; /* slate-500 */
+
+    /* Checkbox */
+    --checkbox-bg: #fff;
+    --checkbox-border: #cbd5e1; /* slate-300 */
+    --checkbox-checked-border: #0ea5e9; /* sky-500 */
+    --checkbox-checkmark-color: #0ea5e9; /* sky-500 */
+
+    /* Modal */
+    --modal-overlay-bg: rgba(15, 23, 42, 0.6); /* slate-900 with opacity */
+}
+
+/* Dark mode overrides */
+.dark {
+    /* Scrollbar */
+    --scrollbar-track-bg: #334155; /* slate-700 */
+    --scrollbar-thumb-bg: #64748b; /* slate-500 */
+    --scrollbar-thumb-hover-bg: #94a3b8; /* slate-400 */
+
+    /* Checkbox */
+    --checkbox-bg: #334155; /* slate-700 */
+    --checkbox-border: #475569; /* slate-600 */
+    --checkbox-checked-border: #38bdf8; /* sky-400 */
+    --checkbox-checkmark-color: #38bdf8; /* sky-400 */
+}
+
 /* --- Base & Font Styles --- */
 body {
     font-family: 'Inter', sans-serif;
@@ -9,53 +40,34 @@ body {
 }
 
 .checklist-items-container::-webkit-scrollbar-track {
-    background: #e2e8f0; /* slate-200 */
-}
-
-.dark .checklist-items-container::-webkit-scrollbar-track {
-     background: #334155;/* slate-700 */
+    background: var(--scrollbar-track-bg);
 }
 
 .checklist-items-container::-webkit-scrollbar-thumb {
-    background: #94a3b8; /* slate-400 */
+    background: var(--scrollbar-thumb-bg);
     border-radius: 4px;
 }
 
-.dark .checklist-items-container::-webkit-scrollbar-thumb {
-    background: #64748b; /* slate-500 */
-}
-
 .checklist-items-container::-webkit-scrollbar-thumb:hover {
-    background: #64748b; /* slate-500 */
+    background: var(--scrollbar-thumb-hover-bg);
 }
-
-.dark .checklist-items-container::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;/* slate-400 */
-}
-
 
 /* --- Custom Checkbox Appearance --- */
 .custom-checkbox {
     appearance: none; /* Hide default checkbox */
-    background-color: #fff;
+    background-color: var(--checkbox-bg);
     margin: 0;
     font: inherit;
     color: currentColor; /* Use current text color for potential styling */
     width: 1.25em;
     height: 1.25em;
-    border: 0.15em solid #cbd5e1; /* slate-300 */
+    border: 0.15em solid var(--checkbox-border);
     border-radius: 0.25em;
     transform: translateY(-0.075em); /* Align with text baseline */
     display: grid;
     place-content: center; /* Center the checkmark */
     cursor: pointer;
     transition: 120ms all ease-in-out;
-}
-
-/* Dark mode checkbox */
-.dark .custom-checkbox {
-    background-color: #334155; /* slate-700 */
-    border-color: #475569; /* slate-600 */
 }
 
 /* Checkmark style */
@@ -65,24 +77,14 @@ body {
     height: 0.65em;
     transform: scale(0); /* Hide checkmark by default */
     transition: 120ms transform ease-in-out;
-    box-shadow: inset 1em 1em #0ea5e9; /* sky-500 */
+    box-shadow: inset 1em 1em var(--checkbox-checkmark-color);
     /* Checkmark shape using clip-path */
     clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
 }
 
-/* Dark mode checkmark color */
-.dark .custom-checkbox::before {
-     box-shadow: inset 1em 1em #38bdf8;/* sky-400 */
-}
-
 /* Checkbox checked state */
 .custom-checkbox:checked {
-    border-color: #0ea5e9; /* sky-500 */
-}
-
-/* Dark mode checked state */
-.dark .custom-checkbox:checked {
-    border-color: #38bdf8; /* sky-400 */
+    border-color: var(--checkbox-checked-border);
 }
 
  /* Show checkmark when checked */
@@ -92,9 +94,10 @@ body {
 
 /* Focus state for accessibility */
 .custom-checkbox:focus-visible {
-    outline: max(2px, 0.15em) solid #0ea5e9;
+    outline: max(2px, 0.15em) solid var(--checkbox-checked-border); /* Use checked border color for outline */
     outline-offset: max(2px, 0.15em);
 }
+
 
 /* --- Modal Styles --- */
 .modal {
@@ -106,7 +109,7 @@ body {
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(15, 23, 42, 0.6); /* slate-900 with opacity */
+    background-color: var(--modal-overlay-bg);
     padding-top: 60px;
     backdrop-filter: blur(4px); /* Blur background */
 }
@@ -123,7 +126,7 @@ body {
 @media print {
     /* Force light mode for printing */
     .dark {
-        --tw-bg-opacity: 1 !important;
+        --tw-bg-opacity: 1 !important; /* Keep Tailwind opacity variable if used elsewhere */
         background-color: rgb(255 255 255 / var(--tw-bg-opacity)) !important;
         color: #000 !important;
     }
