@@ -1,0 +1,179 @@
+/* --- Base & Font Styles --- */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* --- Custom Scrollbar for Checklist Items --- */
+.checklist-items-container::-webkit-scrollbar {
+    width: 8px;
+}
+.checklist-items-container::-webkit-scrollbar-track {
+    background: #e2e8f0; /* slate-200 */
+}
+.checklist-items-container::-webkit-scrollbar-thumb {
+    background: #94a3b8; /* slate-400 */
+    border-radius: 4px;
+}
+.checklist-items-container::-webkit-scrollbar-thumb:hover {
+    background: #64748b; /* slate-500 */
+}
+/* Dark mode scrollbar */
+.dark .checklist-items-container::-webkit-scrollbar-track {
+     background: #334155;/* slate-700 */
+}
+.dark .checklist-items-container::-webkit-scrollbar-thumb {
+    background: #64748b; /* slate-500 */
+}
+.dark .checklist-items-container::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;/* slate-400 */
+}
+
+/* --- Custom Checkbox Appearance --- */
+.custom-checkbox {
+    appearance: none; /* Hide default checkbox */
+    background-color: #fff;
+    margin: 0;
+    font: inherit;
+    color: currentColor; /* Use current text color for potential styling */
+    width: 1.25em;
+    height: 1.25em;
+    border: 0.15em solid #cbd5e1; /* slate-300 */
+    border-radius: 0.25em;
+    transform: translateY(-0.075em); /* Align with text baseline */
+    display: grid;
+    place-content: center; /* Center the checkmark */
+    cursor: pointer;
+    transition: 120ms all ease-in-out;
+}
+/* Dark mode checkbox */
+.dark .custom-checkbox {
+    background-color: #334155; /* slate-700 */
+    border-color: #475569; /* slate-600 */
+}
+/* Checkmark style */
+.custom-checkbox::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    transform: scale(0); /* Hide checkmark by default */
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em #0ea5e9; /* sky-500 */
+    /* Checkmark shape using clip-path */
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+/* Checkbox checked state */
+.custom-checkbox:checked {
+    border-color: #0ea5e9; /* sky-500 */
+}
+/* Dark mode checked state */
+.dark .custom-checkbox:checked {
+    border-color: #38bdf8; /* sky-400 */
+}
+/* Dark mode checkmark color */
+.dark .custom-checkbox::before {
+     box-shadow: inset 1em 1em #38bdf8;/* sky-400 */
+}
+ /* Show checkmark when checked */
+.custom-checkbox:checked::before {
+    transform: scale(1);
+}
+/* Focus state for accessibility */
+.custom-checkbox:focus-visible {
+    outline: max(2px, 0.15em) solid #0ea5e9;
+    outline-offset: max(2px, 0.15em);
+}
+
+/* --- Modal Styles --- */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 100; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(15, 23, 42, 0.6); /* slate-900 with opacity */
+    padding-top: 60px;
+    backdrop-filter: blur(4px); /* Blur background */
+}
+.modal-content {
+    margin: 5% auto; /* 5% from the top and centered */
+    padding: 2rem;
+    width: 90%; /* Could be more responsive */
+    max-width: 450px; /* Max width */
+    border-radius: 0.75rem;
+}
+
+/* --- Print Styles --- */
+@media print {
+    /* Force light mode for printing */
+    .dark {
+        --tw-bg-opacity: 1 !important;
+        background-color: rgb(255 255 255 / var(--tw-bg-opacity)) !important;
+        color: #000 !important;
+    }
+     .dark body, .dark #app-container, .dark #checklist-view, .dark .category-block, .dark textarea {
+         background-color: #fff !important;
+         color: #000 !important;
+         border-color: #ccc !important;
+    }
+     .dark #checklist-title, .dark .category-title, .dark .item-text, .dark a {
+         color: #000 !important;
+    }
+    body {
+        font-family: 'Times New Roman', Times, serif;
+        color: #000;
+        background-color: #fff;
+    }
+    /* Adjust container and user info for print */
+    #app-container, #user-info {
+        max-width: 100%; margin: 0; padding: 10px; box-shadow: none; border: none;
+    }
+    /* Hide non-essential elements for print */
+    header, .action-buttons-container, .list-view-actions, #status-message, .modal, #search-container, #verification-tools, #dark-mode-toggle, .edit-button, .delete-button, .add-item-button, .add-category-button, .attachment-actions, .file-input-wrapper {
+        display: none !important;
+    }
+    /* Ensure checklist view is visible and styled for print */
+    #checklist-view {
+        display: block !important; box-shadow: none !important; border: none !important; padding: 0 !important;
+    }
+    #checklist-title-container {
+        border-bottom: 2px solid #000;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+    #checklist-title {
+        font-size: 22pt !important;
+    }
+    /* Show print header for org name */
+    #org-name-input-print-header {
+        display: block; font-size: 16pt; font-weight: bold; margin-top: 5px;
+    }
+    /* Hide input field and back button */
+    #org-name-input, #back-to-list-btn { display: none !important; }
+
+    /* Style category blocks for print */
+    .category-block {
+        border: 1px solid #ccc !important; padding: 10px !important; margin-bottom: 15px !important; page-break-inside: avoid; border-radius: 0 !important; box-shadow: none !important;
+    }
+    .category-title {
+        font-size: 14pt !important; border-bottom: 1px solid #666; padding-bottom: 5px; margin-bottom: 10px;
+    }
+    /* Style checklist items for print */
+    .checklist-item {
+        border-bottom: 1px dotted #ccc !important; padding: 8px 0 !important; page-break-inside: avoid;
+    }
+    /* Show native checkbox for print */
+    input[type="checkbox"] { display: inline-block !important; vertical-align: top; margin-top: 4px; }
+    /* Hide custom checkbox */
+    .custom-checkbox { display: none !important; }
+
+    .item-text { font-size: 11pt !important; }
+    /* Style textarea for print */
+    textarea { display: block !important; border: 1px solid #ddd !important; font-size: 10pt !important; resize: none !important; min-height: 30px; -webkit-print-color-adjust: exact; /* Ensure background/border prints */ }
+    /* Style links for print */
+    a { text-decoration: none !important; color: #000 !important; }
+    a::after { content: " (" attr(href) ")"; font-size: 9pt; }
+    .link-placeholder::after { content: ""; } /* Don't add URL for placeholders */
+}
