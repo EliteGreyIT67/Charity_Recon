@@ -16,7 +16,7 @@ let confirmAction = null; // Function to call when confirmation modal is confirm
 
 // --- App Configuration ---
 // Use a default app ID if not provided by a build process
-const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-animal-rescue-app'; 
+const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-animal-rescue-app';
 
 // Firebase configuration (replace with your actual config or inject via build)
 // This config is hardcoded in the original, so it's kept here.
@@ -98,42 +98,42 @@ function cacheDOMElements() {
         userInfo: document.getElementById('user-info'),
         authStatus: document.getElementById('auth-status'),
         userIdDisplay: document.getElementById('user-id'),
-        
+
         // External tool modal buttons
         openEinModalBtn: document.getElementById('open-ein-modal-btn'),
         einLookupModal: document.getElementById('ein-lookup-modal'),
-        einModalCancelBtn: document.getElementById('ein-modal-cancel-btn'),
-        einModalConfirmLink: document.getElementById('ein-modal-confirm-link'),
+        einModalCancelBtn: document.getElementById('ein-lookup-modal').querySelector('[data-dismiss="modal"]'),
+        einModalConfirmLink: document.getElementById('ein-lookup-modal').querySelector('a[target="_blank"]'),
 
         openPropublicaModalBtn: document.getElementById('open-propublica-modal-btn'),
         propublicaLookupModal: document.getElementById('propublica-lookup-modal'),
-        propublicaModalCancelBtn: document.getElementById('propublica-modal-cancel-btn'),
-        propublicaModalConfirmLink: document.getElementById('propublica-modal-confirm-link'),
+        propublicaModalCancelBtn: document.getElementById('propublica-lookup-modal').querySelector('[data-dismiss="modal"]'),
+        propublicaModalConfirmLink: document.getElementById('propublica-lookup-modal').querySelector('a[target="_blank"]'),
 
         openBbbModalBtn: document.getElementById('open-bbb-modal-btn'),
         bbbScamModal: document.getElementById('bbb-scam-modal'),
-        bbbModalCancelBtn: document.getElementById('bbb-modal-cancel-btn'),
-        bbbModalConfirmLink: document.getElementById('bbb-modal-confirm-link'),
+        bbbModalCancelBtn: document.getElementById('bbb-scam-modal').querySelector('[data-dismiss="modal"]'),
+        bbbModalConfirmLink: document.getElementById('bbb-scam-modal').querySelector('a[target="_blank"]'),
 
         openNascoModalBtn: document.getElementById('open-nasco-modal-btn'),
         nascoRegModal: document.getElementById('nasco-reg-modal'),
-        nascoModalCancelBtn: document.getElementById('nasco-modal-cancel-btn'),
-        nascoModalConfirmLink: document.getElementById('nasco-modal-confirm-link'),
-        
+        nascoModalCancelBtn: document.getElementById('nasco-reg-modal').querySelector('[data-dismiss="modal"]'),
+        nascoModalConfirmLink: document.getElementById('nasco-reg-modal').querySelector('a[target="_blank"]'),
+
         openAphisModalBtn: document.getElementById('open-aphis-modal-btn'),
         aphisLookupModal: document.getElementById('aphis-lookup-modal'),
-        aphisModalCancelBtn: document.getElementById('aphis-modal-cancel-btn'),
-        aphisModalConfirmLink: document.getElementById('aphis-modal-confirm-link'),
+        aphisModalCancelBtn: document.getElementById('aphis-lookup-modal').querySelector('[data-dismiss="modal"]'),
+        aphisModalConfirmLink: document.getElementById('aphis-lookup-modal').querySelector('a[target="_blank"]'),
 
         openCharityNavModalBtn: document.getElementById('open-charitynav-modal-btn'),
         charityNavLookupModal: document.getElementById('charitynav-lookup-modal'),
-        charityNavModalCancelBtn: document.getElementById('charitynav-modal-cancel-btn'),
-        charityNavModalConfirmLink: document.getElementById('charitynav-modal-confirm-link'),
-        
+        charityNavModalCancelBtn: document.getElementById('charitynav-lookup-modal').querySelector('[data-dismiss="modal"]'),
+        charityNavModalConfirmLink: document.getElementById('charitynav-lookup-modal').querySelector('a[target="_blank"]'),
+
         openCharityWatchModalBtn: document.getElementById('open-charitywatch-modal-btn'),
         charityWatchLookupModal: document.getElementById('charitywatch-lookup-modal'),
-        charityWatchModalCancelBtn: document.getElementById('charitywatch-modal-cancel-btn'),
-        charityWatchModalConfirmLink: document.getElementById('charitywatch-modal-confirm-link'),
+        charityWatchModalCancelBtn: document.getElementById('charitywatch-lookup-modal').querySelector('[data-dismiss="modal"]'),
+        charityWatchModalConfirmLink: document.getElementById('charitywatch-lookup-modal').querySelector('a[target="_blank"]'),
 
         darkModeToggle: document.getElementById('dark-mode-toggle'),
         sunIcon: document.getElementById('sun-icon'),
@@ -164,7 +164,7 @@ const helpers = {
         const darkColors = { success: 'dark:text-green-400', info: 'dark:text-sky-400', error: 'dark:text-red-400' };
         element.textContent = message;
         element.className = `mt-4 text-center font-medium ${colors[type] || colors.info} ${darkColors[type] || darkColors.info}`;
-        if (duration) {
+        if (duration !== null) { // Use null to indicate no timeout
             setTimeout(() => { element.textContent = ''; }, duration);
         }
     },
@@ -179,53 +179,56 @@ const helpers = {
         confirmAction = onConfirm; // Store the action to be performed on confirmation
         helpers.openModal(ui.confirmationModal);
     },
+    // Handlers for the edit modal, stored to be removed later
+    _editModalSaveHandler: null,
+    _editModalCancelHandler: null,
     // Opens the generic edit/add modal for text input.
     openEditModal: (title, placeholder, currentValue, onSave, onCancel, validationFn = (val) => val.trim() !== '') => {
         ui.editModalTitle.textContent = title;
         ui.editModalInput.placeholder = placeholder;
         ui.editModalInput.value = currentValue;
         ui.editModalError.classList.add('hidden'); // Hide previous errors
-        
-        // Ensure previous listeners are removed to prevent duplicates
-        const saveBtn = ui.editModalSaveBtn;
-        const cancelBtn = ui.editModalCancelBtn;
-        
-        // Define handlers
-        const handleSave = () => {
+
+        // Remove previous listeners if they exist
+        if (helpers._editModalSaveHandler) {
+            ui.editModalSaveBtn.removeEventListener('click', helpers._editModalSaveHandler);
+        }
+        if (helpers._editModalCancelHandler) {
+            ui.editModalCancelBtn.removeEventListener('click', helpers._editModalCancelHandler);
+        }
+
+        // Define and store new handlers
+        helpers._editModalSaveHandler = () => {
             const newValue = ui.editModalInput.value.trim();
             if (validationFn(newValue)) {
                 onSave(newValue);
                 helpers.closeModal(ui.editModal);
-                // Clean up listeners after use
-                saveBtn.removeEventListener('click', handleSave);
-                cancelBtn.removeEventListener('click', handleCancel);
+                // Clean up references after use
+                helpers._editModalSaveHandler = null;
+                helpers._editModalCancelHandler = null;
             } else {
                 ui.editModalError.textContent = "Input cannot be empty."; // Default error message
                 ui.editModalError.classList.remove('hidden');
             }
         };
 
-        const handleCancel = () => {
+        helpers._editModalCancelHandler = () => {
             onCancel();
             helpers.closeModal(ui.editModal);
-            // Clean up listeners after use
-            saveBtn.removeEventListener('click', handleSave);
-            cancelBtn.removeEventListener('click', handleCancel);
+            // Clean up references after use
+            helpers._editModalSaveHandler = null;
+            helpers._editModalCancelHandler = null;
         };
 
-        // Remove existing listeners before adding new ones
-        saveBtn.removeEventListener('click', saveBtn.onclick); // Remove previous dynamic handler
-        cancelBtn.removeEventListener('click', cancelBtn.onclick); // Remove previous dynamic handler
-
         // Attach new listeners
-        saveBtn.addEventListener('click', handleSave);
-        cancelBtn.addEventListener('click', handleCancel);
+        ui.editModalSaveBtn.addEventListener('click', helpers._editModalSaveHandler);
+        ui.editModalCancelBtn.addEventListener('click', helpers._editModalCancelHandler);
 
         helpers.openModal(ui.editModal);
     },
      // Opens a generic modal for external links.
      openExternalLinkModal: (modalElement, title, message, linkUrl, linkText) => {
-        const modalConfirmLink = modalElement.querySelector('a');
+        const modalConfirmLink = modalElement.querySelector('a[target="_blank"]'); // Ensure we get the link
         const modalTitleElement = modalElement.querySelector('h3');
         const modalMessageElement = modalElement.querySelector('p:not([id])'); // Select the message paragraph
 
@@ -266,14 +269,16 @@ function createItemElement(item, categoryId) {
 
     const label = document.createElement('label');
     label.className = 'flex items-start space-x-4 mb-2';
-    
+
+    // Checkbox
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.checked = item.isChecked ?? false;
     checkbox.dataset.itemId = item.id;
     checkbox.dataset.categoryId = categoryId;
+    checkbox.dataset.action = 'toggle-checked'; // Data attribute for delegation
     checkbox.className = 'custom-checkbox shrink-0 mt-1';
-    
+
     const itemTextContainer = document.createElement('div');
     itemTextContainer.className = 'flex-grow flex justify-between items-center';
     const itemTextSpan = document.createElement('span');
@@ -290,7 +295,9 @@ function createItemElement(item, categoryId) {
     editItemBtn.className = 'edit-button p-1 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400';
     editItemBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.38-2.827-2.828z" /></svg>`;
     editItemBtn.title = 'Edit item text';
-    editItemBtn.addEventListener('click', () => editItemText(categoryId, item.id, item.text));
+    editItemBtn.dataset.action = 'edit-item'; // Data attribute for delegation
+    editItemBtn.dataset.itemId = item.id;
+    editItemBtn.dataset.categoryId = categoryId;
     itemActions.appendChild(editItemBtn);
 
     // Delete Item Button (only for custom items)
@@ -299,7 +306,9 @@ function createItemElement(item, categoryId) {
         deleteItemBtn.className = 'delete-button p-1 rounded-full hover:bg-red-100 dark:hover:bg-red-900/40 text-red-500 dark:text-red-400';
         deleteItemBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm6 0a1 1 0 11-2 0v6a1 1 0 112 0V8z" clip-rule="evenodd" /></svg>`;
         deleteItemBtn.title = 'Delete item';
-        deleteItemBtn.addEventListener('click', () => deleteItem(categoryId, item.id, item.text));
+        deleteItemBtn.dataset.action = 'delete-item'; // Data attribute for delegation
+        deleteItemBtn.dataset.itemId = item.id;
+        deleteItemBtn.dataset.categoryId = categoryId;
         itemActions.appendChild(deleteItemBtn);
     }
     itemTextContainer.appendChild(itemActions);
@@ -333,6 +342,7 @@ function createItemElement(item, categoryId) {
     const notesTextarea = document.createElement('textarea');
     notesTextarea.dataset.itemId = item.id;
     notesTextarea.dataset.categoryId = categoryId;
+    notesTextarea.dataset.action = 'update-notes'; // Data attribute for delegation
     notesTextarea.value = item.notes ?? '';
     notesTextarea.placeholder = 'Optional notes...';
     notesTextarea.className = 'mt-2 w-full p-2 bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-md text-sm focus:ring-1 focus:ring-sky-500 focus:border-sky-500 focus:bg-white dark:focus:bg-slate-800 resize-y transition';
@@ -343,7 +353,7 @@ function createItemElement(item, categoryId) {
     const attachmentsContainer = document.createElement('div');
     attachmentsContainer.className = 'attachments-container mt-3 pl-8'; // Indent
     attachmentsContainer.innerHTML = `<p class="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-2">Attachments:</p>`;
-    
+
     const attachmentsList = document.createElement('ul');
     attachmentsList.className = 'space-y-1';
 
@@ -356,7 +366,7 @@ function createItemElement(item, categoryId) {
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.102 1.101" /></svg>
                 <span>${attachment.fileName}</span>
             </a>
-            <button class="delete-attachment-btn text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 p-1 rounded-full hover:bg-red-100 dark:hover:bg-red-900/40" data-file-name="${attachment.fileName}" data-file-url="${attachment.url}" data-item-id="${item.id}" data-category-id="${categoryId}" title="Delete attachment">
+            <button class="delete-attachment-btn text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 p-1 rounded-full hover:bg-red-100 dark:hover:bg-red-900/40" data-action="delete-attachment" data-file-name="${attachment.fileName}" data-file-url="${attachment.url}" data-item-id="${item.id}" data-category-id="${categoryId}" title="Delete attachment">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm6 0a1 1 0 11-2 0v6a1 1 0 112 0V8z" clip-rule="evenodd" /></svg>
             </button>
         `;
@@ -370,7 +380,7 @@ function createItemElement(item, categoryId) {
     addAttachmentDiv.className = 'file-input-wrapper mt-2';
     addAttachmentDiv.innerHTML = `
         <input type="file" id="file-input-${item.id}" class="hidden" data-item-id="${item.id}" data-category-id="${categoryId}">
-        <button class="add-attachment-btn w-full bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-2 px-3 rounded-lg text-sm transition-colors duration-200 flex items-center justify-center space-x-2">
+        <button class="add-attachment-btn w-full bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-2 px-3 rounded-lg text-sm transition-colors duration-200 flex items-center justify-center space-x-2" data-action="add-attachment" data-item-id="${item.id}" data-category-id="${categoryId}">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
             <span>Add Attachment</span>
         </button>
@@ -390,7 +400,7 @@ function createCategoryElement(category) {
 
     const categoryHeader = document.createElement('div');
     categoryHeader.className = 'flex justify-between items-center mb-4 pb-2 border-b border-slate-200 dark:border-slate-700';
-    
+
     const categoryTitleElement = document.createElement('h3');
     categoryTitleElement.className = 'category-title text-xl font-semibold text-slate-700 dark:text-slate-300 flex-grow';
     categoryTitleElement.textContent = category.name;
@@ -399,13 +409,14 @@ function createCategoryElement(category) {
     // Category action buttons (edit/delete)
     const categoryActions = document.createElement('div');
     categoryActions.className = 'flex space-x-2';
-    
+
     // Edit Category Name Button
     const editCategoryBtn = document.createElement('button');
     editCategoryBtn.className = 'edit-button p-1 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400';
     editCategoryBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.38-2.827-2.828z" /></svg>`;
     editCategoryBtn.title = 'Edit category name';
-    editCategoryBtn.addEventListener('click', () => editCategoryName(category.id, category.name));
+    editCategoryBtn.dataset.action = 'edit-category'; // Data attribute for delegation
+    editCategoryBtn.dataset.categoryId = category.id;
     categoryActions.appendChild(editCategoryBtn);
 
     // Delete Category Button (only for custom categories)
@@ -414,27 +425,28 @@ function createCategoryElement(category) {
         deleteCategoryBtn.className = 'delete-button p-1 rounded-full hover:bg-red-100 dark:hover:bg-red-900/40 text-red-500 dark:text-red-400';
         deleteCategoryBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm6 0a1 1 0 11-2 0v6a1 1 0 112 0V8z" clip-rule="evenodd" /></svg>`;
         deleteCategoryBtn.title = 'Delete category';
-        deleteCategoryBtn.addEventListener('click', () => deleteCategory(category.id, category.name));
+        deleteCategoryBtn.dataset.action = 'delete-category'; // Data attribute for delegation
+        deleteCategoryBtn.dataset.categoryId = category.id;
         categoryActions.appendChild(deleteCategoryBtn);
     }
-    
+
     categoryHeader.appendChild(categoryActions);
     categoryDiv.appendChild(categoryHeader);
 
     const itemsWrapper = document.createElement('div');
     itemsWrapper.className = 'space-y-5';
-    
+
     // Render items within the category
     category.items.forEach(item => {
         itemsWrapper.appendChild(createItemElement(item, category.id));
     });
-    
+
     // Add new item button for the category
     const addItemBtn = document.createElement('button');
     addItemBtn.className = 'add-item-button mt-4 w-full bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-2 px-3 rounded-lg text-sm transition-colors duration-200 flex items-center justify-center space-x-2';
     addItemBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg><span>Add New Item</span>`;
+    addItemBtn.dataset.action = 'add-item'; // Data attribute for delegation
     addItemBtn.dataset.categoryId = category.id;
-    addItemBtn.addEventListener('click', () => addItem(category.id)); // Attach listener here
     itemsWrapper.appendChild(addItemBtn);
 
     categoryDiv.appendChild(itemsWrapper);
@@ -458,16 +470,16 @@ async function renderChecklistForm(checklistId = null) {
         }
     } else {
         // Initialize data for a new checklist using a deep copy of the template
-        currentChecklistData = { 
-            id: null, 
-            orgName: '', 
+        currentChecklistData = {
+            id: null,
+            orgName: '',
             categories: JSON.parse(JSON.stringify(checklistMasterTemplate)), // Deep copy to avoid modifying template
-            lastUpdated: null 
+            lastUpdated: null
         };
     }
-    
+
     // Clear the checklist items container and populate UI elements
-    ui.checklistItemsContainer.innerHTML = ''; 
+    ui.checklistItemsContainer.innerHTML = '';
     ui.orgNameInput.value = currentChecklistData?.orgName || '';
     ui.orgNameInputPrintHeader.textContent = currentChecklistData?.orgName || "New Checklist";
     ui.checklistTitle.textContent = currentChecklistData?.orgName || 'New Checklist';
@@ -481,41 +493,13 @@ async function renderChecklistForm(checklistId = null) {
     });
 
     helpers.showView('checklist'); // Switch to checklist view
-    attachDynamicEventListeners(); // Re-attach listeners for newly created elements (checkboxes, textareas, attachment buttons)
-}
-
-// Attaches event listeners to elements that are dynamically created when rendering the checklist form.
-function attachDynamicEventListeners() {
-    // Listeners for checkbox changes and textarea input to trigger save
-    ui.checklistItemsContainer.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-        // Use addEventListener to allow multiple listeners if needed later
-        checkbox.removeEventListener('change', handleSaveChecklist); // Prevent duplicates
-        checkbox.addEventListener('change', handleSaveChecklist);
-    });
-    ui.checklistItemsContainer.querySelectorAll('textarea').forEach(textarea => {
-         textarea.removeEventListener('input', handleSaveChecklist); // Prevent duplicates
-         textarea.addEventListener('input', handleSaveChecklist);
-    });
-
-    // Listeners for attachment buttons and file inputs
-    ui.checklistItemsContainer.querySelectorAll('.add-attachment-btn').forEach(btn => {
-        btn.removeEventListener('click', () => btn.previousElementSibling.click()); // Prevent duplicates
-        btn.addEventListener('click', () => btn.previousElementSibling.click()); // Trigger the hidden file input
-    });
-    ui.checklistItemsContainer.querySelectorAll('input[type="file"]').forEach(input => {
-        input.removeEventListener('change', (event) => handleAttachmentUpload(event, input.dataset.categoryId, input.dataset.itemId)); // Prevent duplicates
-        input.addEventListener('change', (event) => handleAttachmentUpload(event, input.dataset.categoryId, input.dataset.itemId));
-    });
-    ui.checklistItemsContainer.querySelectorAll('.delete-attachment-btn').forEach(btn => {
-         btn.removeEventListener('click', () => deleteAttachment(btn.dataset.categoryId, btn.dataset.itemId, btn.dataset.fileName, btn.dataset.fileUrl)); // Prevent duplicates
-         btn.addEventListener('click', () => deleteAttachment(btn.dataset.categoryId, btn.dataset.itemId, btn.dataset.fileName, btn.dataset.fileUrl));
-    });
+    // Event listeners are now handled by delegation on the container, attached in initApp
 }
 
 // Filters the list of checklists based on the search input and renders the list view.
 function filterAndRenderListView() {
     const searchTerm = ui.searchInput.value.trim().toLowerCase();
-    const checklistsToRender = searchTerm 
+    const checklistsToRender = searchTerm
         ? allChecklistsFromFirestore.filter(c => c.orgName.toLowerCase().includes(searchTerm))
         : allChecklistsFromFirestore;
 
@@ -549,7 +533,7 @@ function renderListView(checklists) {
         const card = document.createElement('div');
         card.className = 'bg-white dark:bg-slate-800 p-5 rounded-xl shadow-sm hover:shadow-lg border border-transparent hover:border-sky-500 transition-all duration-200 cursor-pointer';
         card.onclick = () => renderChecklistForm(checklist.id); // Open checklist on click
-        
+
         // Calculate completion progress
         let totalItems = 0;
         let itemsChecked = 0;
@@ -622,7 +606,7 @@ function editCategoryName(categoryId, currentName) {
 }
 
 // Opens confirmation modal to delete a category.
-function deleteCategory(categoryId, categoryName) {
+async function deleteCategory(categoryId, categoryName) {
     helpers.openConfirmationModal(
         `Delete "${categoryName}" category?`,
         "This will permanently remove this category and all its items.",
@@ -692,7 +676,7 @@ function editItemText(categoryId, itemId, currentText) {
 }
 
 // Opens confirmation modal to delete an item.
-function deleteItem(categoryId, itemId, itemText) {
+async function deleteItem(categoryId, itemId, itemText) {
     helpers.openConfirmationModal(
         `Delete "${itemText}" item?`,
         "This will permanently remove this checklist item and its attachments.",
@@ -718,20 +702,16 @@ function deleteItem(categoryId, itemId, itemText) {
 // --- Attachment Logic ---
 
 // Handles the file upload process for an attachment.
-async function handleAttachmentUpload(event, categoryId, itemId) {
-    const file = event.target.files[0];
+async function handleAttachmentUpload(file, categoryId, itemId, uploadStatusElement) {
     if (!file) return;
 
-    // Find the status element associated with this file input
-    const uploadStatusElement = event.target.nextElementSibling; 
-    uploadStatusElement.classList.remove('hidden');
     helpers.showStatus(uploadStatusElement, `Uploading "${file.name}"...`, 'info', null); // Show status without timeout
 
     try {
         // Define Firebase Storage path
         // Path: /artifacts/{appId}/users/{userId}/attachments/{checklistId}/{itemId}/{fileName}
         const storageRef = ref(storage, `artifacts/${appId}/users/${userId}/attachments/${currentChecklistData.id}/${itemId}/${file.name}`);
-        
+
         // Upload the file
         const snapshot = await uploadBytes(storageRef, file);
         const downloadURL = await getDownloadURL(snapshot.ref);
@@ -739,7 +719,7 @@ async function handleAttachmentUpload(event, categoryId, itemId) {
         // Find the item in the current checklist data
         const category = currentChecklistData.categories.find(c => c.id === categoryId);
         const item = category?.items.find(i => i.id === itemId);
-        
+
         if (item) {
             if (!item.attachments) item.attachments = [];
             // Check for duplicates before adding
@@ -751,7 +731,29 @@ async function handleAttachmentUpload(event, categoryId, itemId) {
                     size: file.size,
                     uploadedAt: serverTimestamp() // Use server timestamp for consistency
                 });
-                await handleSaveChecklist(true); // Save the updated checklist data with attachment metadata and re-render
+                // Update the UI for the specific item's attachments list
+                const itemElement = ui.checklistItemsContainer.querySelector(`.checklist-item[data-item-id="${itemId}"]`);
+                if (itemElement) {
+                    const attachmentsList = itemElement.querySelector('.attachments-container ul');
+                     // Clear and re-render the attachments list for this item
+                    attachmentsList.innerHTML = '';
+                    item.attachments.forEach(attachment => {
+                        const attachmentLi = document.createElement('li');
+                        attachmentLi.className = 'flex items-center justify-between text-sm text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-700 p-2 rounded-md';
+                        attachmentLi.innerHTML = `
+                            <a href="${attachment.url}" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-2 text-sky-600 dark:text-sky-400 hover:underline">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.102 1.101" /></svg>
+                                <span>${attachment.fileName}</span>
+                            </a>
+                            <button class="delete-attachment-btn text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 p-1 rounded-full hover:bg-red-100 dark:hover:bg-red-900/40" data-action="delete-attachment" data-file-name="${attachment.fileName}" data-file-url="${attachment.url}" data-item-id="${item.id}" data-category-id="${categoryId}" title="Delete attachment">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm6 0a1 1 0 11-2 0v6a1 1 0 112 0V8z" clip-rule="evenodd" /></svg>
+                            </button>
+                        `;
+                        attachmentsList.appendChild(attachmentLi);
+                    });
+                }
+
+                await handleSaveChecklist(false); // Save the updated checklist data with attachment metadata
                 helpers.showStatus(uploadStatusElement, `"${file.name}" uploaded successfully!`, 'success');
             } else {
                 helpers.showStatus(uploadStatusElement, `"${file.name}" already exists.`, 'info');
@@ -761,7 +763,7 @@ async function handleAttachmentUpload(event, categoryId, itemId) {
         console.error("Error uploading attachment:", error);
         helpers.showStatus(uploadStatusElement, `Upload failed for "${file.name}".`, 'error');
     } finally {
-        event.target.value = ''; // Clear file input value so the same file can be selected again
+        // The file input value is cleared by the browser after change event
         setTimeout(() => uploadStatusElement.classList.add('hidden'), 3000); // Hide status after 3 seconds
     }
 }
@@ -783,7 +785,15 @@ async function deleteAttachment(categoryId, itemId, fileName, fileUrl) {
                 const item = category?.items.find(i => i.id === itemId);
                 if (item) {
                     item.attachments = (item.attachments || []).filter(att => att.fileName !== fileName);
-                    await handleSaveChecklist(true); // Save updated checklist and re-render
+
+                    // Update the UI for the specific item's attachments list
+                    const itemElement = ui.checklistItemsContainer.querySelector(`.checklist-item[data-item-id="${itemId}"]`);
+                    if (itemElement) {
+                         const attachmentLiToRemove = itemElement.querySelector(`[data-file-name="${fileName}"]`)?.closest('li');
+                         if(attachmentLiToRemove) attachmentLiToRemove.remove();
+                    }
+
+                    await handleSaveChecklist(false); // Save updated checklist
                     helpers.showStatus(ui.statusMessage, `Attachment "${fileName}" deleted.`, 'info', 3000);
                 }
             } catch (error) {
@@ -797,6 +807,11 @@ async function deleteAttachment(categoryId, itemId, fileName, fileUrl) {
 // Deletes a specific file from Firebase Storage.
 async function deleteFileFromStorage(itemId, fileName) {
      // Storage path: /artifacts/{appId}/users/{userId}/attachments/{checklistId}/{itemId}/{fileName}
+    // Ensure currentChecklistData and its ID exist before attempting deletion
+    if (!currentChecklistData?.id) {
+        console.warn(`Cannot delete file ${fileName}: currentChecklistData or its ID is missing.`);
+        return; // Cannot proceed without checklist ID
+    }
     const fileRef = ref(storage, `artifacts/${appId}/users/${userId}/attachments/${currentChecklistData.id}/${itemId}/${fileName}`);
     try {
         await deleteObject(fileRef);
@@ -818,47 +833,94 @@ async function deleteFileFromStorage(itemId, fileName) {
 // Handles saving the current checklist data to Firestore.
 // `reRender` flag indicates if the UI should be re-rendered after saving (e.g., after adding/deleting items/categories).
 async function handleSaveChecklist(reRender = false) {
-    if (!isAuthReady) {
-        return helpers.showStatus(ui.statusMessage, "Authentication not ready. Please wait.", 'error');
+    if (!isAuthReady || !currentChecklistData) {
+        // This might happen if save is triggered before data is loaded or after delete
+        console.warn("Attempted to save checklist when auth not ready or no checklist data loaded.");
+        return;
     }
+
     const orgName = ui.orgNameInput.value.trim();
     if (!orgName) {
         ui.orgNameError.classList.remove('hidden');
         ui.orgNameInput.focus();
-        return helpers.showStatus(ui.statusMessage, "Organization name is required.", 'error');
+        // Only show status if it's a user-initiated save, not an auto-save from input
+        if (!reRender) { // Assuming reRender=false means triggered by input change
+             helpers.showStatus(ui.statusMessage, "Organization name is required.", 'error');
+        }
+        return;
     }
     ui.orgNameError.classList.add('hidden');
-    
-    // Update currentChecklistData state from UI elements
-    currentChecklistData.orgName = orgName;
-    currentChecklistData.lastUpdated = serverTimestamp(); // Update timestamp on save
 
-    // Iterate through categories and items to update their states from the DOM
-    currentChecklistData.categories.forEach(category => {
-        category.items.forEach(item => {
-            // Find the corresponding checkbox and textarea in the DOM
-            const checkbox = ui.checklistItemsContainer.querySelector(`input[data-item-id="${item.id}"][data-category-id="${category.id}"]`);
-            const notesTextarea = ui.checklistItemsContainer.querySelector(`textarea[data-item-id="${item.id}"][data-category-id="${category.id}"]`);
-            
-            // Update the item's state in the data object
-            item.isChecked = checkbox?.checked ?? false;
-            item.notes = notesTextarea?.value.trim() ?? '';
-            // Attachments are updated directly within the attachment upload/delete functions
-        });
-    });
+    // Update currentChecklistData state from UI elements IF reRender is true
+    // If reRender is false, the delegated event handlers should have already updated the data
+    if (reRender) {
+         currentChecklistData.orgName = orgName;
+         // When re-rendering, we rebuild the data structure from the DOM state
+         // This is less efficient but necessary after structural changes (add/delete)
+         const updatedCategories = [];
+         ui.checklistItemsContainer.querySelectorAll('.category-block').forEach(categoryEl => {
+             const categoryId = categoryEl.dataset.categoryId;
+             const categoryName = categoryEl.querySelector('.category-title').textContent; // Get name from DOM
+             const isCustom = currentChecklistData.categories.find(c => c.id === categoryId)?.isCustom ?? false; // Preserve isCustom
+             const updatedItems = [];
+             categoryEl.querySelectorAll('.checklist-item').forEach(itemEl => {
+                 const itemId = itemEl.dataset.itemId;
+                 const isChecked = itemEl.querySelector('input[type="checkbox"]').checked;
+                 const notes = itemEl.querySelector('textarea').value.trim();
+                 const itemText = itemEl.querySelector('.item-text').textContent; // Get text from DOM
+                 // Find original item to preserve link, linkText, isCustom, and attachments
+                 const originalItem = currentChecklistData.categories.find(c => c.id === categoryId)?.items.find(i => i.id === itemId);
+
+                 updatedItems.push({
+                     id: itemId,
+                     text: itemText, // Use text from DOM after edit
+                     isChecked: isChecked,
+                     notes: notes,
+                     link: originalItem?.link,
+                     linkText: originalItem?.linkText,
+                     isCustom: originalItem?.isCustom ?? false,
+                     attachments: originalItem?.attachments ?? [] // Attachments are updated separately
+                 });
+             });
+             updatedCategories.push({
+                 id: categoryId,
+                 name: categoryName, // Use name from DOM after edit
+                 isCustom: isCustom,
+                 items: updatedItems
+             });
+         });
+         currentChecklistData.categories = updatedCategories;
+    } else {
+        // If not re-rendering, the data state should already be updated by the event handlers
+        // We just need to ensure the orgName is captured from the input
+        currentChecklistData.orgName = orgName;
+    }
+
+    currentChecklistData.lastUpdated = serverTimestamp(); // Update timestamp on save
 
     ui.saveChecklistBtn.disabled = true; // Disable save button during saving
     if (!reRender) { // Only show "Saving..." status if not re-rendering immediately
         helpers.showStatus(ui.statusMessage, "Saving...", 'info', null);
     }
-    
+
     try {
         let currentId = currentChecklistData?.id;
         if (currentId) {
             // Update existing document
             const docRef = doc(db, `artifacts/${appId}/users/${userId}/checklists`, currentId);
-            // Use setDoc with merge:true to update only the fields provided
-            await setDoc(docRef, currentChecklistData, { merge: true });
+            // Use setDoc without merge if structural changes occurred (reRender=true)
+            // Use updateDoc (which is like setDoc with merge) for simple data changes (reRender=false)
+             if (reRender) {
+                 await setDoc(doc(db, `artifacts/${appId}/users/${userId}/checklists`, currentId), currentChecklistData);
+             } else {
+                 // For simple data changes (checkbox, notes, orgName), updateDoc is sufficient
+                 await updateDoc(doc(db, `artifacts/${appId}/users/${userId}/checklists`, currentId), {
+                     orgName: currentChecklistData.orgName,
+                     categories: currentChecklistData.categories, // Send the whole updated array
+                     lastUpdated: currentChecklistData.lastUpdated
+                 });
+             }
+
         } else {
             // Add a new document
             const collectionRef = collection(db, `artifacts/${appId}/users/${userId}/checklists`);
@@ -873,11 +935,11 @@ async function handleSaveChecklist(reRender = false) {
 
         if (reRender) {
             // Re-render the form if structural changes occurred
-            renderChecklistForm(currentChecklistData.id); 
+            renderChecklistForm(currentChecklistData.id);
         } else {
             helpers.showStatus(ui.statusMessage, "Checklist saved successfully!", 'success');
         }
-        
+
         // Update UI elements that depend on the checklist being saved (having an ID)
         ui.checklistTitle.textContent = orgName;
         ui.deleteChecklistBtn.classList.remove('hidden');
@@ -917,7 +979,7 @@ async function handleDeleteChecklist() {
 
                 // Delete the checklist document from Firestore
                 await deleteDoc(doc(db, `artifacts/${appId}/users/${userId}/checklists`, currentChecklistData.id));
-                
+
                 currentChecklistData = null; // Clear current state
                 helpers.showView('list'); // Return to list view
                 helpers.showStatus(ui.statusMessage, "Checklist and all attachments deleted.", 'info', 3000);
@@ -965,7 +1027,7 @@ async function handleShareChecklist() {
             await updateDoc(originalDocRef, { shareId: shareId });
             currentChecklistData.shareId = shareId; // Update local state
         }
-        
+
         // Display the share ID and open the share modal
         ui.shareIdDisplay.textContent = shareId;
         helpers.showStatus(ui.statusMessage, 'Share ID is ready!', 'success');
@@ -986,7 +1048,7 @@ async function handleImportConfirm() {
 
     ui.importModalConfirmBtn.disabled = true; // Disable button during import
     helpers.showStatus(ui.importStatusMessage, 'Importing...', 'info', null);
-    
+
     try {
         // Fetch the shared checklist data from the public collection
         const docRef = doc(db, `artifacts/${appId}/public/data/sharedChecklists`, shareId);
@@ -994,7 +1056,7 @@ async function handleImportConfirm() {
 
         if (docSnap.exists()) {
             const data = docSnap.data();
-            
+
             // Map the imported data to the user's checklist structure
             const importedCategories = data.categories.map(cat => ({
                 id: cat.id,
@@ -1019,10 +1081,11 @@ async function handleImportConfirm() {
                 lastUpdated: serverTimestamp()
             };
             await addDoc(collection(db, `artifacts/${appId}/users/${userId}/checklists`), newChecklist);
-            
+
             helpers.showStatus(ui.importStatusMessage, 'Import successful!', 'success');
             ui.importIdInput.value = ''; // Clear input
-            setTimeout(() => helpers.closeModal(ui.importModal), 1500); // Close modal after a delay
+            // No need to explicitly close modal here, the list view will show and cover it
+            // setTimeout(() => helpers.closeModal(ui.importModal), 1500); // Close modal after a delay
         } else {
             helpers.showStatus(ui.importStatusMessage, 'Invalid Share ID. Checklist not found.', 'error');
         }
@@ -1039,7 +1102,7 @@ function fallbackCopyTextToClipboard(text, statusElement, successMsg) {
     const textArea = document.createElement("textarea");
     textArea.value = text;
     // Avoid scrolling to bottom
-    textArea.style.position = "fixed"; 
+    textArea.style.position = "fixed";
     textArea.style.opacity = "0";
     document.body.appendChild(textArea);
     textArea.focus();
@@ -1074,15 +1137,19 @@ function handleCopyChecklistText() {
     if (!orgName) {
         return helpers.showStatus(ui.statusMessage, "Please enter an organization name before copying.", 'error');
     }
+    if (!currentChecklistData) {
+         return helpers.showStatus(ui.statusMessage, "No checklist data to copy.", 'info');
+    }
+
     let textToCopy = `Compliance Checklist for: ${orgName}\n========================================\n\n`;
-    
+
     // Format categories and items for plain text copy
     currentChecklistData.categories.forEach(category => {
         textToCopy += `CATEGORY: ${category.name.toUpperCase()}\n----------------------------------------\n`;
         category.items.forEach(item => {
             const status = item.isChecked ? "[X]" : "[ ]";
             textToCopy += `${status} ${item.text}\n`;
-            if (item.notes.trim()) textToCopy += `    Notes: ${item.notes.trim()}\n`;
+            if (item.notes?.trim()) textToCopy += `    Notes: ${item.notes.trim()}\n`;
             if (item.link) textToCopy += `    Resource: ${item.link}\n`;
             if (item.attachments && item.attachments.length > 0) {
                 textToCopy += `    Attachments:\n`;
@@ -1105,7 +1172,7 @@ function listenForChecklists() {
     }
     // Create a query for the user's checklists
     const q = query(collection(db, `artifacts/${appId}/users/${userId}/checklists`));
-    
+
     // Set up the real-time listener
     checklistUnsubscribe = onSnapshot(q, (querySnapshot) => {
         allChecklistsFromFirestore = []; // Clear previous data
@@ -1120,12 +1187,109 @@ function listenForChecklists() {
     });
 }
 
+// --- Delegated Event Handlers for Checklist Container ---
+
+// Handles click events within the checklist items container
+function handleChecklistContainerClick(event) {
+    // Find the closest element with a data-action attribute
+    const targetElement = event.target.closest('[data-action]');
+    if (!targetElement) return; // Not an action element
+
+    const action = targetElement.dataset.action;
+    const categoryId = targetElement.dataset.categoryId;
+    const itemId = targetElement.dataset.itemId;
+
+    // Find the category and item in the current data state
+    const category = currentChecklistData?.categories.find(c => c.id === categoryId);
+    const item = category?.items.find(i => i.id === itemId);
+
+    switch (action) {
+        case 'edit-category':
+            if (category) editCategoryName(categoryId, category.name);
+            break;
+        case 'delete-category':
+            if (category) deleteCategory(categoryId, category.name);
+            break;
+        case 'add-item':
+            if (category) addItem(categoryId);
+            break;
+        case 'edit-item':
+            if (item) editItemText(categoryId, itemId, item.text);
+            break;
+        case 'delete-item':
+            if (item) deleteItem(categoryId, itemId, item.text);
+            break;
+        case 'add-attachment':
+             // Find the hidden file input associated with this button
+            const fileInput = targetElement.closest('.file-input-wrapper')?.querySelector('input[type="file"]');
+            if (fileInput) {
+                fileInput.click(); // Trigger the file input click
+            }
+            break;
+        case 'delete-attachment':
+            const fileName = targetElement.dataset.fileName;
+            const fileUrl = targetElement.dataset.fileUrl;
+            if (item && fileName && fileUrl) {
+                deleteAttachment(categoryId, itemId, fileName, fileUrl);
+            }
+            break;
+        // Checkbox toggle handled by 'change' event
+        // Notes update handled by 'input' event
+    }
+}
+
+// Handles input events within the checklist items container (e.g., textarea input)
+function handleChecklistContainerInput(event) {
+    const targetElement = event.target;
+    if (targetElement.tagName === 'TEXTAREA' && targetElement.dataset.action === 'update-notes') {
+        const categoryId = targetElement.dataset.categoryId;
+        const itemId = targetElement.dataset.itemId;
+        const category = currentChecklistData?.categories.find(c => c.id === categoryId);
+        const item = category?.items.find(i => i.id === itemId);
+        if (item) {
+            item.notes = targetElement.value.trim();
+            handleSaveChecklist(false); // Save without re-rendering
+        }
+    }
+}
+
+// Handles change events within the checklist items container (e.g., checkbox change, file input change)
+function handleChecklistContainerChange(event) {
+    const targetElement = event.target;
+
+    // Handle Checkbox Change
+    if (targetElement.type === 'checkbox' && targetElement.dataset.action === 'toggle-checked') {
+        const categoryId = targetElement.dataset.categoryId;
+        const itemId = targetElement.dataset.itemId;
+        const category = currentChecklistData?.categories.find(c => c.id === categoryId);
+        const item = category?.items.find(i => i.id === itemId);
+        if (item) {
+            item.isChecked = targetElement.checked;
+            handleSaveChecklist(false); // Save without re-rendering
+        }
+    }
+
+    // Handle File Input Change (Attachment Upload)
+    if (targetElement.type === 'file' && targetElement.files.length > 0) {
+        const categoryId = targetElement.dataset.categoryId;
+        const itemId = targetElement.dataset.itemId;
+        const file = targetElement.files[0];
+        const uploadStatusElement = targetElement.nextElementSibling?.nextElementSibling; // Find the status div
+         if (file && categoryId && itemId && uploadStatusElement) {
+             handleAttachmentUpload(file, categoryId, itemId, uploadStatusElement);
+         }
+         // Clear the file input value so the same file can be selected again
+         targetElement.value = '';
+    }
+}
+
+
 // --- App Initialization ---
 
 // Initializes the application, including Firebase and event listeners.
 async function initApp() {
     cacheDOMElements(); // Cache DOM elements on startup
-    
+
     // Set initial theme based on local storage or system preference
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -1141,7 +1305,7 @@ async function initApp() {
     try {
         // Attempt to use config from environment variable first, fallback to hardcoded
         const configFromEnv = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-        const finalConfig = (configFromEnv && configFromEnv.apiKey) 
+        const finalConfig = (configFromEnv && configFromEnv.apiKey)
             ? configFromEnv
             : firebaseConfig;
 
@@ -1153,7 +1317,7 @@ async function initApp() {
         const app = initializeApp(finalConfig);
         db = getFirestore(app);
         auth = getAuth(app);
-        storage = getStorage(app); 
+        storage = getStorage(app);
     } catch (error) {
         console.error("Firebase initialization failed:", error);
         ui.authStatus.textContent = "Error: " + error.message;
@@ -1188,7 +1352,7 @@ async function initApp() {
             renderListView([]); // Render an empty list
         }
     });
-    
+
     // Attempt to sign in anonymously or with a custom token if provided
     try {
         const tokenFromEnv = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
@@ -1208,28 +1372,30 @@ async function initApp() {
     ui.backToListBtn.addEventListener('click', () => { helpers.showView('list'); filterAndRenderListView(); });
     ui.saveChecklistBtn.addEventListener('click', () => handleSaveChecklist(false)); // Don't re-render on simple save
     ui.deleteChecklistBtn.addEventListener('click', handleDeleteChecklist);
-    ui.printChecklistBtn.addEventListener('click', () => { 
+    ui.printChecklistBtn.addEventListener('click', () => {
         // Update print header before printing
-        if (ui.orgNameInputPrintHeader) { 
-            ui.orgNameInputPrintHeader.textContent = ui.orgNameInput.value.trim() || "Untitled Checklist"; 
-        } 
-        window.print(); 
+        if (ui.orgNameInputPrintHeader) {
+            ui.orgNameInputPrintHeader.textContent = ui.orgNameInput.value.trim() || "Untitled Checklist";
+        }
+        window.print();
     });
     ui.copyChecklistBtn.addEventListener('click', handleCopyChecklistText);
     ui.shareChecklistBtn.addEventListener('click', handleShareChecklist);
-    ui.importChecklistBtn.addEventListener('click', () => { 
-        if(isAuthReady) { 
+    ui.importChecklistBtn.addEventListener('click', () => {
+        if(isAuthReady) {
             ui.importIdInput.value = ''; // Clear previous input
             ui.importStatusMessage.textContent = ''; // Clear previous status
-            helpers.openModal(ui.importModal); 
+            helpers.openModal(ui.importModal);
         }
     });
     ui.searchInput.addEventListener('input', filterAndRenderListView); // Filter list on search input
-    ui.orgNameInput.addEventListener('input', () => { 
+    ui.orgNameInput.addEventListener('input', () => {
         // Update checklist title as organization name is typed
-        ui.checklistTitle.textContent = ui.orgNameInput.value.trim() || "New Checklist"; 
+        ui.checklistTitle.textContent = ui.orgNameInput.value.trim() || "New Checklist";
+        // Also trigger a save for org name changes
+        handleSaveChecklist(false);
     });
-    
+
     // Listener for the "Add New Category" button
     ui.addCategoryBtn.addEventListener('click', addCategory);
 
@@ -1241,26 +1407,27 @@ async function initApp() {
     ui.openAphisModalBtn.addEventListener('click', () => helpers.openExternalLinkModal(ui.aphisLookupModal, 'Open APHIS Search Tool', 'The USDA APHIS search tool will be opened in a new browser tab.', 'https://aphis.my.site.com/PublicSearchTool/s/', 'Continue to APHIS'));
     ui.openCharityNavModalBtn.addEventListener('click', () => helpers.openExternalLinkModal(ui.charityNavLookupModal, 'Open Charity Navigator', 'The Charity Navigator website will be opened in a new browser tab.', 'https://www.charitynavigator.org/', 'Continue to Charity Navigator'));
     ui.openCharityWatchModalBtn.addEventListener('click', () => helpers.openExternalLinkModal(ui.charityWatchLookupModal, 'Open CharityWatch', 'The CharityWatch website will be opened in a new browser tab.', 'https://www.charitywatch.org/', 'Continue to CharityWatch.org'));
-    
+
     // Confirmation Modal Button Listener
     ui.modalConfirmBtn.addEventListener('click', () => confirmAction?.()); // Execute the stored action
 
     // Generic Modal Close Listeners for buttons
     // Add listeners to all buttons that should just close their parent modal
     [
-        ui.modalCancelBtn, ui.shareModalCloseBtn, ui.importModalCancelBtn, 
-        ui.einModalCancelBtn, ui.propublicaModalCancelBtn, ui.bbbModalCancelBtn, ui.nascoModalCancelBtn, 
+        ui.modalCancelBtn, ui.shareModalCloseBtn, ui.importModalCancelBtn,
+        ui.einModalCancelBtn, ui.propublicaModalCancelBtn, ui.bbbModalCancelBtn, ui.nascoModalCancelBtn,
         ui.aphisModalCancelBtn, ui.charityNavModalCancelBtn, ui.charityWatchModalCancelBtn
         // Edit modal buttons handled within openEditModal
     ].forEach(btn => {
-         // Ensure listener is added only once per button
-         btn.removeEventListener('click', () => helpers.closeModal(btn.closest('.modal')));
-         btn.addEventListener('click', () => helpers.closeModal(btn.closest('.modal')));
+         if (btn) { // Check if element exists
+             const handler = () => helpers.closeModal(btn.closest('.modal'));
+             btn.addEventListener('click', handler);
+         }
     });
-    
+
     // Share Modal Copy Button
     ui.shareModalCopyBtn.addEventListener('click', () => copyToClipboard(ui.shareIdDisplay.textContent, ui.shareIdDisplay, 'ID Copied!'));
-    
+
     // Import Modal Confirm Button
     ui.importModalConfirmBtn.addEventListener('click', handleImportConfirm);
 
@@ -1269,17 +1436,25 @@ async function initApp() {
         ui.einModalConfirmLink, ui.propublicaModalConfirmLink, ui.bbbModalConfirmLink, ui.nascoModalConfirmLink,
         ui.aphisModalConfirmLink, ui.charityNavModalConfirmLink, ui.charityWatchModalConfirmLink
     ].forEach(link => {
-        link.removeEventListener('click', () => helpers.closeModal(link.closest('.modal'))); // Prevent duplicates
-        link.addEventListener('click', () => helpers.closeModal(link.closest('.modal')));
+         if (link) { // Check if element exists
+             const handler = () => helpers.closeModal(link.closest('.modal'));
+             link.addEventListener('click', handler);
+         }
     });
-    
+
     // Generic click listener to close modals when clicking outside the content
-    window.addEventListener('click', (event) => { 
+    window.addEventListener('click', (event) => {
         // Check if the click target is a modal backdrop (the modal div itself)
         if (event.target.classList.contains('modal')) {
-            helpers.closeModal(event.target); 
+            helpers.closeModal(event.target);
         }
     });
+
+    // --- Delegated Listeners for Checklist Container ---
+    // These handle interactions within the checklist form itself
+    ui.checklistItemsContainer.addEventListener('click', handleChecklistContainerClick);
+    ui.checklistItemsContainer.addEventListener('input', handleChecklistContainerInput);
+    ui.checklistItemsContainer.addEventListener('change', handleChecklistContainerChange);
 }
 
 // Initialize the app when the DOM is fully loaded
