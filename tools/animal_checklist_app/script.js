@@ -5,7 +5,9 @@ import { getFirestore, doc, getDoc, addDoc, setDoc, updateDoc, deleteDoc, onSnap
 import { getStorage, ref, uploadBytes, deleteObject, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
 
 // --- App State & Firebase References ---
-let db, auth, storage;
+let db;
+let auth;
+let storage;
 let currentChecklistData = null; // Holds the data for the currently viewed/edited checklist
 let checklistUnsubscribe = null; // Holds the unsubscribe function for the Firestore listener
 let userId = null; // Current authenticated user ID
@@ -102,42 +104,18 @@ function cacheDOMElements() {
         // External tool modal buttons
         openEinModalBtn: document.getElementById('open-ein-modal-btn'),
         einLookupModal: document.getElementById('ein-lookup-modal'),
-        einModalCancelBtn: document.getElementById('ein-lookup-modal').querySelector('[data-dismiss="modal"]'),
-        einModalConfirmLink: document.getElementById('ein-lookup-modal').querySelector('a[target="_blank"]'),
-
         openPropublicaModalBtn: document.getElementById('open-propublica-modal-btn'),
         propublicaLookupModal: document.getElementById('propublica-lookup-modal'),
-        propublicaModalCancelBtn: document.getElementById('propublica-lookup-modal').querySelector('[data-dismiss="modal"]'),
-        propublicaModalConfirmLink: document.getElementById('propublica-lookup-modal').querySelector('a[target="_blank"]'),
-
         openBbbModalBtn: document.getElementById('open-bbb-modal-btn'),
         bbbScamModal: document.getElementById('bbb-scam-modal'),
-        bbbModalCancelBtn: document.getElementById('bbb-scam-modal').querySelector('[data-dismiss="modal"]'),
-        bbbModalConfirmLink: document.getElementById('bbb-scam-modal').querySelector('a[target="_blank"]'),
-
         openNascoModalBtn: document.getElementById('open-nasco-modal-btn'),
         nascoRegModal: document.getElementById('nasco-reg-modal'),
-        nascoModalCancelBtn: document.getElementById('nasco-reg-modal').querySelector('[data-dismiss="modal"]'),
-        nascoModalConfirmLink: document.getElementById('nasco-reg-modal').querySelector('a[target="_blank"]'),
-
         openAphisModalBtn: document.getElementById('open-aphis-modal-btn'),
         aphisLookupModal: document.getElementById('aphis-lookup-modal'),
-        aphisModalCancelBtn: document.getElementById('aphis-lookup-modal').querySelector('[data-dismiss="modal"]'),
-        aphisModalConfirmLink: document.getElementById('aphis-lookup-modal').querySelector('a[target="_blank"]'),
-
         openCharityNavModalBtn: document.getElementById('open-charitynav-modal-btn'),
         charityNavLookupModal: document.getElementById('charitynav-lookup-modal'),
-        charityNavModalCancelBtn: document.getElementById('charitynav-lookup-modal').querySelector('[data-dismiss="modal"]'),
-        charityNavModalConfirmLink: document.getElementById('charitynav-lookup-modal').querySelector('a[target="_blank"]'),
-
         openCharityWatchModalBtn: document.getElementById('open-charitywatch-modal-btn'),
         charityWatchLookupModal: document.getElementById('charitywatch-lookup-modal'),
-        charityWatchModalCancelBtn: document.getElementById('charitywatch-lookup-modal').querySelector('[data-dismiss="modal"]'),
-        charityWatchModalConfirmLink: document.getElementById('charitywatch-lookup-modal').querySelector('a[target="_blank"]'),
-
-        darkModeToggle: document.getElementById('dark-mode-toggle'),
-        sunIcon: document.getElementById('sun-icon'),
-        moonIcon: document.getElementById('moon-icon'),
 
         // Elements for customization modals
         addCategoryBtn: document.getElementById('add-category-btn'),
@@ -1413,17 +1391,14 @@ async function initApp() {
 
     // Generic Modal Close Listeners for buttons
     // Add listeners to all buttons that should just close their parent modal
-    [
-        ui.modalCancelBtn, ui.shareModalCloseBtn, ui.importModalCancelBtn,
-        ui.einModalCancelBtn, ui.propublicaModalCancelBtn, ui.bbbModalCancelBtn, ui.nascoModalCancelBtn,
-        ui.aphisModalCancelBtn, ui.charityNavModalCancelBtn, ui.charityWatchModalCancelBtn
-        // Edit modal buttons handled within openEditModal
-    ].forEach(btn => {
-         if (btn) { // Check if element exists
+    document.querySelectorAll('.modal button[data-dismiss="modal"], .modal button:not(#modal-confirm-btn):not(#edit-modal-save-btn):not(#import-modal-confirm-btn)').forEach(btn => {
+         // Exclude specific action buttons within modals
+         if (btn && !['modal-confirm-btn', 'edit-modal-save-btn', 'import-modal-confirm-btn'].includes(btn.id)) {
              const handler = () => helpers.closeModal(btn.closest('.modal'));
              btn.addEventListener('click', handler);
          }
     });
+
 
     // Share Modal Copy Button
     ui.shareModalCopyBtn.addEventListener('click', () => copyToClipboard(ui.shareIdDisplay.textContent, ui.shareIdDisplay, 'ID Copied!'));
@@ -1432,10 +1407,7 @@ async function initApp() {
     ui.importModalConfirmBtn.addEventListener('click', handleImportConfirm);
 
     // External Link Modal Confirm Buttons (they are links, clicking them opens the link and should close the modal)
-    [
-        ui.einModalConfirmLink, ui.propublicaModalConfirmLink, ui.bbbModalConfirmLink, ui.nascoModalConfirmLink,
-        ui.aphisModalConfirmLink, ui.charityNavModalConfirmLink, ui.charityWatchModalConfirmLink
-    ].forEach(link => {
+    document.querySelectorAll('.modal a[target="_blank"]').forEach(link => {
          if (link) { // Check if element exists
              const handler = () => helpers.closeModal(link.closest('.modal'));
              link.addEventListener('click', handler);
