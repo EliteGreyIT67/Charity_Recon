@@ -247,8 +247,8 @@
             <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-2">Open IRS Search Tool</h3>
             <p class="mb-8 text-slate-500 dark:text-slate-400">The official IRS tool will be opened in a new browser tab.</p>
             <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
-                <button class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors" data-dismiss="modal">Cancel</button>
-                <a href="https://apps.irs.gov/app/eos/" target="_blank" rel="noopener noreferrer" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center">
+                <button id="ein-modal-cancel-btn" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
+                <a href="https://apps.irs.gov/app/eos/" target="_blank" rel="noopener noreferrer" id="ein-modal-confirm-link" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center">
                     Continue to IRS.gov
                 </a>
             </div>
@@ -263,8 +263,8 @@
             <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-2">Open ProPublica Nonprofit Explorer</h3>
             <p class="mb-8 text-slate-500 dark:text-slate-400">The ProPublica Nonprofit Explorer website will be opened in a new browser tab.</p>
             <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
-                <button class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors" data-dismiss="modal">Cancel</button>
-                <a href="https://projects.propublica.org/nonprofits/" target="_blank" rel="noopener noreferrer" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center">
+                <button id="propublica-modal-cancel-btn" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
+                <a href="https://projects.propublica.org/nonprofits/" target="_blank" rel="noopener noreferrer" id="propublica-modal-confirm-link" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center">
                     Continue to ProPublica
                 </a>
             </div>
@@ -279,8 +279,8 @@
             <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-2">Open BBB Scam Tracker</h3>
             <p class="mb-8 text-slate-500 dark:text-slate-400">The Better Business Bureau's website will be opened in a new browser tab.</p>
             <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
-                <button class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors" data-dismiss="modal">Cancel</button>
-                <a href="https://www.bbb.org/scamtracker/lookupscam" target="_blank" rel="noopener noreferrer" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center">
+                <button id="bbb-modal-cancel-btn" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
+                <a href="https://www.bbb.org/scamtracker/lookupscam" target="_blank" rel="noopener noreferrer" id="bbb-modal-confirm-link" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center">
                     Continue to BBB.org
                 </a>
             </div>
@@ -296,8 +296,8 @@
             <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-2">Open State Regulator List</h3>
             <p class="mb-8 text-slate-500 dark:text-slate-400">The NASCO website will be opened in a new browser tab.</p>
             <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
-                <button class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors" data-dismiss="modal">Cancel</button>
-                <a href="https://www.nasconet.org/resources/state-government/" target="_blank" rel="noopener noreferrer" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center">
+                <button id="nasco-modal-cancel-btn" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
+                <a href="https://www.nasconet.org/resources/state-government/" target="_blank" rel="noopener noreferrer" id="nasco-modal-confirm-link" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center">
                     Continue to NASCOnet.org
                 </a>
             </div>
@@ -312,8 +312,8 @@
             <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-2">Open APHIS Search Tool</h3>
             <p class="mb-8 text-slate-500 dark:text-slate-400">The USDA APHIS search tool will be opened in a new browser tab.</p>
             <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
-                <button class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors" data-dismiss="modal">Cancel</button>
-                <a href="https://aphis.my.site.com/PublicSearchTool/s/" target="_blank" rel="noopener noreferrer" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center">
+                <button id="aphis-modal-cancel-btn" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
+                <a href="https://aphis.my.site.com/PublicSearchTool/s/" target="_blank" rel="noopener noreferrer" id="aphis-modal-confirm-link" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center">
                     Continue to APHIS
                 </a>
             </div>
@@ -328,8 +328,8 @@
             <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-2">Open Charity Navigator</h3>
             <p class="mb-8 text-slate-500 dark:text-slate-400">The Charity Navigator website will be opened in a new browser tab.</p>
             <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
-                <button class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors" data-dismiss="modal">Cancel</button>
-                <a href="https://www.charitynavigator.org/" target="_blank" rel="noopener noreferrer" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center">
+                <button id="charitynav-modal-cancel-btn" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
+                <a href="https://www.charitynavigator.org/" target="_blank" rel="noopener noreferrer" id="charitynav-modal-confirm-link" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center">
                     Continue to Charity Navigator
                 </a>
             </div>
@@ -344,8 +344,8 @@
             <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-2">Open CharityWatch</h3>
             <p class="mb-8 text-slate-500 dark:text-slate-400">The CharityWatch website will be opened in a new browser tab.</p>
             <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
-                <button class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors" data-dismiss="modal">Cancel</button>
-                <a href="https://www.charitywatch.org/" target="_blank" rel="noopener noreferrer" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center">
+                <button id="charitywatch-modal-cancel-btn" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
+                <a href="https://www.charitywatch.org/" target="_blank" rel="noopener noreferrer" id="charitywatch-modal-confirm-link" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center">
                     Continue to CharityWatch.org
                 </a>
             </div>
