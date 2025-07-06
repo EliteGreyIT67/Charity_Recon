@@ -1,28 +1,34 @@
-/* Define CSS variables for colors */
+/* Define CSS variables for colors, fonts, and spacing */
 :root {
-    /* Scrollbar */
+    /* Fonts */
+    --font-sans: 'Inter', sans-serif;
+    --font-serif: 'Times New Roman', Times, serif;
+    --font-mono: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', "Liberation Mono", "Courier New", monospace;
+
+    /* Spacing */
+    --spacing-1: 0.25rem;
+    --spacing-2: 0.5rem;
+    --spacing-3: 0.75rem;
+    --spacing-4: 1rem;
+    --spacing-6: 1.5rem;
+    --spacing-8: 2rem;
+
+    /* Colors */
     --scrollbar-track-bg: #e2e8f0; /* slate-200 */
     --scrollbar-thumb-bg: #94a3b8; /* slate-400 */
     --scrollbar-thumb-hover-bg: #64748b; /* slate-500 */
-
-    /* Checkbox */
     --checkbox-bg: #fff;
     --checkbox-border: #cbd5e1; /* slate-300 */
     --checkbox-checked-border: #0ea5e9; /* sky-500 */
     --checkbox-checkmark-color: #0ea5e9; /* sky-500 */
-
-    /* Modal */
     --modal-overlay-bg: rgba(15, 23, 42, 0.6); /* slate-900 with opacity */
 }
 
 /* Dark mode overrides */
 .dark {
-    /* Scrollbar */
     --scrollbar-track-bg: #334155; /* slate-700 */
     --scrollbar-thumb-bg: #64748b; /* slate-500 */
     --scrollbar-thumb-hover-bg: #94a3b8; /* slate-400 */
-
-    /* Checkbox */
     --checkbox-bg: #334155; /* slate-700 */
     --checkbox-border: #475569; /* slate-600 */
     --checkbox-checked-border: #38bdf8; /* sky-400 */
@@ -31,7 +37,7 @@
 
 /* --- Base & Font Styles --- */
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-sans);
 }
 
 /* --- Custom Scrollbar for Checklist Items --- */
@@ -54,79 +60,72 @@ body {
 
 /* --- Custom Checkbox Appearance --- */
 .custom-checkbox {
-    appearance: none; /* Hide default checkbox */
+    appearance: none;
     background-color: var(--checkbox-bg);
     margin: 0;
     font: inherit;
-    color: currentColor; /* Use current text color for potential styling */
+    color: currentColor;
     width: 1.25em;
     height: 1.25em;
     border: 0.15em solid var(--checkbox-border);
     border-radius: 0.25em;
-    transform: translateY(-0.075em); /* Align with text baseline */
+    transform: translateY(-0.075em);
     display: grid;
-    place-content: center; /* Center the checkmark */
+    place-content: center;
     cursor: pointer;
     transition: 120ms all ease-in-out;
 }
 
-/* Checkmark style */
 .custom-checkbox::before {
     content: "";
     width: 0.65em;
     height: 0.65em;
-    transform: scale(0); /* Hide checkmark by default */
+    transform: scale(0);
     transition: 120ms transform ease-in-out;
     box-shadow: inset 1em 1em var(--checkbox-checkmark-color);
-    /* Checkmark shape using clip-path */
     clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
 }
 
-/* Checkbox checked state */
 .custom-checkbox:checked {
     border-color: var(--checkbox-checked-border);
 }
 
- /* Show checkmark when checked */
 .custom-checkbox:checked::before {
     transform: scale(1);
 }
 
-/* Focus state for accessibility */
 .custom-checkbox:focus-visible {
-    outline: max(2px, 0.15em) solid var(--checkbox-checked-border); /* Use checked border color for outline */
+    outline: max(2px, 0.15em) solid var(--checkbox-checked-border);
     outline-offset: max(2px, 0.15em);
 }
 
-
 /* --- Modal Styles --- */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 100; /* Sit on top */
+    display: none;
+    position: fixed;
+    z-index: 100;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
+    width: 100%;
+    height: 100%;
+    overflow: auto;
     background-color: var(--modal-overlay-bg);
     padding-top: 60px;
-    backdrop-filter: blur(4px); /* Blur background */
+    backdrop-filter: blur(4px);
 }
 
 .modal-content {
-    margin: 5% auto; /* 5% from the top and centered */
-    padding: 2rem;
-    width: 90%; /* Could be more responsive */
-    max-width: 450px; /* Max width */
-    border-radius: 0.75rem;
+    margin: 5% auto;
+    padding: var(--spacing-8);
+    width: 90%;
+    max-width: 450px;
+    border-radius: var(--spacing-3);
 }
 
 /* --- Print Styles --- */
 @media print {
-    /* Force light mode for printing */
     .dark {
-        --tw-bg-opacity: 1 !important; /* Keep Tailwind opacity variable if used elsewhere */
+        --tw-bg-opacity: 1 !important;
         background-color: rgb(255 255 255 / var(--tw-bg-opacity)) !important;
         color: #000 !important;
     }
@@ -149,12 +148,11 @@ body {
     }
 
     body {
-        font-family: 'Times New Roman', Times, serif;
+        font-family: var(--font-serif);
         color: #000;
         background-color: #fff;
     }
 
-    /* Adjust container and user info for print */
     #app-container,
     #user-info {
         max-width: 100%;
@@ -164,7 +162,6 @@ body {
         border: none;
     }
 
-    /* Hide non-essential elements for print */
     header,
     .action-buttons-container,
     .list-view-actions,
@@ -182,7 +179,6 @@ body {
         display: none !important;
     }
 
-    /* Ensure checklist view is visible and styled for print */
     #checklist-view {
         display: block !important;
         box-shadow: none !important;
@@ -200,7 +196,6 @@ body {
         font-size: 22pt !important;
     }
 
-    /* Show print header for org name */
     #org-name-input-print-header {
         display: block;
         font-size: 16pt;
@@ -208,13 +203,11 @@ body {
         margin-top: 5px;
     }
 
-    /* Hide input field and back button */
     #org-name-input,
     #back-to-list-btn {
         display: none !important;
     }
 
-    /* Style category blocks for print */
     .category-block {
         border: 1px solid #ccc !important;
         padding: 10px !important;
@@ -231,21 +224,18 @@ body {
         margin-bottom: 10px;
     }
 
-    /* Style checklist items for print */
     .checklist-item {
         border-bottom: 1px dotted #ccc !important;
         padding: 8px 0 !important;
         page-break-inside: avoid;
     }
 
-    /* Show native checkbox for print */
     input[type="checkbox"] {
         display: inline-block !important;
         vertical-align: top;
         margin-top: 4px;
     }
 
-    /* Hide custom checkbox */
     .custom-checkbox {
         display: none !important;
     }
@@ -254,17 +244,15 @@ body {
         font-size: 11pt !important;
     }
 
-    /* Style textarea for print */
     textarea {
         display: block !important;
         border: 1px solid #ddd !important;
         font-size: 10pt !important;
         resize: none !important;
         min-height: 30px;
-        -webkit-print-color-adjust: exact; /* Ensure background/border prints */
+        -webkit-print-color-adjust: exact;
     }
 
-    /* Style links for print */
     a {
         text-decoration: none !important;
         color: #000 !important;
@@ -277,5 +265,5 @@ body {
 
     .link-placeholder::after {
         content: "";
-    } /* Don't add URL for placeholders */
+    }
 }
