@@ -27,6 +27,9 @@ In a hurry? Here are three essential steps to quickly vet an organization:
 - [Spotting Red Flags: A Deeper Look](#spotting-red-flags-a-deeper-look)
 - [Common Fraud & Scam Tactics to Watch For](#common-fraud--scam-tactics-to-watch-for)
 - [Key Legal & Compliance Requirements](#key-legal--compliance-requirements)
+   - [Federal Requirements](#federal-requirements)
+   - [State Requirements](#state-requirements)
+   - [Local Requirements](#local-requirements)
 - [Resource Hub](#resource-hub)
    - [National Resources (U.S.)](#national-resources-us)
    - [International Resources](#international-resources)
@@ -67,7 +70,7 @@ This guide is designed for everyone in the animal welfare community. Find your r
 
 ---
 
-## For Donors & Supporters
+### For Donors & Supporters
 Your goal is to ensure your contributions make a real impact.
 - **Start with the Basics**: Use the [Quick Start Guide](#quick-start-guide-for-donors) to perform an initial check.
 - **Identify Red Flags**: Review the [Spotting Red Flags](#spotting-red-flags-a-deeper-look) section to learn what warrants a closer look.
@@ -76,7 +79,7 @@ Your goal is to ensure your contributions make a real impact.
 
 ---
 
-## For Potential Adopters & Foster Parents
+### For Potential Adopters & Foster Parents
 You are entrusting an organization to provide you with a healthy, well-cared-for animal.
 - **Evaluate Animal Care Practices**: Pay close attention to the red flags related to [Veterinary Care](#lack-of-visible-veterinary-care-or-medical-records) and [Animal Sourcing](#evasiveness-regarding-animal-sourcing-or-disposition).
 - **Ask Questions**: Inquire about their adoption/foster process, return policies, and the specific animal's history. A transparent organization will provide clear answers.
@@ -84,7 +87,7 @@ You are entrusting an organization to provide you with a healthy, well-cared-for
 
 ---
 
-## For Rescue Founders & Operators
+### For Rescue Founders & Operators
 You are dedicated to running a compliant, ethical, and effective organization.
 - **Understand Your Obligations**: Thoroughly review the [Key Legal & Compliance Requirements](#key-legal--compliance-requirements) section. This is critical for legal operation.
 - **Build Trust Through Transparency**: Use the [Advanced Investigation Tips](#advanced-investigation-tips) as a guide for what the public looks for. Proactively publish your Form 990, board of directors, and clear operational policies.
@@ -168,7 +171,7 @@ This guide is primarily U.S.-focused, but similar principles apply globally. Her
 - **Canada**: [Canada Revenue Agency - Charities listing](https://apps.cra-arc.gc.ca/ebci/hacc/srch/pub/dsplyBscSrch)
 - **Germany**: [Federal Central Tax Office (Bundeszentralamt für Steuern) - Register of Charitable Organizations](https://www.bzst.de/EN/Businesses/Non-Profit/Charity_Register/Overview/overview_node.html)
 - **Ireland**: [Charities Regulator - Register of Charities](https://www.charitiesregulator.ie/en/information-for-the-public/search-the-register-of-charities)
-- **Japan**: While there is no single central government database, many legitimate non-profits are registered as "Specified Nonprofit Corporations" and may be found through the Cabinet Office's NPO portal or are members of the [Japan Association of Charitable Organizations (JACO).](https://www.jaco.or.jp/)
+- **Japan**: While there is no single central government database, many legitimate non-profits are registered as "Specified Nonprofit Corporations" and may be found through the [Cabinet Office's NPO portal (English)](https://www.npo-homepage.go.jp/en/) or are members of the [Japan Association of Charitable Organizations (JACO).](https://www.jaco.or.jp/)
 - **United Kingdom**: [GOV.UK - Find a charity](https://www.gov.uk/find-charity-information) (for England and Wales), [Scottish Charity Regulator (OSCR)](https://www.oscr.org.uk/) (for Scotland), and the [Charity Commission for Northern Ireland](https://www.charitycommissionni.org.uk/) (for Northern Ireland).
 - **Australia**: [Australian Charities and Not-for-profits Commission (ACNC)](https://www.acnc.gov.au/charity)
 - **New Zealand**: [Charities Services Register](https://charities.govt.nz/)
