@@ -44,7 +44,7 @@ In a hurry? Here are three essential steps to quickly vet an organization:
 - [Animal Rescue Compliance Checklist App](https://elitegreyit67.github.io/Charity_Recon/tools/animal_checklist_app/index.html)
   - An interactive tool to help donors, volunteers, and adopters assess an organization's transparency and compliance based on the principles in this guide.
 
-![Screenshot](https://imgur.com/ghk8Efk.png)
+![Screenshot](https://imgur.com/aoY8rIM.jpeg)
 
 ---
 
