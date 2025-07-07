@@ -4,28 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Animal Rescue Compliance Checklist</title>
-
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
     <!-- Custom Styles -->
     <link rel="stylesheet" href="styles.css">
-
-    <!-- Theme Initialization Script (runs before body renders to prevent FOUC) -->
+    <!-- Theme Initialization Script -->
     <script>
-        // Check local storage or system preference for theme
+        // This script runs before the body renders to prevent Flash of Unstyled Content (FOUC)
         const savedTheme = localStorage.getItem('theme');
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
         if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
             document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
         }
     </script>
 </head>
@@ -45,7 +38,7 @@
             </button>
         </div>
 
-        <!-- User Info Display (Hidden by default) -->
+        <!-- User Info Display -->
         <div id="user-info" class="mb-4 p-3 bg-sky-100 dark:bg-sky-900/50 border border-sky-200 dark:border-sky-800 text-sky-800 dark:text-sky-300 rounded-lg text-sm text-center hidden">
             <p><strong>Status:</strong> <span id="auth-status">Initializing...</span></p>
             <p class="mt-1"><strong>User ID:</strong> <span id="user-id" class="font-mono break-all"></span></p>
@@ -58,35 +51,33 @@
                 <p class="text-slate-500 dark:text-slate-400 mt-2 text-lg">Your cloud-synced checklists for ensuring animal welfare standards.</p>
             </header>
 
-            <!-- List View Actions -->
-            <div class="list-view-actions mb-6 flex flex-col sm:flex-row gap-3">
-                <button id="new-checklist-btn" class="w-full sm:w-auto bg-sky-500 hover:bg-sky-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 ease-in-out flex items-center justify-center space-x-2 transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed">
+            <nav class="list-view-actions mb-6 flex flex-col sm:flex-row gap-3">
+                <button id="new-checklist-btn" class="w-full sm:w-auto bg-sky-500 hover:bg-sky-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 ease-in-out flex items-center justify-center space-x-2 transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed" aria-label="Start a new checklist">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
                     <span>Start New</span>
                 </button>
-                <button id="import-checklist-btn" class="w-full sm:w-auto bg-slate-600 hover:bg-slate-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 ease-in-out flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                <button id="import-checklist-btn" class="w-full sm:w-auto bg-slate-600 hover:bg-slate-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 ease-in-out flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed" aria-label="Import a shared checklist">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
                     <span>Import Shared</span>
                 </button>
-            </div>
+            </nav>
 
-            <!-- Search Input -->
             <div id="search-container" class="mb-8 relative">
+                <label for="search-input" class="sr-only">Search by organization name</label>
                 <input type="text" id="search-input" placeholder="Search by organization name..." class="w-full p-4 pl-12 border border-slate-300 dark:border-slate-600 dark:bg-slate-800 rounded-lg shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-shadow dark:placeholder-slate-400">
                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-400 dark:text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                 </div>
             </div>
 
-            <!-- No Checklists Message (Hidden by default) -->
             <div id="no-checklists-message" class="text-center py-16 bg-white dark:bg-slate-800 rounded-lg shadow-sm hidden">
                  <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 mx-auto text-slate-300 dark:text-slate-600 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                 <p class="text-2xl font-semibold text-slate-700 dark:text-slate-300">No checklists found.</p>
                 <p class="text-slate-500 dark:text-slate-400">Click "Start New" to begin, or "Import Shared" to add one from a colleague.</p>
             </div>
 
-            <!-- Saved Checklists Container -->
             <div id="saved-checklists-container" class="space-y-4">
+                <!-- Saved checklist cards will be inserted here by script.js -->
             </div>
         </section>
 
@@ -114,60 +105,25 @@
                 </div>
             </header>
 
-            <!-- Verification Tools Section -->
-            <div id="verification-tools" class="mb-6">
-                <h3 class="text-lg font-semibold text-slate-700 dark:text-slate-300 border-b dark:border-slate-700 pb-2 mb-4">Verification Tools</h3>
-                <div class="flex flex-wrap gap-3">
-                     <button id="open-ein-modal-btn" class="bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
-                        <span>IRS EIN Lookup</span>
-                    </button>
-                    <button id="open-propublica-modal-btn" class="bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" /><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd" /></svg>
-                        <span>ProPublica</span>
-                    </button>
-                    <button id="open-aphis-modal-btn" class="bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zM9.043 4.258a.75.75 0 01.166-.445l.42-.42a.75.75 0 011.06 0l.42.42a.75.75 0 01.166.445c.03.14.043.284.043.432 0 1.102-.89 1.99-1.99 1.99S8 5.79 8 4.69c0-.148.013-.292.043-.432zM7.25 7.5A.75.75 0 006.5 8.25v3.5A.75.75 0 008 12.54V15a.75.75 0 001.5 0v-2.5a.75.75 0 00-.75-.75h-.5a.75.75 0 00-.75.75v.19l-1.72 1.72a.75.75 0 101.06 1.06l1.97-1.97a2.25 2.25 0 011.591-.659h.659a2.25 2.25 0 011.591.659l1.97 1.97a.75.75 0 101.06-1.06L13 11.81V9.75A.75.75 0 0012 9h-.5A.75.75 0 0010.75 9.75v2.79a.75.75 0 001.28.53l.5-.5a.75.75 0 00-1.06-1.06l-.22.22V8.25A.75.75 0 0010.25 7.5h-3z" clip-rule="evenodd" /></svg>
-                        <span>APHIS Search</span>
-                    </button>
-                    <button id="open-charitynav-modal-btn" class="bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
-                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                        <span>Charity Navigator</span>
-                    </button>
-                    <button id="open-charitywatch-modal-btn" class="bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9 5a1 1 0 112 0v2.25a.75.75 0 01-1.5 0V5zM10 12a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd" /></svg>
-                        <span>CharityWatch</span>
-                    </button>
-                    <button id="open-bbb-modal-btn" class="bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor"><path fill-rule="evenodd" d="M10 1.944A11.954 11.954 0 012.166 5C2.056 5.649 2 6.319 2 7c0 5.225 3.34 9.67 8 11.317C14.66 16.67 18 12.225 18 7c0-.682-.057-1.35-.166-2.001A11.954 11.954 0 0110 1.944zM10 6a1 1 0 011 1v3l3 3-1.414 1.414L9 10.414V7a1 1 0 011-1z" clip-rule="evenodd" /></svg>
-                        <span>BBB Scam Tracker</span>
-                    </button>
-                    <button id="open-nasco-modal-btn" class="bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor"><path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" /></svg>
-                        <span>State Regulators</span>
-                    </button>
-                </div>
-            </div>
-
             <!-- Checklist Items Container -->
-            <div id="checklist-items-container" class="space-y-8 max-h-[60vh] overflow-y-auto pr-3 -mr-3"></div>
+            <div id="checklist-items-container" class="space-y-6"></div>
 
             <!-- Add Category Button -->
-            <button id="add-category-btn" class="mt-6 w-full bg-slate-300 hover:bg-slate-400 text-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
+            <button id="add-category-btn" class="mt-6 w-full bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
                 <span>Add New Category</span>
             </button>
 
             <!-- Checklist Action Buttons -->
             <div class="action-buttons-container mt-8 pt-6 border-t border-slate-200 dark:border-slate-700 flex flex-col-reverse sm:flex-row sm:justify-between sm:items-center gap-4">
-                <!-- Delete Button (Hidden by default) -->
+                <!-- Delete Button -->
                 <button id="delete-checklist-btn" class="hidden w-full sm:w-auto text-red-600 dark:text-red-500 hover:text-white hover:bg-red-600 dark:hover:bg-red-500 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 border border-red-500 dark:border-red-500 hover:border-red-600 dark:hover:border-red-500">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                     <span>Delete</span>
                 </button>
 
                 <div class="flex flex-col sm:flex-row sm:justify-end gap-3 flex-wrap">
-                     <!-- Share Button (Hidden by default) -->
+                     <!-- Share Button -->
                      <button id="share-checklist-btn" class="w-full sm:w-auto bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 px-5 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12s-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367-2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" /></svg>
                         <span>Share</span>
@@ -184,8 +140,8 @@
                     </button>
                      <!-- Save Button -->
                      <button id="save-checklist-btn" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 ease-in-out flex items-center justify-center space-x-2 transform hover:-translate-y-0.5">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                        <span>Save</span>
+                        <span id="save-button-text">Save</span>
+                        <svg id="save-spinner" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden spinner" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h5M4 12a8 8 0 018-8v0a8 8 0 018 8v0a8 8 0 01-8 8v0a8 8 0 01-8-8v0z" /></svg>
                     </button>
                 </div>
             </div>
@@ -366,7 +322,8 @@
         </div>
     </div>
 
-    <!-- Main Application Script -->
+    <!-- Main Application Scripts -->
+    <script src="config.js" type="module"></script>
     <script src="script.js" type="module" defer></script>
 </body>
 </html>
