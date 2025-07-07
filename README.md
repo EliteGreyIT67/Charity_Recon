@@ -2,7 +2,7 @@
 
 *Your essential companion for promoting transparency, accountability, and excellence in the animal welfare community.*
 
-**Last Verified**: 2025-06-19
+**Last Verified**: 2025-07-06
 
 Welcome to Charity Recon! This guide empowers animal rescue organizations, donors, and the public to find and verify legitimate charities, report fraudulent activity, and understand key compliance requirements.
 
@@ -81,7 +81,7 @@ Your goal is to ensure your contributions make a real impact.
 
 ### For Potential Adopters & Foster Parents
 You are entrusting an organization to provide you with a healthy, well-cared-for animal.
-- **Evaluate Animal Care Practices**: Pay close attention to the red flags related to [Veterinary Care](#lack-of-visible-veterinary-care-or-medical-records) and [Animal Sourcing](#evasiveness-regarding-animal-sourcing-or-disposition).
+- **Evaluate Animal Care Practices**: Pay close attention to the red flags related to [Poor Animal Care](#spotting-red-flags-a-deeper-look) and [Evasive About Animals](#spotting-red-flags-a-deeper-look).
 - **Ask Questions**: Inquire about their adoption/foster process, return policies, and the specific animal's history. A transparent organization will provide clear answers.
 - **Check Local Licenses**: Does your state or county require shelters to be licensed? Use the [State-Specific Resources](STATE_RESOURCES.md) to check with your local animal control or department of agriculture.
 
@@ -163,7 +163,7 @@ Use these resources to conduct your research.
 - **IRS - File a Complaint**: [irs.gov/charities-non-profits/irs-complaint-process-tax-exempt-organizations](https://irs.gov/charities-non-profits/irs-complaint-process-tax-exempt-organizations)
 - **USDA - Animal Welfare Complaints**: [aphis.usda.gov/awa/regulatory-enforcement/complaint](https://aphis.usda.gov/awa/regulatory-enforcement/complaint)
 - **FTC - Report Fraud**: [ReportFraud.ftc.gov](https://ReportFraud.ftc.gov) - For deceptive practices.
-- **FBI - Internet Crime Complaint Center (IC3)**: [https://ic3.gov](ic3.gov)
+- **FBI - Internet Crime Complaint Center (IC3)**: [https://ic3.gov](https://ic3.gov)
 - **NASCO - State Charity Officials**: [nasconet.org](https://nasconet.org) - Links to all state-level charity regulators.
 
 ### International Resources
