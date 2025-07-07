@@ -101,17 +101,18 @@ body {
 
 /* --- Modal Styles --- */
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 100;
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 100; /* Sit on top */
     left: 0;
     top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
     background-color: var(--modal-overlay-bg);
     padding-top: 60px;
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px); /* Blur background */
+    animation: fadeIn 0.3s ease-out;
 }
 
 .modal-content {
@@ -121,6 +122,41 @@ body {
     max-width: 450px;
     border-radius: var(--spacing-3);
 }
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* --- Collapsible Category Styles --- */
+.category-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+}
+
+.category-block.expanded .category-content {
+    max-height: 2000px; /* Large enough to not clip content */
+}
+
+.category-toggle-icon {
+    transition: transform 0.3s ease-in-out;
+}
+
+.category-block.expanded .category-toggle-icon {
+    transform: rotate(90deg);
+}
+
+/* --- Spinner Animation --- */
+.spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
 
 /* --- Print Styles --- */
 @media print {
@@ -168,14 +204,15 @@ body {
     #status-message,
     .modal,
     #search-container,
-    #verification-tools,
+    .contextual-tool-button,
     #dark-mode-toggle,
     .edit-button,
     .delete-button,
     .add-item-button,
     .add-category-button,
     .attachment-actions,
-    .file-input-wrapper {
+    .file-input-wrapper,
+    .category-toggle-icon {
         display: none !important;
     }
 
@@ -185,6 +222,12 @@ body {
         border: none !important;
         padding: 0 !important;
     }
+
+    .category-content {
+        max-height: none !important; /* Ensure content is visible for printing */
+        overflow: visible !important;
+    }
+
 
     #checklist-title-container {
         border-bottom: 2px solid #000;
