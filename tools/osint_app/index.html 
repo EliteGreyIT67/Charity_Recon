@@ -354,8 +354,7 @@
             sections.push({
                 id: 'financial', title: 'Federal Financial & Legal', icon: 'landmark', isOpen: true,
                 links: [
-                    { name: 'IRS Tax Exempt Org Search', url: orgEin ? `https://apps.irs.gov/app/tax-exempt-organization-search/search?ein=${einWithoutHyphen}` : `https://apps.irs.gov/app/tax-exempt-organization-search/search?searchTerm=${plusEncodedOrgName}` },
-                    { name: 'IRS EO Select Check', url: 'https://apps.irs.gov/app/eos/' },
+                    { name: 'IRS Tax Exempt Org Search', url: 'https://apps.irs.gov/app/eos/' },
                     { name: 'USDA Animal Welfare Act Search', url: 'https://www.aphis.usda.gov/aphis/ourfocus/animalwelfare/sa_awa/animal-care-public-search-tool' },
                     { name: 'ProPublica Nonprofit Explorer', url: orgEin ? `https://projects.propublica.org/nonprofits/organizations/${einWithoutHyphen}` : `https://projects.propublica.org/nonprofits/search?q=${plusEncodedOrgName}` },
                     { name: 'Candid (Guidestar)', url: `https://candid.org/search?q=${orgEin || encodedOrgName}` },
