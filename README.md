@@ -46,6 +46,13 @@ In a hurry? Here are three essential steps to quickly vet an organization:
 
 ![Screenshot](https://imgur.com/aoY8rIM.jpeg)
 
+- [Charity Recon: OSINT Tool for Animal Rescues](https://elitegreyit67.github.io/Charity_Recon/tools/osint_app/index.html): A free and easy-to-use web application that provides a centralized dashboard to quickly generate direct search links to a wide array of public records and online platforms for investigating nonprofit animal rescue organizations. This tool is designed for journalists, researchers, potential donors, and the public to perform effective due diligence. 
+    - **Key Features**:
+      - **All-in-One Dashboard**: Combines dozens of search tools into a single interface.
+      - **Multi-Faceted Investigation**: Instantly check federal 501(c)(3) status, search state-level charity registries, and access financial documents.
+      - **Reputation & News**: Scan Google News, public review sites, and community forums.
+      - **Efficient Workflow**: Refine searches by location or EIN for more precise results.
+
 ---
 
 ## Why This Guide Matters
