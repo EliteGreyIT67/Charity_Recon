@@ -2,7 +2,7 @@
 
 *Your essential companion for promoting transparency, accountability, and excellence in the animal welfare community.*
 
-**Last Verified**: 2025-07-06
+**Last Verified**: 2025-09-19
 
 Welcome to Charity Recon! This guide empowers animal rescue organizations, donors, and the public to find and verify legitimate charities, report fraudulent activity, and understand key compliance requirements.
 
