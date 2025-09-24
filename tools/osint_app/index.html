@@ -136,6 +136,10 @@
                                  <input type="text" id="domain-name" class="form-input" aria-label="Domain Name (Optional)" placeholder="Domain Name (e.g., happypaws.org)">
                             </div>
                             <div class="input-group">
+                                <i data-lucide="at-sign" class="input-icon"></i>
+                                <input type="text" id="social-handle" class="form-input" aria-label="Social Media Handle (Optional)" placeholder="Social Media Handle (e.g., happypaws)">
+                            </div>
+                            <div class="input-group">
                                 <i data-lucide="map-pin" class="input-icon"></i>
                                 <select id="state-select" class="form-input" aria-label="State (Optional)">
                                     <option value="">Select a State (Optional)</option>
@@ -198,6 +202,7 @@
             this.elements.orgEinInput = document.getElementById('org-ein');
             this.elements.locationInput = document.getElementById('location');
             this.elements.domainNameInput = document.getElementById('domain-name');
+            this.elements.socialHandleInput = document.getElementById('social-handle');
             this.elements.stateSelect = document.getElementById('state-select');
             this.elements.resultsContainer = document.getElementById('results-container');
             this.elements.placeholder = document.getElementById('placeholder');
@@ -335,12 +340,13 @@
                 orgEin: this.elements.orgEinInput.value.trim(),
                 location: this.elements.locationInput.value.trim(),
                 domainName: this.elements.domainNameInput.value.trim(),
+                socialHandle: this.elements.socialHandleInput.value.trim(),
                 selectedState: this.elements.stateSelect.value,
             };
         },
 
         buildLinkSections(inputs) {
-            const { orgName, personName, orgEin, location, domainName, selectedState } = inputs;
+            const { orgName, personName, orgEin, location, domainName, socialHandle, selectedState } = inputs;
             const encodedOrgName = encodeURIComponent(orgName);
             const plusEncodedOrgName = orgName.replace(/\s/g, '+');
             const encodedPersonName = encodeURIComponent(personName);
@@ -404,7 +410,35 @@
                 onlineLinks.push({ name: 'Internet Archive', url: `https://web.archive.org/web/*/${domainName}` });
                 onlineLinks.push({ name: 'DomainTools Whois', url: `https://whois.domaintools.com/${domainName}` });
             }
+            if (socialHandle) {
+                 onlineLinks.push({ name: `Twitter Handle (@${socialHandle})`, url: `https://twitter.com/${socialHandle}` });
+                 onlineLinks.push({ name: `Facebook Handle (/${socialHandle})`, url: `https://www.facebook.com/${socialHandle}` });
+                 onlineLinks.push({ name: `Instagram Handle (@${socialHandle})`, url: `https://www.instagram.com/${socialHandle}` });
+            }
             sections.push({id: 'online', title: 'Online Presence', icon: 'globe-2', links: onlineLinks, isOpen: false});
+
+            if(personName) {
+                sections.push({
+                    id: 'court-records', title: 'Court Records', icon: 'gavel', isOpen: false,
+                    links: [
+                        { name: `Google: "${personName}" & "${orgName}" court records`, url: `https://www.google.com/search?q=%22${encodedPersonName}%22+%22${encodedOrgName}%22+court+records` },
+                        { name: 'PACER Case Locator', url: 'https://pacer.uscourts.gov/' },
+                    ]
+                });
+            }
+
+            const advancedLinks = [];
+            if (domainName) {
+                advancedLinks.push({ name: 'DNS Dumpster', url: `https://dnsdumpster.com/` });
+                advancedLinks.push({ name: 'crt.sh | Certificate Search', url: `https://crt.sh/?q=${domainName}` });
+                advancedLinks.push({ name: 'BuiltWith Technology Profile', url: `https://builtwith.com/${domainName}` });
+                advancedLinks.push({ name: 'SpyOnWeb Analytics Search', url: `https://spyonweb.com/${domainName}` });
+                advancedLinks.push({ name: 'Google Filetype Search (PDF)', url: `https://www.google.com/search?q=site%3A${domainName}+filetype%3Apdf` });
+                advancedLinks.push({ name: 'Have I Been Pwned', url: `https://haveibeenpwned.com/` });
+            }
+            if(advancedLinks.length > 0) {
+                sections.push({id: 'advanced', title: 'Advanced & Technical', icon: 'shield-check', links: advancedLinks, isOpen: false});
+            }
 
             return sections;
         },
