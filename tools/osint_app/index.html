@@ -43,6 +43,7 @@
         .btn-secondary { @apply bg-gray-500 hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 focus:ring-offset-gray-900; }
         .result-link-card { @apply flex items-center justify-between p-4 border rounded-lg transition-all duration-200; border-color: var(--border-color); background-color: rgba(var(--card-bg), 0.5); }
         .result-link-card:hover { border-color: #4f46e5; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .visited-link { color: #8b5cf6 !important; } /* Visited link color */
         .hidden-fade { opacity: 0; transform: translateY(10px); transition: opacity 0.5s ease, transform 0.5s ease; visibility: hidden; }
         .visible-fade { opacity: 1; transform: translateY(0); visibility: visible; }
         select.form-input { -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-chevron-down'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.75rem center; background-size: 1.25em; }
@@ -52,12 +53,12 @@
         .toast { @apply flex items-center space-x-3 px-4 py-3 rounded-lg shadow-lg text-white transition-all duration-300; transform: translateX(120%); opacity: 0; }
         .toast.show { transform: translateX(0); opacity: 1; }
         .toast.success { @apply bg-green-500; }
+        .skeleton-loader { @apply bg-gray-200 dark:bg-gray-700 rounded-md animate-pulse; }
     </style>
 </head>
 <body class="min-h-screen">
 
     <div class="container mx-auto p-4 md:p-8">
-        <!-- Header -->
         <header class="flex justify-between items-center mb-6">
             <div class="flex items-center space-x-3">
                 <div class="bg-indigo-600 p-2 rounded-lg"><i data-lucide="paw-print" class="w-6 h-6 text-white"></i></div>
@@ -71,18 +72,19 @@
             </button>
         </header>
 
-        <!-- Hero Section -->
         <section class="text-center py-16 md:py-24">
-            <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 dark:text-white leading-tight">Investigate with Intelligence.</h1>
+            <h1 class="text-4xl md:text-6xl font-extrapold text-gray-900 dark:text-white leading-tight">Investigate with Intelligence.</h1>
             <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-300">A free, open-source intelligence (OSINT) tool designed to streamline due diligence on nonprofit animal rescue organizations.</p>
-            <div class="mt-8">
+            <div class="mt-8 flex justify-center space-x-4">
                 <a href="#tool" class="btn btn-primary px-8 py-3 text-lg">
                     Start Investigating
+                </a>
+                <a href="../animal_checklist_app/index.html" class="btn btn-secondary px-8 py-3 text-lg">
+                    Start Compliance Checklist
                 </a>
             </div>
         </section>
 
-        <!-- Features Section -->
         <section class="py-16">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="card p-6 text-center">
@@ -103,7 +105,6 @@
             </div>
         </section>
         
-        <!-- OSINT Tool Section -->
         <section id="tool" class="pt-16">
              <div class="text-center mb-12">
                 <h2 class="text-3xl font-bold text-gray-900 dark:text-white">OSINT Dashboard</h2>
@@ -162,11 +163,16 @@
                         <h3 class="mt-4 text-lg font-semibold text-gray-600 dark:text-gray-400">Your investigation results will appear here.</h3>
                         <p class="mt-1 text-sm text-gray-500">Fill out the form to get started.</p>
                     </div>
+                    <div id="skeleton-container" class="space-y-4 hidden">
+                        <div class="skeleton-loader h-12 w-full"></div>
+                        <div class="skeleton-loader h-24 w-full"></div>
+                        <div class="skeleton-loader h-24 w-full"></div>
+                        <div class="skeleton-loader h-24 w-full"></div>
+                    </div>
                 </section>
             </main>
         </section>
 
-        <!-- Footer -->
         <footer class="text-center mt-24 pt-8 border-t dark:border-gray-700 text-sm text-gray-500 dark:text-gray-400">
             <p><strong>Disclaimer:</strong> This tool aggregates links to public information. Always verify data from multiple sources.</p>
             <p class="mt-2">Created as an open-source project. View on <a href="https://github.com/EliteGreyIT67/Charity_Recon" class="text-indigo-500 hover:underline">GitHub</a>.</p>
@@ -179,7 +185,7 @@
         elements: {},
         data: {
             states: { "AL": "Alabama", "AK": "Alaska", "AZ": "Arizona", "AR": "Arkansas", "CA": "California", "CO": "Colorado", "CT": "Connecticut", "DE": "Delaware", "DC": "District of Columbia", "FL": "Florida", "GA": "Georgia", "HI": "Hawaii", "ID": "Idaho", "IL": "Illinois", "IN": "Indiana", "IA": "Iowa", "KS": "Kansas", "KY": "Kentucky", "LA": "Louisiana", "ME": "Maine", "MD": "Maryland", "MA": "Massachusetts", "MI": "Michigan", "MN": "Minnesota", "MS": "Mississippi", "MO": "Missouri", "MT": "Montana", "NE": "Nebraska", "NV": "Nevada", "NH": "New Hampshire", "NJ": "New Jersey", "NM": "New Mexico", "NY": "New York", "NC": "North Carolina", "ND": "North Dakota", "OH": "Ohio", "OK": "Oklahoma", "OR": "Oregon", "PA": "Pennsylvania", "RI": "Rhode Island", "SC": "South Carolina", "SD": "South Dakota", "TN": "Tennessee", "TX": "Texas", "UT": "Utah", "VT": "Vermont", "VA": "Virginia", "WA": "Washington", "WV": "West Virginia", "WI": "Wisconsin", "WY": "Wyoming" },
-            stateResources: {'AL':[{n:'AG Charity Search',u:'https://www.attorneygeneral.alabama.gov/consumer-protection/charities-search/'},{n:'SOS Business Search',u:'https://www.sos.alabama.gov/business-entities/name-reservation-requests'}],'AK':[{n:'Commerce Business Search',u:'https://www.commerce.alaska.gov/cbp/main/search/entities'}],'AZ':[{n:'Corp Commission Business Search',u:'https://ecorp.azcc.gov/EntitySearch/Index'}],'AR':[{n:'SOS Charity Search',u:'https://www.sos.arkansas.gov/charities/charities-search/'},{n:'SOS Business Search',u:'https://www.sos.arkansas.gov/corps/search_all.php'}],'CA':[{n:'DOJ Charity Search',u:'https://rct.doj.ca.gov/verification-search/'},{n:'SOS Business Search',u:'https://bizfileonline.sos.ca.gov/search/business'}],'CO':[{n:'SOS Charity Search',u:'https://www.sos.state.co.us/ccsa/pages/search/basic.xhtml'},{n:'SOS Business Search',u:'https://www.sos.state.co.us/biz/BusinessEntityCriteria.do'}],'CT':[{n:'eLicense Lookup',u:'https://www.elicense.ct.gov/lookup/licenselookup.aspx'},{n:'SOS Business Search',u:'https://service.ct.gov/business/s/onlinebusinesssearch'}],'DE':[{n:'Division of Corps Search',u:'https://icis.corp.delaware.gov/ecorp/entitysearch/namesearch.aspx'}],'FL':[{n:'Gift Givers Search',u:'https://csapp.fdacs.gov/cspublicapp/giftgiversquery/giftgiversquery.aspx'},{n:'SunBiz Business Search',u:'http://search.sunbiz.org/Inquiry/CorporationSearch/ByName'}],'GA':[{n:'SOS Charity Search',u:'https://sos.ga.gov/charities-search'},{n:'SOS Business Search',u:'https://ecorp.sos.ga.gov/BusinessSearch'}],'HI':[{n:'Charity Search',u:'https://charity.ehawaii.gov/charity/search.html'},{n:'Business Search',u:'https://hbe.ehawaii.gov/documents/search.html'}],'ID':[{n:'SOS Business Search',u:'https://sosbiz.idaho.gov/search/business'}],'IL':[{n:'AG Charity Search',u:'https://www.illinoisattorneygeneral.gov/charities/search/index.jsp'},{n:'SOS Business Search',u:'https://apps.ilsos.gov/corporatellc/'}],'IN':[{n:'INBiz Business Search',u:'https://inbiz.in.gov/BOS/Home/Index'}],'IA':[{n:'SOS Business Search',u:'https://sos.iowa.gov/search/business/search.aspx'}],'KS':[{n:'SOS Charity Search',u:'https://www.sos.ks.gov/charities/charity-search.html'}],'KY':[{n:'AG Consumer Resources',u:'https://ag.ky.gov/Resources/Consumer-Resources/charity/Pages/default.aspx'}],'LA':[{n:'SOS Business Search',u:'https://coraweb.sos.la.gov/commercialsearch/commercialsearch.aspx'}],'ME':[{n:'Charitable Solicitations Search',u:'https://www.maine.gov/pfr/professionallicensing/professions/charitable/search.htm'}],'MD':[{n:'SOS Charity Search',u:'https://egov.maryland.gov/sos/charitysearch'},{n:'Business Express Search',u:'https://egov.maryland.gov/businessexpress/entitysearch'}],'MA':[{n:'DOJ Charities Search',u:'https://charities.doj.state.ma.us/'},{n:'SOS Business Search',u:'https://corp.sec.state.ma.us/corpweb/corpsearch/corpsearch.aspx'}],'MI':[{n:'AG Charity Search',u:'https://cfs.lara.state.mi.us/CharitySearch'},{n:'LARA Business Search',u:'https://cofs.lara.state.mi.us/SearchApi/Search/Search'}],'MN':[{n:'AG Charity Search',u:'https://www.ag.state.mn.us/charity/ours/charitysearch.aspx'},{n:'SOS Business Search',u:'https://mblsportal.sos.state.mn.us/Business/Search'}],'MS':[{n:'SOS Charity Search',u:'https://charities.sos.ms.gov/online/portal/ch/page/charities-search/Portal.aspx'},{n:'SOS Business Search',u:'https://corp.sos.ms.gov/corp/portal/c/page/corpBusinessIdSearch/portal.aspx'}],'MO':[{n:'AG Check-a-Charity',u:'https://www.ago.mo.gov/civil-division/consumer/check-a-charity'}],'MT':[{n:'SOS Business Search',u:'https://biz.sosmt.gov/search/business'}],'NE':[],'NV':[{n:'SOS Business Search',u:'https://www.nvsos.gov/sos/businesses/search'}],'NH':[{n:'DOJ Registered Charities List',u:'https://www.doj.nh.gov/charitable-trusts/registered-charities.htm'},{n:'SOS Business Search',u:'https://quickstart.sos.nh.gov/online/BusinessInquire'}],'NJ':[{n:'Charities Search',u:'https://www.njconsumeraffairs.gov/charities/pages/charitiessearch.aspx'}],'NM':[{n:'AG Charity Search',u:'https://www.nmag.gov/charities/charity-registration-search/'}],'NY':[{n:'Charities Registry Search',u:'https://www.charitiesnys.com/RegistrySearch/search_charities.jsp'},{n:'DOS Business Search',u:'https://apps.dos.ny.gov/publicInquiry/'}],'NC':[{n:'SOS Charity Search',u:'https://www.sosnc.gov/online_services/charities/search_options_charities'}],'ND':[{n:'SOS Charity Search',u:'https://firststop.sos.nd.gov/search/charity'},{n:'SOS Business Search',u:'https://firststop.sos.nd.gov/search/business'}],'OH':[{n:'AG Charity Search',u:'https://charitableregistration.ohioattorneygeneral.gov/Charities/Research-Charities.aspx'}],'OK':[{n:'SOS Business Search',u:'https://www.sos.ok.gov/corp/corpInquiryFind.aspx'}],'OR':[{n:'DOJ Charity Search',u:'https://www.doj.state.or.us/charitable-activities/charities-in-oregon/search-for-a-charity/'}],'PA':[{n:'DOS Charity Search',u:'https://www.dos.pa.gov/BusinessCharities/Charities/CharitySearch/Pages/default.aspx'}],'RI':[{n:'DBR Charitable Orgs',u:'https://dbr.ri.gov/charitable-organizations'}],'SC':[{n:'SOS Charities Search',u:'https://www.sos.sc.gov/charities-search'}],'SD':[{n:'SOS Business Services',u:'https://sdsos.gov/business-services/default.aspx'}],'TN':[{n:'SOS Charity Search',u:'https://sos.tn.gov/charitable/search'}],'TX':[{n:'SOS Business Search',u:'https://mycpa.cpa.state.tx.us/coa/'}],'UT':[{n:'DCP Charities Search',u:'https://dcp.utah.gov/charities/'}],'VT':[{n:'SOS Business Search',u:'https://bizfilings.vermont.gov/online/BusinessInquire/'}],'VA':[{n:'VDACS Charity Search',u:'https://cos.vdacs.virginia.gov/cgi-bin/char_search.cgi'},{n:'SCC Business Search',u:'https://cis.scc.virginia.gov/'}],'WA':[{n:'SOS Charity Search',u:'https://www.sos.wa.gov/charities/search'}],'WV':[{n:'SOS Charity Search',u:'https://www.sos.wv.gov/charities/Pages/search.aspx'},{n:'SOS Business Search',u:'https://apps.wv.gov/SOS/BusinessEntitySearch/'}],'WI':[{n:'DFI Charity Search',u:'https://www.wdfi.org/apps/CharitySearch/'},{n:'DFI Business Search',u:'https://www.wdfi.org/apps/CorpSearch/'}],'WY':[{n:'SOS Business Search',u:'https://wyobiz.wyo.gov/Business/FilingSearch.aspx'}]}
+             stateResources: {'AL':[{n:'AG Charity Search',u:'https://www.attorneygeneral.alabama.gov/consumer-protection/charities-search/'},{n:'SOS Business Search',u:'https://www.sos.alabama.gov/business-entities/name-reservation-requests'}],'AK':[{n:'Commerce Business Search',u:'https://www.commerce.alaska.gov/cbp/main/search/entities'}],'AZ':[{n:'Corp Commission Business Search',u:'https://ecorp.azcc.gov/EntitySearch/Index'}],'AR':[{n:'SOS Charity Search',u:'https://www.sos.arkansas.gov/charities/charities-search/'},{n:'SOS Business Search',u:'https://www.sos.arkansas.gov/corps/search_all.php'}],'CA':[{n:'DOJ Charity Search',u:'https://rct.doj.ca.gov/verification-search/'},{n:'SOS Business Search',u:'https://bizfileonline.sos.ca.gov/search/business'}],'CO':[{n:'SOS Charity Search',u:'https://www.sos.state.co.us/ccsa/pages/search/basic.xhtml'},{n:'SOS Business Search',u:'https://www.sos.state.co.us/biz/BusinessEntityCriteria.do'}],'CT':[{n:'eLicense Lookup',u:'https://www.elicense.ct.gov/lookup/licenselookup.aspx'},{n:'SOS Business Search',u:'https://service.ct.gov/business/s/onlinebusinesssearch'}],'DE':[{n:'Division of Corps Search',u:'https://icis.corp.delaware.gov/ecorp/entitysearch/namesearch.aspx'}],'FL':[{n:'Gift Givers Search',u:'https://csapp.fdacs.gov/cspublicapp/giftgiversquery/giftgiversquery.aspx'},{n:'SunBiz Business Search',u:'http://search.sunbiz.org/Inquiry/CorporationSearch/ByName'}],'GA':[{n:'SOS Charity Search',u:'https://sos.ga.gov/charities-search'},{n:'SOS Business Search',u:'https://ecorp.sos.ga.gov/BusinessSearch'}],'HI':[{n:'Charity Search',u:'https://charity.ehawaii.gov/charity/search.html'},{n:'Business Search',u:'https://hbe.ehawaii.gov/documents/search.html'}],'ID':[{n:'SOS Business Search',u:'https://sosbiz.idaho.gov/search/business'}],'IL':[{n:'AG Charity Search',u:'https://www.illinoisattorneygeneral.gov/charities/search/index.jsp'},{n:'SOS Business Search',u:'https://apps.ilsos.gov/corporatellc/'}],'IN':[{n:'INBiz Business Search',u:'https://inbiz.in.gov/BOS/Home/Index'}],'IA':[{n:'SOS Business Search',u:'https://sos.iowa.gov/search/business/search.aspx'}],'KS':[{n:'SOS Charity Search',u:'https://www.sos.ks.gov/charities/charity-search.html'}],'KY':[{n:'AG Consumer Resources',u:'https://ag.ky.gov/Resources/Consumer-Resources/charity/Pages/default.aspx'}],'LA':[{n:'SOS Business Search',u:'https://coraweb.sos.la.gov/commercialsearch/commercialsearch.aspx'}],'ME':[{n:'Charitable Solicitations Search',u:'https://www.maine.gov/pfr/professionallicensing/professions/charitable/search.htm'}],'MD':[{n:'SOS Charity Search',u:'https://egov.maryland.gov/sos/charitysearch'},{n:'Business Express Search',u:'https://egov.maryland.gov/businessexpress/entitysearch'}],'MA':[{n:'DOJ Charities Search',u:'https://charities.doj.state.ma.us/'},{n:'SOS Business Search',u:'https://corp.sec.state.ma.us/corpweb/corpsearch/corpsearch.aspx'}],'MI':[{n:'AG Charity Search',u:'https://cfs.lara.state.mi.us/CharitySearch'},{n:'LARA Business Search',u:'https://cofs.lara.state.mi.us/SearchApi/Search/Search'}],'MN':[{n:'AG Charity Search',u:'https://www.ag.state.mn.us/charity/ours/charitysearch.aspx'},{n:'SOS Business Search',u:'https://mblsportal.sos.state.mn.us/Business/Search'}],'MS':[{n:'SOS Charity Search',u:'https://charities.sos.ms.gov/online/portal/ch/page/charities-search/Portal.aspx'},{n:'SOS Business Search',u:'https://corp.sos.ms.gov/corp/portal/c/page/corpBusinessIdSearch/portal.aspx'}],'MO':[{n:'AG Check-a-Charity',u:'https://www.ago.mo.gov/civil-division/consumer/check-a-charity'}],'MT':[{n:'SOS Business Search',u:'https://biz.sosmt.gov/search/business'}],'NE':[],'NV':[{n:'SOS Business Search',u:'https://www.nvsos.gov/sos/businesses/search'}],'NH':[{n:'DOJ Registered Charities List',u:'https://www.doj.nh.gov/charitable-trusts/registered-charities.htm'},{n:'SOS Business Search',u:'https://quickstart.sos.nh.gov/online/BusinessInquire'}],'NJ':[{n:'Charities Search',u:'https://www.njconsumeraffairs.gov/charities/pages/charitiessearch.aspx'}],'NM':[{n:'AG Charity Search',u:'https://www.nmag.gov/charities/charity-registration-search/'}],'NY':[{n:'Charities Registry Search',u:'https://www.charitiesnys.com/RegistrySearch/search_charities.jsp'},{n:'DOS Business Search',u:'https://apps.dos.ny.gov/publicInquiry/'}],'NC':[{n:'SOS Charity Search',u:'https://www.sosnc.gov/online_services/charities/search_options_charities'}],'ND':[{n:'SOS Charity Search',u:'https://firststop.sos.nd.gov/search/charity'},{n:'SOS Business Search',u:'https://firststop.sos.nd.gov/search/business'}],'OH':[{n:'AG Charity Search',u:'https://charitableregistration.ohioattorneygeneral.gov/Charities/Research-Charities.aspx'}],'OK':[{n:'SOS Business Search',u:'https://www.sos.ok.gov/corp/corpInquiryFind.aspx'}],'OR':[{n:'DOJ Charity Search',u:'https://www.doj.state.or.us/charitable-activities/charities-in-oregon/search-for-a-charity/'}],'PA':[{n:'DOS Charity Search',u:'https://www.dos.pa.gov/BusinessCharities/Charities/CharitySearch/Pages/default.aspx'}],'RI':[{n:'DBR Charitable Orgs',u:'https://dbr.ri.gov/charitable-organizations'}],'SC':[{n:'SOS Charities Search',u:'https://www.sos.sc.gov/charities-search'}],'SD':[{n:'SOS Business Services',u:'https://sdsos.gov/business-services/default.aspx'}],'TN':[{n:'SOS Charity Search',u:'https://sos.tn.gov/charitable/search'}],'TX':[{n:'SOS Business Search',u:'https://mycpa.cpa.state.tx.us/coa/'}],'UT':[{n:'DCP Charities Search',u:'https://dcp.utah.gov/charities/'}],'VT':[{n:'SOS Business Search',u:'https://bizfilings.vermont.gov/online/BusinessInquire/'}],'VA':[{n:'VDACS Charity Search',u:'https://cos.vdacs.virginia.gov/cgi-bin/char_search.cgi'},{n:'SCC Business Search',u:'https://cis.scc.virginia.gov/'}],'WA':[{n:'SOS Charity Search',u:'https://www.sos.wa.gov/charities/search'}],'WV':[{n:'SOS Charity Search',u:'https://www.sos.wv.gov/charities/Pages/search.aspx'},{n:'SOS Business Search',u:'https://apps.wv.gov/SOS/BusinessEntitySearch/'}],'WI':[{n:'DFI Charity Search',u:'https://www.wdfi.org/apps/CharitySearch/'},{n:'DFI Business Search',u:'https://www.wdfi.org/apps/CorpSearch/'}],'WY':[{n:'SOS Business Search',u:'https://wyobiz.wyo.gov/Business/FilingSearch.aspx'}]}
         },
 
         init() {
@@ -199,6 +205,7 @@
             this.elements.resultsTitle = document.getElementById('results-title');
             this.elements.accordionContainer = document.getElementById('accordion-container');
             this.elements.toastContainer = document.getElementById('toast-container');
+            this.elements.skeletonContainer = document.getElementById('skeleton-container');
             
             this.setupEventListeners();
             this.initTheme();
@@ -277,9 +284,9 @@
                                 <span class="text-xl font-semibold">${title}</span>
                             </span>
                             <span class="flex items-center space-x-3">
-                                <span class="copy-all-btn text-gray-400 hover:text-indigo-500" data-links="${allLinks}" title="Copy all links in this section" aria-label="Copy all links in the ${title} section">
+                                <button class="copy-all-btn text-gray-400 hover:text-indigo-500" data-links="${allLinks}" title="Copy all links in this section" aria-label="Copy all links in the ${title} section">
                                     <i data-lucide="copy-plus" class="w-5 h-5"></i>
-                                </span>
+                                </button>
                                 <i data-lucide="chevron-down" class="chevron-icon ${isOpen ? 'rotate-180' : ''}"></i>
                             </span>
                         </button>
@@ -297,19 +304,28 @@
             this.elements.generateButton.innerHTML = `<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i><span>Generating...</span>`;
             lucide.createIcons();
 
+            // Hide placeholder and show skeleton loader
+            this.elements.placeholder.classList.add('hidden');
+            this.elements.skeletonContainer.classList.remove('hidden');
+
             setTimeout(() => {
                 const inputs = this.gatherInputs();
                 if (!inputs.orgName) {
                     this.elements.errorMessage.textContent = 'Organization name is required.';
                     this.elements.errorMessage.classList.remove('hidden');
                     this.resetGenerateButton();
+                    // Hide skeleton and show placeholder again on error
+                    this.elements.skeletonContainer.classList.add('hidden');
+                    this.elements.placeholder.classList.remove('hidden');
                     return;
                 }
                 this.elements.errorMessage.classList.add('hidden');
                 
                 const sections = this.buildLinkSections(inputs);
                 this.renderResults(inputs.orgName, sections);
-            }, 500);
+                 // Hide skeleton loader
+                this.elements.skeletonContainer.classList.add('hidden');
+            }, 1000); // Simulating network delay
         },
 
         gatherInputs() {
@@ -418,6 +434,7 @@
                 this.elements.accordionContainer.innerHTML = '';
                 this.elements.resultsTitle.textContent = '';
                 this.elements.placeholder.classList.remove('hidden-fade');
+                this.elements.placeholder.classList.remove('hidden');
             }, 500);
         },
         
@@ -447,7 +464,15 @@
         
         handleAccordionClick(e) {
             const button = e.target.closest('button.accordion-header, .copy-link-btn, .copy-all-btn');
-            if (!button) return;
+            if (!button) {
+                // Track link clicks
+                const link = e.target.closest('a');
+                if(link) {
+                    link.classList.add('visited-link');
+                }
+                return;
+            }
+
 
             if (button.classList.contains('accordion-header')) {
                 const targetId = button.dataset.target;
