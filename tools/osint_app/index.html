@@ -43,7 +43,7 @@
         .btn-secondary { @apply bg-gray-500 hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 focus:ring-offset-gray-900; }
         .result-link-card { @apply flex items-center justify-between p-4 border rounded-lg transition-all duration-200; border-color: var(--border-color); background-color: rgba(var(--card-bg), 0.5); }
         .result-link-card:hover { border-color: #4f46e5; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .visited-link { color: #8b5cf6 !important; } /* Visited link color */
+        .visited-link { color: #a855f7 !important; } /* A more distinct purple for visited links */
         .hidden-fade { opacity: 0; transform: translateY(10px); transition: opacity 0.5s ease, transform 0.5s ease; visibility: hidden; }
         .visible-fade { opacity: 1; transform: translateY(0); visibility: visible; }
         select.form-input { -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-chevron-down'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.75rem center; background-size: 1.25em; }
@@ -167,11 +167,13 @@
                         <h3 class="mt-4 text-lg font-semibold text-gray-600 dark:text-gray-400">Your investigation results will appear here.</h3>
                         <p class="mt-1 text-sm text-gray-500">Fill out the form to get started.</p>
                     </div>
-                    <div id="skeleton-container" class="space-y-4 hidden">
-                        <div class="skeleton-loader h-12 w-full"></div>
-                        <div class="skeleton-loader h-24 w-full"></div>
-                        <div class="skeleton-loader h-24 w-full"></div>
-                        <div class="skeleton-loader h-24 w-full"></div>
+                    <div id="skeleton-container" class="text-center py-20 hidden">
+                        <p class="text-lg font-semibold text-gray-600 dark:text-gray-400 mb-4">Generating investigation links...</p>
+                        <div class="space-y-4">
+                            <div class="skeleton-loader h-12 w-full"></div>
+                            <div class="skeleton-loader h-24 w-full"></div>
+                            <div class="skeleton-loader h-24 w-full"></div>
+                        </div>
                     </div>
                 </section>
             </main>
@@ -312,10 +314,11 @@
             this.elements.stateSelect.appendChild(fragment);
         },
         
-        createLinkHTML(text, href) {
+        createLinkHTML(text, href, tooltip = '') {
+            const titleAttr = tooltip ? `title="${tooltip}"` : '';
             return `
                 <div class="result-link-card">
-                    <a href="${href}" target="_blank" rel="noopener noreferrer" class="flex-grow font-medium text-gray-700 dark:text-gray-200 truncate pr-4">${text}</a>
+                    <a href="${href}" target="_blank" rel="noopener noreferrer" class="flex-grow font-medium text-gray-700 dark:text-gray-200 truncate pr-4" ${titleAttr}>${text}</a>
                     <div class="flex items-center space-x-2">
                         <a href="${href}" target="_blank" rel="noopener noreferrer" class="text-indigo-500 hover:text-indigo-600" aria-label="Open link for ${text} in new tab">
                            <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
@@ -329,7 +332,7 @@
         
         createAccordionSectionHTML(id, title, icon, links, isOpen = false) {
             if (!links || links.length === 0) return '';
-            const linksHtml = links.map(link => this.createLinkHTML(link.name, link.url)).join('');
+            const linksHtml = links.map(link => this.createLinkHTML(link.name, link.url, link.tooltip)).join('');
             const allLinks = links.map(l => l.url).join('\n');
             
             return `
@@ -341,8 +344,9 @@
                                 <span class="text-xl font-semibold">${title}</span>
                             </span>
                             <span class="flex items-center space-x-3">
-                                <button class="copy-all-btn text-gray-400 hover:text-indigo-500" data-links="${allLinks}" title="Copy all links in this section" aria-label="Copy all links in the ${title} section">
+                                <button class="copy-all-btn text-gray-400 hover:text-indigo-500 flex items-center space-x-1.5" data-links="${allLinks}" title="Copy all links in this section" aria-label="Copy all links in the ${title} section">
                                     <i data-lucide="copy-plus" class="w-5 h-5"></i>
+                                    <span class="text-sm font-medium">Copy All</span>
                                 </button>
                                 <i data-lucide="chevron-down" class="chevron-icon ${isOpen ? 'rotate-180' : ''}"></i>
                             </span>
@@ -466,7 +470,7 @@
                     { name: 'YouTube', url: `https://www.youtube.com/results?search_query=${encodedOrgName}` },
                 ];
             if (domainName) {
-                onlineLinks.push({ name: 'Internet Archive', url: `https://web.archive.org/web/*/${domainName}` });
+                onlineLinks.push({ name: 'Internet Archive', url: `https://web.archive.org/web/*/${domainName}`, tooltip: 'Check historical versions of the website' });
                 onlineLinks.push({ name: 'DomainTools Whois', url: `https://whois.domaintools.com/${domainName}` });
             }
             if (socialHandle) {
@@ -500,12 +504,12 @@
 
             const advancedLinks = [];
             if (domainName) {
-                advancedLinks.push({ name: 'DNS Dumpster', url: `https://dnsdumpster.com/` });
-                advancedLinks.push({ name: 'crt.sh | Certificate Search', url: `https://crt.sh/?q=${domainName}` });
-                advancedLinks.push({ name: 'BuiltWith Technology Profile', url: `https://builtwith.com/${domainName}` });
-                advancedLinks.push({ name: 'SpyOnWeb Analytics Search', url: `https://spyonweb.com/${domainName}` });
-                advancedLinks.push({ name: 'Google Filetype Search (PDF)', url: `https://www.google.com/search?q=site%3A${domainName}+filetype%3Apdf` });
-                advancedLinks.push({ name: 'Have I Been Pwned', url: `https://haveibeenpwned.com/` });
+                advancedLinks.push({ name: 'DNS Dumpster', url: `https://dnsdumpster.com/`, tooltip: 'Find DNS records for a domain' });
+                advancedLinks.push({ name: 'crt.sh | Certificate Search', url: `https://crt.sh/?q=${domainName}`, tooltip: 'Find SSL certificates issued for a domain' });
+                advancedLinks.push({ name: 'BuiltWith Technology Profile', url: `https://builtwith.com/${domainName}`, tooltip: 'See the technology stack used by the website' });
+                advancedLinks.push({ name: 'SpyOnWeb Analytics Search', url: `https://spyonweb.com/${domainName}`, tooltip: 'Find other websites using the same analytics codes' });
+                advancedLinks.push({ name: 'Google Filetype Search (PDF)', url: `https://www.google.com/search?q=site%3A${domainName}+filetype%3Apdf`, tooltip: 'Search for PDF files hosted on the domain' });
+                advancedLinks.push({ name: 'Have I Been Pwned', url: `https://haveibeenpwned.com/`, tooltip: 'Check if email addresses from the domain have been in data breaches' });
             }
             if(advancedLinks.length > 0) {
                 sections.push({id: 'advanced', title: 'Advanced & Technical', icon: 'shield-check', links: advancedLinks, isOpen: false});
@@ -560,11 +564,14 @@
             
             const originalIconHTML = button.innerHTML;
             button.innerHTML = `<i data-lucide="check" class="w-5 h-5 text-green-500"></i>`;
+            if (isCopyAll) {
+                button.innerHTML += `<span class="text-sm font-medium text-green-500">Copied!</span>`;
+            }
             lucide.createIcons();
             setTimeout(() => {
                 button.innerHTML = originalIconHTML;
                 lucide.createIcons();
-            }, 1500);
+            }, 2000);
         },
         
         handleAccordionClick(e) {
