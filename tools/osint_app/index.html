@@ -55,6 +55,8 @@
         .toast.success { @apply bg-green-500; }
         .skeleton-loader { @apply bg-gray-200 dark:bg-gray-700 rounded-md animate-pulse; }
     </style>
+    <link rel="manifest" href="/tools/osint_app/manifest.json">
+    <meta name="theme-color" content="#3367d6">
 </head>
 <body class="min-h-screen">
 
@@ -599,6 +601,11 @@
     };
 
     document.addEventListener('DOMContentLoaded', () => App.init());
+    </script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/tools/osint_app/service-worker.js');
+        }
     </script>
 </body>
 </html>
