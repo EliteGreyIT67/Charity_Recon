@@ -1,0 +1,16 @@
+{
+  "name": "Charity Recon: OSINT Tool",
+  "short_name": "Charity Recon",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3367d6",
+  "description": "OSINT Tool for Animal Rescues",
+  "icons": [
+    {
+      "src": "/tools/osint_app/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
