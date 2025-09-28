@@ -10,8 +10,251 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="manifest" href="manifest.json"><meta name="theme-color" content="#0ea5e9">
     
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Define CSS variables for colors, fonts, and spacing */
+        :root {
+            --font-sans: 'Inter', sans-serif;
+            --spacing-4: 1rem;
+            --spacing-8: 2rem;
+            --scrollbar-track-bg: #e2e8f0; /* slate-200 */
+            --scrollbar-thumb-bg: #94a3b8; /* slate-400 */
+            --scrollbar-thumb-hover-bg: #64748b; /* slate-500 */
+            --checkbox-bg: #fff;
+            --checkbox-border: #cbd5e1; /* slate-300 */
+            --checkbox-checked-border: #0ea5e9; /* sky-500 */
+            --checkbox-checkmark-color: #0ea5e9; /* sky-500 */
+            --modal-overlay-bg: rgba(15, 23, 42, 0.6); /* slate-900 with opacity */
+        }
 
+        /* Dark mode overrides */
+        .dark {
+            --scrollbar-track-bg: #334155; /* slate-700 */
+            --scrollbar-thumb-bg: #64748b; /* slate-500 */
+            --scrollbar-thumb-hover-bg: #94a3b8; /* slate-400 */
+            --checkbox-bg: #334155; /* slate-700 */
+            --checkbox-border: #475569; /* slate-600 */
+            --checkbox-checked-border: #38bdf8; /* sky-400 */
+            --checkbox-checkmark-color: #38bdf8; /* sky-400 */
+        }
+
+        /* --- Base & Font Styles --- */
+        body {
+            font-family: var(--font-sans);
+        }
+
+        /* --- Custom Scrollbar for Checklist Items --- */
+        #checklist-items-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        #checklist-items-container::-webkit-scrollbar-track {
+            background: var(--scrollbar-track-bg);
+            border-radius: 4px;
+        }
+        #checklist-items-container::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb-bg);
+            border-radius: 4px;
+        }
+        #checklist-items-container::-webkit-scrollbar-thumb:hover {
+            background: var(--scrollbar-thumb-hover-bg);
+        }
+
+        /* --- Custom Checkbox Appearance --- */
+        .custom-checkbox {
+            appearance: none;
+            background-color: var(--checkbox-bg);
+            margin: 0;
+            font: inherit;
+            color: currentColor;
+            width: 1.25em;
+            height: 1.25em;
+            border: 0.15em solid var(--checkbox-border);
+            border-radius: 0.25em;
+            transform: translateY(-0.075em);
+            display: grid;
+            place-content: center;
+            cursor: pointer;
+            transition: 120ms all ease-in-out;
+        }
+        .custom-checkbox::before {
+            content: "";
+            width: 0.65em;
+            height: 0.65em;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            box-shadow: inset 1em 1em var(--checkbox-checkmark-color);
+            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        }
+        .custom-checkbox:checked {
+            border-color: var(--checkbox-checked-border);
+        }
+        .custom-checkbox:checked::before {
+            transform: scale(1);
+        }
+        .custom-checkbox:focus-visible {
+            outline: max(2px, 0.15em) solid var(--checkbox-checked-border);
+            outline-offset: max(2px, 0.15em);
+        }
+
+        /* --- Modal Styles --- */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 100; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: var(--modal-overlay-bg);
+            padding-top: 60px;
+            backdrop-filter: blur(4px); /* Blur background */
+            animation: fadeIn 0.3s ease-out;
+        }
+        .modal-content {
+            margin: 5% auto;
+            padding: var(--spacing-8);
+            width: 90%;
+            max-width: 550px;
+            border-radius: 0.75rem; /* 12px */
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* --- Collapsible Category Styles --- */
+        .category-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .category-block.expanded .category-content {
+            max-height: 2000px; /* Large enough to not clip content */
+        }
+        .category-toggle-icon {
+            transition: transform 0.3s ease-in-out;
+        }
+        .category-block.expanded .category-toggle-icon {
+            transform: rotate(90deg);
+        }
+
+        /* --- Spinner Animation --- */
+        .spinner {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* --- Print Styles --- */
+        @media print {
+            .dark {
+                --tw-bg-opacity: 1 !important;
+                background-color: rgb(255 255 255 / var(--tw-bg-opacity)) !important;
+                color: #000 !important;
+            }
+             .dark body, .dark #app-container, .dark #checklist-view, .dark .category-block, .dark textarea {
+                 background-color: #fff !important;
+                 color: #000 !important;
+                 border-color: #ccc !important;
+            }
+             .dark #checklist-title, .dark .category-title, .dark .item-text, .dark a {
+                 color: #000 !important;
+            }
+            body {
+                font-family: serif;
+                color: #000;
+                background-color: #fff;
+            }
+            #app-container, #user-info {
+                max-width: 100%;
+                margin: 0;
+                padding: 10px;
+                box-shadow: none;
+                border: none;
+            }
+            header, .action-buttons-container, .list-view-actions, #status-message, .modal, #search-container, .contextual-tool-button, #dark-mode-toggle, .edit-button, .delete-button, .add-item-button, .add-category-button, .attachment-actions, .file-input-wrapper, .category-toggle-icon, .category-actions, #external-tools-section {
+                display: none !important;
+            }
+            #checklist-view {
+                display: block !important;
+                box-shadow: none !important;
+                border: none !important;
+                padding: 0 !important;
+            }
+            .category-content {
+                max-height: none !important; /* Ensure content is visible for printing */
+                overflow: visible !important;
+            }
+            #checklist-title-container {
+                border-bottom: 2px solid #000;
+                padding-bottom: 10px;
+                margin-bottom: 20px;
+            }
+            #checklist-title {
+                font-size: 22pt !important;
+            }
+            #org-name-input-print-header {
+                display: block;
+                font-size: 16pt;
+                font-weight: bold;
+                margin-top: 5px;
+            }
+            #org-name-input, #back-to-list-btn {
+                display: none !important;
+            }
+            .category-block {
+                border: 1px solid #ccc !important;
+                padding: 10px !important;
+                margin-bottom: 15px !important;
+                page-break-inside: avoid;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+            }
+            .category-title {
+                font-size: 14pt !important;
+                border-bottom: 1px solid #666;
+                padding-bottom: 5px;
+                margin-bottom: 10px;
+            }
+            .checklist-item {
+                border-bottom: 1px dotted #ccc !important;
+                padding: 8px 0 !important;
+                page-break-inside: avoid;
+            }
+            input[type="checkbox"] {
+                display: inline-block !important;
+                vertical-align: top;
+                margin-top: 4px;
+            }
+            .custom-checkbox {
+                display: none !important;
+            }
+            .item-text {
+                font-size: 11pt !important;
+            }
+            textarea {
+                display: block !important;
+                border: 1px solid #ddd !important;
+                font-size: 10pt !important;
+                resize: none !important;
+                min-height: 30px;
+                -webkit-print-color-adjust: exact;
+            }
+            a {
+                text-decoration: none !important;
+                color: #000 !important;
+            }
+            a:not(.no-print-url)::after {
+                content: " (" attr(href) ")";
+                font-size: 9pt;
+            }
+            .link-placeholder::after {
+                content: "";
+            }
+        }
+    </style>
     <script>
         // This script runs before the body renders to prevent Flash of Unstyled Content (FOUC)
         const savedTheme = localStorage.getItem('theme');
@@ -116,10 +359,6 @@
                 </button>
 
                 <div class="flex flex-col sm:flex-row sm:justify-end gap-3 flex-wrap">
-                     <button id="generate-summary-btn" class="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-5 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
-                        <span>✨</span>
-                        <span>Generate Summary</span>
-                    </button>
                      <button id="share-checklist-btn" class="w-full sm:w-auto bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 px-5 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12s-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367-2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" /></svg>
                         <span>Share</span>
@@ -189,27 +428,6 @@
             <div class="flex justify-center space-x-4 mt-6">
                 <button data-dismiss="modal" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
                 <button id="edit-modal-save-btn" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">Save</button>
-            </div>
-        </div>
-    </div>
-    
-    <div id="summary-modal" class="modal">
-        <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200">✨ AI-Generated Summary</h3>
-                <button data-dismiss="modal" class="p-1 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-600 dark:text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
-                </button>
-            </div>
-            <div id="summary-content-container" class="max-h-[60vh] overflow-y-auto p-4 bg-slate-50 dark:bg-slate-900/50 rounded-md">
-                <div id="summary-loader" class="text-center py-8">
-                    <svg class="h-8 w-8 spinner mx-auto text-purple-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h5M4 12a8 8 0 018-8v0a8 8 0 018 8v0a8 8 0 01-8 8v0a8 8 0 01-8-8v0z" /></svg>
-                    <p class="mt-2 text-slate-500 dark:text-slate-400">Analyzing your checklist...</p>
-                </div>
-                <div id="summary-content" class="prose dark:prose-invert max-w-none"></div>
-            </div>
-            <div class="flex justify-end space-x-4 mt-6">
-                <button id="summary-copy-btn" class="bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-2 px-4 rounded-lg transition-colors">Copy Text</button>
             </div>
         </div>
     </div>
@@ -306,7 +524,7 @@
         </div>
     </div>
     
-    <script type="module" defer>
+    <script type="module">
         // Import Firebase modules
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
@@ -370,7 +588,6 @@
 
             try {
                 if (!firebaseConfig || !firebaseConfig.apiKey || firebaseConfig.apiKey.includes("YOUR_")) {
-                    // Show a less disruptive warning if config is missing, allowing UI to render.
                     console.warn("Firebase configuration is missing or incomplete. Functionality will be limited.");
                     ui.authStatus.textContent = "Offline Mode: Firebase not configured.";
                     ui.userInfo.classList.remove('hidden');
@@ -446,7 +663,6 @@
                 'share-modal-copy-btn', 'import-modal', 'import-id-input', 'import-status-message', 
                 'import-modal-confirm-btn', 'edit-modal', 'edit-modal-title', 'edit-modal-label', 'edit-modal-input', 
                 'edit-modal-error', 'edit-modal-save-btn', 'save-button-text', 'save-spinner',
-                'generate-summary-btn', 'summary-modal', 'summary-content', 'summary-loader', 'summary-copy-btn',
                 'external-tools-grid',
                 'ein-lookup-modal', 'propublica-lookup-modal', 'bbb-scam-modal', 'nasco-reg-modal', 'aphis-lookup-modal', 'charitynav-lookup-modal'
             ];
@@ -456,7 +672,7 @@
         function attachEventListeners() {
             ui.newChecklistBtn.addEventListener('click', () => { if(isAuthReady) renderChecklistForm(); });
             ui.backToListBtn.addEventListener('click', () => { helpers.showView('list'); filterAndRenderListView(); });
-            ui.saveChecklistBtn.addEventListener('click', () => handleSaveChecklist(true)); // Force immediate save
+            ui.saveChecklistBtn.addEventListener('click', () => handleSaveChecklist(true));
             ui.deleteChecklistBtn.addEventListener('click', handleDeleteChecklist);
             ui.printChecklistBtn.addEventListener('click', () => {
                 ui.orgNameInputPrintHeader.textContent = ui.orgNameInput.value.trim() || "Untitled Checklist";
@@ -471,7 +687,6 @@
                     helpers.openModal(ui.importModal);
                 }
             });
-            ui.generateSummaryBtn.addEventListener('click', handleGenerateSummary);
             ui.externalToolsGrid.addEventListener('click', (event) => {
                 const toolCard = event.target.closest('.tool-card');
                 if(toolCard) {
@@ -495,10 +710,6 @@
             ui.modalConfirmBtn.addEventListener('click', () => confirmAction?.());
             ui.shareModalCopyBtn.addEventListener('click', () => helpers.copyToClipboard(ui.shareIdDisplay.textContent, ui.shareModalCopyBtn, 'ID Copied!', 'Copy ID'));
             ui.importModalConfirmBtn.addEventListener('click', handleImportConfirm);
-            ui.summaryCopyBtn.addEventListener('click', () => {
-                const textToCopy = ui.summaryContent.innerText;
-                helpers.copyToClipboard(textToCopy, ui.summaryCopyBtn, 'Copied!', 'Copy Text');
-            });
             
             document.querySelectorAll('.modal').forEach(modal => {
                 modal.addEventListener('click', (event) => { if (event.target === modal) helpers.closeModal(modal); });
@@ -580,7 +791,6 @@
             },
             copyToClipboard: (text, button, successText = 'Copied!', originalText = 'Copy') => {
                 if (!navigator.clipboard) {
-                    // Fallback for older browsers
                     const textArea = document.createElement("textarea");
                     textArea.value = text;
                     document.body.appendChild(textArea);
@@ -602,17 +812,7 @@
                 }
                 if (button) setTimeout(() => { button.textContent = originalText; }, 2000);
             },
-            generateUniqueId: () => `id_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-            simpleMarkdownToHtml: (markdown) => {
-                return markdown
-                    .replace(/^#### (.*$)/gim, '<h4>$1</h4>')
-                    .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
-                    .replace(/\*(.*)\*/gim, '<li>$1</li>')
-                    .replace(/^(?!<h|<li|<ul|<p>)(.*$)/gim, '<p>$1</p>') // Wrap non-tagged lines in <p>
-                    .replace(/<\/li>\n<p><li>/gim, '</li><li>') // Fix paragraph between list items
-                    .replace(/<p><li>/g, '<ul><li>')
-                    .replace(/<\/li>(\n<p>)?(?!<li>)/g, '</li></ul>');
-            }
+            generateUniqueId: () => `id_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
         };
 
         // --- Data & Firestore Logic ---
@@ -660,7 +860,6 @@
                         const collectionRef = collection(db, `artifacts/${appId}/users/${userId}/checklists`);
                         docRef = await addDoc(collectionRef, currentChecklistData);
                         currentChecklistData.id = docRef.id;
-                        // Update UI to reflect new ID (for delete/share buttons)
                         ui.deleteChecklistBtn.classList.remove('hidden');
                         ui.shareChecklistBtn.classList.remove('hidden');
                     }
@@ -676,7 +875,7 @@
             if (force) {
                 await saveAction();
             } else {
-                saveTimeout = setTimeout(saveAction, 1500); // Increased debounce time
+                saveTimeout = setTimeout(saveAction, 1500);
             }
         }
 
@@ -684,13 +883,11 @@
             if (!currentChecklistData?.id) return;
             helpers.openConfirmationModal(
                 "Delete Checklist?",
-                `Are you sure you want to permanently delete the "${currentChecklistData.orgName}" checklist? This action cannot be undone.`,
+                `Are you sure you want to permanently delete the "${currentChecklistData.orgName}" checklist?`,
                 async () => {
                     try {
                         const docRef = doc(db, `artifacts/${appId}/users/${userId}/checklists`, currentChecklistData.id);
                         await deleteDoc(docRef);
-                        // Also delete associated attachments from storage
-                        // Note: This is a simplified deletion. For large numbers of files, a Cloud Function is better.
                         helpers.showView('list');
                     } catch (error) {
                         console.error("Error deleting checklist:", error);
@@ -704,14 +901,8 @@
             if (!currentChecklistData?.id) return;
             helpers.showStatus(ui.statusMessage, "Generating shareable link...", 'info', null);
             try {
-                // Create/update a public, read-only version of the checklist
                 const publicDocRef = doc(db, `artifacts/${appId}/public/shared_checklists`, currentChecklistData.id);
-                await setDoc(publicDocRef, {
-                    ...currentChecklistData,
-                    originalOwner: userId,
-                    isShared: true
-                });
-                
+                await setDoc(publicDocRef, { ...currentChecklistData, originalOwner: userId, isShared: true });
                 ui.shareIdDisplay.textContent = currentChecklistData.id;
                 helpers.openModal(ui.shareModal);
                 helpers.showStatus(ui.statusMessage, "Share link ready!", 'success');
@@ -734,11 +925,10 @@
                 const docSnap = await getDoc(publicDocRef);
 
                 if (!docSnap.exists()) {
-                    throw new Error("Shared checklist not found. Please check the ID.");
+                    throw new Error("Shared checklist not found.");
                 }
 
                 let importedData = docSnap.data();
-                // Clean up data for new user
                 delete importedData.originalOwner;
                 delete importedData.isShared;
                 importedData.orgName = `(Imported) ${importedData.orgName}`;
@@ -758,80 +948,13 @@
             }
         }
 
-        // --- Gemini API Feature ---
-        async function handleGenerateSummary() {
-            if (!currentChecklistData) return;
-
-            ui.summaryLoader.style.display = 'block';
-            ui.summaryContent.innerHTML = '';
-            helpers.openModal(ui.summaryModal);
-
-            let checklistText = `Organization: ${currentChecklistData.orgName}\n\n`;
-            currentChecklistData.categories.forEach(category => {
-                checklistText += `Category: ${category.name}\n`;
-                category.items.forEach(item => {
-                    checklistText += `- Item: "${item.text}", Status: ${item.checked ? 'Completed' : 'Incomplete'}`;
-                    if(item.notes) {
-                        checklistText += `, Notes: "${item.notes}"`;
-                    }
-                    checklistText += '\n';
-                });
-                checklistText += '\n';
-            });
-            
-            const prompt = `As a compliance expert for non-profit animal rescue organizations, analyze the following checklist data for "${currentChecklistData.orgName}". Provide a brief, high-level summary of their compliance status. Then, create a clear list of "Action Items" for any incomplete items or items with notes that suggest a potential issue. Format your response in simple Markdown.
-
-            Checklist Data:
-            ${checklistText}`;
-
-            try {
-                let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
-                const payload = { contents: chatHistory };
-                // IMPORTANT: Replace with your actual Gemini API Key
-                const apiKey = "YOUR_GEMINI_API_KEY";
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
-                
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) {
-                    const errorBody = await response.json();
-                    throw new Error(`API Error: ${response.status} ${response.statusText} - ${errorBody.error.message}`);
-                }
-
-                const result = await response.json();
-                
-                let text = 'No summary could be generated. Please try again.';
-                if (result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts &&
-                    result.candidates[0].content.parts.length > 0) {
-                    text = result.candidates[0].content.parts[0].text;
-                }
-                
-                ui.summaryContent.innerHTML = helpers.simpleMarkdownToHtml(text);
-
-            } catch (error) {
-                console.error("Error calling Gemini API:", error);
-                ui.summaryContent.innerHTML = `<p class="text-red-500">An error occurred while generating the summary: ${error.message}</p>`;
-            } finally {
-                ui.summaryLoader.style.display = 'none';
-            }
-        }
-
         // --- Rendering Logic ---
         function renderListView(checklists) {
             const container = ui.savedChecklistsContainer;
             container.innerHTML = '';
             ui.noChecklistsMessage.classList.toggle('hidden', checklists.length > 0);
 
-            const sortedChecklists = checklists.sort((a, b) => {
-                const timeA = a.lastUpdated?.toDate() || 0;
-                const timeB = b.lastUpdated?.toDate() || 0;
-                return timeB - timeA;
-            });
+            const sortedChecklists = checklists.sort((a, b) => (b.lastUpdated?.toDate() || 0) - (a.lastUpdated?.toDate() || 0));
 
             sortedChecklists.forEach(list => {
                 const card = document.createElement('div');
@@ -1272,7 +1395,6 @@
                         await handleSaveChecklist(true);
                     } catch (error) {
                         console.error("Error deleting attachment:", error);
-                        // If file not found in storage, still remove from DB
                         if (error.code === 'storage/object-not-found') {
                            item.attachments = item.attachments.filter(att => att.fileName !== fileName);
                            rerenderChecklist();
@@ -1288,7 +1410,6 @@
         function rerenderChecklist() {
             const container = ui.checklistItemsContainer;
             const expandedStates = {};
-            // Save expanded/collapsed state
             container.querySelectorAll('.category-block').forEach(el => {
                 expandedStates[el.dataset.categoryId] = el.classList.contains('expanded');
             });
@@ -1299,8 +1420,7 @@
                 categoryEl.innerHTML = renderCategory(category);
                 const categoryBlock = categoryEl.firstElementChild;
                 
-                // Restore expanded/collapsed state
-                if (expandedStates[category.id] === false) { // Check for explicit false
+                if (expandedStates[category.id] === false) {
                     categoryBlock.classList.remove('expanded');
                 } else {
                     categoryBlock.classList.add('expanded');
