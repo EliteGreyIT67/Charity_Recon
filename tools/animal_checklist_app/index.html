@@ -4,284 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Animal Rescue Compliance Checklist</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="manifest" href="manifest.json"><meta name="theme-color" content="#0ea5e9">
     
-    <!-- Custom Styles -->
-    <style>
-        /* Define CSS variables for colors, fonts, and spacing */
-        :root {
-            --font-sans: 'Inter', sans-serif;
-            --spacing-4: 1rem;
-            --spacing-8: 2rem;
-            --scrollbar-track-bg: #e2e8f0; /* slate-200 */
-            --scrollbar-thumb-bg: #94a3b8; /* slate-400 */
-            --scrollbar-thumb-hover-bg: #64748b; /* slate-500 */
-            --checkbox-bg: #fff;
-            --checkbox-border: #cbd5e1; /* slate-300 */
-            --checkbox-checked-border: #0ea5e9; /* sky-500 */
-            --checkbox-checkmark-color: #0ea5e9; /* sky-500 */
-            --modal-overlay-bg: rgba(15, 23, 42, 0.6); /* slate-900 with opacity */
-        }
+    <link rel="stylesheet" href="styles.css">
 
-        /* Dark mode overrides */
-        .dark {
-            --scrollbar-track-bg: #334155; /* slate-700 */
-            --scrollbar-thumb-bg: #64748b; /* slate-500 */
-            --scrollbar-thumb-hover-bg: #94a3b8; /* slate-400 */
-            --checkbox-bg: #334155; /* slate-700 */
-            --checkbox-border: #475569; /* slate-600 */
-            --checkbox-checked-border: #38bdf8; /* sky-400 */
-            --checkbox-checkmark-color: #38bdf8; /* sky-400 */
-        }
-
-        /* --- Base & Font Styles --- */
-        body {
-            font-family: var(--font-sans);
-        }
-
-        /* --- Custom Scrollbar for Checklist Items --- */
-        #checklist-items-container::-webkit-scrollbar {
-            width: 8px;
-        }
-        #checklist-items-container::-webkit-scrollbar-track {
-            background: var(--scrollbar-track-bg);
-            border-radius: 4px;
-        }
-        #checklist-items-container::-webkit-scrollbar-thumb {
-            background: var(--scrollbar-thumb-bg);
-            border-radius: 4px;
-        }
-        #checklist-items-container::-webkit-scrollbar-thumb:hover {
-            background: var(--scrollbar-thumb-hover-bg);
-        }
-
-        /* --- Custom Checkbox Appearance --- */
-        .custom-checkbox {
-            appearance: none;
-            background-color: var(--checkbox-bg);
-            margin: 0;
-            font: inherit;
-            color: currentColor;
-            width: 1.25em;
-            height: 1.25em;
-            border: 0.15em solid var(--checkbox-border);
-            border-radius: 0.25em;
-            transform: translateY(-0.075em);
-            display: grid;
-            place-content: center;
-            cursor: pointer;
-            transition: 120ms all ease-in-out;
-        }
-        .custom-checkbox::before {
-            content: "";
-            width: 0.65em;
-            height: 0.65em;
-            transform: scale(0);
-            transition: 120ms transform ease-in-out;
-            box-shadow: inset 1em 1em var(--checkbox-checkmark-color);
-            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
-        }
-        .custom-checkbox:checked {
-            border-color: var(--checkbox-checked-border);
-        }
-        .custom-checkbox:checked::before {
-            transform: scale(1);
-        }
-        .custom-checkbox:focus-visible {
-            outline: max(2px, 0.15em) solid var(--checkbox-checked-border);
-            outline-offset: max(2px, 0.15em);
-        }
-
-        /* --- Modal Styles --- */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 100; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: var(--modal-overlay-bg);
-            padding-top: 60px;
-            backdrop-filter: blur(4px); /* Blur background */
-            animation: fadeIn 0.3s ease-out;
-        }
-        .modal-content {
-            margin: 5% auto;
-            padding: var(--spacing-8);
-            width: 90%;
-            max-width: 550px; /* Increased width for summary */
-            border-radius: 0.75rem; /* 12px */
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* --- Collapsible Category Styles --- */
-        .category-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-in-out;
-        }
-        .category-block.expanded .category-content {
-            max-height: 2000px; /* Large enough to not clip content */
-        }
-        .category-toggle-icon {
-            transition: transform 0.3s ease-in-out;
-        }
-        .category-block.expanded .category-toggle-icon {
-            transform: rotate(90deg);
-        }
-
-        /* --- Spinner Animation --- */
-        .spinner {
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* --- Summary Modal Content Styles --- */
-        #summary-content h4 {
-            font-size: 1.125rem; /* text-lg */
-            font-weight: 600; /* font-semibold */
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-        }
-        #summary-content ul {
-            list-style-type: disc;
-            padding-left: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        #summary-content li {
-            margin-bottom: 0.25rem;
-        }
-        #summary-content strong {
-            font-weight: 600;
-        }
-        #summary-content p {
-            margin-bottom: 0.75rem;
-        }
-
-
-        /* --- Print Styles --- */
-        @media print {
-            .dark {
-                --tw-bg-opacity: 1 !important;
-                background-color: rgb(255 255 255 / var(--tw-bg-opacity)) !important;
-                color: #000 !important;
-            }
-             .dark body, .dark #app-container, .dark #checklist-view, .dark .category-block, .dark textarea {
-                 background-color: #fff !important;
-                 color: #000 !important;
-                 border-color: #ccc !important;
-            }
-             .dark #checklist-title, .dark .category-title, .dark .item-text, .dark a {
-                 color: #000 !important;
-            }
-            body {
-                font-family: serif;
-                color: #000;
-                background-color: #fff;
-            }
-            #app-container, #user-info {
-                max-width: 100%;
-                margin: 0;
-                padding: 10px;
-                box-shadow: none;
-                border: none;
-            }
-            header, .action-buttons-container, .list-view-actions, #status-message, .modal, #search-container, .contextual-tool-button, #dark-mode-toggle, .edit-button, .delete-button, .add-item-button, .add-category-button, .attachment-actions, .file-input-wrapper, .category-toggle-icon, .category-actions, #external-tools-section {
-                display: none !important;
-            }
-            #checklist-view {
-                display: block !important;
-                box-shadow: none !important;
-                border: none !important;
-                padding: 0 !important;
-            }
-            .category-content {
-                max-height: none !important; /* Ensure content is visible for printing */
-                overflow: visible !important;
-            }
-            #checklist-title-container {
-                border-bottom: 2px solid #000;
-                padding-bottom: 10px;
-                margin-bottom: 20px;
-            }
-            #checklist-title {
-                font-size: 22pt !important;
-            }
-            #org-name-input-print-header {
-                display: block;
-                font-size: 16pt;
-                font-weight: bold;
-                margin-top: 5px;
-            }
-            #org-name-input, #back-to-list-btn {
-                display: none !important;
-            }
-            .category-block {
-                border: 1px solid #ccc !important;
-                padding: 10px !important;
-                margin-bottom: 15px !important;
-                page-break-inside: avoid;
-                border-radius: 0 !important;
-                box-shadow: none !important;
-            }
-            .category-title {
-                font-size: 14pt !important;
-                border-bottom: 1px solid #666;
-                padding-bottom: 5px;
-                margin-bottom: 10px;
-            }
-            .checklist-item {
-                border-bottom: 1px dotted #ccc !important;
-                padding: 8px 0 !important;
-                page-break-inside: avoid;
-            }
-            input[type="checkbox"] {
-                display: inline-block !important;
-                vertical-align: top;
-                margin-top: 4px;
-            }
-            .custom-checkbox {
-                display: none !important;
-            }
-            .item-text {
-                font-size: 11pt !important;
-            }
-            textarea {
-                display: block !important;
-                border: 1px solid #ddd !important;
-                font-size: 10pt !important;
-                resize: none !important;
-                min-height: 30px;
-                -webkit-print-color-adjust: exact;
-            }
-            a {
-                text-decoration: none !important;
-                color: #000 !important;
-            }
-            a:not(.no-print-url)::after {
-                content: " (" attr(href) ")";
-                font-size: 9pt;
-            }
-            .link-placeholder::after {
-                content: "";
-            }
-        }
-    </style>
-    <!-- Theme Initialization Script -->
     <script>
         // This script runs before the body renders to prevent Flash of Unstyled Content (FOUC)
         const savedTheme = localStorage.getItem('theme');
@@ -295,7 +25,6 @@
 
     <main id="app-container" class="relative max-w-5xl mx-auto p-4 md:p-8">
 
-        <!-- Dark Mode Toggle Button -->
         <div class="absolute top-4 right-4 z-20">
             <button id="dark-mode-toggle" class="p-2 rounded-full bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300 transition-colors" aria-label="Toggle dark mode">
                 <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -307,13 +36,11 @@
             </button>
         </div>
 
-        <!-- User Info Display -->
         <div id="user-info" class="mb-4 p-3 bg-sky-100 dark:bg-sky-900/50 border border-sky-200 dark:border-sky-800 text-sky-800 dark:text-sky-300 rounded-lg text-sm text-center hidden">
             <p><strong>Status:</strong> <span id="auth-status">Initializing...</span></p>
             <p class="mt-1"><strong>User ID:</strong> <span id="user-id" class="font-mono break-all"></span></p>
         </div>
 
-        <!-- List View -->
         <section id="list-view">
             <header class="mb-8 text-center">
                 <h1 class="text-4xl md:text-5xl font-bold text-slate-800 dark:text-slate-200">Rescue Compliance</h1>
@@ -339,12 +66,10 @@
                 </div>
             </div>
             
-            <!-- External Tools Section -->
             <div id="external-tools-section" class="mb-8">
                 <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-4 border-b border-slate-300 dark:border-slate-700 pb-2">External Resources</h2>
                 <div id="external-tools-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <!-- Tool cards will be generated by JS -->
-                </div>
+                    </div>
             </div>
 
             <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-4 border-b border-slate-300 dark:border-slate-700 pb-2">My Checklists</h2>
@@ -355,11 +80,9 @@
             </div>
 
             <div id="saved-checklists-container" class="space-y-4">
-                <!-- Saved checklist cards will be inserted here -->
-            </div>
+                </div>
         </section>
 
-        <!-- Checklist View (Hidden by default) -->
         <section id="checklist-view" class="hidden bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-2xl shadow-lg">
             <header class="mb-6 pb-6 border-b border-slate-200 dark:border-slate-700">
                 <div id="checklist-title-container" class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
@@ -419,7 +142,6 @@
         </section>
     </main>
 
-    <!-- Modals -->
     <div id="confirmation-modal" class="modal">
         <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg text-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 p-2 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
@@ -471,7 +193,6 @@
         </div>
     </div>
     
-    <!-- Gemini Summary Modal -->
     <div id="summary-modal" class="modal">
         <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg">
             <div class="flex justify-between items-center mb-4">
@@ -493,7 +214,6 @@
         </div>
     </div>
 
-    <!-- External Link Modals -->
     <div id="ein-lookup-modal" class="modal">
         <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg text-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 p-2 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -586,8 +306,7 @@
         </div>
     </div>
     
-    <!-- Main Application Script -->
-    <script type="module">
+    <script type="module" defer>
         // Import Firebase modules
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
@@ -1068,8 +787,9 @@
             try {
                 let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
                 const payload = { contents: chatHistory };
-                const apiKey = ""; // API key will be provided by the environment
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                // IMPORTANT: Replace with your actual Gemini API Key
+                const apiKey = "YOUR_GEMINI_API_KEY";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
                 
                 const response = await fetch(apiUrl, {
                     method: 'POST',
