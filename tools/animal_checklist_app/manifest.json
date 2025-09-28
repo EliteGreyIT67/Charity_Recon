@@ -1,0 +1,16 @@
+{
+  "name": "Animal Rescue Compliance Checklist",
+  "short_name": "Rescue Checklist",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0ea5e9",
+  "description": "An interactive tool to help donors, volunteers, and adopters assess an organization's transparency and compliance.",
+  "icons": [
+    {
+      "src": "../osint_app/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
