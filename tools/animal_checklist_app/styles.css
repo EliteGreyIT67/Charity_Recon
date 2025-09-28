@@ -41,20 +41,21 @@ body {
 }
 
 /* --- Custom Scrollbar for Checklist Items --- */
-.checklist-items-container::-webkit-scrollbar {
+#checklist-items-container::-webkit-scrollbar {
     width: 8px;
 }
 
-.checklist-items-container::-webkit-scrollbar-track {
+#checklist-items-container::-webkit-scrollbar-track {
     background: var(--scrollbar-track-bg);
+    border-radius: 4px;
 }
 
-.checklist-items-container::-webkit-scrollbar-thumb {
+#checklist-items-container::-webkit-scrollbar-thumb {
     background: var(--scrollbar-thumb-bg);
     border-radius: 4px;
 }
 
-.checklist-items-container::-webkit-scrollbar-thumb:hover {
+#checklist-items-container::-webkit-scrollbar-thumb:hover {
     background: var(--scrollbar-thumb-hover-bg);
 }
 
@@ -119,8 +120,8 @@ body {
     margin: 5% auto;
     padding: var(--spacing-8);
     width: 90%;
-    max-width: 450px;
-    border-radius: var(--spacing-3);
+    max-width: 550px; /* Increased width for summary */
+    border-radius: 0.75rem; /* 12px */
 }
 
 @keyframes fadeIn {
@@ -157,6 +158,31 @@ body {
     to { transform: rotate(360deg); }
 }
 
+/* --- Summary Modal Content Styles --- */
+#summary-content h4 {
+    font-size: 1.125rem; /* text-lg */
+    font-weight: 600; /* font-semibold */
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+#summary-content ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+#summary-content li {
+    margin-bottom: 0.25rem;
+}
+
+#summary-content strong {
+    font-weight: 600;
+}
+
+#summary-content p {
+    margin-bottom: 0.75rem;
+}
 
 /* --- Print Styles --- */
 @media print {
@@ -212,7 +238,9 @@ body {
     .add-category-button,
     .attachment-actions,
     .file-input-wrapper,
-    .category-toggle-icon {
+    .category-toggle-icon,
+    .category-actions,
+    #external-tools-section {
         display: none !important;
     }
 
@@ -227,7 +255,6 @@ body {
         max-height: none !important; /* Ensure content is visible for printing */
         overflow: visible !important;
     }
-
 
     #checklist-title-container {
         border-bottom: 2px solid #000;
@@ -301,7 +328,7 @@ body {
         color: #000 !important;
     }
 
-    a::after {
+    a:not(.no-print-url)::after {
         content: " (" attr(href) ")";
         font-size: 9pt;
     }
