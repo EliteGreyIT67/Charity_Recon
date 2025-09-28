@@ -11,252 +11,50 @@
     <link rel="manifest" href="manifest.json"><meta name="theme-color" content="#0ea5e9">
     
     <style>
-        /* Define CSS variables for colors, fonts, and spacing */
         :root {
             --font-sans: 'Inter', sans-serif;
             --spacing-4: 1rem;
             --spacing-8: 2rem;
-            --scrollbar-track-bg: #e2e8f0; /* slate-200 */
-            --scrollbar-thumb-bg: #94a3b8; /* slate-400 */
-            --scrollbar-thumb-hover-bg: #64748b; /* slate-500 */
+            --scrollbar-track-bg: #e2e8f0;
+            --scrollbar-thumb-bg: #94a3b8;
+            --scrollbar-thumb-hover-bg: #64748b;
             --checkbox-bg: #fff;
-            --checkbox-border: #cbd5e1; /* slate-300 */
-            --checkbox-checked-border: #0ea5e9; /* sky-500 */
-            --checkbox-checkmark-color: #0ea5e9; /* sky-500 */
-            --modal-overlay-bg: rgba(15, 23, 42, 0.6); /* slate-900 with opacity */
+            --checkbox-border: #cbd5e1;
+            --checkbox-checked-border: #0ea5e9;
+            --checkbox-checkmark-color: #0ea5e9;
+            --modal-overlay-bg: rgba(15, 23, 42, 0.6);
         }
-
-        /* Dark mode overrides */
         .dark {
-            --scrollbar-track-bg: #334155; /* slate-700 */
-            --scrollbar-thumb-bg: #64748b; /* slate-500 */
-            --scrollbar-thumb-hover-bg: #94a3b8; /* slate-400 */
-            --checkbox-bg: #334155; /* slate-700 */
-            --checkbox-border: #475569; /* slate-600 */
-            --checkbox-checked-border: #38bdf8; /* sky-400 */
-            --checkbox-checkmark-color: #38bdf8; /* sky-400 */
+            --scrollbar-track-bg: #334155;
+            --scrollbar-thumb-bg: #64748b;
+            --scrollbar-thumb-hover-bg: #94a3b8;
+            --checkbox-bg: #334155;
+            --checkbox-border: #475569;
+            --checkbox-checked-border: #38bdf8;
+            --checkbox-checkmark-color: #38bdf8;
         }
-
-        /* --- Base & Font Styles --- */
-        body {
-            font-family: var(--font-sans);
-        }
-
-        /* --- Custom Scrollbar for Checklist Items --- */
-        #checklist-items-container::-webkit-scrollbar {
-            width: 8px;
-        }
-        #checklist-items-container::-webkit-scrollbar-track {
-            background: var(--scrollbar-track-bg);
-            border-radius: 4px;
-        }
-        #checklist-items-container::-webkit-scrollbar-thumb {
-            background: var(--scrollbar-thumb-bg);
-            border-radius: 4px;
-        }
-        #checklist-items-container::-webkit-scrollbar-thumb:hover {
-            background: var(--scrollbar-thumb-hover-bg);
-        }
-
-        /* --- Custom Checkbox Appearance --- */
-        .custom-checkbox {
-            appearance: none;
-            background-color: var(--checkbox-bg);
-            margin: 0;
-            font: inherit;
-            color: currentColor;
-            width: 1.25em;
-            height: 1.25em;
-            border: 0.15em solid var(--checkbox-border);
-            border-radius: 0.25em;
-            transform: translateY(-0.075em);
-            display: grid;
-            place-content: center;
-            cursor: pointer;
-            transition: 120ms all ease-in-out;
-        }
-        .custom-checkbox::before {
-            content: "";
-            width: 0.65em;
-            height: 0.65em;
-            transform: scale(0);
-            transition: 120ms transform ease-in-out;
-            box-shadow: inset 1em 1em var(--checkbox-checkmark-color);
-            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
-        }
-        .custom-checkbox:checked {
-            border-color: var(--checkbox-checked-border);
-        }
-        .custom-checkbox:checked::before {
-            transform: scale(1);
-        }
-        .custom-checkbox:focus-visible {
-            outline: max(2px, 0.15em) solid var(--checkbox-checked-border);
-            outline-offset: max(2px, 0.15em);
-        }
-
-        /* --- Modal Styles --- */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 100; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: var(--modal-overlay-bg);
-            padding-top: 60px;
-            backdrop-filter: blur(4px); /* Blur background */
-            animation: fadeIn 0.3s ease-out;
-        }
-        .modal-content {
-            margin: 5% auto;
-            padding: var(--spacing-8);
-            width: 90%;
-            max-width: 550px;
-            border-radius: 0.75rem; /* 12px */
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* --- Collapsible Category Styles --- */
-        .category-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-in-out;
-        }
-        .category-block.expanded .category-content {
-            max-height: 2000px; /* Large enough to not clip content */
-        }
-        .category-toggle-icon {
-            transition: transform 0.3s ease-in-out;
-        }
-        .category-block.expanded .category-toggle-icon {
-            transform: rotate(90deg);
-        }
-
-        /* --- Spinner Animation --- */
-        .spinner {
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* --- Print Styles --- */
-        @media print {
-            .dark {
-                --tw-bg-opacity: 1 !important;
-                background-color: rgb(255 255 255 / var(--tw-bg-opacity)) !important;
-                color: #000 !important;
-            }
-             .dark body, .dark #app-container, .dark #checklist-view, .dark .category-block, .dark textarea {
-                 background-color: #fff !important;
-                 color: #000 !important;
-                 border-color: #ccc !important;
-            }
-             .dark #checklist-title, .dark .category-title, .dark .item-text, .dark a {
-                 color: #000 !important;
-            }
-            body {
-                font-family: serif;
-                color: #000;
-                background-color: #fff;
-            }
-            #app-container, #user-info {
-                max-width: 100%;
-                margin: 0;
-                padding: 10px;
-                box-shadow: none;
-                border: none;
-            }
-            header, .action-buttons-container, .list-view-actions, #status-message, .modal, #search-container, .contextual-tool-button, #dark-mode-toggle, .edit-button, .delete-button, .add-item-button, .add-category-button, .attachment-actions, .file-input-wrapper, .category-toggle-icon, .category-actions, #external-tools-section {
-                display: none !important;
-            }
-            #checklist-view {
-                display: block !important;
-                box-shadow: none !important;
-                border: none !important;
-                padding: 0 !important;
-            }
-            .category-content {
-                max-height: none !important; /* Ensure content is visible for printing */
-                overflow: visible !important;
-            }
-            #checklist-title-container {
-                border-bottom: 2px solid #000;
-                padding-bottom: 10px;
-                margin-bottom: 20px;
-            }
-            #checklist-title {
-                font-size: 22pt !important;
-            }
-            #org-name-input-print-header {
-                display: block;
-                font-size: 16pt;
-                font-weight: bold;
-                margin-top: 5px;
-            }
-            #org-name-input, #back-to-list-btn {
-                display: none !important;
-            }
-            .category-block {
-                border: 1px solid #ccc !important;
-                padding: 10px !important;
-                margin-bottom: 15px !important;
-                page-break-inside: avoid;
-                border-radius: 0 !important;
-                box-shadow: none !important;
-            }
-            .category-title {
-                font-size: 14pt !important;
-                border-bottom: 1px solid #666;
-                padding-bottom: 5px;
-                margin-bottom: 10px;
-            }
-            .checklist-item {
-                border-bottom: 1px dotted #ccc !important;
-                padding: 8px 0 !important;
-                page-break-inside: avoid;
-            }
-            input[type="checkbox"] {
-                display: inline-block !important;
-                vertical-align: top;
-                margin-top: 4px;
-            }
-            .custom-checkbox {
-                display: none !important;
-            }
-            .item-text {
-                font-size: 11pt !important;
-            }
-            textarea {
-                display: block !important;
-                border: 1px solid #ddd !important;
-                font-size: 10pt !important;
-                resize: none !important;
-                min-height: 30px;
-                -webkit-print-color-adjust: exact;
-            }
-            a {
-                text-decoration: none !important;
-                color: #000 !important;
-            }
-            a:not(.no-print-url)::after {
-                content: " (" attr(href) ")";
-                font-size: 9pt;
-            }
-            .link-placeholder::after {
-                content: "";
-            }
-        }
+        body { font-family: var(--font-sans); }
+        #checklist-items-container::-webkit-scrollbar { width: 8px; }
+        #checklist-items-container::-webkit-scrollbar-track { background: var(--scrollbar-track-bg); border-radius: 4px; }
+        #checklist-items-container::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb-bg); border-radius: 4px; }
+        #checklist-items-container::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover-bg); }
+        .custom-checkbox { appearance: none; background-color: var(--checkbox-bg); margin: 0; font: inherit; color: currentColor; width: 1.25em; height: 1.25em; border: 0.15em solid var(--checkbox-border); border-radius: 0.25em; transform: translateY(-0.075em); display: grid; place-content: center; cursor: pointer; transition: 120ms all ease-in-out; }
+        .custom-checkbox::before { content: ""; width: 0.65em; height: 0.65em; transform: scale(0); transition: 120ms transform ease-in-out; box-shadow: inset 1em 1em var(--checkbox-checkmark-color); clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%); }
+        .custom-checkbox:checked { border-color: var(--checkbox-checked-border); }
+        .custom-checkbox:checked::before { transform: scale(1); }
+        .custom-checkbox:focus-visible { outline: max(2px, 0.15em) solid var(--checkbox-checked-border); outline-offset: max(2px, 0.15em); }
+        .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: var(--modal-overlay-bg); padding-top: 60px; backdrop-filter: blur(4px); animation: fadeIn 0.3s ease-out; }
+        .modal-content { margin: 5% auto; padding: var(--spacing-8); width: 90%; max-width: 550px; border-radius: 0.75rem; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .category-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-in-out; }
+        .category-block.expanded .category-content { max-height: 2000px; }
+        .category-toggle-icon { transition: transform 0.3s ease-in-out; }
+        .category-block.expanded .category-toggle-icon { transform: rotate(90deg); }
+        .spinner { animation: spin 1s linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @media print { body { font-family: serif; } .no-print, .no-print * { display: none !important; } }
     </style>
     <script>
-        // This script runs before the body renders to prevent Flash of Unstyled Content (FOUC)
         const savedTheme = localStorage.getItem('theme');
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
@@ -267,120 +65,131 @@
 <body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-300 transition-colors duration-300">
 
     <main id="app-container" class="relative max-w-5xl mx-auto p-4 md:p-8">
-
-        <div class="absolute top-4 right-4 z-20">
+        
+        <div class="absolute top-4 right-4 z-20 no-print">
             <button id="dark-mode-toggle" class="p-2 rounded-full bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300 transition-colors" aria-label="Toggle dark mode">
-                <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-                <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                </svg>
+                <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
             </button>
         </div>
 
-        <div id="user-info" class="mb-4 p-3 bg-sky-100 dark:bg-sky-900/50 border border-sky-200 dark:border-sky-800 text-sky-800 dark:text-sky-300 rounded-lg text-sm text-center hidden">
-            <p><strong>Status:</strong> <span id="auth-status">Initializing...</span></p>
-            <p class="mt-1"><strong>User ID:</strong> <span id="user-id" class="font-mono break-all"></span></p>
-        </div>
-
-        <section id="list-view">
-            <header class="mb-8 text-center">
-                <h1 class="text-4xl md:text-5xl font-bold text-slate-800 dark:text-slate-200">Rescue Compliance</h1>
-                <p class="text-slate-500 dark:text-slate-400 mt-2 text-lg">Your cloud-synced checklists for ensuring animal welfare standards.</p>
-            </header>
-
-            <nav class="list-view-actions mb-6 flex flex-col sm:flex-row gap-3">
-                <button id="new-checklist-btn" class="w-full sm:w-auto bg-sky-500 hover:bg-sky-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 ease-in-out flex items-center justify-center space-x-2 transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed" aria-label="Start a new checklist">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
-                    <span>Start New</span>
-                </button>
-                <button id="import-checklist-btn" class="w-full sm:w-auto bg-slate-600 hover:bg-slate-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 ease-in-out flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed" aria-label="Import a shared checklist">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                    <span>Import Shared</span>
-                </button>
-            </nav>
-
-            <div id="search-container" class="mb-8 relative">
-                <label for="search-input" class="sr-only">Search by organization name</label>
-                <input type="text" id="search-input" placeholder="Search by organization name..." class="w-full p-4 pl-12 border border-slate-300 dark:border-slate-600 dark:bg-slate-800 rounded-lg shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-shadow dark:placeholder-slate-400">
-                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-400 dark:text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+        <section id="login-view" class="hidden">
+            <div class="text-center max-w-md mx-auto mt-16">
+                <h1 class="text-4xl md:text-5xl font-bold text-slate-800 dark:text-slate-200">Welcome</h1>
+                <p class="text-slate-500 dark:text-slate-400 mt-2 text-lg">Sign in to manage your compliance checklists.</p>
+                <div class="mt-8 space-y-4">
+                    <button id="google-signin-btn" class="w-full bg-white dark:bg-slate-700 hover:bg-slate-50 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center space-x-3 border border-slate-200 dark:border-slate-600">
+                        <img src="https://www.google.com/favicon.ico" alt="Google icon" class="h-6 w-6">
+                        <span>Sign in with Google</span>
+                    </button>
+                    <button id="facebook-signin-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center space-x-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v2.385z" /></svg>
+                        <span>Sign in with Facebook</span>
+                    </button>
                 </div>
+                <p id="auth-error" class="mt-4 text-red-500 dark:text-red-400 text-sm"></p>
+            </div>
+        </section>
+
+        <div id="main-content" class="hidden">
+            <div id="user-info" class="mb-4 p-3 bg-sky-100 dark:bg-sky-900/50 border border-sky-200 dark:border-sky-800 text-sky-800 dark:text-sky-300 rounded-lg text-sm flex justify-between items-center">
+                <div>
+                    <p><strong>Welcome,</strong> <span id="user-name"></span></p>
+                    <p class="mt-1 text-xs text-sky-600 dark:text-sky-400"><span id="user-email"></span></p>
+                </div>
+                <button id="sign-out-btn" class="bg-sky-500 hover:bg-sky-600 text-white font-semibold py-2 px-4 rounded-lg shadow-sm transition-colors">Sign Out</button>
             </div>
             
-            <div id="external-tools-section" class="mb-8">
-                <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-4 border-b border-slate-300 dark:border-slate-700 pb-2">External Resources</h2>
-                <div id="external-tools-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    </div>
-            </div>
+            <section id="list-view">
+                <header class="mb-8 text-center">
+                    <h1 class="text-4xl md:text-5xl font-bold text-slate-800 dark:text-slate-200">Rescue Compliance</h1>
+                    <p class="text-slate-500 dark:text-slate-400 mt-2 text-lg">Your cloud-synced checklists for ensuring animal welfare standards.</p>
+                </header>
 
-            <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-4 border-b border-slate-300 dark:border-slate-700 pb-2">My Checklists</h2>
-            <div id="no-checklists-message" class="text-center py-16 bg-white dark:bg-slate-800 rounded-lg shadow-sm hidden">
-                 <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 mx-auto text-slate-300 dark:text-slate-600 mb-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-                <p class="text-2xl font-semibold text-slate-700 dark:text-slate-300">No checklists found.</p>
-                <p class="text-slate-500 dark:text-slate-400">Click "Start New" to begin, or "Import Shared" to add one from a colleague.</p>
-            </div>
+                <nav class="list-view-actions mb-6 flex flex-col sm:flex-row gap-3">
+                    <button id="new-checklist-btn" class="w-full sm:w-auto bg-sky-500 hover:bg-sky-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 ease-in-out flex items-center justify-center space-x-2 transform hover:-translate-y-0.5" aria-label="Start a new checklist">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
+                        <span>Start New</span>
+                    </button>
+                    <button id="import-checklist-btn" class="w-full sm:w-auto bg-slate-600 hover:bg-slate-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 ease-in-out flex items-center justify-center space-x-2" aria-label="Import a shared checklist">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                        <span>Import Shared</span>
+                    </button>
+                </nav>
 
-            <div id="saved-checklists-container" class="space-y-4">
-                </div>
-        </section>
-
-        <section id="checklist-view" class="hidden bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-2xl shadow-lg">
-            <header class="mb-6 pb-6 border-b border-slate-200 dark:border-slate-700">
-                <div id="checklist-title-container" class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                        <button id="back-to-list-btn" class="text-sky-600 dark:text-sky-400 hover:text-sky-800 dark:hover:text-sky-300 font-semibold flex items-center space-x-1.5 group mb-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg>
-                            <span>Back to List</span>
-                        </button>
-                        <h2 id="checklist-title" class="text-3xl md:text-4xl font-bold text-slate-800 dark:text-slate-200">New Checklist</h2>
-                        <span id="org-name-input-print-header" class="hidden print:block"></span>
+                <div id="search-container" class="mb-8 relative">
+                    <label for="search-input" class="sr-only">Search by organization name</label>
+                    <input type="text" id="search-input" placeholder="Search by organization name..." class="w-full p-4 pl-12 border border-slate-300 dark:border-slate-600 dark:bg-slate-800 rounded-lg shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-shadow dark:placeholder-slate-400">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-400 dark:text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                     </div>
                 </div>
-                 <div class="mt-6">
-                    <label for="org-name-input" class="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-1">Rescue Organization Name</label>
-                    <input type="text" id="org-name-input" class="w-full p-3 border border-slate-300 dark:border-slate-600 dark:bg-slate-900 rounded-lg shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-shadow dark:placeholder-slate-400" placeholder="e.g., Happy Paws Rescue">
-                    <p id="org-name-error" class="text-red-500 dark:text-red-400 text-sm mt-1 hidden">Organization name cannot be empty.</p>
+                
+                <div id="external-tools-section" class="mb-8">
+                    <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-4 border-b border-slate-300 dark:border-slate-700 pb-2">External Resources</h2>
+                    <div id="external-tools-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
                 </div>
-            </header>
 
-            <div id="checklist-items-container" class="space-y-6"></div>
+                <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-4 border-b border-slate-300 dark:border-slate-700 pb-2">My Checklists</h2>
+                <div id="no-checklists-message" class="text-center py-16 bg-white dark:bg-slate-800 rounded-lg shadow-sm hidden">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 mx-auto text-slate-300 dark:text-slate-600 mb-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                    <p class="text-2xl font-semibold text-slate-700 dark:text-slate-300">No checklists found.</p>
+                    <p class="text-slate-500 dark:text-slate-400">Click "Start New" to begin, or "Import Shared" to add one from a colleague.</p>
+                </div>
+                <div id="saved-checklists-container" class="space-y-4"></div>
+            </section>
 
-            <button id="add-category-btn" class="mt-6 w-full bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
-                <span>Add New Category</span>
-            </button>
-
-            <div class="action-buttons-container mt-8 pt-6 border-t border-slate-200 dark:border-slate-700 flex flex-col-reverse sm:flex-row sm:justify-between sm:items-center gap-4">
-                <button id="delete-checklist-btn" class="hidden w-full sm:w-auto text-red-600 dark:text-red-500 hover:text-white hover:bg-red-600 dark:hover:bg-red-500 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 border border-red-500 dark:border-red-500 hover:border-red-600 dark:hover:border-red-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
-                    <span>Delete</span>
+            <section id="checklist-view" class="hidden bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-2xl shadow-lg">
+                <header class="mb-6 pb-6 border-b border-slate-200 dark:border-slate-700">
+                    <div id="checklist-title-container" class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                        <div>
+                            <button id="back-to-list-btn" class="text-sky-600 dark:text-sky-400 hover:text-sky-800 dark:hover:text-sky-300 font-semibold flex items-center space-x-1.5 group mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg>
+                                <span>Back to List</span>
+                            </button>
+                            <h2 id="checklist-title" class="text-3xl md:text-4xl font-bold text-slate-800 dark:text-slate-200">New Checklist</h2>
+                            <span id="org-name-input-print-header" class="hidden print:block"></span>
+                        </div>
+                    </div>
+                     <div class="mt-6">
+                        <label for="org-name-input" class="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-1">Rescue Organization Name</label>
+                        <input type="text" id="org-name-input" class="w-full p-3 border border-slate-300 dark:border-slate-600 dark:bg-slate-900 rounded-lg shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-shadow dark:placeholder-slate-400" placeholder="e.g., Happy Paws Rescue">
+                        <p id="org-name-error" class="text-red-500 dark:text-red-400 text-sm mt-1 hidden">Organization name cannot be empty.</p>
+                    </div>
+                </header>
+                <div id="checklist-items-container" class="space-y-6"></div>
+                <button id="add-category-btn" class="mt-6 w-full bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
+                    <span>Add New Category</span>
                 </button>
-
-                <div class="flex flex-col sm:flex-row sm:justify-end gap-3 flex-wrap">
-                     <button id="share-checklist-btn" class="w-full sm:w-auto bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 px-5 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12s-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367-2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" /></svg>
-                        <span>Share</span>
+                <div class="action-buttons-container mt-8 pt-6 border-t border-slate-200 dark:border-slate-700 flex flex-col-reverse sm:flex-row sm:justify-between sm:items-center gap-4">
+                    <button id="delete-checklist-btn" class="hidden w-full sm:w-auto text-red-600 dark:text-red-500 hover:text-white hover:bg-red-600 dark:hover:bg-red-500 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 border border-red-500 dark:border-red-500 hover:border-red-600 dark:hover:border-red-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                        <span>Delete</span>
                     </button>
-                     <button id="copy-checklist-btn" class="w-full sm:w-auto bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-3 px-5 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
-                        <span>Copy as Text</span>
-                    </button>
-                     <button id="print-checklist-btn" class="w-full sm:w-auto bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-3 px-5 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H7a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm-8-14h14M5 7h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V9a2 2 0 012-2z" /></svg>
-                        <span>Print</span>
-                    </button>
-                     <button id="save-checklist-btn" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 ease-in-out flex items-center justify-center space-x-2 transform hover:-translate-y-0.5 disabled:opacity-50">
-                        <span id="save-button-text">Save</span>
-                        <svg id="save-spinner" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden spinner" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h5M4 12a8 8 0 018-8v0a8 8 0 018 8v0a8 8 0 01-8 8v0a8 8 0 01-8-8v0z" /></svg>
-                    </button>
+                    <div class="flex flex-col sm:flex-row sm:justify-end gap-3 flex-wrap">
+                         <button id="share-checklist-btn" class="w-full sm:w-auto bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 px-5 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12s-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367-2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" /></svg>
+                            <span>Share</span>
+                        </button>
+                         <button id="copy-checklist-btn" class="w-full sm:w-auto bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-3 px-5 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                            <span>Copy as Text</span>
+                        </button>
+                         <button id="print-checklist-btn" class="w-full sm:w-auto bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-3 px-5 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H7a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm-8-14h14M5 7h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V9a2 2 0 012-2z" /></svg>
+                            <span>Print</span>
+                        </button>
+                         <button id="save-checklist-btn" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 ease-in-out flex items-center justify-center space-x-2 transform hover:-translate-y-0.5 disabled:opacity-50">
+                            <span id="save-button-text">Save</span>
+                            <svg id="save-spinner" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden spinner" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h5M4 12a8 8 0 018-8v0a8 8 0 018 8v0a8 8 0 01-8 8v0a8 8 0 01-8-8v0z" /></svg>
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div id="status-message" class="mt-4 text-center font-medium"></div>
-        </section>
+                <div id="status-message" class="mt-4 text-center font-medium"></div>
+            </section>
+        </div>
     </main>
-
     <div id="confirmation-modal" class="modal">
         <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg text-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 p-2 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
@@ -392,7 +201,6 @@
             </div>
         </div>
     </div>
-
     <div id="share-modal" class="modal">
         <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg text-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 p-2 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12s-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367-2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" /></svg>
@@ -405,7 +213,6 @@
             </div>
         </div>
     </div>
-
     <div id="import-modal" class="modal">
         <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg">
              <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-4 text-center">Import Shared Checklist</h3>
@@ -418,7 +225,6 @@
             </div>
         </div>
     </div>
-
     <div id="edit-modal" class="modal">
         <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg">
             <h3 id="edit-modal-title" class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-4 text-center">Edit</h3>
@@ -431,107 +237,12 @@
             </div>
         </div>
     </div>
-
-    <div id="ein-lookup-modal" class="modal">
-        <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 p-2 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-            <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-2">Open IRS Search Tool</h3>
-            <p class="mb-8 text-slate-500 dark:text-slate-400">The official IRS tool will be opened in a new browser tab.</p>
-            <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
-                <button data-dismiss="modal" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
-                <a href="https://apps.irs.gov/app/eos/" target="_blank" rel="noopener noreferrer" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center no-print-url">
-                    Continue to IRS.gov
-                </a>
-            </div>
-        </div>
-    </div>
-    <div id="propublica-lookup-modal" class="modal">
-        <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 p-2 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-            <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-2">Open ProPublica Nonprofit Explorer</h3>
-            <p class="mb-8 text-slate-500 dark:text-slate-400">The ProPublica Nonprofit Explorer website will be opened in a new browser tab.</p>
-            <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
-                <button data-dismiss="modal" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
-                <a href="https://projects.propublica.org/nonprofits/" target="_blank" rel="noopener noreferrer" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center no-print-url">
-                    Continue to ProPublica
-                </a>
-            </div>
-        </div>
-    </div>
-     <div id="bbb-scam-modal" class="modal">
-        <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 p-2 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-            </svg>
-            <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-2">Open BBB Scam Tracker</h3>
-            <p class="mb-8 text-slate-500 dark:text-slate-400">The Better Business Bureau's website will be opened in a new browser tab.</p>
-            <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
-                <button data-dismiss="modal" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
-                <a href="https://www.bbb.org/scamtracker/lookupscam" target="_blank" rel="noopener noreferrer" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center no-print-url">
-                    Continue to BBB.org
-                </a>
-            </div>
-        </div>
-    </div>
-    <div id="nasco-reg-modal" class="modal">
-        <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 p-2 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-2">Open State Regulator List</h3>
-            <p class="mb-8 text-slate-500 dark:text-slate-400">The NASCO website will be opened in a new browser tab.</p>
-            <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
-                <button data-dismiss="modal" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
-                <a href="https://www.nasconet.org/resources/state-government/" target="_blank" rel="noopener noreferrer" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center no-print-url">
-                    Continue to NASCOnet.org
-                </a>
-            </div>
-        </div>
-    </div>
-    <div id="aphis-lookup-modal" class="modal">
-        <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 p-2 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-            <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-2">Open APHIS Search Tool</h3>
-            <p class="mb-8 text-slate-500 dark:text-slate-400">The USDA APHIS search tool will be opened in a new browser tab.</p>
-            <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
-                <button data-dismiss="modal" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
-                <a href="https://aphis.my.site.com/PublicSearchTool/s/" target="_blank" rel="noopener noreferrer" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center no-print-url">
-                    Continue to APHIS
-                </a>
-            </div>
-        </div>
-    </div>
-    <div id="charitynav-lookup-modal" class="modal">
-        <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 p-2 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-            <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-2">Open Charity Navigator</h3>
-            <p class="mb-8 text-slate-500 dark:text-slate-400">The Charity Navigator website will be opened in a new browser tab.</p>
-            <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
-                <button data-dismiss="modal" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
-                <a href="https://www.charitynavigator.org/" target="_blank" rel="noopener noreferrer" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center no-print-url">
-                    Continue to Charity Navigator
-                </a>
-            </div>
-        </div>
-    </div>
-    
     <script type="module">
-        // Import Firebase modules
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, addDoc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, query, serverTimestamp, writeBatch } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged, GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, addDoc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, query, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         import { getStorage, ref, uploadBytes, deleteObject, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
 
-        // --- Firebase Configuration ---
         const firebaseConfig = {
             apiKey: "AIzaSyCSLAD2acFHCmf8bkJwQx_puLcb-HARyJE",
             authDomain: "rescue-compliance-app.firebaseapp.com",
@@ -542,18 +253,14 @@
             measurementId: "G-CL6TNFWL0L"
         };
 
-        // --- App State & Firebase References ---
         let db, auth, storage;
         let currentChecklistData = null;
         let checklistUnsubscribe = null;
         let userId = null;
-        let isAuthReady = false;
-        const ui = {}; // To be populated with DOM elements
+        const ui = {};
         let confirmAction = null;
-        let saveTimeout = null; // For debouncing save actions
-
-        // --- App Configuration ---
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-animal-rescue-app';
+        let saveTimeout = null;
+        const appId = 'default-animal-rescue-app';
         const checklistMasterTemplate = [
             { id: "cat_fed_state", name: "Federal & State Compliance", isCustom: false, items: [
                 { id: "fed_irs_status", text: "IRS 501(c)(3) status verified?", link: "https://apps.irs.gov/app/eos/", linkText: "IRS Search", modalId: "ein-lookup-modal", isCustom: false, attachments: [], notes: "", checked: false },
@@ -578,36 +285,23 @@
             ]}
         ];
 
-        // --- App Initialization ---
         document.addEventListener('DOMContentLoaded', initApp);
 
         function initApp() {
             cacheDOMElements();
             setupTheme();
             renderExternalTools();
-
             try {
-                if (!firebaseConfig || !firebaseConfig.apiKey || firebaseConfig.apiKey.includes("YOUR_")) {
-                    console.warn("Firebase configuration is missing or incomplete. Functionality will be limited.");
-                    ui.authStatus.textContent = "Offline Mode: Firebase not configured.";
-                    ui.userInfo.classList.remove('hidden');
-                    ui.newChecklistBtn.disabled = true;
-                    ui.importChecklistBtn.disabled = true;
-                } else {
-                    const app = initializeApp(firebaseConfig);
-                    db = getFirestore(app);
-                    auth = getAuth(app);
-                    storage = getStorage(app);
-                    setupAuthListener();
-                }
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                storage = getStorage(app);
+                setupAuthListener();
             } catch (error) {
                 console.error("Initialization failed:", error);
-                const errorHtml = `<div class="p-4 bg-red-100 dark:bg-red-900/50 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-300 rounded-lg">
-                    <h3 class="font-bold">Application Error</h3><p class="text-sm mt-1">${error.message}</p></div>`;
-                ui.appContainer.innerHTML = errorHtml;
-                return;
+                ui.loginView.innerHTML = `<p class="text-red-500">Error: Could not connect to the backend services.</p>`;
+                helpers.showView('login');
             }
-
             attachEventListeners();
         }
 
@@ -624,31 +318,17 @@
         function setupAuthListener() {
             onAuthStateChanged(auth, (user) => {
                 if (user) {
-                    isAuthReady = true;
                     userId = user.uid;
-                    ui.authStatus.textContent = "Authenticated";
-                    ui.userId.textContent = userId;
-                    ui.userInfo.classList.remove('hidden');
-                    ui.newChecklistBtn.disabled = false;
-                    ui.importChecklistBtn.disabled = false;
+                    ui.userName.textContent = user.displayName || 'User';
+                    ui.userEmail.textContent = user.email || 'No email provided';
+                    helpers.showView('main');
                     listenForChecklists();
-                    helpers.showView('list');
                 } else {
-                    isAuthReady = false;
                     userId = null;
-                    ui.authStatus.textContent = "Not Authenticated";
-                    ui.userId.textContent = "";
-                    ui.userInfo.classList.remove('hidden');
-                    ui.newChecklistBtn.disabled = true;
-                    ui.importChecklistBtn.disabled = true;
                     if (checklistUnsubscribe) checklistUnsubscribe();
                     renderListView([]);
+                    helpers.showView('login');
                 }
-            });
-
-            signInAnonymously(auth).catch(error => {
-                console.error("Anonymous authentication failed: ", error);
-                ui.authStatus.textContent = `Auth Failed: ${error.message}`;
             });
         }
 
@@ -658,20 +338,22 @@
                 'save-checklist-btn', 'delete-checklist-btn', 'share-checklist-btn', 'print-checklist-btn', 'copy-checklist-btn', 
                 'add-category-btn', 'dark-mode-toggle', 'sun-icon', 'moon-icon', 'org-name-input', 'org-name-input-print-header', 
                 'org-name-error', 'checklist-items-container', 'checklist-title', 'saved-checklists-container', 'search-input', 
-                'no-checklists-message', 'status-message', 'user-info', 'auth-status', 'user-id', 'confirmation-modal', 
-                'modal-title', 'modal-message', 'modal-confirm-btn', 'share-modal', 'share-id-display', 
-                'share-modal-copy-btn', 'import-modal', 'import-id-input', 'import-status-message', 
-                'import-modal-confirm-btn', 'edit-modal', 'edit-modal-title', 'edit-modal-label', 'edit-modal-input', 
-                'edit-modal-error', 'edit-modal-save-btn', 'save-button-text', 'save-spinner',
-                'external-tools-grid',
-                'ein-lookup-modal', 'propublica-lookup-modal', 'bbb-scam-modal', 'nasco-reg-modal', 'aphis-lookup-modal', 'charitynav-lookup-modal'
+                'no-checklists-message', 'status-message', 'user-info', 'confirmation-modal', 'main-content',
+                'modal-title', 'modal-message', 'modal-confirm-btn', 'share-modal', 'share-id-display', 'user-name', 'user-email',
+                'share-modal-copy-btn', 'import-modal', 'import-id-input', 'import-status-message', 'login-view', 'google-signin-btn',
+                'import-modal-confirm-btn', 'edit-modal', 'edit-modal-title', 'edit-modal-label', 'edit-modal-input', 'facebook-signin-btn',
+                'edit-modal-error', 'edit-modal-save-btn', 'save-button-text', 'save-spinner', 'auth-error', 'sign-out-btn',
+                'external-tools-grid'
             ];
             ids.forEach(id => { ui[id.replace(/-(\w)/g, (match, p1) => p1.toUpperCase())] = document.getElementById(id); });
         }
 
         function attachEventListeners() {
-            ui.newChecklistBtn.addEventListener('click', () => { if(isAuthReady) renderChecklistForm(); });
-            ui.backToListBtn.addEventListener('click', () => { helpers.showView('list'); filterAndRenderListView(); });
+            ui.googleSigninBtn.addEventListener('click', () => handleSignIn(new GoogleAuthProvider()));
+            ui.facebookSigninBtn.addEventListener('click', () => handleSignIn(new FacebookAuthProvider()));
+            ui.signOutBtn.addEventListener('click', handleSignOut);
+            ui.newChecklistBtn.addEventListener('click', () => renderChecklistForm());
+            ui.backToListBtn.addEventListener('click', () => helpers.showSubView('list'));
             ui.saveChecklistBtn.addEventListener('click', () => handleSaveChecklist(true));
             ui.deleteChecklistBtn.addEventListener('click', handleDeleteChecklist);
             ui.printChecklistBtn.addEventListener('click', () => {
@@ -681,11 +363,9 @@
             ui.copyChecklistBtn.addEventListener('click', handleCopyChecklistText);
             ui.shareChecklistBtn.addEventListener('click', handleShareChecklist);
             ui.importChecklistBtn.addEventListener('click', () => {
-                if(isAuthReady) {
-                    ui.importIdInput.value = '';
-                    ui.importStatusMessage.textContent = '';
-                    helpers.openModal(ui.importModal);
-                }
+                ui.importIdInput.value = '';
+                ui.importStatusMessage.textContent = '';
+                helpers.openModal(ui.importModal);
             });
             ui.externalToolsGrid.addEventListener('click', (event) => {
                 const toolCard = event.target.closest('.tool-card');
@@ -695,18 +375,15 @@
                     if (modal) helpers.openModal(modal);
                 }
             });
-
             ui.searchInput.addEventListener('input', filterAndRenderListView);
             ui.orgNameInput.addEventListener('input', () => {
                 ui.checklistTitle.textContent = ui.orgNameInput.value.trim() || "New Checklist";
-                handleSaveChecklist(); // Debounced save
+                handleSaveChecklist();
             });
             ui.addCategoryBtn.addEventListener('click', addCategory);
-
             ui.checklistItemsContainer.addEventListener('click', handleChecklistContainerClick);
             ui.checklistItemsContainer.addEventListener('input', handleChecklistContainerInput);
             ui.checklistItemsContainer.addEventListener('change', handleChecklistContainerChange);
-
             ui.modalConfirmBtn.addEventListener('click', () => confirmAction?.());
             ui.shareModalCopyBtn.addEventListener('click', () => helpers.copyToClipboard(ui.shareIdDisplay.textContent, ui.shareModalCopyBtn, 'ID Copied!', 'Copy ID'));
             ui.importModalConfirmBtn.addEventListener('click', handleImportConfirm);
@@ -718,12 +395,34 @@
                 });
             });
         }
+        
+        async function handleSignIn(provider) {
+            try {
+                await signInWithPopup(auth, provider);
+                ui.authError.textContent = '';
+            } catch (error) {
+                console.error("Sign-in error:", error);
+                ui.authError.textContent = error.message;
+            }
+        }
+        
+        async function handleSignOut() {
+            try {
+                await signOut(auth);
+            } catch (error) {
+                console.error("Sign-out error:", error);
+            }
+        }
 
-        // --- Helper Functions ---
         const helpers = {
-            showView: (viewToShow) => {
-                ui.listView.classList.toggle('hidden', viewToShow !== 'list');
-                ui.checklistView.classList.toggle('hidden', viewToShow !== 'checklist');
+            showView: (view) => {
+                ui.loginView.classList.toggle('hidden', view !== 'login');
+                ui.mainContent.classList.toggle('hidden', view !== 'main');
+                if (view === 'main') helpers.showSubView('list');
+            },
+            showSubView: (subView) => {
+                ui.listView.classList.toggle('hidden', subView !== 'list');
+                ui.checklistView.classList.toggle('hidden', subView !== 'checklist');
                 window.scrollTo(0, 0);
             },
             showStatus: (element, message, type = 'success', duration = 3000) => {
@@ -790,35 +489,20 @@
                 ui.saveChecklistBtn.disabled = isSaving;
             },
             copyToClipboard: (text, button, successText = 'Copied!', originalText = 'Copy') => {
-                if (!navigator.clipboard) {
-                    const textArea = document.createElement("textarea");
-                    textArea.value = text;
-                    document.body.appendChild(textArea);
-                    textArea.focus();
-                    textArea.select();
-                    try {
-                        document.execCommand('copy');
-                        if (button) button.textContent = successText;
-                    } catch (err) {
-                        console.error('Fallback: Oops, unable to copy', err);
-                    }
-                    document.body.removeChild(textArea);
-                } else {
-                    navigator.clipboard.writeText(text).then(() => {
-                        if (button) button.textContent = successText;
-                    }, (err) => {
-                        console.error('Async: Could not copy text: ', err);
-                    });
-                }
+                navigator.clipboard.writeText(text).then(() => {
+                    if (button) button.textContent = successText;
+                }, (err) => {
+                    console.error('Could not copy text: ', err);
+                });
                 if (button) setTimeout(() => { button.textContent = originalText; }, 2000);
             },
             generateUniqueId: () => `id_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
         };
 
-        // --- Data & Firestore Logic ---
+        // ... (The rest of the JS functions: listenForChecklists, handleSaveChecklist, handleDeleteChecklist, etc. remain the same as the previous non-AI version) ...
         function listenForChecklists() {
             if (checklistUnsubscribe) checklistUnsubscribe();
-            if (!isAuthReady || !userId) return;
+            if (!userId) return;
 
             const q = query(collection(db, `artifacts/${appId}/users/${userId}/checklists`));
             checklistUnsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -837,7 +521,7 @@
             clearTimeout(saveTimeout);
 
             const saveAction = async () => {
-                if (!isAuthReady || !currentChecklistData) return;
+                if (!userId || !currentChecklistData) return;
 
                 const orgName = ui.orgNameInput.value.trim();
                 if (!orgName) {
@@ -888,7 +572,7 @@
                     try {
                         const docRef = doc(db, `artifacts/${appId}/users/${userId}/checklists`, currentChecklistData.id);
                         await deleteDoc(docRef);
-                        helpers.showView('list');
+                        helpers.showSubView('list');
                     } catch (error) {
                         console.error("Error deleting checklist:", error);
                         helpers.showStatus(ui.statusMessage, `Error deleting: ${error.message}`, 'error');
@@ -947,8 +631,7 @@
                 helpers.showStatus(ui.importStatusMessage, `Import failed: ${error.message}`, 'error');
             }
         }
-
-        // --- Rendering Logic ---
+        
         function renderListView(checklists) {
             const container = ui.savedChecklistsContainer;
             container.innerHTML = '';
@@ -1000,7 +683,7 @@
                 } catch (error) {
                     console.error(error);
                     helpers.showStatus(ui.statusMessage, "Could not find the selected checklist.", 'error');
-                    helpers.showView('list');
+                    helpers.showSubView('list');
                     return;
                 }
             } else {
@@ -1026,7 +709,7 @@
                 ui.checklistItemsContainer.appendChild(categoryEl.firstElementChild);
             });
 
-            helpers.showView('checklist');
+            helpers.showSubView('checklist');
         }
 
         function renderCategory(category) {
@@ -1062,7 +745,6 @@
                 </div>
             `;
         }
-
         function renderItem(item, categoryId) {
             const toolButtonHtml = item.link ? `
                 <button class="contextual-tool-button mt-1.5 flex items-center space-x-2 text-sm text-sky-600 dark:text-sky-400 hover:underline" data-action="open-tool-modal" data-modal-id="${item.modalId}">
@@ -1080,12 +762,8 @@
                                 <label for="check-${item.id}" class="item-text flex-1 text-slate-700 dark:text-slate-300 cursor-pointer">${item.text}</label>
                                 <div class="item-actions flex space-x-1 ml-2">
                                     ${item.isCustom ? `
-                                    <button class="edit-button p-1.5 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700" data-action="edit-item" aria-label="Edit item text">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
-                                    </button>
-                                    <button class="delete-button p-1.5 rounded-md hover:bg-red-100 dark:hover:bg-red-900/50" data-action="delete-item" aria-label="Delete item">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-                                    </button>
+                                    <button class="edit-button p-1.5 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700" data-action="edit-item" aria-label="Edit item text"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg></button>
+                                    <button class="delete-button p-1.5 rounded-md hover:bg-red-100 dark:hover:bg-red-900/50" data-action="delete-item" aria-label="Delete item"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></button>
                                     ` : ''}
                                 </div>
                             </div>
@@ -1115,9 +793,7 @@
             return `
                 <div class="attachment-item flex items-center justify-between p-2 bg-slate-100 dark:bg-slate-700/70 rounded-md" data-filename="${attachment.fileName}">
                     <a href="${attachment.url}" target="_blank" rel="noopener noreferrer" class="flex-1 truncate text-sm text-indigo-600 dark:text-indigo-400 hover:underline no-print-url" title="${attachment.fileName}">${attachment.fileName}</a>
-                    <button class="delete-attachment-btn p-1 rounded-full hover:bg-red-100 dark:hover:bg-red-900/50" data-action="delete-attachment" aria-label="Delete attachment">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-                    </button>
+                    <button class="delete-attachment-btn p-1 rounded-full hover:bg-red-100 dark:hover:bg-red-900/50" data-action="delete-attachment" aria-label="Delete attachment"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></button>
                 </div>
             `;
         }
@@ -1150,9 +826,6 @@
                 grid.appendChild(card);
             });
         }
-
-        // --- Event Handlers & UI Updates ---
-        
         function handleChecklistContainerClick(event) {
             const target = event.target.closest('[data-action]');
             if (!target) return;
@@ -1199,7 +872,7 @@
             const item = category?.items.find(i => i.id === itemId);
             if (item) {
                 item.notes = target.value;
-                handleSaveChecklist(); // Debounced save
+                handleSaveChecklist();
             }
         }
         
@@ -1217,7 +890,7 @@
                 const item = category?.items.find(i => i.id === itemId);
                 if (item) {
                     item.checked = target.checked;
-                    handleSaveChecklist(true); // Immediate save for checkbox
+                    handleSaveChecklist(true);
                 }
             } else if (action === 'add-attachment') {
                 const file = target.files[0];
@@ -1230,17 +903,9 @@
 
         function addCategory() {
             helpers.openEditModal({
-                title: "Add New Category",
-                label: "Category Name",
-                placeholder: "e.g., Volunteer Management",
-                currentValue: "",
+                title: "Add New Category", label: "Category Name", placeholder: "e.g., Volunteer Management", currentValue: "",
                 onSave: (newCategoryName) => {
-                    const newCategory = {
-                        id: helpers.generateUniqueId(),
-                        name: newCategoryName,
-                        isCustom: true,
-                        items: []
-                    };
+                    const newCategory = { id: helpers.generateUniqueId(), name: newCategoryName, isCustom: true, items: [] };
                     currentChecklistData.categories.push(newCategory);
                     rerenderChecklist();
                     handleSaveChecklist(true);
@@ -1253,10 +918,7 @@
             if (!category) return;
 
             helpers.openEditModal({
-                title: "Edit Category",
-                label: "Category Name",
-                placeholder: "Enter new category name",
-                currentValue: category.name,
+                title: "Edit Category", label: "Category Name", placeholder: "Enter new category name", currentValue: category.name,
                 onSave: (updatedName) => {
                     category.name = updatedName;
                     rerenderChecklist();
@@ -1269,9 +931,7 @@
             const category = currentChecklistData.categories.find(c => c.id === categoryId);
             if (!category) return;
             
-            helpers.openConfirmationModal(
-                "Delete Category?",
-                `Are you sure you want to delete the "${category.name}" category and all its items?`,
+            helpers.openConfirmationModal("Delete Category?", `Are you sure you want to delete the "${category.name}" category and all its items?`,
                 () => {
                     currentChecklistData.categories = currentChecklistData.categories.filter(c => c.id !== categoryId);
                     rerenderChecklist();
@@ -1285,19 +945,9 @@
             if (!category) return;
 
             helpers.openEditModal({
-                title: "Add New Item",
-                label: "Item Text",
-                placeholder: "e.g., Volunteer onboarding process documented?",
-                currentValue: "",
+                title: "Add New Item", label: "Item Text", placeholder: "e.g., Volunteer onboarding process documented?", currentValue: "",
                 onSave: (newItemText) => {
-                    const newItem = {
-                        id: helpers.generateUniqueId(),
-                        text: newItemText,
-                        isCustom: true,
-                        attachments: [],
-                        notes: "",
-                        checked: false
-                    };
+                    const newItem = { id: helpers.generateUniqueId(), text: newItemText, isCustom: true, attachments: [], notes: "", checked: false };
                     category.items.push(newItem);
                     rerenderChecklist();
                     handleSaveChecklist(true);
@@ -1311,10 +961,7 @@
             if (!item) return;
 
             helpers.openEditModal({
-                title: "Edit Item",
-                label: "Item Text",
-                placeholder: "Enter new item text",
-                currentValue: item.text,
+                title: "Edit Item", label: "Item Text", placeholder: "Enter new item text", currentValue: item.text,
                 onSave: (updatedText) => {
                     item.text = updatedText;
                     rerenderChecklist();
@@ -1327,9 +974,7 @@
             const category = currentChecklistData.categories.find(c => c.id === categoryId);
             if (!category) return;
 
-            helpers.openConfirmationModal(
-                "Delete Item?",
-                `Are you sure you want to delete this checklist item?`,
+            helpers.openConfirmationModal("Delete Item?", `Are you sure you want to delete this checklist item?`,
                 () => {
                     category.items = category.items.filter(i => i.id !== itemId);
                     rerenderChecklist();
@@ -1379,18 +1024,12 @@
             const item = category?.items.find(i => i.id === itemId);
             if (!item || !item.attachments) return;
 
-            helpers.openConfirmationModal(
-                "Delete Attachment?",
-                `Are you sure you want to delete the file "${fileName}"?`,
+            helpers.openConfirmationModal("Delete Attachment?", `Are you sure you want to delete the file "${fileName}"?`,
                 async () => {
                     try {
-                        // Delete from storage
                         const storageRef = ref(storage, `artifacts/${appId}/users/${userId}/attachments/${currentChecklistData.id}/${itemId}/${fileName}`);
                         await deleteObject(storageRef);
-                        
-                        // Remove from data object
                         item.attachments = item.attachments.filter(att => att.fileName !== fileName);
-                        
                         rerenderChecklist();
                         await handleSaveChecklist(true);
                     } catch (error) {
@@ -1425,14 +1064,12 @@
                 } else {
                     categoryBlock.classList.add('expanded');
                 }
-
                 container.appendChild(categoryBlock);
             });
         }
         
         function handleCopyChecklistText() {
             if (!currentChecklistData) return;
-            
             let text = `Checklist for: ${currentChecklistData.orgName}\n\n`;
             currentChecklistData.categories.forEach(category => {
                 text += `--- ${category.name.toUpperCase()} ---\n`;
@@ -1444,20 +1081,14 @@
                 });
                 text += '\n';
             });
-            
             helpers.copyToClipboard(text, ui.copyChecklistBtn, 'Copied!', 'Copy as Text');
         }
-
     </script>
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('service-worker.js')
-                .then(registration => {
-                    console.log('Service Worker registered with scope:', registration.scope);
-                })
-                .catch(error => {
-                    console.error('Service Worker registration failed:', error);
-                });
+            navigator.serviceWorker.register('service-worker.js').catch(error => {
+                console.error('Service Worker registration failed:', error);
+            });
         }
     </script>
 </body>
