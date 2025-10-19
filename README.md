@@ -10,7 +10,7 @@ Welcome to Charity Recon! This guide empowers animal rescue organizations, donor
 
 ## Quick Start Guide for Donors
 In a hurry? Here are three essential steps to quickly vet an organization:
- 1. Verify Registered Status: Use the appropriate national or regional charity registrar to confirm the organization is a registered non-profit. See the [International Resources](#international-resources) section for country-specific starting points.
+ 1. Verify Registered Status: Use the appropriate national or regional charity registrar to confirm the organization is a registered non-profit. See the [International Resources](INTERNATIONAL_RESOURCES.md) section for country-specific starting points.
  2. Verify 501(c)(3) Status: Use the [IRS Tax Exempt Organization Search](https://apps.irs.gov/app/eos/) to confirm the organization is a registered charity.
  3. Review Financials: Look up the organization on [ProPublica Nonprofit Explorer](https://projects.propublica.org/nonprofits/) to see their annual IRS Form 990 filings. Check their revenue, expenses, and executive compensation.
  4. Check State Registration: Find your state's charity official via [NASCO](https://www.nasconet.org/) to ensure they are registered to solicit donations in your state.
@@ -32,7 +32,7 @@ In a hurry? Here are three essential steps to quickly vet an organization:
    - [Local Requirements](#local-requirements)
 - [Resource Hub](#resource-hub)
    - [National Resources (U.S.)](#national-resources-us)
-   - [International Resources](#international-resources)
+   - [International Resources](INTERNATIONAL_RESOURCES.md)
 - [Advanced Investigation Tips](#advanced-investigation-tips)
 - [Glossary of Common Terms](#glossary-of-common-terms)
 - [State-Specific Resources](STATE_RESOURCES.md)
@@ -150,7 +150,7 @@ Animal rescues must comply with a web of federal, state, and local laws. Failure
 - **Zoning & Business Permits**: Local ordinances control where a physical shelter can operate and may require a business license.
 - **Animal Control Ordinances**: City or county laws dictate rules on the number of animals that can be kept, leash laws, and individual animal licensing.
 
-[↑ Back To Top](#contents)
+[↑ Back ToTop](#contents)
 
 ---
 
@@ -174,14 +174,7 @@ Use these resources to conduct your research.
 - **NASCO - State Charity Officials**: [nasconet.org](https://nasconet.org) - Links to all state-level charity regulators.
 
 ### International Resources
-This guide is primarily U.S.-focused, but similar principles apply globally. Here are starting points for other countries:
-- **Canada**: [Canada Revenue Agency - Charities listing](https://apps.cra-arc.gc.ca/ebci/hacc/srch/pub/dsplyBscSrch)
-- **Germany**: [Federal Central Tax Office (Bundeszentralamt für Steuern) - Register of Charitable Organizations](https://www.bzst.de/EN/Businesses/Non-Profit/Charity_Register/Overview/overview_node.html)
-- **Ireland**: [Charities Regulator - Register of Charities](https://www.charitiesregulator.ie/en/information-for-the-public/search-the-register-of-charities)
-- **Japan**: While there is no single central government database, many legitimate non-profits are registered as "Specified Nonprofit Corporations" and may be found through the [Cabinet Office's NPO portal (English)](https://www.npo-homepage.go.jp/en/) or are members of the [Japan Association of Charitable Organizations (JACO).](https://www.jaco.or.jp/)
-- **United Kingdom**: [GOV.UK - Find a charity](https://www.gov.uk/find-charity-information) (for England and Wales), [Scottish Charity Regulator (OSCR)](https://www.oscr.org.uk/) (for Scotland), and the [Charity Commission for Northern Ireland](https://www.charitycommissionni.org.uk/) (for Northern Ireland).
-- **Australia**: [Australian Charities and Not-for-profits Commission (ACNC)](https://www.acnc.gov.au/charity)
-- **New Zealand**: [Charities Services Register](https://charities.govt.nz/)
+This guide is primarily U.S.-focused, but similar principles apply globally. For starting points for other countries, see our [International Resources Guide](INTERNATIONAL_RESOURCES.md).
 
 [↑ Back To Top](#contents)
 
@@ -207,7 +200,7 @@ This guide is primarily U.S.-focused, but similar principles apply globally. Her
 - **Fiscal Sponsor**: A registered 501(c)(3) organization that provides financial and legal oversight to a non-exempt project or group, allowing them to solicit tax-deductible donations.
 - **No-Kill**: A philosophy where an animal shelter aims to save all healthy and treatable animals, typically defined as saving 90% or more of the animals that enter their care. This status should be backed by publicly available data.
 
-[↑ Back To Top](#contents)
+[↑ Back ToTop](#contents)
 
 ---
 
