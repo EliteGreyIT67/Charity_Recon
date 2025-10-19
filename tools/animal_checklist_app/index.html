@@ -43,6 +43,9 @@
         .custom-checkbox:checked { border-color: var(--checkbox-checked-border); }
         .custom-checkbox:checked::before { transform: scale(1); }
         .custom-checkbox:focus-visible { outline: max(2px, 0.15em) solid var(--checkbox-checked-border); outline-offset: max(2px, 0.15em); }
+        .custom-checkbox:disabled { background-color: #e2e8f0; border-color: #cbd5e1; cursor: not-allowed; }
+        .dark .custom-checkbox:disabled { background-color: #334155; border-color: #475569; }
+        .dark .custom-checkbox:disabled::before { box-shadow: inset 1em 1em #64748b; }
         .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: var(--modal-overlay-bg); padding-top: 60px; backdrop-filter: blur(4px); animation: fadeIn 0.3s ease-out; }
         .modal-content { margin: 5% auto; padding: var(--spacing-8); width: 90%; max-width: 550px; border-radius: 0.75rem; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -115,10 +118,6 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
                         <span>Start New</span>
                     </button>
-                    <button id="import-checklist-btn" class="w-full sm:w-auto bg-slate-600 hover:bg-slate-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 ease-in-out flex items-center justify-center space-x-2" aria-label="Import a shared checklist">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                        <span>Import Shared</span>
-                    </button>
                 </nav>
 
                 <div id="search-container" class="mb-8 relative">
@@ -138,7 +137,7 @@
                 <div id="no-checklists-message" class="text-center py-16 bg-white dark:bg-slate-800 rounded-lg shadow-sm hidden">
                      <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 mx-auto text-slate-300 dark:text-slate-600 mb-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                     <p class="text-2xl font-semibold text-slate-700 dark:text-slate-300">No checklists found.</p>
-                    <p class="text-slate-500 dark:text-slate-400">Click "Start New" to begin, or "Import Shared" to add one from a colleague.</p>
+                    <p class="text-slate-500 dark:text-slate-400">Click "Start New" to begin. Checklists shared with you will appear here.</p>
                 </div>
                 <div id="saved-checklists-container" class="space-y-4"></div>
             </section>
@@ -173,8 +172,8 @@
                     </button>
                     <div class="flex flex-col sm:flex-row sm:justify-end gap-3 flex-wrap">
                          <button id="share-checklist-btn" class="w-full sm:w-auto bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 px-5 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 hidden">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12s-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367-2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" /></svg>
-                            <span>Share</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                            <span>Manage Access</span>
                         </button>
                          <button id="copy-checklist-btn" class="w-full sm:w-auto bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-3 px-5 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
@@ -205,28 +204,31 @@
             </div>
         </div>
     </div>
-    <div id="share-modal" class="modal">
-        <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 p-2 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12s-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367-2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" /></svg>
-            <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-2">Share this Checklist</h3>
-            <p class="mb-4 text-slate-500 dark:text-slate-400">Give this ID to another user so they can import a read-only copy of this checklist.</p>
-            <div class="p-3 bg-slate-100 dark:bg-slate-700 rounded-lg font-mono text-slate-700 dark:text-slate-200 text-center break-words border border-slate-200 dark:border-slate-600 mb-6" id="share-id-display"></div>
-            <div class="flex justify-center space-x-4">
-                <button data-dismiss="modal" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Close</button>
-                <button id="share-modal-copy-btn" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">Copy ID</button>
-            </div>
-        </div>
-    </div>
-    <div id="import-modal" class="modal">
+    <div id="manage-share-modal" class="modal">
         <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg">
-             <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-4 text-center">Import Shared Checklist</h3>
-             <label for="import-id-input" class="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-2">Enter Share ID:</label>
-             <input type="text" id="import-id-input" class="w-full p-3 border border-slate-300 dark:border-slate-600 dark:bg-slate-900 rounded-lg shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 dark:placeholder-slate-400" placeholder="Paste the Share ID here">
-             <div id="import-status-message" class="mt-3 text-center text-sm font-medium"></div>
-            <div class="flex justify-center space-x-4 mt-6">
-                <button data-dismiss="modal" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Cancel</button>
-                <button id="import-modal-confirm-btn" class="flex-1 bg-slate-600 hover:bg-slate-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">Import</button>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 p-2 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-2.144M12 6a3 3 0 11-6 0 3 3 0 016 0zM4 9a3 3 0 013-3h1m-1 14v-2a3 3 0 013-3h4a3 3 0 013 3v2m-6 2h-2a3 3 0 01-3-3V9a3 3 0 013-3h2" /></svg>
+            <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-2 text-center">Manage Access</h3>
+            
+            <form id="add-member-form" class="mt-6 mb-6 space-y-3">
+                <p class="text-sm text-slate-600 dark:text-slate-400">Invite new member by email:</p>
+                <div class="flex flex-col sm:flex-row sm:space-x-2 gap-3 sm:gap-0">
+                    <input type="email" id="add-member-email" class="flex-1 w-full p-3 border border-slate-300 dark:border-slate-600 dark:bg-slate-900 rounded-lg shadow-sm focus:ring-2 focus:ring-sky-500" placeholder="user@example.com" required>
+                    <select id="add-member-role" class="w-full sm:w-auto p-3 border border-slate-300 dark:border-slate-600 dark:bg-slate-900 rounded-lg shadow-sm focus:ring-2 focus:ring-sky-500">
+                        <option value="editor">Editor</option>
+                        <option value="viewer">Viewer</option>
+                    </select>
+                </div>
+                <button type="submit" id="add-member-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">Add Member</button>
+                <p id="share-status-message" class="text-center text-sm font-medium"></p>
+            </form>
+
+            <div class="border-t border-slate-200 dark:border-slate-700 pt-4">
+                <h4 class="text-lg font-semibold text-slate-700 dark:text-slate-300 mb-3">Current Members</h4>
+                <div id="share-members-list" class="space-y-2 max-h-48 overflow-y-auto">
+                    </div>
             </div>
+
+            <button data-dismiss="modal" class="w-full mt-8 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Close</button>
         </div>
     </div>
     <div id="edit-modal" class="modal">
@@ -244,7 +246,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, addDoc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, query, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, addDoc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, query, serverTimestamp, where, getDocs, deleteField } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         import { getStorage, ref, uploadBytes, deleteObject, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
 
         // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -260,12 +262,14 @@
 
         let db, auth, storage;
         let currentChecklistData = null;
-        let checklistUnsubscribe = null;
+        let listUnsubscribe = null;
+        let currentChecklistUnsubscribe = null;
         let userId = null;
+        let userEmail = null;
+        let allUsersCache = {}; // Cache for user profiles
         const ui = {};
         let confirmAction = null;
         let saveTimeout = null;
-        const appId = 'default-animal-rescue-app';
         const checklistMasterTemplate = [
             { id: "cat_fed_state", name: "Federal & State Compliance", isCustom: false, items: [
                 { id: "fed_irs_status", text: "IRS 501(c)(3) status verified?", link: "https://apps.irs.gov/app/eos/", linkText: "IRS Search", modalId: "ein-lookup-modal", isCustom: false, attachments: [], notes: "", checked: false },
@@ -321,16 +325,31 @@
         }
 
         function setupAuthListener() {
-            onAuthStateChanged(auth, (user) => {
+            onAuthStateChanged(auth, async (user) => {
                 if (user) {
                     userId = user.uid;
+                    userEmail = user.email;
                     ui.userName.textContent = user.displayName || 'User';
                     ui.userEmail.textContent = user.email || 'No email provided';
+                    
+                    // Save/update user profile in 'users' collection for sharing lookup
+                    try {
+                        const userRef = doc(db, 'users', user.uid);
+                        await setDoc(userRef, { 
+                            email: user.email, 
+                            displayName: user.displayName 
+                        }, { merge: true });
+                    } catch (error) {
+                        console.error("Error saving user profile:", error);
+                    }
+
                     helpers.showView('main');
                     listenForChecklists();
                 } else {
                     userId = null;
-                    if (checklistUnsubscribe) checklistUnsubscribe();
+                    userEmail = null;
+                    if (listUnsubscribe) listUnsubscribe();
+                    if (currentChecklistUnsubscribe) currentChecklistUnsubscribe();
                     renderListView([]);
                     helpers.showView('login');
                 }
@@ -339,14 +358,15 @@
 
         function cacheDOMElements() {
             const ids = [
-                'app-container', 'list-view', 'checklist-view', 'new-checklist-btn', 'import-checklist-btn', 'back-to-list-btn', 
+                'app-container', 'list-view', 'checklist-view', 'new-checklist-btn', 'back-to-list-btn', 
                 'save-checklist-btn', 'delete-checklist-btn', 'share-checklist-btn', 'print-checklist-btn', 'copy-checklist-btn', 
                 'add-category-btn', 'dark-mode-toggle', 'sun-icon', 'moon-icon', 'org-name-input', 'org-name-input-print-header', 
                 'org-name-error', 'checklist-items-container', 'checklist-title', 'saved-checklists-container', 'search-input', 
                 'no-checklists-message', 'status-message', 'user-info', 'confirmation-modal', 'main-content',
-                'modal-title', 'modal-message', 'modal-confirm-btn', 'share-modal', 'share-id-display', 'user-name', 'user-email',
-                'share-modal-copy-btn', 'import-modal', 'import-id-input', 'import-status-message', 'login-view', 'google-signin-btn',
-                'import-modal-confirm-btn', 'edit-modal', 'edit-modal-title', 'edit-modal-label', 'edit-modal-input', 'facebook-signin-btn',
+                'modal-title', 'modal-message', 'modal-confirm-btn', 'manage-share-modal', 'share-members-list',
+                'add-member-form', 'add-member-email', 'add-member-role', 'add-member-btn', 'share-status-message',
+                'login-view', 'google-signin-btn', 'facebook-signin-btn',
+                'edit-modal', 'edit-modal-title', 'edit-modal-label', 'edit-modal-input',
                 'edit-modal-error', 'edit-modal-save-btn', 'save-button-text', 'save-spinner', 'auth-error', 'sign-out-btn',
                 'external-tools-grid'
             ];
@@ -357,8 +377,15 @@
             ui.googleSigninBtn.addEventListener('click', () => handleSignIn(new GoogleAuthProvider()));
             ui.facebookSigninBtn.addEventListener('click', () => handleSignIn(new FacebookAuthProvider()));
             ui.signOutBtn.addEventListener('click', handleSignOut);
-            ui.newChecklistBtn.addEventListener('click', () => renderChecklistForm());
-            ui.backToListBtn.addEventListener('click', () => helpers.showSubView('list'));
+            ui.newChecklistBtn.addEventListener('click', () => renderChecklistForm(null));
+            ui.backToListBtn.addEventListener('click', () => {
+                if (currentChecklistUnsubscribe) {
+                    currentChecklistUnsubscribe();
+                    currentChecklistUnsubscribe = null;
+                }
+                helpers.showSubView('list');
+                listenForChecklists(); // Re-attach list listener
+            });
             ui.saveChecklistBtn.addEventListener('click', () => handleSaveChecklist(true));
             ui.deleteChecklistBtn.addEventListener('click', handleDeleteChecklist);
             ui.printChecklistBtn.addEventListener('click', () => {
@@ -366,32 +393,25 @@
                 window.print();
             });
             ui.copyChecklistBtn.addEventListener('click', handleCopyChecklistText);
-            ui.shareChecklistBtn.addEventListener('click', handleShareChecklist);
-            ui.importChecklistBtn.addEventListener('click', () => {
-                ui.importIdInput.value = '';
-                ui.importStatusMessage.textContent = '';
-                helpers.openModal(ui.importModal);
-            });
-            ui.externalToolsGrid.addEventListener('click', (event) => {
-                const toolCard = event.target.closest('.tool-card');
-                if(toolCard) {
-                    const modalId = toolCard.dataset.modalId;
-                    const modal = document.getElementById(modalId);
-                    if (modal) helpers.openModal(modal);
+            ui.shareChecklistBtn.addEventListener('click', handleManageSharing);
+            ui.addMemberForm.addEventListener('submit', handleAddMember);
+            ui.shareMembersList.addEventListener('click', (e) => {
+                if (e.target.closest('.remove-member-btn')) {
+                    const memberId = e.target.closest('.remove-member-btn').dataset.memberId;
+                    handleRemoveMember(memberId);
                 }
             });
+
             ui.searchInput.addEventListener('input', filterAndRenderListView);
             ui.orgNameInput.addEventListener('input', () => {
                 ui.checklistTitle.textContent = ui.orgNameInput.value.trim() || "New Checklist";
-                handleSaveChecklist();
+                handleSaveChecklist(false); // Trigger auto-save
             });
             ui.addCategoryBtn.addEventListener('click', addCategory);
             ui.checklistItemsContainer.addEventListener('click', handleChecklistContainerClick);
             ui.checklistItemsContainer.addEventListener('input', handleChecklistContainerInput);
             ui.checklistItemsContainer.addEventListener('change', handleChecklistContainerChange);
             ui.modalConfirmBtn.addEventListener('click', () => confirmAction?.());
-            ui.shareModalCopyBtn.addEventListener('click', () => helpers.copyToClipboard(ui.shareIdDisplay.textContent, ui.shareModalCopyBtn, 'ID Copied!', 'Copy ID'));
-            ui.importModalConfirmBtn.addEventListener('click', handleImportConfirm);
             
             document.querySelectorAll('.modal').forEach(modal => {
                 modal.addEventListener('click', (event) => { if (event.target === modal) helpers.closeModal(modal); });
@@ -504,13 +524,16 @@
             generateUniqueId: () => `id_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
         };
 
-        // ... (The rest of the JS functions: listenForChecklists, handleSaveChecklist, handleDeleteChecklist, etc. remain the same as the previous non-AI version) ...
         function listenForChecklists() {
-            if (checklistUnsubscribe) checklistUnsubscribe();
+            if (listUnsubscribe) listUnsubscribe();
             if (!userId) return;
 
-            const q = query(collection(db, `artifacts/${appId}/users/${userId}/checklists`));
-            checklistUnsubscribe = onSnapshot(q, (querySnapshot) => {
+            const q = query(
+                collection(db, 'checklists'),
+                where(`members.${userId}`, 'in', ['owner', 'editor', 'viewer'])
+            );
+            
+            listUnsubscribe = onSnapshot(q, (querySnapshot) => {
                 const checklists = [];
                 querySnapshot.forEach((doc) => {
                     checklists.push({ id: doc.id, ...doc.data() });
@@ -535,22 +558,32 @@
                 }
                 ui.orgNameError.classList.add('hidden');
 
+                // Update local data first
                 currentChecklistData.orgName = orgName;
-                currentChecklistData.lastUpdated = serverTimestamp();
+                // 'categories' are updated by reference in other functions
+                
+                const dataToSave = {
+                    orgName: currentChecklistData.orgName,
+                    categories: currentChecklistData.categories,
+                    lastUpdated: serverTimestamp()
+                };
 
                 helpers.setSaveButtonState(true);
 
                 try {
                     let docRef;
                     if (currentChecklistData.id) {
-                        docRef = doc(db, `artifacts/${appId}/users/${userId}/checklists`, currentChecklistData.id);
-                        await updateDoc(docRef, currentChecklistData);
+                        // Update existing document
+                        docRef = doc(db, 'checklists', currentChecklistData.id);
+                        await updateDoc(docRef, dataToSave);
                     } else {
-                        const collectionRef = collection(db, `artifacts/${appId}/users/${userId}/checklists`);
-                        docRef = await addDoc(collectionRef, currentChecklistData);
-                        currentChecklistData.id = docRef.id;
-                        ui.deleteChecklistBtn.classList.remove('hidden');
-                        ui.shareChecklistBtn.classList.remove('hidden');
+                        // Create new document
+                        dataToSave.members = { [userId]: 'owner' }; // Set current user as owner
+                        const collectionRef = collection(db, 'checklists');
+                        docRef = await addDoc(collectionRef, dataToSave);
+                        
+                        // New checklist was created, switch to listening mode for it
+                        renderChecklistForm(docRef.id);
                     }
                     helpers.showStatus(ui.statusMessage, "Checklist saved!", 'success');
                 } catch (error) {
@@ -564,20 +597,29 @@
             if (force) {
                 await saveAction();
             } else {
+                // Auto-save timer
                 saveTimeout = setTimeout(saveAction, 1500);
             }
         }
 
         async function handleDeleteChecklist() {
             if (!currentChecklistData?.id) return;
+            if (currentChecklistData.members[userId] !== 'owner') {
+                helpers.showStatus(ui.statusMessage, "Only the owner can delete this checklist.", 'error');
+                return;
+            }
+
             helpers.openConfirmationModal(
                 "Delete Checklist?",
-                `Are you sure you want to permanently delete the "${currentChecklistData.orgName}" checklist?`,
+                `Are you sure you want to permanently delete the "${currentChecklistData.orgName}" checklist? This cannot be undone for any members.`,
                 async () => {
                     try {
-                        const docRef = doc(db, `artifacts/${appId}/users/${userId}/checklists`, currentChecklistData.id);
+                        const docRef = doc(db, 'checklists', currentChecklistData.id);
                         await deleteDoc(docRef);
+                        
+                        if (currentChecklistUnsubscribe) currentChecklistUnsubscribe(); // Stop listening
                         helpers.showSubView('list');
+                        listenForChecklists(); // Refresh list
                     } catch (error) {
                         console.error("Error deleting checklist:", error);
                         helpers.showStatus(ui.statusMessage, `Error deleting: ${error.message}`, 'error');
@@ -586,54 +628,133 @@
             );
         }
 
-        async function handleShareChecklist() {
+        async function handleManageSharing() {
             if (!currentChecklistData?.id) return;
-            helpers.showStatus(ui.statusMessage, "Generating shareable link...", 'info', null);
-            try {
-                const publicDocRef = doc(db, `artifacts/${appId}/public/shared_checklists`, currentChecklistData.id);
-                await setDoc(publicDocRef, { ...currentChecklistData, originalOwner: userId, isShared: true });
-                ui.shareIdDisplay.textContent = currentChecklistData.id;
-                helpers.openModal(ui.shareModal);
-                helpers.showStatus(ui.statusMessage, "Share link ready!", 'success');
-            } catch (error) {
-                console.error("Error creating share link:", error);
-                helpers.showStatus(ui.statusMessage, `Error sharing: ${error.message}`, 'error');
-            }
+            
+            helpers.showStatus(ui.shareStatusMessage, "", 'info', 0);
+            ui.addMemberEmail.value = '';
+            
+            await populateMembersList();
+            helpers.openModal(ui.manageShareModal);
         }
 
-        async function handleImportConfirm() {
-            const shareId = ui.importIdInput.value.trim();
-            if (!shareId) {
-                helpers.showStatus(ui.importStatusMessage, "Please enter a Share ID.", 'error');
-                return;
-            }
-            helpers.showStatus(ui.importStatusMessage, "Importing...", 'info', null);
+        async function populateMembersList() {
+            const listEl = ui.shareMembersList;
+            listEl.innerHTML = '<div class="text-center">Loading members...</div>';
+            
+            // Fetch fresh user data if needed
+            const memberIds = Object.keys(currentChecklistData.members);
+            await cacheUserProfiles(memberIds);
+
+            listEl.innerHTML = ''; // Clear loading
+            
+            memberIds.forEach(id => {
+                const user = allUsersCache[id];
+                const role = currentChecklistData.members[id];
+                const isOwner = role === 'owner';
+                const isSelf = id === userId;
+
+                listEl.innerHTML += `
+                    <div class="flex items-center justify-between p-2 bg-slate-100 dark:bg-slate-700 rounded-md">
+                        <div>
+                            <p class="font-semibold text-sm text-slate-800 dark:text-slate-200">${user?.displayName || 'Unknown User'} ${isSelf ? '(You)' : ''}</p>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">${user?.email || id}</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-sm font-medium text-slate-600 dark:text-slate-300 capitalize">${role}</span>
+                            ${!isOwner ? `
+                            <button class="remove-member-btn p-1.5 rounded-full hover:bg-red-100 dark:hover:bg-red-900/50" data-member-id="${id}" aria-label="Remove member">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" /></svg>
+                            </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+        
+        async function cacheUserProfiles(userIds) {
+            const idsToFetch = userIds.filter(id => !allUsersCache[id]);
+            if (idsToFetch.length === 0) return;
 
             try {
-                const publicDocRef = doc(db, `artifacts/${appId}/public/shared_checklists`, shareId);
-                const docSnap = await getDoc(publicDocRef);
+                // Firestore 'in' query is limited to 30 items
+                for (let i = 0; i < idsToFetch.length; i += 30) {
+                    const batchIds = idsToFetch.slice(i, i + 30);
+                    const q = query(collection(db, 'users'), where('__name__', 'in', batchIds));
+                    const snapshot = await getDocs(q);
+                    snapshot.forEach(doc => {
+                        allUsersCache[doc.id] = doc.data();
+                    });
+                }
+            } catch (error) {
+                console.error("Error fetching user profiles:", error);
+            }
+        }
+        
+        async function handleAddMember(e) {
+            e.preventDefault();
+            const email = ui.addMemberEmail.value.trim();
+            const role = ui.addMemberRole.value;
+            if (!email) return;
 
-                if (!docSnap.exists()) {
-                    throw new Error("Shared checklist not found.");
+            helpers.showStatus(ui.shareStatusMessage, "Searching for user...", 'info', null);
+
+            try {
+                // Find user by email
+                const q = query(collection(db, 'users'), where('email', '==', email));
+                const userSnapshot = await getDocs(q);
+
+                if (userSnapshot.empty) {
+                    throw new Error("User not found with that email.");
                 }
 
-                let importedData = docSnap.data();
-                delete importedData.originalOwner;
-                delete importedData.isShared;
-                importedData.orgName = `(Imported) ${importedData.orgName}`;
+                const newMemberId = userSnapshot.docs[0].id;
+                const newMemberData = userSnapshot.docs[0].data();
 
-                const collectionRef = collection(db, `artifacts/${appId}/users/${userId}/checklists`);
-                const newDocRef = await addDoc(collectionRef, importedData);
+                if (currentChecklistData.members[newMemberId]) {
+                    throw new Error("User is already a member of this checklist.");
+                }
+
+                // Add member to checklist
+                const checklistRef = doc(db, 'checklists', currentChecklistData.id);
+                await updateDoc(checklistRef, {
+                    [`members.${newMemberId}`]: role
+                });
                 
-                helpers.showStatus(ui.importStatusMessage, "Import successful!", 'success');
-                setTimeout(() => {
-                    helpers.closeModal(ui.importModal);
-                    renderChecklistForm(newDocRef.id);
-                }, 1500);
+                allUsersCache[newMemberId] = newMemberData; // Cache new user data
+                currentChecklistData.members[newMemberId] = role; // Update local state
+                
+                helpers.showStatus(ui.shareStatusMessage, "Member added!", 'success');
+                ui.addMemberEmail.value = '';
+                await populateMembersList(); // Refresh list
 
             } catch (error) {
-                console.error("Error importing checklist:", error);
-                helpers.showStatus(ui.importStatusMessage, `Import failed: ${error.message}`, 'error');
+                console.error("Error adding member:", error);
+                helpers.showStatus(ui.shareStatusMessage, `Error: ${error.message}`, 'error');
+            }
+        }
+        
+        async function handleRemoveMember(memberId) {
+            if (!memberId || memberId === userId) return; // Can't remove self
+            if (currentChecklistData.members[userId] !== 'owner') {
+                 helpers.showStatus(ui.shareStatusMessage, "Only the owner can remove members.", 'error');
+                return;
+            }
+
+            try {
+                const checklistRef = doc(db, 'checklists', currentChecklistData.id);
+                await updateDoc(checklistRef, {
+                    [`members.${memberId}`]: deleteField()
+                });
+
+                delete currentChecklistData.members[memberId]; // Update local state
+                helpers.showStatus(ui.shareStatusMessage, "Member removed!", 'success');
+                await populateMembersList(); // Refresh list
+
+            } catch (error) {
+                console.error("Error removing member:", error);
+                helpers.showStatus(ui.shareStatusMessage, `Error: ${error.message}`, 'error');
             }
         }
         
@@ -651,9 +772,13 @@
                 card.addEventListener('click', () => renderChecklistForm(list.id));
                 
                 const lastUpdated = list.lastUpdated ? list.lastUpdated.toDate().toLocaleString() : 'N/A';
+                const role = list.members[userId];
 
                 card.innerHTML = `
-                    <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 truncate">${list.orgName || 'Untitled Checklist'}</h3>
+                    <div class="flex justify-between items-start">
+                        <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 truncate pr-4">${list.orgName || 'Untitled Checklist'}</h3>
+                        <span class="flex-shrink-0 text-xs font-semibold uppercase px-2 py-0.5 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300">${role}</span>
+                    </div>
                     <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Last updated: ${lastUpdated}</p>
                 `;
                 container.appendChild(card);
@@ -674,48 +799,99 @@
             ui.noChecklistsMessage.classList.toggle('hidden', visibleCount > 0 && searchTerm.length === 0);
         }
 
-        async function renderChecklistForm(checklistId = null) {
+        function renderChecklistForm(checklistId = null) {
+            // Detach old listeners
+            if (listUnsubscribe) listUnsubscribe();
+            if (currentChecklistUnsubscribe) currentChecklistUnsubscribe();
+            
+            ui.checklistItemsContainer.innerHTML = '';
             currentChecklistData = null;
+
             if (checklistId) {
-                try {
-                    const docRef = doc(db, `artifacts/${appId}/users/${userId}/checklists`, checklistId);
-                    const docSnap = await getDoc(docRef);
-                    if (docSnap.exists()) {
-                        currentChecklistData = { id: docSnap.id, ...docSnap.data() };
-                    } else {
-                        throw new Error("Checklist not found!");
+                // This is an existing checklist, attach a real-time listener
+                currentChecklistUnsubscribe = onSnapshot(doc(db, 'checklists', checklistId), (doc) => {
+                    if (!doc.exists()) {
+                        console.error("Checklist not found or access denied.");
+                        helpers.showStatus(ui.statusMessage, "Checklist not found.", 'error');
+                        helpers.showSubView('list');
+                        listenForChecklists();
+                        return;
                     }
-                } catch (error) {
-                    console.error(error);
-                    helpers.showStatus(ui.statusMessage, "Could not find the selected checklist.", 'error');
-                    helpers.showSubView('list');
-                    return;
-                }
+                    
+                    const data = { id: doc.id, ...doc.data() };
+                    const role = data.members[userId];
+
+                    if (!role) {
+                        console.error("User does not have access to this checklist.");
+                        helpers.showStatus(ui.statusMessage, "Access denied.", 'error');
+                        helpers.showSubView('list');
+                        listenForChecklists();
+                        return;
+                    }
+                    
+                    currentChecklistData = data; // Update global state
+                    buildChecklistUI(data); // Re-build the UI with fresh data
+                    updateChecklistPermissions(data, role); // Enable/disable fields
+                }, (error) => {
+                    console.error("Error listening to checklist:", error);
+                    helpers.showStatus(ui.statusMessage, "Error loading checklist.", 'error');
+                });
+
             } else {
+                // This is a new, unsaved checklist
                 currentChecklistData = {
                     id: null,
                     orgName: '',
                     categories: JSON.parse(JSON.stringify(checklistMasterTemplate)),
-                    lastUpdated: null
+                    members: { [userId]: 'owner' } // User is owner by default
                 };
+                buildChecklistUI(currentChecklistData);
+                updateChecklistPermissions(currentChecklistData, 'owner');
             }
 
-            ui.checklistItemsContainer.innerHTML = '';
-            ui.orgNameInput.value = currentChecklistData.orgName || '';
-            ui.orgNameInputPrintHeader.textContent = currentChecklistData.orgName || "New Checklist";
-            ui.checklistTitle.textContent = currentChecklistData.orgName || 'New Checklist';
-            ui.deleteChecklistBtn.classList.toggle('hidden', !checklistId);
-            ui.shareChecklistBtn.classList.toggle('hidden', !checklistId);
-            ui.orgNameError.classList.add('hidden');
+            helpers.showSubView('checklist');
+        }
 
-            currentChecklistData.categories.forEach(category => {
+        // Builds the categories and items HTML
+        function buildChecklistUI(data) {
+            ui.checklistItemsContainer.innerHTML = ''; // Clear old UI
+            data.categories.forEach(category => {
                 const categoryEl = document.createElement('div');
                 categoryEl.innerHTML = renderCategory(category);
                 ui.checklistItemsContainer.appendChild(categoryEl.firstElementChild);
             });
-
-            helpers.showSubView('checklist');
         }
+
+        // Updates titles, buttons, and disabled states based on role
+        function updateChecklistPermissions(data, role) {
+            const isViewer = role === 'viewer';
+            const isOwner = role === 'owner';
+            
+            // Update titles
+            ui.orgNameInput.value = data.orgName || '';
+            ui.orgNameInputPrintHeader.textContent = data.orgName || "New Checklist";
+            ui.checklistTitle.textContent = data.orgName || 'New Checklist';
+            
+            // Toggle buttons visibility
+            ui.deleteChecklistBtn.classList.toggle('hidden', !isOwner || !data.id);
+            ui.shareChecklistBtn.classList.toggle('hidden', (!isOwner && role !== 'editor') || !data.id);
+            ui.saveChecklistBtn.classList.toggle('hidden', isViewer);
+            ui.addCategoryBtn.classList.toggle('hidden', isViewer);
+            
+            // Disable all inputs if viewer
+            ui.orgNameInput.disabled = isViewer;
+            ui.checklistItemsContainer.querySelectorAll('input, textarea, button').forEach(el => {
+                // Allow print/copy buttons, but disable all others
+                if (!el.closest('#print-checklist-btn') && !el.closest('#copy-checklist-btn')) {
+                    el.disabled = isViewer;
+                }
+            });
+            ui.checklistItemsContainer.querySelectorAll('.file-input-wrapper').forEach(el => el.classList.toggle('hidden', isViewer));
+            
+            // Hide edit/delete buttons if not custom, or if viewer
+            ui.checklistItemsContainer.querySelectorAll('.item-actions, .category-actions').forEach(el => el.classList.toggle('hidden', isViewer));
+        }
+
 
         function renderCategory(category) {
             return `
@@ -877,7 +1053,7 @@
             const item = category?.items.find(i => i.id === itemId);
             if (item) {
                 item.notes = target.value;
-                handleSaveChecklist();
+                handleSaveChecklist(false); // Auto-save
             }
         }
         
@@ -895,7 +1071,7 @@
                 const item = category?.items.find(i => i.id === itemId);
                 if (item) {
                     item.checked = target.checked;
-                    handleSaveChecklist(true);
+                    handleSaveChecklist(true); // Force save on check
                 }
             } else if (action === 'add-attachment') {
                 const file = target.files[0];
@@ -912,8 +1088,8 @@
                 onSave: (newCategoryName) => {
                     const newCategory = { id: helpers.generateUniqueId(), name: newCategoryName, isCustom: true, items: [] };
                     currentChecklistData.categories.push(newCategory);
-                    rerenderChecklist();
-                    handleSaveChecklist(true);
+                    buildChecklistUI(currentChecklistData); // Re-render
+                    handleSaveChecklist(true); // Force save
                 }
             });
         }
@@ -926,8 +1102,8 @@
                 title: "Edit Category", label: "Category Name", placeholder: "Enter new category name", currentValue: category.name,
                 onSave: (updatedName) => {
                     category.name = updatedName;
-                    rerenderChecklist();
-                    handleSaveChecklist(true);
+                    buildChecklistUI(currentChecklistData); // Re-render
+                    handleSaveChecklist(true); // Force save
                 }
             });
         }
@@ -939,8 +1115,8 @@
             helpers.openConfirmationModal("Delete Category?", `Are you sure you want to delete the "${category.name}" category and all its items?`,
                 () => {
                     currentChecklistData.categories = currentChecklistData.categories.filter(c => c.id !== categoryId);
-                    rerenderChecklist();
-                    handleSaveChecklist(true);
+                    buildChecklistUI(currentChecklistData); // Re-render
+                    handleSaveChecklist(true); // Force save
                 }
             );
         }
@@ -954,8 +1130,8 @@
                 onSave: (newItemText) => {
                     const newItem = { id: helpers.generateUniqueId(), text: newItemText, isCustom: true, attachments: [], notes: "", checked: false };
                     category.items.push(newItem);
-                    rerenderChecklist();
-                    handleSaveChecklist(true);
+                    buildChecklistUI(currentChecklistData); // Re-render
+                    handleSaveChecklist(true); // Force save
                 }
             });
         }
@@ -969,8 +1145,8 @@
                 title: "Edit Item", label: "Item Text", placeholder: "Enter new item text", currentValue: item.text,
                 onSave: (updatedText) => {
                     item.text = updatedText;
-                    rerenderChecklist();
-                    handleSaveChecklist(true);
+                    buildChecklistUI(currentChecklistData); // Re-render
+                    handleSaveChecklist(true); // Force save
                 }
             });
         }
@@ -982,8 +1158,8 @@
             helpers.openConfirmationModal("Delete Item?", `Are you sure you want to delete this checklist item?`,
                 () => {
                     category.items = category.items.filter(i => i.id !== itemId);
-                    rerenderChecklist();
-                    handleSaveChecklist(true);
+                    buildChecklistUI(currentChecklistData); // Re-render
+                    handleSaveChecklist(true); // Force save
                 }
             );
         }
@@ -1003,7 +1179,7 @@
             helpers.showStatus(uploadStatusElement, `Uploading...`, 'info', null);
 
             try {
-                const storageRef = ref(storage, `artifacts/${appId}/users/${userId}/attachments/${currentChecklistData.id}/${itemId}/${file.name}`);
+                const storageRef = ref(storage, `attachments/${currentChecklistData.id}/${itemId}/${file.name}`);
                 const snapshot = await uploadBytes(storageRef, file);
                 const downloadURL = await getDownloadURL(snapshot.ref);
 
@@ -1014,8 +1190,8 @@
                     if (!item.attachments) item.attachments = [];
                     item.attachments.push({ fileName: file.name, url: downloadURL, type: file.type, size: file.size });
                     
-                    rerenderChecklist();
-                    await handleSaveChecklist(true);
+                    buildChecklistUI(currentChecklistData); // Re-render
+                    await handleSaveChecklist(true); // Force save
                     helpers.showStatus(uploadStatusElement, `Upload complete!`, 'success');
                 }
             } catch (error) {
@@ -1032,45 +1208,25 @@
             helpers.openConfirmationModal("Delete Attachment?", `Are you sure you want to delete the file "${fileName}"?`,
                 async () => {
                     try {
-                        const storageRef = ref(storage, `artifacts/${appId}/users/${userId}/attachments/${currentChecklistData.id}/${itemId}/${fileName}`);
+                        const storageRef = ref(storage, `attachments/${currentChecklistData.id}/${itemId}/${fileName}`);
                         await deleteObject(storageRef);
+                        
                         item.attachments = item.attachments.filter(att => att.fileName !== fileName);
-                        rerenderChecklist();
-                        await handleSaveChecklist(true);
+                        buildChecklistUI(currentChecklistData); // Re-render
+                        await handleSaveChecklist(true); // Force save
                     } catch (error) {
                         console.error("Error deleting attachment:", error);
                         if (error.code === 'storage/object-not-found') {
+                           // File doesn't exist in storage, just remove it from data
                            item.attachments = item.attachments.filter(att => att.fileName !== fileName);
-                           rerenderChecklist();
-                           await handleSaveChecklist(true);
+                           buildChecklistUI(currentChecklistData); // Re-render
+                           await handleSaveChecklist(true); // Force save
                         } else {
                            helpers.showStatus(ui.statusMessage, `Error deleting file: ${error.message}`, 'error');
                         }
                     }
                 }
             );
-        }
-
-        function rerenderChecklist() {
-            const container = ui.checklistItemsContainer;
-            const expandedStates = {};
-            container.querySelectorAll('.category-block').forEach(el => {
-                expandedStates[el.dataset.categoryId] = el.classList.contains('expanded');
-            });
-            
-            container.innerHTML = '';
-            currentChecklistData.categories.forEach(category => {
-                const categoryEl = document.createElement('div');
-                categoryEl.innerHTML = renderCategory(category);
-                const categoryBlock = categoryEl.firstElementChild;
-                
-                if (expandedStates[category.id] === false) {
-                    categoryBlock.classList.remove('expanded');
-                } else {
-                    categoryBlock.classList.add('expanded');
-                }
-                container.appendChild(categoryBlock);
-            });
         }
         
         function handleCopyChecklistText() {
