@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charity Recon | Integrated OSINT & Compliance Tool</title>
+    <meta name="description" content="A free, integrated open-source intelligence (OSINT) and compliance checklist tool for investigating nonprofit animal rescue organizations.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4f46e5">
+    <style>
+        :root {
+            --background-start-rgb: 243, 244, 246; --background-end-rgb: 229, 231, 235;
+            --text-color: #1f2937; --card-bg: 255, 255, 255;
+            --border-color: #e5e7eb; --input-bg: #f9fafb;
+             --scrollbar-track-bg: #e2e8f0; --scrollbar-thumb-bg: #94a3b8; --scrollbar-thumb-hover-bg: #64748b;
+            --checkbox-bg: #fff; --checkbox-border: #cbd5e1; --checkbox-checked-border: #0ea5e9;
+            --checkbox-checkmark-color: #0ea5e9; --modal-overlay-bg: rgba(15, 23, 42, 0.6);
+        }
+        html.dark {
+            --background-start-rgb: 17, 24, 39; --background-end-rgb: 3, 7, 18;
+            --text-color: #f9fafb; --card-bg: 31, 41, 55;
+            --border-color: #4b5563; --input-bg: #374151;
+            --scrollbar-track-bg: #334155; --scrollbar-thumb-bg: #64748b; --scrollbar-thumb-hover-bg: #94a3b8;
+            --checkbox-bg: #334155; --checkbox-border: #475569; --checkbox-checked-border: #38bdf8;
+            --checkbox-checkmark-color: #38bdf8;
+        }
+        body {
+            font-family: 'Inter', sans-serif; color: var(--text-color);
+            background: linear-gradient(to bottom right, rgb(var(--background-start-rgb)), rgb(var(--background-end-rgb)));
+        }
+        .card {
+            background-color: rgba(var(--card-bg), 0.7); backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px); border: 1px solid var(--border-color);
+            @apply rounded-xl shadow-lg;
+        }
+        .input-group { @apply relative; }
+        .input-icon { @apply absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400; }
+        .form-input {
+            @apply w-full border-2 border-transparent focus:border-indigo-500 focus:ring-0 rounded-md py-2.5 pl-10 pr-4 transition-colors;
+            background-color: var(--input-bg);
+        }
+        .accordion-header { @apply flex justify-between items-center w-full p-5 text-left; }
+        .accordion-content { @apply max-h-0 overflow-hidden transition-all duration-500 ease-in-out; }
+        .accordion-content.open { @apply max-h-screen; }
+        .chevron-icon { @apply transition-transform duration-300; }
+        .btn { @apply px-5 py-2.5 rounded-md font-semibold text-white transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed; }
+        .btn-primary { @apply bg-indigo-600 hover:bg-indigo-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-gray-900; }
+        .btn-secondary { @apply bg-gray-500 hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 focus:ring-offset-gray-900; }
+        .result-link-card { @apply flex items-center justify-between p-4 border rounded-lg transition-all duration-200; border-color: var(--border-color); background-color: rgba(var(--card-bg), 0.5); }
+        .result-link-card:hover { border-color: #4f46e5; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .visited-link { color: #8b5cf6 !important; }
+        .hidden-fade { opacity: 0; transform: translateY(10px); transition: opacity 0.5s ease, transform 0.5s ease; visibility: hidden; }
+        .visible-fade { opacity: 1; transform: translateY(0); visibility: visible; }
+        select.form-input { -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-chevron-down'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.75rem center; background-size: 1.25em; }
+        html.dark select.form-input { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23d1d5db' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-chevron-down'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); }
+        ::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; } ::-webkit-scrollbar-thumb:hover { background: #555; }
+        #toast-container { @apply fixed bottom-5 right-5 flex flex-col items-end space-y-2 z-50; }
+        .toast { @apply flex items-center space-x-3 px-4 py-3 rounded-lg shadow-lg text-white transition-all duration-300; transform: translateX(120%); opacity: 0; }
+        .toast.show { transform: translateX(0); opacity: 1; }
+        .toast.success { @apply bg-green-500; }
+        .skeleton-loader { @apply bg-gray-200 dark:bg-gray-700 rounded-md animate-pulse; }
+        .nav-tab { @apply px-4 py-2 font-semibold text-gray-500 dark:text-gray-400 rounded-t-lg border-b-2 border-transparent transition-colors; }
+        .nav-tab.active { @apply text-indigo-600 dark:text-indigo-400 border-indigo-600 dark:border-indigo-400; }
+        
+        /* Checklist-specific styles */
+        #checklist-items-container::-webkit-scrollbar { width: 8px; }
+        #checklist-items-container::-webkit-scrollbar-track { background: var(--scrollbar-track-bg); border-radius: 4px; }
+        #checklist-items-container::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb-bg); border-radius: 4px; }
+        #checklist-items-container::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover-bg); }
+        .custom-checkbox { appearance: none; background-color: var(--checkbox-bg); margin: 0; font: inherit; color: currentColor; width: 1.25em; height: 1.25em; border: 0.15em solid var(--checkbox-border); border-radius: 0.25em; transform: translateY(-0.075em); display: grid; place-content: center; cursor: pointer; transition: 120ms all ease-in-out; }
+        .custom-checkbox::before { content: ""; width: 0.65em; height: 0.65em; transform: scale(0); transition: 120ms transform ease-in-out; box-shadow: inset 1em 1em var(--checkbox-checkmark-color); clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%); }
+        .custom-checkbox:checked { border-color: var(--checkbox-checked-border); }
+        .custom-checkbox:checked::before { transform: scale(1); }
+        .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: var(--modal-overlay-bg); padding-top: 60px; backdrop-filter: blur(4px); animation: fadeIn 0.3s ease-out; }
+        .modal-content { margin: 5% auto; padding: 2rem; width: 90%; max-width: 550px; border-radius: 0.75rem; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .category-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-in-out; }
+        .category-block.expanded .category-content { max-height: 2000px; }
+        .category-toggle-icon { transition: transform 0.3s ease-in-out; }
+        .category-block.expanded .category-toggle-icon { transform: rotate(90deg); }
+        .spinner { animation: spin 1s linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="flex flex-col sm:flex-row justify-between items-center mb-6">
+            <div class="flex items-center space-x-3 mb-4 sm:mb-0">
+                <div class="bg-indigo-600 p-2 rounded-lg"><i data-lucide="paw-print" class="w-6 h-6 text-white"></i></div>
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Charity Recon Tool</h1>
+                </div>
+            </div>
+            <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" aria-label="Toggle dark mode">
+                <i data-lucide="sun" class="w-6 h-6 block dark:hidden"></i>
+                <i data-lucide="moon" class="w-6 h-6 hidden dark:block"></i>
+            </button>
+        </header>
+
+        <nav class="border-b border-gray-200 dark:border-gray-700 mb-8">
+            <div class="-mb-px flex space-x-6" aria-label="Tabs">
+                <button id="tab-osint" class="nav-tab active" data-view="osint-view" role="tab">
+                    <span class="flex items-center"><i data-lucide="search" class="w-5 h-5 mr-2"></i>OSINT Tool</span>
+                </button>
+                <button id="tab-checklist" class="nav-tab" data-view="checklist-view" role="tab">
+                     <span class="flex items-center"><i data-lucide="check-square" class="w-5 h-5 mr-2"></i>Compliance Checklists</span>
+                </button>
+            </div>
+        </nav>
+        
+        <main>
+            <section id="osint-view" class="view-content">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white">OSINT Dashboard</h2>
+                    <p class="mt-2 max-w-2xl mx-auto text-gray-600 dark:text-gray-300">Enter an organization's details to generate a dashboard of direct links for your investigation.</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <aside class="lg:col-span-1">
+                        <div class="card p-6 sticky top-8">
+                            <h2 class="text-xl font-semibold mb-4">Investigation Details</h2>
+                            <form id="search-form" class="space-y-4" aria-labelledby="form-heading">
+                                <div class="input-group">
+                                    <i data-lucide="building" class="input-icon"></i>
+                                    <input type="text" id="org-name" class="form-input" aria-label="Organization Name" placeholder="Organization Name" required>
+                                </div>
+                                <div class="input-group">
+                                     <i data-lucide="user" class="input-icon"></i>
+                                    <input type="text" id="person-name" class="form-input" aria-label="Key Person (Optional)" placeholder="Key Person (Optional)">
+                                </div>
+                                 <div class="input-group">
+                                    <i data-lucide="hash" class="input-icon"></i>
+                                    <input type="text" id="org-ein" class="form-input" aria-label="EIN (Optional)" placeholder="EIN (e.g., 12-3456789)">
+                                </div>
+                                <div class="input-group">
+                                     <i data-lucide="map" class="input-icon"></i>
+                                    <input type="text" id="location" class="form-input" aria-label="City or Location (Optional)" placeholder="City / Location (Optional)">
+                                </div>
+                                <div class="input-group">
+                                    <i data-lucide="globe" class="input-icon"></i>
+                                     <input type="text" id="domain-name" class="form-input" aria-label="Domain Name (Optional)" placeholder="Domain Name (e.g., happypaws.org)">
+                                </div>
+                                <div class="input-group">
+                                    <i data-lucide="at-sign" class="input-icon"></i>
+                                    <input type="text" id="social-handle" class="form-input" aria-label="Social Media Handle (Optional)" placeholder="Social Media Handle (e.g., happypaws)">
+                                </div>
+                                <div class="input-group">
+                                    <i data-lucide="map-pin" class="input-icon"></i>
+                                    <select id="state-select" class="form-input" aria-label="State (Optional)">
+                                        <option value="">Select a State (Optional)</option>
+                                    </select>
+                                </div>
+                                <div class="flex space-x-2">
+                                     <button type="submit" id="generate-button" class="btn btn-primary flex items-center justify-center space-x-2 w-full">
+                                        <i data-lucide="search" class="w-5 h-5"></i><span>Generate</span>
+                                    </button>
+                                    <button type="button" id="clear-button" class="btn btn-secondary flex items-center justify-center space-x-2 w-auto px-4" title="Clear Form & Results" aria-label="Clear form and results">
+                                        <i data-lucide="x" class="w-5 h-5"></i>
+                                    </button>
+                                </div>
+                            </form>
+                            <p id="error-message" class="text-red-500 mt-3 text-center text-sm font-medium hidden"></p>
+                        </div>
+                    </aside>
+                    <section class="lg:col-span-2" aria-live="polite">
+                        <div id="results-container" class="space-y-1 hidden-fade">
+                            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
+                                <h3 class="text-2xl font-bold" id="results-title"></h3>
+                                <button id="start-checklist-from-osint-btn" class="btn btn-primary mt-4 sm:mt-0 flex items-center justify-center space-x-2">
+                                    <i data-lucide="file-plus-2" class="w-5 h-5"></i>
+                                    <span>Start Compliance Checklist</span>
+                                </button>
+                            </div>
+                            <div id="accordion-container" class="space-y-2"></div>
+                        </div>
+                         <div id="placeholder" class="text-center py-20 card">
+                            <i data-lucide="file-search" class="w-16 h-16 mx-auto text-gray-400 dark:text-gray-500"></i>
+                            <h3 class="mt-4 text-lg font-semibold text-gray-600 dark:text-gray-400">Your investigation results will appear here.</h3>
+                            <p class="mt-1 text-sm text-gray-500">Fill out the form to get started.</p>
+                        </div>
+                        <div id="skeleton-container" class="space-y-4 hidden">
+                            <div class="skeleton-loader h-12 w-full"></div>
+                            <div class="skeleton-loader h-24 w-full"></div>
+                            <div class="skeleton-loader h-24 w-full"></div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+
+            <section id="checklist-view" class="view-content hidden">
+                 <div id="checklist-loading-view" class="text-center py-20 card">
+                     <i data-lucide="loader-2" class="w-16 h-16 mx-auto text-gray-400 dark:text-gray-500 animate-spin"></i>
+                     <p class="mt-4 text-lg font-semibold text-gray-600 dark:text-gray-400">Connecting to checklist service...</p>
+                     <p id="checklist-auth-error" class="mt-2 text-red-500 dark:text-red-400 text-sm"></p>
+                </div>
+                <div id="checklist-main-content" class="hidden">
+                    <div id="user-info" class="mb-4 p-3 bg-indigo-100 dark:bg-indigo-900/50 border border-indigo-200 dark:border-indigo-800 text-indigo-800 dark:text-indigo-300 rounded-lg text-sm flex justify-between items-center">
+                        <div>
+                            <p><strong>Welcome,</strong> <span id="user-name"></span></p>
+                            <p class="mt-1 text-xs text-indigo-600 dark:text-indigo-400">User ID: <span id="user-id"></span></p>
+                        </div>
+                        <button id="sign-out-btn" class="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow-sm transition-colors">Sign Out</button>
+                    </div>
+
+                    <div id="checklist-list-view">
+                        <header class="mb-8 text-center">
+                            <h1 class="text-3xl font-bold text-gray-800 dark:text-white">Compliance Checklists</h1>
+                            <p class="text-gray-500 dark:text-gray-400 mt-2 text-lg">Your cloud-synced checklists for ensuring animal welfare standards.</p>
+                        </header>
+                         <div class="mb-6 flex justify-center">
+                            <button id="new-checklist-btn" class="btn btn-primary flex items-center justify-center space-x-2">
+                                <i data-lucide="plus" class="w-5 h-5"></i>
+                                <span>Start New Checklist</span>
+                            </button>
+                        </div>
+                        <div id="search-container" class="mb-8 relative max-w-2xl mx-auto">
+                            <input type="text" id="checklist-search-input" placeholder="Search checklists..." class="w-full p-4 pl-12 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-shadow dark:placeholder-gray-400">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                 <i data-lucide="search" class="h-6 w-6 text-gray-400 dark:text-gray-500"></i>
+                            </div>
+                        </div>
+                        <div id="no-checklists-message" class="text-center py-16 card hidden">
+                             <i data-lucide="file-x" class="w-20 h-20 mx-auto text-gray-300 dark:text-gray-600 mb-4"></i>
+                            <p class="text-2xl font-semibold text-gray-700 dark:text-gray-300">No checklists found.</p>
+                            <p class="text-gray-500 dark:text-gray-400">Click "Start New" to begin. Checklists shared with you will also appear here.</p>
+                        </div>
+                        <div id="saved-checklists-container" class="space-y-4 max-w-4xl mx-auto"></div>
+                    </div>
+
+                    <div id="checklist-editor-view" class="hidden card p-6 sm:p-8">
+                        <header class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+                             <button id="back-to-list-btn" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-semibold flex items-center space-x-1.5 group mb-2">
+                                <i data-lucide="arrow-left" class="w-5 h-5 transition-transform group-hover:-translate-x-1"></i>
+                                <span>Back to List</span>
+                            </button>
+                            <h2 id="checklist-title" class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white">New Checklist</h2>
+                             <div class="mt-6">
+                                <label for="checklist-org-name-input" class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Rescue Organization Name</label>
+                                <input type="text" id="checklist-org-name-input" class="w-full p-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-shadow dark:placeholder-gray-400" placeholder="e.g., Happy Paws Rescue">
+                                <p id="checklist-org-name-error" class="text-red-500 dark:text-red-400 text-sm mt-1 hidden">Organization name cannot be empty.</p>
+                            </div>
+                        </header>
+                        <div id="checklist-items-container" class="space-y-6"></div>
+                        <button id="add-category-btn" class="mt-6 w-full bg-gray-200 hover:bg-gray-300 text-gray-800 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200 font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
+                            <i data-lucide="plus" class="w-6 h-6"></i>
+                            <span>Add New Category</span>
+                        </button>
+                        <div class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+                             <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-3">Checklist Summary</h3>
+                            <textarea id="checklist-summary-notes" class="w-full p-3 text-base border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 rounded-md focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 transition-shadow" rows="6" placeholder="Add your final thoughts or overall assessment here..."></textarea>
+                        </div>
+                         <div class="action-buttons-container mt-8 pt-6 border-t border-gray-200 dark:border-gray-700 flex flex-col-reverse sm:flex-row sm:justify-between sm:items-center gap-4">
+                            <button id="delete-checklist-btn" class="hidden w-full sm:w-auto text-red-600 dark:text-red-500 hover:text-white hover:bg-red-600 dark:hover:bg-red-500 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 border border-red-500 dark:border-red-500 hover:border-red-600 dark:hover:border-red-500">
+                                <i data-lucide="trash-2" class="w-5 h-5"></i><span>Delete</span>
+                            </button>
+                             <div class="flex flex-col sm:flex-row sm:justify-end gap-3 flex-wrap">
+                                <button id="share-checklist-btn" class="hidden w-full sm:w-auto bg-purple-500 hover:bg-purple-600 text-white font-semibold py-3 px-5 rounded-lg transition-colors flex items-center justify-center space-x-2">
+                                     <i data-lucide="users" class="w-5 h-5"></i><span>Share</span>
+                                 </button>
+                                 <button id="save-checklist-btn" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg shadow-md flex items-center justify-center space-x-2 disabled:opacity-50">
+                                    <span id="save-button-text">Save</span>
+                                    <i id="save-spinner" data-lucide="loader-2" class="h-5 w-5 hidden spinner"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div id="status-message" class="mt-4 text-center font-medium"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="text-center mt-24 pt-8 border-t dark:border-gray-700 text-sm text-gray-500 dark:text-gray-400">
+            <p><strong>Disclaimer:</strong> This tool aggregates links to public information. Always verify data from multiple sources.</p>
+            <p class="mt-2">Created as an open-source project. View on <a href="https://github.com/EliteGreyIT67/Charity_Recon" class="text-indigo-500 hover:underline">GitHub</a>.</p>
+        </footer>
+    </div>
+    
+    <div id="confirmation-modal" class="modal">
+        <div class="modal-content bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 shadow-lg text-center">
+             <i data-lucide="alert-triangle" class="h-12 w-12 mx-auto mb-4 bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 p-2 rounded-full"></i>
+            <h3 id="modal-title" class="text-xl font-semibold text-gray-800 dark:text-white mb-2">Are you sure?</h3>
+            <p id="modal-message" class="mb-8 text-gray-500 dark:text-gray-400">This action cannot be undone.</p>
+            <div class="flex justify-center space-x-4">
+                <button data-dismiss="modal" class="flex-1 btn btn-secondary">Cancel</button>
+                <button id="modal-confirm-btn" class="flex-1 bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">Confirm</button>
+            </div>
+        </div>
+    </div>
+    <div id="manage-share-modal" class="modal">
+        <div class="modal-content bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 shadow-lg">
+             <i data-lucide="users" class="h-12 w-12 mx-auto mb-4 bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400 p-2 rounded-full"></i>
+            <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-2 text-center">Manage Access</h3>
+            <form id="add-member-form" class="mt-6 mb-6 space-y-3">
+                <p class="text-sm text-gray-600 dark:text-gray-400">Invite new member by their User ID:</p>
+                <div class="flex flex-col sm:flex-row sm:space-x-2 gap-3 sm:gap-0">
+                    <input type="text" id="add-member-id" class="flex-1 w-full p-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500" placeholder="User ID" required>
+                    <select id="add-member-role" class="w-full sm:w-auto p-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500">
+                        <option value="editor">Editor</option>
+                        <option value="viewer">Viewer</option>
+                    </select>
+                </div>
+                <button type="submit" id="add-member-btn" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">Add Member</button>
+                <p id="share-status-message" class="text-center text-sm font-medium"></p>
+            </form>
+            <div class="border-t border-gray-200 dark:border-gray-700 pt-4">
+                <h4 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-3">Current Members</h4>
+                <div id="share-members-list" class="space-y-2 max-h-48 overflow-y-auto"></div>
+            </div>
+            <button data-dismiss="modal" class="w-full mt-8 btn btn-secondary">Close</button>
+        </div>
+    </div>
+    <div id="edit-modal" class="modal">
+        <div class="modal-content bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 shadow-lg">
+            <h3 id="edit-modal-title" class="text-xl font-semibold text-gray-800 dark:text-white mb-4 text-center">Edit</h3>
+            <input type="text" id="edit-modal-input" class="w-full p-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500" placeholder="">
+            <p id="edit-modal-error" class="text-red-500 dark:text-red-400 text-sm mt-1 hidden"></p>
+            <div class="flex justify-center space-x-4 mt-6">
+                <button data-dismiss="modal" class="flex-1 btn btn-secondary">Cancel</button>
+                <button id="edit-modal-save-btn" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">Save</button>
+            </div>
+        </div>
+    </div>
+    <div id="toast-container"></div>
+
+    <script id="state-data" type="application/json">
+    {
+      "states": { "AL": "Alabama", "AK": "Alaska", "AZ": "Arizona", "AR": "Arkansas", "CA": "California", "CO": "Colorado", "CT": "Connecticut", "DE": "Delaware", "DC": "District of Columbia", "FL": "Florida", "GA": "Georgia", "HI": "Hawaii", "ID": "Idaho", "IL": "Illinois", "IN": "Indiana", "IA": "Iowa", "KS": "Kansas", "KY": "Kentucky", "LA": "Louisiana", "ME": "Maine", "MD": "Maryland", "MA": "Massachusetts", "MI": "Michigan", "MN": "Minnesota", "MS": "Mississippi", "MO": "Missouri", "MT": "Montana", "NE": "Nebraska", "NV": "Nevada", "NH": "New Hampshire", "NJ": "New Jersey", "NM": "New Mexico", "NY": "New York", "NC": "North Carolina", "ND": "North Dakota", "OH": "Ohio", "OK": "Oklahoma", "OR": "Oregon", "PA": "Pennsylvania", "RI": "Rhode Island", "SC": "South Carolina", "SD": "South Dakota", "TN": "Tennessee", "TX": "Texas", "UT": "Utah", "VT": "Vermont", "VA": "Virginia", "WA": "Washington", "WV": "West Virginia", "WI": "Wisconsin", "WY": "Wyoming" },
+      "stateResources": {
+        "AL": [{ "n": "AG Charity Search", "u": "https://ago.alabama.gov/ConsumerLicense" }, { "n": "SOS Business Search", "u": "https://www.sos.alabama.gov/business-entities/search" }], "AK": [{ "n": "Dept. of Law Charity Search", "u": "https://www.law.alaska.gov/department/civil/consumer/charityreg_search.html" }, { "n": "Dept. of Commerce Business Search", "u": "https://www.commerce.alaska.gov/cbp/main/search/entities" }], "AZ": [{ "n": "SOS Charity Search", "u": "https://apps.azsos.gov/apps/tntp/se.html" }, { "n": "Corporation Commission Business Search", "u": "https://ecorp.azcc.gov/EntitySearch/Index" }], "AR": [{ "n": "SOS Charity Search", "u": "https://www.sos.arkansas.gov/business-commercial-services-bcs/charitable-entities/charity-search/" }, { "n": "SOS Business Search", "u": "https://www.sos.arkansas.gov/corps/search_all.php" }], "CA": [{ "n": "DOJ Charity Search", "u": "https://rct.doj.ca.gov/Verification/Web/Search.aspx?facility=Y" }, { "n": "SOS Business Search", "u": "https://bizfileonline.sos.ca.gov/search/business" }], "CO": [{ "n": "SOS Charity Search", "u": "https://www.sos.state.co.us/ccis/home.do" }, { "n": "SOS Business Search", "u": "https://www.sos.state.co.us/biz/BusinessEntityCriteria.do" }], "CT": [{ "n": "DCP License Lookup", "u": "https://www.elicense.ct.gov/Lookup/LicenseLookup.aspx" }, { "n": "SOS Business Search", "u": "https://service.ct.gov/business/s/onlinebusinesssearch" }], "DE": [{ "n": "Division of Corporations Search", "u": "https://icis.corp.delaware.gov/Ecorp/EntitySearch/NameSearch.aspx" }], "FL": [{ "n": "DACS Charity Search", "u": "https://csapp.fdacs.gov/cspublicapp/giftgiversquery/giftgiversquery.aspx" }, { "n": "SunBiz Business Search", "u": "http://dos.myflorida.com/sunbiz/search/" }], "GA": [{ "n": "SOS Charity Search", "u": "https://sos.ga.gov/charities-search" }, { "n": "SOS Business Search", "u": "https://ecorp.sos.ga.gov/BusinessSearch" }], "HI": [{ "n": "AG Charity Search", "u": "https://charities.ehawaii.gov/charity/search.html" }, { "n": "DCCA Business Search", "u": "https://hbe.ehawaii.gov/documents/search.html" }], "ID": [{ "n": "SOS Business Search", "u": "https://sosbiz.idaho.gov/search/business" }], "IL": [{ "n": "AG Charity Search", "u": "https://www.illinoisattorneygeneral.gov/charities/search/index.jsp" }, { "n": "SOS Business Search", "u": "https://apps.ilsos.gov/corporatellc/" }], "IN": [{ "n": "INBiz Business Search", "u": "https://inbiz.in.gov/BOS/Home/Search" }], "IA": [{ "n": "SOS Business Search", "u": "https://sos.iowa.gov/search/business/search.aspx" }], "KS": [{ "n": "SOS Charity Search", "u": "https://www.kssos.org/charities/search_charities.aspx" }, { "n": "SOS Business Search", "u": "https://www.kansas.gov/bess/flow/main?execution=e1s1" }], "KY": [{ "n": "AG Charity Search", "u": "https://ag.ky.gov/Priorities/Protecting-Kentuckians/charity/Pages/search.aspx" }, { "n": "SOS Business Search", "u": "https://web.sos.ky.gov/ftsearch/" }], "LA": [{ "n": "SOS Charity/Business Search", "u": "https://coraweb.sos.la.gov/CommercialSearch/CommercialSearch.aspx" }], "ME": [{ "n": "Dept. of Professional & Financial Regulation Search", "u": "https://www.pfr.maine.gov/almsonline/almsquery/welcome.aspx?board=4280" }, { "n": "SOS Business Search", "u": "https://apps1.web.maine.gov/cgi-bin/online/corporations/name_search.pl" }], "MD": [{ "n": "SOS Charity Search", "u": "https://sos.maryland.gov/charity/Pages/SearchCharity.aspx" }, { "n": "Dept. of Assessments and Taxation Business Search", "u": "https://egov.maryland.gov/businessexpress/entitysearch" }], "MA": [{ "n": "AG Charity Search", "u": "https://www.mass.gov/info-details/search-public-charities-filings" }, { "n": "SOS Business Search", "u": "https://corp.sec.state.ma.us/corpweb/corpsearch/corpsearch.aspx" }], "MI": [{ "n": "AG Charity Search", "u": "https://www.ag.state.mi.us/charitabletrust/frmDisclaimer.aspx" }, { "n": "LARA Business Search", "u": "https://cofs.lara.state.mi.us/SearchApi/Search/Search" }], "MN": [{ "n": "AG Charity Search", "u": "https://www.ag.state.mn.us/Charity/Search/" }, { "n": "SOS Business Search", "u": "https://mblsportal.sos.state.mn.us/Business/Search" }], "MS": [{ "n": "SOS Charity Search", "u": "https://charities.sos.ms.gov/online/portal/ch/page/charities-search/Portal.aspx" }, { "n": "SOS Business Search", "u": "https://corp.sos.ms.gov/corp/portal/c/page/corpbusinessidsearch/portal.aspx" }], "MO": [{ "n": "AG Charity Search", "u": "https://ago.mo.gov/civil-division/check-a-charity/search-charities" }, { "n": "SOS Business Search", "u": "https://bsd.sos.mo.gov/BusinessEntity/BESearch.aspx?SearchType=0" }], "MT": [{ "n": "SOS Business Search", "u": "https://biz.sosmt.gov/search/business" }], "NE": [{ "n": "SOS Business Search", "u": "https://www.nebraska.gov/sos/corp/corpsearch.cgi" }], "NV": [{ "n": "SOS Charity/Business Search", "u": "https://www.nvsos.gov/sos/businesses/search" }], "NH": [{ "n": "AG Registered Charities", "u": "https://www.doj.nh.gov/charitable-trusts/registered-charities.htm" }, { "n": "SOS Business Search", "u": "https://quickstart.sos.nh.gov/online/BusinessInquire" }], "NJ": [{ "n": "Division of Consumer Affairs Charity Search", "u": "https://charportal.dca.njoag.gov/Charity-Registration/CHR-Public-Search-Page/" }, { "n": "Dept. of Treasury Business Search", "u": "https://www.njportal.com/dor/businessnamesearch/" }], "NM": [{ "n": "AG Charity Search", "u": "https://www.nmag.gov/charities.aspx" }, { "n": "SOS Business Search", "u": "https://portal.sos.state.nm.us/BFS/online/CorporationBusinessSearch" }], "NY": [{ "n": "AG Charity Search", "u": "https://www.charitiesnys.com/RegistrySearch/search_charities.jsp" }, { "n": "Dept. of State Business Search", "u": "https://apps.dos.ny.gov/publicInquiry/" }], "NC": [{ "n": "SOS Charity Search", "u": "https://www.sosnc.gov/search/index/char" }, { "n": "SOS Business Search", "u": "https://www.sosnc.gov/search/index/corp" }], "ND": [{ "n": "SOS Charity/Business Search", "u": "https://firststop.sos.nd.gov/search/business" }], "OH": [{ "n": "AG Charity Search", "u": "https://charitableregistration.ohioattorneygeneral.gov/Charities/s/" }, { "n": "SOS Business Search", "u": "https://businesssearch.ohiosos.gov/" }], "OK": [{ "n": "SOS Charity/Business Search", "u": "https://www.sos.ok.gov/business/search.aspx" }], "OR": [{ "n": "DOJ Charity Search", "u": "https://www.doj.state.or.us/charitable-activities/charities-search/" }, { "n": "SOS Business Search", "u": "https://egov.sos.state.or.us/br/pkg_web_name_srch_inq.login" }], "PA": [{ "n": "Dept. of State Charity Search", "u": "https://www.charities.dos.pa.gov/SearchforCharities.aspx" }, { "n": "Dept. of State Business Search", "u": "https://www.corporations.pa.gov/search/bussearch" }], "RI": [{ "n": "Dept. of Business Regulation Search", "u": "https://dbr.ri.gov/public-records-search" }, { "n": "SOS Business Search", "u": "https://business.sos.ri.gov/CorpWeb/CorpSearch/CorpSearch.aspx" }], "SC": [{ "n": "SOS Charity Search", "u": "https://search.scsos.com/charities" }, { "n": "SOS Business Search", "u": "https://businessfilings.sc.gov/BusinessFiling/Entity/Search" }], "SD": [{ "n": "SOS Business Search", "u": "https://sos.sd.gov/business-services/business-search.aspx" }], "TN": [{ "n": "SOS Charity Search", "u": "https://sos.tn.gov/charitable/search" }, { "n": "SOS Business Search", "u": "https://tnbear.tn.gov/Edison/Public/BusinessNameSearch" }], "TX": [{ "n": "SOS Business Search", "u": "https://direct.sos.state.tx.us/corp/lagmenu.asp" }], "UT": [{ "n": "Division of Consumer Protection Charity Search", "u": "https://dcp.utah.gov/charities-public-search/" }, { "n": "Dept. of Commerce Business Search", "u": "https://secure.utah.gov/bes/" }], "VT": [{ "n": "SOS Business Search", "u": "https://bizfilings.vermont.gov/online/BusinessInquire/" }], "VA": [{ "n": "DACS Charity Search", "u": "https://cos.vdacs.virginia.gov/cgi-bin/char_search.cgi" }, { "n": "State Corporation Commission Business Search", "u": "httpss://cis.scc.virginia.gov/" }], "WA": [{ "n": "SOS Charity Search", "u": "https://www.sos.wa.gov/charities/search-for-a-charity" }, { "n": "SOS Business Search", "u": "https://www.sos.wa.gov/corporations-charities/search-details-and-documents" }], "WV": [{ "n": "SOS Charity/Business Search", "u": "https://apps.wv.gov/SOS/BusinessEntitySearch/" }], "WI": [{ "n": "DFI Charity Search", "u": "https://wdfi.org/apps/CharitySearch/Search.aspx" }, { "n": "DFI Business Search", "u": "https://www.wdfi.org/apps/CorpSearch/Search.aspx" }], "WY": [{ "n": "SOS Business Search", "u": "https://wyobiz.wyo.gov/Business/FilingSearch.aspx" }]
+      },
+      "stateAnimalWelfareResources": {}
+    }
+    </script>
+    
+    <script type="module">
+        // Firebase Imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signInAnonymously, signInWithCustomToken, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, addDoc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, query, serverTimestamp, where, deleteField, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        
+        // --- App State & Config ---
+        const App = {
+            elements: {},
+            data: {},
+            firebase: {},
+            state: {
+                currentView: 'osint-view',
+                userId: null,
+                currentChecklistData: null,
+                listUnsubscribe: null,
+                currentChecklistUnsubscribe: null,
+                confirmAction: null,
+                saveTimeout: null,
+                isAuthReady: false,
+                allUsersCache: {},
+            },
+
+            // --- INITIALIZATION ---
+            init() {
+                this.cacheDOMElements();
+                this.setupEventListeners();
+                this.initTheme();
+                this.initializeFirebase();
+                this.loadStateData();
+                lucide.createIcons();
+                this.switchView('osint-view');
+            },
+            
+            initializeFirebase() {
+                 try {
+                    const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+                    if (!firebaseConfig.apiKey || !firebaseConfig.projectId) {
+                        throw new Error("Firebase configuration was not provided by the environment.");
+                    }
+                    const app = initializeApp(firebaseConfig);
+                    this.firebase.db = getFirestore(app);
+                    this.firebase.auth = getAuth(app);
+                    this.setupAuthListener();
+                } catch (error) {
+                    console.error("Firebase Initialization Failed:", error);
+                    this.elements.checklistAuthError.textContent = `Error: Could not connect backend. ${error.message}`;
+                    this.elements.checklistLoadingView.querySelector('i').style.display = 'none';
+                }
+            },
+
+            setupAuthListener() {
+                onAuthStateChanged(this.firebase.auth, async (user) => {
+                    if (user) {
+                        this.state.userId = user.uid;
+                        this.elements.userName.textContent = user.isAnonymous ? 'Anonymous User' : 'Authenticated User';
+                        this.elements.userId.textContent = user.uid;
+                        
+                        const userRef = doc(this.firebase.db, 'users', user.uid);
+                        // Attempt to update lastSeen, handle potential permission errors gracefully
+                        try {
+                           await setDoc(userRef, { lastSeen: serverTimestamp() }, { merge: true });
+                        } catch (error) {
+                           console.warn("Could not update user lastSeen:", error.message);
+                           // Continue even if this fails, as reading checklists might still work.
+                        }
+
+
+                        this.state.isAuthReady = true;
+                        this.elements.checklistLoadingView.classList.add('hidden');
+                        this.elements.checklistMainContent.classList.remove('hidden');
+                        this.showChecklistSubView('list');
+                        this.listenForChecklists();
+                    } else {
+                        this.handleAutoSignIn();
+                    }
+                });
+            },
+
+            async handleAutoSignIn() {
+                try {
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        await signInWithCustomToken(this.firebase.auth, __initial_auth_token);
+                    } else {
+                        await signInAnonymously(this.firebase.auth);
+                    }
+                } catch (error) {
+                    console.error("Automatic sign-in failed:", error);
+                    this.elements.checklistAuthError.textContent = `Authentication failed: ${error.message}`;
+                }
+            },
+
+            loadStateData() {
+                try {
+                    const dataEl = document.getElementById('state-data');
+                    const data = JSON.parse(dataEl.textContent);
+                    this.data.states = data.states;
+                    this.data.stateResources = data.stateResources;
+                    this.data.stateAnimalWelfareResources = data.stateAnimalWelfareResources;
+                    this.populateStates();
+                } catch (error) {
+                    console.error(error);
+                    this.elements.errorMessage.textContent = 'Error: Could not load state resources.';
+                    this.elements.errorMessage.classList.remove('hidden');
+                }
+            },
+
+            // --- UI & EVENT HANDLING ---
+
+            cacheDOMElements() {
+                const ids = [
+                    'theme-toggle', 'search-form', 'generate-button', 'clear-button', 'org-name', 'person-name',
+                    'org-ein', 'location', 'domain-name', 'social-handle', 'state-select', 'results-container',
+                    'placeholder', 'error-message', 'results-title', 'accordion-container', 'toast-container',
+                    'skeleton-container', 'tab-osint', 'tab-checklist', 'osint-view', 'checklist-view',
+                    'checklist-loading-view', 'checklist-main-content', 'checklist-auth-error', 'user-info',
+                    'user-name', 'user-id', 'sign-out-btn', 'checklist-list-view', 'new-checklist-btn',
+                    'checklist-search-input', 'no-checklists-message', 'saved-checklists-container',
+                    'checklist-editor-view', 'back-to-list-btn', 'checklist-title', 'checklist-org-name-input',
+                    'checklist-org-name-error', 'checklist-items-container', 'add-category-btn',
+                    'checklist-summary-notes', 'delete-checklist-btn', 'share-checklist-btn', 'save-checklist-btn',
+                    'save-button-text', 'save-spinner', 'status-message', 'confirmation-modal', 'modal-title',
+                    'modal-message', 'modal-confirm-btn', 'manage-share-modal', 'add-member-form', 'add-member-id',
+                    'add-member-role', 'add-member-btn', 'share-status-message', 'share-members-list',
+                    'edit-modal', 'edit-modal-title', 'edit-modal-input', 'edit-modal-error', 'edit-modal-save-btn',
+                    'start-checklist-from-osint-btn'
+                ];
+                ids.forEach(id => { this.elements[id.replace(/-(\w)/g, (_, c) => c.toUpperCase())] = document.getElementById(id); });
+            },
+
+            setupEventListeners() {
+                // Main App
+                this.elements.themeToggle.addEventListener('click', () => this.toggleTheme());
+                this.elements.tabOsint.addEventListener('click', () => this.switchView('osint-view'));
+                this.elements.tabChecklist.addEventListener('click', () => this.switchView('checklist-view'));
+
+                // OSINT Tool
+                this.elements.searchForm.addEventListener('submit', (e) => this.handleOsintSubmit(e));
+                this.elements.clearButton.addEventListener('click', () => this.clearOsintResults());
+                this.elements.accordionContainer.addEventListener('click', (e) => this.handleAccordionClick(e));
+                this.elements.startChecklistFromOsintBtn.addEventListener('click', () => this.startChecklistFromOsint());
+
+                // Checklist Tool
+                this.elements.signOutBtn.addEventListener('click', () => this.handleSignOut());
+                this.elements.newChecklistBtn.addEventListener('click', () => this.renderChecklistForm(null));
+                this.elements.backToListBtn.addEventListener('click', () => {
+                    if (this.state.currentChecklistUnsubscribe) this.state.currentChecklistUnsubscribe();
+                    this.showChecklistSubView('list');
+                    this.listenForChecklists();
+                });
+                this.elements.saveChecklistBtn.addEventListener('click', () => this.handleSaveChecklist(true));
+                this.elements.deleteChecklistBtn.addEventListener('click', () => this.handleDeleteChecklist());
+                this.elements.shareChecklistBtn.addEventListener('click', () => this.handleManageSharing());
+                this.elements.addMemberForm.addEventListener('submit', (e) => this.handleAddMember(e));
+                this.elements.shareMembersList.addEventListener('click', (e) => {
+                    if (e.target.closest('.remove-member-btn')) {
+                        const memberId = e.target.closest('.remove-member-btn').dataset.memberId;
+                        this.handleRemoveMember(memberId);
+                    }
+                });
+                this.elements.checklistSearchInput.addEventListener('input', () => this.filterAndRenderListView());
+                this.elements.checklistOrgNameInput.addEventListener('input', () => {
+                    this.elements.checklistTitle.textContent = this.elements.checklistOrgNameInput.value.trim() || "New Checklist";
+                    this.updateDynamicToolLinks();
+                    this.handleSaveChecklist(false);
+                });
+                this.elements.checklistSummaryNotes.addEventListener('input', () => this.handleSaveChecklist(false));
+                this.elements.addCategoryBtn.addEventListener('click', () => this.addCategory());
+                this.elements.checklistItemsContainer.addEventListener('click', (e) => this.handleChecklistContainerClick(e));
+                this.elements.checklistItemsContainer.addEventListener('input', (e) => this.handleChecklistContainerInput(e));
+                this.elements.checklistItemsContainer.addEventListener('change', (e) => this.handleChecklistContainerChange(e));
+                
+                // Modals
+                document.querySelectorAll('.modal').forEach(modal => {
+                    modal.addEventListener('click', (e) => { if (e.target === modal) this.closeModal(modal); });
+                    modal.querySelectorAll('[data-dismiss="modal"]').forEach(btn => btn.addEventListener('click', () => this.closeModal(modal)));
+                });
+                this.elements.modalConfirmBtn.addEventListener('click', () => {
+                    this.state.confirmAction?.();
+                    this.closeModal(this.elements.confirmationModal);
+                });
+            },
+
+            // --- THEME & VIEW MANAGEMENT ---
+            
+            initTheme() {
+                if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark');
+                }
+            },
+            
+            toggleTheme() {
+                document.documentElement.classList.toggle('dark');
+                localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+            },
+            
+            switchView(viewId) {
+                this.state.currentView = viewId;
+                document.querySelectorAll('.view-content').forEach(el => el.classList.add('hidden'));
+                document.getElementById(viewId).classList.remove('hidden');
+
+                document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+                document.getElementById(`tab-${viewId.split('-')[0]}`).classList.add('active');
+            },
+            
+            showChecklistSubView(subView) {
+                this.elements.checklistListView.classList.toggle('hidden', subView !== 'list');
+                this.elements.checklistEditorView.classList.toggle('hidden', subView !== 'editor');
+            },
+
+            // --- OSINT TOOL LOGIC ---
+
+            handleOsintSubmit(e) {
+                e.preventDefault();
+                this.elements.generateButton.disabled = true;
+                this.elements.generateButton.innerHTML = `<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i><span>Generating...</span>`;
+                lucide.createIcons();
+                this.elements.placeholder.classList.add('hidden');
+                this.elements.skeletonContainer.classList.remove('hidden');
+
+                setTimeout(() => {
+                    const inputs = {
+                        orgName: this.elements.orgName.value.trim(),
+                        personName: this.elements.personName.value.trim(),
+                        orgEin: this.elements.orgEin.value.trim(),
+                        location: this.elements.location.value.trim(),
+                        domainName: this.elements.domainName.value.trim(),
+                        socialHandle: this.elements.socialHandle.value.trim(),
+                        selectedState: this.elements.stateSelect.value,
+                    };
+                    if (!inputs.orgName) {
+                        this.elements.errorMessage.textContent = 'Organization name is required.';
+                        this.elements.errorMessage.classList.remove('hidden');
+                        this.resetGenerateButton();
+                        this.elements.skeletonContainer.classList.add('hidden');
+                        this.elements.placeholder.classList.remove('hidden');
+                        return;
+                    }
+                    this.elements.errorMessage.classList.add('hidden');
+                    
+                    const sections = this.buildLinkSections(inputs);
+                    this.renderOsintResults(inputs.orgName, sections);
+                    this.elements.skeletonContainer.classList.add('hidden');
+                }, 500);
+            },
+
+            startChecklistFromOsint() {
+                const orgName = this.elements.orgName.value.trim();
+                if (!orgName) {
+                    this.showToast("Please enter an organization name first.", "error");
+                    return;
+                }
+                this.switchView('checklist-view');
+                this.renderChecklistForm(null, orgName);
+            },
+
+            buildLinkSections(inputs) {
+                const { orgName, personName, orgEin, location, domainName, socialHandle, selectedState } = inputs;
+                const encodedOrgName = encodeURIComponent(orgName);
+                const plusEncodedOrgName = orgName.replace(/\s/g, '+');
+                const einWithoutHyphen = orgEin.replace(/-/g, '');
+                const sections = [];
+
+                if (selectedState && this.data.stateResources && this.data.stateResources[selectedState]) {
+                    sections.push({
+                        id: 'state', title: `${this.data.states[selectedState]} State-Level`, icon: 'building-2', isOpen: true,
+                        links: this.data.stateResources[selectedState].map(r => ({ name: r.n, url: r.u }))
+                    });
+                }
+
+                sections.push({
+                    id: 'financial', title: 'Federal Financial & Legal', icon: 'landmark', isOpen: true,
+                    links: [
+                        { name: 'IRS Tax Exempt Org Search', url: 'https://apps.irs.gov/app/eos/' },
+                        { name: 'ProPublica Nonprofit Explorer', url: orgEin ? `https://projects.propublica.org/nonprofits/organizations/${einWithoutHyphen}` : `https://projects.propublica.org/nonprofits/search?q=${plusEncodedOrgName}` },
+                        { name: 'Candid (Guidestar)', url: `https://candid.org/search?q=${orgEin || encodedOrgName}` },
+                    ]
+                });
+                
+                sections.push({
+                    id: 'news', title: 'News & Public Perception', icon: 'newspaper', isOpen: false,
+                    links: [
+                        { name: 'Google News', url: `https://www.google.com/search?q=%22${encodedOrgName}%22&tbm=nws` },
+                        { name: 'Google Reviews Search', url: `https://www.google.com/search?q=%22${encodedOrgName}%22+reviews` },
+                        { name: 'Reddit Search', url: `https://www.reddit.com/search/?q=%22${encodedOrgName}%22` },
+                        { name: 'Better Business Bureau', url: `https://www.bbb.org/search?find_text=${encodedOrgName}` },
+                    ]
+                });
+
+                return sections;
+            },
+
+            renderOsintResults(orgName, sections) {
+                this.elements.resultsTitle.textContent = `Investigation for: "${orgName}"`;
+                const sectionsHtml = sections.map(s => this.createAccordionSectionHTML(s.id, s.title, s.icon, s.links, s.isOpen)).join('');
+                this.elements.accordionContainer.innerHTML = sectionsHtml;
+                this.elements.placeholder.classList.add('hidden-fade');
+                this.elements.resultsContainer.classList.remove('hidden-fade');
+                this.elements.resultsContainer.classList.add('visible-fade');
+                this.resetGenerateButton();
+                lucide.createIcons();
+            },
+            
+            clearOsintResults() {
+                 this.elements.searchForm.reset();
+                 this.elements.resultsContainer.classList.remove('visible-fade');
+                 this.elements.resultsContainer.classList.add('hidden-fade');
+                 setTimeout(() => {
+                    this.elements.accordionContainer.innerHTML = '';
+                    this.elements.resultsTitle.textContent = '';
+                    this.elements.placeholder.classList.remove('hidden-fade');
+                    this.elements.placeholder.classList.remove('hidden');
+                }, 500);
+            },
+            
+            resetGenerateButton() {
+                 this.elements.generateButton.disabled = false;
+                 this.elements.generateButton.innerHTML = `<i data-lucide="search" class="w-5 h-5"></i><span>Generate</span>`;
+                 lucide.createIcons();
+            },
+            
+            // --- CHECKLIST APP LOGIC ---
+            
+            listenForChecklists() {
+                if (this.state.listUnsubscribe) this.state.listUnsubscribe();
+                if (!this.state.userId || !this.firebase.db) {
+                    console.warn("Checklist listener: User or DB not ready.");
+                    return;
+                }
+
+                const q = query(
+                    collection(this.firebase.db, 'checklists'),
+                    where('memberIds', 'array-contains', this.state.userId)
+                );
+                
+                this.state.listUnsubscribe = onSnapshot(q, (querySnapshot) => {
+                    const checklists = [];
+                    querySnapshot.forEach((doc) => {
+                        checklists.push({ id: doc.id, ...doc.data() });
+                    });
+                    this.renderListView(checklists);
+                }, (error) => {
+                    console.error("Error listening for checklists:", error);
+                    // Check if it's a permission error specifically
+                    if (error.code === 'permission-denied') {
+                        this.showStatus(this.elements.statusMessage, "Permission denied. Check Firestore rules.", 'error');
+                    } else {
+                         this.showStatus(this.elements.statusMessage, "Could not load checklists.", 'error');
+                    }
+                });
+            },
+
+            renderChecklistForm(checklistId = null, prefilledOrgName = '') {
+                if (this.state.listUnsubscribe) this.state.listUnsubscribe();
+                if (this.state.currentChecklistUnsubscribe) this.state.currentChecklistUnsubscribe();
+                
+                this.elements.checklistItemsContainer.innerHTML = '';
+                this.state.currentChecklistData = null;
+
+                if (checklistId) {
+                    this.state.currentChecklistUnsubscribe = onSnapshot(doc(this.firebase.db, 'checklists', checklistId), (doc) => {
+                        if (!doc.exists()) {
+                            this.showStatus(this.elements.statusMessage, "Checklist not found.", 'error');
+                            this.showChecklistSubView('list');
+                            this.listenForChecklists();
+                            return;
+                        }
+                        
+                        const data = { id: doc.id, ...doc.data() };
+                        const role = data.members ? data.members[this.state.userId] : null; // Check if members exists
+                        if (!role) {
+                            this.showStatus(this.elements.statusMessage, "Access denied.", 'error');
+                            this.showChecklistSubView('list');
+                            this.listenForChecklists();
+                            return;
+                        }
+                        
+                        this.state.currentChecklistData = data;
+                        this.buildChecklistUI(data);
+                        this.updateChecklistPermissions(data, role);
+                    }, (error) => { // Added error handling for the snapshot listener itself
+                        console.error("Error fetching checklist details:", error);
+                        this.showStatus(this.elements.statusMessage, "Error loading checklist details.", 'error');
+                        this.showChecklistSubView('list');
+                    });
+                } else {
+                    this.state.currentChecklistData = {
+                        id: null, orgName: prefilledOrgName,
+                        categories: JSON.parse(JSON.stringify(this.getChecklistMasterTemplate())),
+                        summary: '', members: { [this.state.userId]: 'owner' }
+                    };
+                    this.buildChecklistUI(this.state.currentChecklistData);
+                    this.updateChecklistPermissions(this.state.currentChecklistData, 'owner');
+                }
+                this.showChecklistSubView('editor');
+            },
+
+            buildChecklistUI(data) {
+                this.elements.checklistItemsContainer.innerHTML = '';
+                (data.categories || []).forEach(category => { // Add default empty array
+                    const categoryEl = document.createElement('div');
+                    categoryEl.innerHTML = this.renderCategoryHTML(category);
+                    this.elements.checklistItemsContainer.appendChild(categoryEl.firstElementChild);
+                });
+                this.elements.checklistSummaryNotes.value = data.summary || '';
+                this.updateDynamicToolLinks();
+            },
+
+            updateChecklistPermissions(data, role) {
+                const isViewer = role === 'viewer';
+                const isOwner = role === 'owner';
+                
+                this.elements.checklistOrgNameInput.value = data.orgName || '';
+                this.elements.checklistTitle.textContent = data.orgName || 'New Checklist';
+                
+                this.elements.deleteChecklistBtn.classList.toggle('hidden', !isOwner || !data.id);
+                this.elements.shareChecklistBtn.classList.toggle('hidden', !isOwner || !data.id);
+                this.elements.saveChecklistBtn.classList.toggle('hidden', isViewer);
+                this.elements.addCategoryBtn.classList.toggle('hidden', isViewer);
+                
+                this.elements.checklistOrgNameInput.disabled = isViewer;
+                this.elements.checklistSummaryNotes.disabled = isViewer;
+
+                this.elements.checklistItemsContainer.querySelectorAll('input, textarea, button').forEach(el => {
+                     // Allow navigation buttons even for viewers
+                    const isNavButton = el.id === 'back-to-list-btn' || el.closest('[data-action="toggle-category"]');
+                    el.disabled = isViewer && !isNavButton;
+                });
+            },
+
+            async handleSaveChecklist(force = false) {
+                clearTimeout(this.state.saveTimeout);
+                const saveAction = async () => {
+                    if (!this.state.userId || !this.state.currentChecklistData) return;
+                    const orgName = this.elements.checklistOrgNameInput.value.trim();
+                    if (!orgName) {
+                        this.elements.checklistOrgNameError.classList.remove('hidden');
+                        return;
+                    }
+                    this.elements.checklistOrgNameError.classList.add('hidden');
+                    
+                    this.state.currentChecklistData.orgName = orgName;
+                    this.state.currentChecklistData.summary = this.elements.checklistSummaryNotes.value;
+                    
+                    // Ensure memberIds array exists and is synced before saving
+                    const currentMembers = this.state.currentChecklistData.members || {};
+                    const memberIds = Object.keys(currentMembers);
+
+                    const dataToSave = {
+                        orgName: this.state.currentChecklistData.orgName,
+                        categories: this.state.currentChecklistData.categories || [], // Ensure categories exist
+                        summary: this.state.currentChecklistData.summary || '', // Ensure summary exists
+                        members: currentMembers, // Save the full members map
+                        memberIds: memberIds, // Save the derived memberIds array
+                        lastUpdated: serverTimestamp()
+                    };
+
+                    this.setSaveButtonState(true);
+                    try {
+                        let docRef;
+                        if (this.state.currentChecklistData.id) {
+                            docRef = doc(this.firebase.db, 'checklists', this.state.currentChecklistData.id);
+                            await updateDoc(docRef, dataToSave);
+                        } else {
+                            // On creation, ensure the creator is owner and in memberIds
+                             dataToSave.members = { [this.state.userId]: 'owner' };
+                            dataToSave.memberIds = [this.state.userId];
+                            docRef = await addDoc(collection(this.firebase.db, 'checklists'), dataToSave);
+                            
+                            // Immediately update local state with new ID and re-render
+                            this.state.currentChecklistData.id = docRef.id;
+                            this.renderChecklistForm(docRef.id); // Re-render to attach snapshot listener
+                        }
+                        this.showStatus(this.elements.statusMessage, "Checklist saved!", 'success');
+                    } catch (error) {
+                        console.error("Error saving checklist: ", error);
+                         if (error.code === 'permission-denied') {
+                             this.showStatus(this.elements.statusMessage, "Permission denied. You might not have edit rights.", 'error');
+                        } else {
+                            this.showStatus(this.elements.statusMessage, `Error saving: ${error.message}`, 'error');
+                        }
+                    } finally {
+                        this.setSaveButtonState(false);
+                    }
+                };
+                if (force) { await saveAction(); } 
+                else { this.state.saveTimeout = setTimeout(saveAction, 1500); }
+            },
+            
+            async handleAddMember(e) {
+                e.preventDefault();
+                const newMemberId = this.elements.addMemberId.value.trim();
+                const role = this.elements.addMemberRole.value;
+                 if (!newMemberId || !this.state.currentChecklistData || !this.state.currentChecklistData.id) return;
+                 
+                 this.showStatus(this.elements.shareStatusMessage, "Adding member...", 'info', null);
+
+                try {
+                     // Check if user already exists
+                    if (this.state.currentChecklistData.members && this.state.currentChecklistData.members[newMemberId]) {
+                        throw new Error("User is already a member.");
+                    }
+                    
+                    const checklistRef = doc(this.firebase.db, 'checklists', this.state.currentChecklistData.id);
+                    await updateDoc(checklistRef, {
+                        [`members.${newMemberId}`]: role,
+                        memberIds: arrayUnion(newMemberId) // Also update the memberIds array
+                    });
+                    this.showStatus(this.elements.shareStatusMessage, "Member added!", 'success');
+                    // No need to manually update local state, snapshot listener will handle it.
+                    this.elements.addMemberId.value = ''; // Clear input
+                } catch (error) {
+                    console.error("Error adding member:", error);
+                    this.showStatus(this.elements.shareStatusMessage, `Error adding member: ${error.message}`, 'error');
+                }
+            },
+
+            async handleRemoveMember(memberId) {
+                 if (!memberId || !this.state.currentChecklistData || !this.state.currentChecklistData.id || memberId === this.state.userId) return; // Cannot remove self
+                
+                 // Double check ownership locally before attempting DB operation (UI should prevent this, but good practice)
+                 if (!this.state.currentChecklistData.members || this.state.currentChecklistData.members[this.state.userId] !== 'owner') {
+                     this.showStatus(this.elements.shareStatusMessage, "Only the owner can remove members.", 'error');
+                     return;
+                 }
+                 
+                 this.showStatus(this.elements.shareStatusMessage, "Removing member...", 'info', null);
+
+                 try {
+                    const checklistRef = doc(this.firebase.db, 'checklists', this.state.currentChecklistData.id);
+                    await updateDoc(checklistRef, {
+                        [`members.${memberId}`]: deleteField(),
+                        memberIds: arrayRemove(memberId) // Also update the memberIds array
+                    });
+                    this.showStatus(this.elements.shareStatusMessage, "Member removed!", 'success');
+                     // No need to manually update local state, snapshot listener will handle it.
+                } catch (error) {
+                     console.error("Error removing member:", error);
+                    this.showStatus(this.elements.shareStatusMessage, `Error removing member: ${error.message}`, 'error');
+                }
+            },
+            
+            // --- RENDER FUNCTIONS (simplified for brevity) ---
+            renderListView(checklists) {
+                const container = this.elements.savedChecklistsContainer;
+                container.innerHTML = ''; // Clear previous list
+                this.elements.noChecklistsMessage.classList.toggle('hidden', checklists.length > 0);
+
+                const sortedChecklists = checklists.sort((a, b) => (b.lastUpdated?.toDate() || 0) - (a.lastUpdated?.toDate() || 0));
+
+                sortedChecklists.forEach(list => {
+                    const card = document.createElement('div');
+                    card.className = 'p-5 bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-transparent hover:border-indigo-500/50';
+                    card.dataset.id = list.id;
+                    card.addEventListener('click', () => this.renderChecklistForm(list.id));
+                    
+                    const lastUpdated = list.lastUpdated ? list.lastUpdated.toDate().toLocaleString() : 'N/A';
+                    const role = list.members ? list.members[this.state.userId] : 'Unknown'; // Handle missing members map
+
+                    card.innerHTML = `
+                        <div class="flex justify-between items-start">
+                            <h3 class="text-xl font-bold text-gray-800 dark:text-white truncate pr-4">${list.orgName || 'Untitled Checklist'}</h3>
+                            <span class="flex-shrink-0 text-xs font-semibold uppercase px-2 py-0.5 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">${role}</span>
+                        </div>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Last updated: ${lastUpdated}</p>
+                    `;
+                    container.appendChild(card);
+                });
+                this.filterAndRenderListView(); // Apply search filter
+            },
+            
+            filterAndRenderListView() {
+                const searchTerm = this.elements.checklistSearchInput.value.toLowerCase();
+                const cards = this.elements.savedChecklistsContainer.querySelectorAll('[data-id]');
+                let visibleCount = 0;
+                cards.forEach(card => {
+                    const title = card.querySelector('h3').textContent.toLowerCase();
+                    const isVisible = title.includes(searchTerm);
+                    card.style.display = isVisible ? '' : 'none';
+                    if (isVisible) visibleCount++;
+                });
+                // Update no checklists message based on filtered count
+                this.elements.noChecklistsMessage.classList.toggle('hidden', cards.length === 0 || visibleCount > 0);
+             },
+
+            renderCategoryHTML(category) {
+                 return `
+                    <div class="category-block bg-gray-50/50 dark:bg-gray-800/50 rounded-lg border border-gray-200/80 dark:border-gray-700/80 expanded" data-category-id="${category.id}">
+                        <div class="flex justify-between items-center p-4 cursor-pointer" data-action="toggle-category">
+                            <h3 class="category-title text-xl font-semibold text-gray-700 dark:text-gray-300">${category.name}</h3>
+                            <i data-lucide="chevron-right" class="category-toggle-icon text-gray-500 transform rotate-90"></i>
+                        </div>
+                        <div class="category-content px-4 pb-4">
+                             <div class="space-y-5 border-t border-gray-200 dark:border-gray-700 pt-4">
+                                ${ (category.items || []).map(item => this.renderItemHTML(item, category.id)).join('')}
+                                <button class="add-item-button mt-4 w-full text-sm btn btn-secondary" data-action="add-item">Add Item</button>
+                            </div>
+                        </div>
+                    </div>`;
+            },
+            
+            renderItemHTML(item, categoryId) {
+                const toolButtonHtml = item.link ? `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="contextual-tool-button mt-1.5 flex items-center space-x-2 text-sm text-indigo-600 dark:text-indigo-400 hover:underline" data-base-url="${item.link}"><i data-lucide="external-link" class="h-4 w-4"></i><span>${item.linkText || 'Open Tool'}</span></a>` : '';
+                return `
+                    <div class="checklist-item border-b border-gray-100 dark:border-gray-700/50 pb-4 last:border-b-0" data-item-id="${item.id}" data-category-id="${categoryId}">
+                        <div class="flex items-start space-x-4">
+                            <input type="checkbox" id="check-${item.id}" class="custom-checkbox mt-1" data-action="check-item" ${item.checked ? 'checked' : ''}>
+                            <label for="check-${item.id}" class="item-text flex-1 text-gray-700 dark:text-gray-300 cursor-pointer">${item.text}</label>
+                        </div>
+                        <div class="pl-10 mt-2 space-y-3">
+                             ${toolButtonHtml}
+                            <textarea class="notes-input w-full p-2 text-sm border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-md focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500" data-action="update-note" placeholder="Add notes...">${item.notes || ''}</textarea>
+                        </div>
+                    </div>`;
+             },
+             
+             // --- HELPERS & UTILITIES ---
+            
+            closeModal(modalElement) {
+                if (modalElement) modalElement.style.display = 'none';
+            },
+
+            openConfirmationModal(title, message, onConfirm) {
+                this.elements.modalTitle.textContent = title;
+                this.elements.modalMessage.textContent = message;
+                this.state.confirmAction = onConfirm;
+                this.elements.confirmationModal.style.display = 'block';
+            },
+            
+             updateDynamicToolLinks() {
+                const orgName = this.elements.checklistOrgNameInput.value.trim();
+                if (!orgName) return;
+
+                const encodedOrgName = encodeURIComponent(orgName);
+                const toolLinks = this.elements.checklistItemsContainer.querySelectorAll('a.contextual-tool-button[data-base-url]');
+
+                toolLinks.forEach(link => {
+                    const baseUrl = link.dataset.baseUrl;
+                    // Prevent appending name if it's already there (e.g., from previous update)
+                    if (!link.href.endsWith(encodedOrgName)) {
+                       link.href = `${baseUrl}${encodedOrgName}`;
+                    }
+                });
+             },
+             // Add other helper functions from checklist app logic here if needed...
+              handleSignOut() {
+                signOut(this.firebase.auth).catch(error => console.error("Sign out error", error));
+                // Auth listener will handle UI changes
+            },
+
+            handleChecklistContainerClick(e) {
+                const target = e.target.closest('[data-action]');
+                if (!target) return;
+                const action = target.dataset.action;
+                const categoryEl = target.closest('.category-block');
+                const itemEl = target.closest('.checklist-item');
+                const categoryId = categoryEl?.dataset.categoryId;
+                const itemId = itemEl?.dataset.itemId;
+
+                if (action === 'toggle-category') {
+                    categoryEl.classList.toggle('expanded');
+                    target.querySelector('.category-toggle-icon')?.classList.toggle('rotate-90');
+                } else if (action === 'add-item') {
+                    this.addItem(categoryId);
+                }
+                // Add handlers for edit/delete if needed later
+            },
+            
+             handleChecklistContainerInput(e) {
+                const target = e.target.closest('[data-action="update-note"]');
+                if (!target || !this.state.currentChecklistData) return;
+                const itemEl = target.closest('.checklist-item');
+                const categoryId = itemEl?.dataset.categoryId;
+                const itemId = itemEl?.dataset.itemId;
+
+                 const category = this.state.currentChecklistData.categories.find(c => c.id === categoryId);
+                 const item = category?.items.find(i => i.id === itemId);
+                 if (item) {
+                     item.notes = target.value;
+                     this.handleSaveChecklist(false); // Debounced save
+                 }
+            },
+
+             handleChecklistContainerChange(e) {
+                const target = e.target.closest('[data-action="check-item"]');
+                 if (!target || !this.state.currentChecklistData) return;
+                 const itemEl = target.closest('.checklist-item');
+                 const categoryId = itemEl?.dataset.categoryId;
+                 const itemId = itemEl?.dataset.itemId;
+
+                 const category = this.state.currentChecklistData.categories.find(c => c.id === categoryId);
+                 const item = category?.items.find(i => i.id === itemId);
+                 if (item) {
+                     item.checked = target.checked;
+                     this.handleSaveChecklist(true); // Force save on check/uncheck
+                 }
+            },
+            
+            addItem(categoryId) {
+                 if (!this.state.currentChecklistData) return;
+                 const category = this.state.currentChecklistData.categories.find(c => c.id === categoryId);
+                 if (!category) return;
+
+                 const newItem = { id: `item_${Date.now()}`, text: "New Item - Click to Edit", isCustom: true, checked: false, notes: "" };
+                 category.items.push(newItem);
+                 this.buildChecklistUI(this.state.currentChecklistData); // Re-render
+                 this.handleSaveChecklist(true); // Save immediately
+            },
+            
+            addCategory() {
+                if (!this.state.currentChecklistData) return;
+                const newCategory = { id: `cat_${Date.now()}`, name: "New Category - Click to Edit", isCustom: true, items: [] };
+                this.state.currentChecklistData.categories.push(newCategory);
+                this.buildChecklistUI(this.state.currentChecklistData); // Re-render
+                this.handleSaveChecklist(true); // Save immediately
+            },
+             handleDeleteChecklist() {
+                 if (!this.state.currentChecklistData?.id) return;
+                 this.openConfirmationModal(
+                     "Delete Checklist?",
+                     `Permanently delete "${this.state.currentChecklistData.orgName}"?`,
+                     async () => {
+                         try {
+                             await deleteDoc(doc(this.firebase.db, 'checklists', this.state.currentChecklistData.id));
+                             this.showChecklistSubView('list');
+                         } catch (error) {
+                             this.showStatus(this.elements.statusMessage, `Error deleting: ${error.message}`, 'error');
+                         }
+                     }
+                 );
+             },
+              handleManageSharing() {
+                 if (!this.state.currentChecklistData?.id) return;
+                 // Add logic to fetch users if needed, or assume cached
+                 this.populateMembersList(); // Populate the list in the modal
+                 this.elements.shareStatusMessage.textContent = ''; // Clear previous messages
+                 this.openModal(this.elements.manageShareModal);
+             },
+             
+             populateMembersList() {
+                const listEl = this.elements.shareMembersList;
+                listEl.innerHTML = ''; // Clear existing list
+                const members = this.state.currentChecklistData?.members || {};
+                const ownerId = Object.keys(members).find(id => members[id] === 'owner'); // Find the owner
+
+                Object.entries(members).forEach(([id, role]) => {
+                    const isSelf = id === this.state.userId;
+                    const isOwner = role === 'owner';
+                    listEl.innerHTML += `
+                        <div class="flex items-center justify-between p-2 bg-gray-100 dark:bg-gray-700 rounded-md">
+                            <span class="text-sm font-medium text-gray-800 dark:text-gray-200">${id} ${isSelf ? '(You)' : ''}</span>
+                            <div class="flex items-center space-x-2">
+                               <span class="text-xs uppercase px-2 py-0.5 rounded bg-gray-300 dark:bg-gray-600">${role}</span>
+                               ${!isOwner && this.state.currentChecklistData.members[this.state.userId] === 'owner' ? // Only owner can remove others
+                               `<button class="remove-member-btn p-1 text-red-500 hover:text-red-700" data-member-id="${id}" aria-label="Remove member"><i data-lucide="x-circle" class="w-4 h-4"></i></button>` : ''}
+                            </div>
+                         </div>`;
+                 });
+                 lucide.createIcons(); // Re-render icons if needed
+             },
+             openModal(modalElement) {
+                if(modalElement) modalElement.style.display = 'block';
+             },
+
+            // Other necessary checklist methods...
+             handleAccordionClick(e) {
+                const button = e.target.closest('button.accordion-header');
+                if (button) {
+                    const targetId = button.dataset.target;
+                    const content = document.getElementById(targetId);
+                    const chevron = button.querySelector('.chevron-icon');
+                    const isExpanded = button.getAttribute('aria-expanded') === 'true';
+                    
+                    button.setAttribute('aria-expanded', !isExpanded);
+                    content.classList.toggle('open');
+                    chevron.classList.toggle('rotate-180');
+                }
+                // Add copy logic if needed later
+            },
+        };
+
+        document.addEventListener('DOMContentLoaded', () => App.init());
+    </script>
+</body>
+</html>
