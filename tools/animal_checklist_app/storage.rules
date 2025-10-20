@@ -1,0 +1,77 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    //
+    // Storage rules for checklist attachments.
+    // Expect files to be stored under:
+    //   attachments/checklists/{checklistId}/{fileName}
+    //
+    // Access decisions are made by reading the corresponding Firestore
+    // document at /databases/$(database)/documents/checklists/{checklistId}
+    // and checking that the requester is a member (owner/editor/viewer).
+    //
+    // Important:
+    // - Your client should keep checklist membership data up-to-date in Firestore
+    //   (recommended: maintain both a `members` map and a `memberIds` array).
+    // - For better performance and simpler rules, store member userIds in
+    //   checklist.memberIds (array) and keep it synchronized with members map.
+    //
+
+    match /attachments/checklists/{checklistId}/{allPaths=**} {
+      // helper: authenticated?
+      function isAuthenticated() {
+        return request.auth != null;
+      }
+
+      // helper: get the checklist document (may be used repeatedly)
+      function checklist() {
+        return get(/databases/$(database)/documents/checklists/$(checklistId));
+      }
+
+      // helper: true if requester appears in memberIds array OR members map
+      function isMember() {
+        return checklist().exists() &&
+          (
+            // preferred: memberIds array (recommended)
+            (request.auth.uid in checklist().data.memberIds)
+            // fallback: check the members map for a role
+            || (checklist().data.members[request.auth.uid] in ['owner', 'editor', 'viewer'])
+          );
+      }
+
+      // helper: owner or editor (allowed to upload / modify attachments)
+      function isEditorOrOwner() {
+        return checklist().exists() &&
+          (checklist().data.members[request.auth.uid] in ['owner', 'editor']);
+      }
+
+      // Allow reads (download, metadata read, list) for authenticated checklist members
+      allow read: if isAuthenticated() && isMember();
+
+      // Allow write (create/overwrite) for owner/editor only.
+      // Also enforce content size and MIME-type constraints to mitigate abuse.
+      allow write: if isAuthenticated()
+                   && isEditorOrOwner()
+                   // limit file size to 10 MB (adjust if needed)
+                   && request.resource.size < 10 * 1024 * 1024
+                   // restrict to common safe mime-types (images, PDF, plain text, common archives)
+                   && (
+                     request.resource.contentType.matches('image/.*')
+                     || request.resource.contentType.matches('application/pdf')
+                     || request.resource.contentType.matches('text/.*')
+                     || request.resource.contentType.matches('application/zip')
+                     || request.resource.contentType.matches('application/octet-stream')
+                   );
+
+      // Allow deletes by owner/editor as well (owner may choose to restrict to owner only)
+      allow delete: if isAuthenticated()
+                    && checklist().exists()
+                    && (checklist().data.members[request.auth.uid] in ['owner', 'editor']);
+    }
+
+    // Deny everything else in storage by default
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
