@@ -296,14 +296,24 @@
         
         function initializeFirebase() {
              try {
-                // Use environment-provided config or a fallback for local dev
-                const firebaseConfigStr = typeof __firebase_config !== 'undefined' ? __firebase_config : '{}';
-                const firebaseConfig = JSON.parse(firebaseConfigStr);
+                // --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+                // User-provided Firebase config
+                // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+                const firebaseConfig = {
+                  apiKey: "AIzaSyCSLAD2acFHCmf8bkJwQx_puLcb-HARyJE",
+                  authDomain: "rescue-compliance-app.firebaseapp.com",
+                  projectId: "rescue-compliance-app",
+                  storageBucket: "rescue-compliance-app.firebasestorage.app",
+                  messagingSenderId: "354094080932",
+                  appId: "1:354094080932:web:7c9aeb9b0036e6542d5731",
+                  measurementId: "G-CL6TNFWL0L"
+                };
                 
                 // Check if the config is valid before initializing
                 if (!firebaseConfig.apiKey || !firebaseConfig.projectId) {
                     throw new Error("Firebase configuration is missing or invalid.");
                 }
+                // --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
                 const app = initializeApp(firebaseConfig);
                 db = getFirestore(app);
@@ -353,9 +363,11 @@
         
         async function handleAutoSignIn() {
             try {
+                // Try to get a token if it's injected (e.g., in a secure environment)
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
                     await signInWithCustomToken(auth, __initial_auth_token);
                 } else {
+                    // Fallback to anonymous sign-in for open access
                     await signInAnonymously(auth);
                 }
             } catch (error) {
@@ -443,7 +455,6 @@
                 
                 // After sign out, onAuthStateChanged will trigger the auto-sign-in logic.
                 if(wasAnonymous) {
-                    // ***FIXED***: Replaced alert() with a custom info modal.
                     helpers.openInfoModal("Signed Out", "You have signed out of your anonymous session. Any checklists you created are now inaccessible unless they were shared with another user.");
                 }
                 
@@ -712,7 +723,6 @@
             });
         }
         
-        // ***FIXED***: Rewrote this function to correctly fetch user documents without using writeBatch.
         async function cacheUserProfiles(userIds) {
             const idsToFetch = userIds.filter(id => !allUsersCache[id]);
             if (idsToFetch.length === 0) return;
@@ -1196,7 +1206,9 @@
             }
 
             helpers.showStatus(uploadStatusElement, `Uploading...`, 'info', null);
-            const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+            
+            // Use a stable app ID, falling back to projectId if no specific one is injected
+            const appId = typeof __app_id !== 'undefined' ? __app_id : (auth.app.options.projectId || 'default-app-id');
             const storagePath = `artifacts/${appId}/users/${userId}/checklists/${currentChecklistData.id}/${itemId}/${file.name}`;
 
             try {
@@ -1239,6 +1251,7 @@
                     } catch (error) {
                         console.error("Error deleting attachment:", error);
                         if (error.code === 'storage/object-not-found') {
+                           // File doesn't exist in storage, so just remove it from the list
                            item.attachments = item.attachments.filter(att => att.fileName !== fileName);
                            buildChecklistUI(currentChecklistData);
                            await handleSaveChecklist(true);
