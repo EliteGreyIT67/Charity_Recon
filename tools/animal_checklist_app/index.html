@@ -629,12 +629,17 @@
         }
 
         async function handleManageSharing() {
+            // Check if checklist exists and user has permission (handled implicitly by data loading)
             if (!currentChecklistData?.id) return;
-            
-            helpers.showStatus(ui.shareStatusMessage, "", 'info', 0);
+
+            // Clear previous status messages and inputs in the modal
+            helpers.showStatus(ui.shareStatusMessage, "", 'info', 0); // Use 0 duration to clear instantly
             ui.addMemberEmail.value = '';
-            
+
+            // Populate the list of current members in the modal
             await populateMembersList();
+
+            // Open the 'Manage Access' modal
             helpers.openModal(ui.manageShareModal);
         }
 
