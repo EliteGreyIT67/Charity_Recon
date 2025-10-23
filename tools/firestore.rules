@@ -1,70 +1,91 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Helper functions
+
+    // Helper: Is the user signed in?
     function isAuthenticated() {
       return request.auth != null;
     }
+
+    // Helper: Get the UID of the user making the request.
     function requesterUid() {
       return request.auth.uid;
     }
-    function isOwner(doc) {
-      // Check if the members map exists and if the requester has the 'owner' role
-      return exists(/databases/$(database)/documents/checklists/$(doc.id)) && resource.data.members[requesterUid()] == 'owner';
-    }
-     function isEditor(doc) {
-      // Check if the members map exists and if the requester has the 'editor' role
-      return exists(/databases/$(database)/documents/checklists/$(doc.id)) && resource.data.members[requesterUid()] == 'editor';
-    }
-    function isMemberRole(docId) {
-       // Check if the document exists and if the requester is listed in the members map with any valid role.
-      let docData = get(/databases/$(database)/documents/checklists/$(docId)).data;
-      return docData.members[requesterUid()] in ['owner', 'editor', 'viewer'];
-    }
 
-    // Checklists collection
-    match /checklists/{checklistId} {
-      // Allow reading a single checklist if the user is a member (owner, editor, viewer).
-      // Use the helper function `isMemberRole` which correctly fetches the document data.
-      allow get: if isAuthenticated() && isMemberRole(checklistId);
+    // Match the specific structure used by the application
+    // IMPORTANT: Ensure your application code uses this exact path structure.
+    match /artifacts/{appId}/checklists/{checklistId} {
+      
+      // Helper: Get data for the specific checklist being accessed (used by get, update, delete)
+      function getChecklistData() {
+        return get(/databases/$(database)/documents/artifacts/$(appId)/checklists/$(checklistId)).data;
+      }
+      // Helper: Check membership based on fetched data
+      function isMemberFromData(data) {
+         return isAuthenticated() && data != null && 'members' in data && requesterUid() in data.members;
+      }
+      // Helper: Check ownership based on fetched data
+      function isOwnerFromData(data) {
+        return isMemberFromData(data) && data.members[requesterUid()] == 'owner';
+      }
+      // Helper: Check editor/owner based on fetched data
+      function isEditorOrOwnerFromData(data) {
+         return isMemberFromData(data) && (data.members[requesterUid()] == 'owner' || data.members[requesterUid()] == 'editor');
+      }
 
-      // Allow a user to list only the checklists they are a member of.
-      // This rule enforces that any 'list' query on the 'checklists' collection
-      // MUST include a `where('memberIds', 'array-contains', USER_ID)` clause.
+      // READ (Single Doc): Allow if the user is found in the members map of the fetched document data.
+      allow get: if isMemberFromData(getChecklistData());
+
+      // LIST (Query): Allow if authenticated AND the query correctly filters by the user's ID in 'memberIds'.
       allow list: if isAuthenticated()
-                  // Ensure there's exactly one 'where' clause
                   && request.query.where.size() == 1
-                  // Ensure the clause is specifically 'memberIds' 'array-contains' USER_ID
                   && request.query.where[0].fieldPath == 'memberIds'
                   && request.query.where[0].op == 'array-contains'
                   && request.query.where[0].value == requesterUid();
 
-      // Allow creation if the user is authenticated and includes themselves as an owner
-      // and also includes the required 'memberIds' array containing their UID.
+      // CREATE: Allow if authenticated, the incoming data sets the user as owner,
+      // and the incoming data includes the user in the memberIds array.
       allow create: if isAuthenticated()
                     && request.resource.data.members[requesterUid()] == 'owner'
                     && requesterUid() in request.resource.data.memberIds;
 
-      // Allow updates if the user is an owner or editor.
-      // Crucially, only owners can modify the 'members' map or 'memberIds' array.
-      allow update: if isAuthenticated() && isMemberRole(checklistId) && (
-                      // Owners can update anything.
-                      isOwner(resource) ||
-                      // Editors can update only if they are NOT changing members/memberIds.
-                      (isEditor(resource) && request.resource.data.members == resource.data.members && request.resource.data.memberIds == resource.data.memberIds)
-                    );
+      // UPDATE: 
+      // Fetch the existing document data first.
+      // Allow if the user is a member of the existing doc AND
+      //   EITHER the user is the owner (can change anything) 
+      //   OR the user is an editor/owner AND they are NOT changing the members map or memberIds array.
+      allow update: let existingData = getChecklistData();
+                    let incomingData = request.resource.data;
+                    in if isMemberFromData(existingData) && (
+                       isOwnerFromData(existingData) || 
+                       ( 
+                         isEditorOrOwnerFromData(existingData) &&
+                         incomingData.members == existingData.members &&
+                         incomingData.memberIds == existingData.memberIds
+                       )
+                     );
 
-      // Only the owner can delete a checklist.
-      allow delete: if isAuthenticated() && isOwner(resource);
+      // DELETE: Allow only if the owner of the existing document data.
+      allow delete: if isOwnerFromData(getChecklistData());
     }
-
-    // Users collection: Allow users to update their own document,
-    // for example to set a 'lastSeen' timestamp. Also allow reads by authenticated users.
-    match /users/{userId} {
+    
+     // Match the specific structure used by the application for user data
+    match /artifacts/{appId}/users/{userId} {
+      // Allow any authenticated user to read user profiles.
       allow get: if isAuthenticated();
-      allow list: if false; // Do not allow listing all users.
-      allow create, update: if isAuthenticated() && requesterUid() == userId;
-      allow delete: if false; // Users cannot delete their own user doc.
+
+      // Allow authenticated users to create or update their OWN user document.
+      // This is crucial for the setDoc call in setupAuthListener.
+      allow write: if isAuthenticated() && requesterUid() == userId;
+      
+      // Disallow listing all users or deleting user documents from the client.
+      allow list, delete: if false;
     }
+
+     // Default deny for any other paths not explicitly matched
+     match /{document=**} {
+       allow read, write: if false;
+     }
   }
 }
+
