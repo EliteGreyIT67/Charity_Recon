@@ -1,26 +1,26 @@
-# Charity_Recon: A Resource Guide for Non-Profit Animal Rescue Organizations
+# Charity_Recon: An Integrated Resource for Non-Profit Animal Rescue Organizations
 
 *Your essential companion for promoting transparency, accountability, and excellence in the animal welfare community.*
 
-**Last Verified**: 2025-09-25
+**Last Verified**: 2025-10-23
 
-Welcome to Charity Recon! This guide empowers animal rescue organizations, donors, and the public to find and verify legitimate charities, report fraudulent activity, and understand key compliance requirements.
+Welcome to Charity Recon! This guide and integrated web tool empower animal rescue organizations, donors, and the public to find and verify legitimate charities, report fraudulent activity, understand key compliance requirements, and track assessment findings.
 
 ---
 
 ## Quick Start Guide for Donors
-In a hurry? Here are three essential steps to quickly vet an organization:
- 1. Verify Registered Status: Use the appropriate national or regional charity registrar to confirm the organization is a registered non-profit. See the [International Resources](INTERNATIONAL_RESOURCES.md) section for country-specific starting points.
- 2. Verify 501(c)(3) Status: Use the [IRS Tax Exempt Organization Search](https://apps.irs.gov/app/eos/) to confirm the organization is a registered charity.
- 3. Review Financials: Look up the organization on [ProPublica Nonprofit Explorer](https://projects.propublica.org/nonprofits/) to see their annual IRS Form 990 filings. Check their revenue, expenses, and executive compensation.
- 4. Check State Registration: Find your state's charity official via [NASCO](https://www.nasconet.org/) to ensure they are registered to solicit donations in your state.
+In a hurry? Here are three essential steps to quickly vet an organization using the tool:
+ 1. **Launch the Tool**: Open the [Charity Recon Tool](./tools/index.html).
+ 2. **Generate Links**: On the "OSINT Tool" tab, enter the organization's name and click "Generate".
+ 3. **Verify Status**: Use the generated links in the "Federal Financial & Legal" section to check their 501(c)(3) status on the IRS website and review financials on ProPublica.
+ 4. **Start a Checklist**: Switch to the "Compliance Checklists" tab within the same tool. Click "Start New Checklist," enter the organization's name, and use the checklist items to assess their transparency based on your findings. Checklists are saved securely to your account.
 
 ---
 
 ## Contents
-- [Interactive Tools](#interactive-tools)
+- [The Charity Recon Tool](#the-charity-recon-tool)
 - [Why This Guide Matters](#why-this-guide-matters)
-- [How to Use This Guide (By Role)](#how-to-use-this-guide-by-role)
+- [How to Use This Guide & Tool (By Role)](#how-to-use-this-guide--tool-by-role)
    - [For Donors & Supporters](#for-donors--supporters)
    - [For Potential Adopters & Foster Parents](#for-potential-adopters--foster-parents)
    - [For Rescue Founders & Operators](#for-rescue-founders--operators)
@@ -40,18 +40,12 @@ In a hurry? Here are three essential steps to quickly vet an organization:
 
 ---
 
-## Interactive Tools
-- [Animal Rescue Compliance Checklist App](https://elitegreyit67.github.io/Charity_Recon/tools/animal_checklist_app/index.html)
-  - An interactive tool to help donors, volunteers, and adopters assess an organization's transparency and compliance based on the principles in this guide.
+## The Charity Recon Tool
+This project features a single, powerful web application that integrates two key functionalities:
 
-![Screenshot](https://imgur.com/aoY8rIM.jpeg)
-
-- [Charity Recon: OSINT Tool for Animal Rescues](https://elitegreyit67.github.io/Charity_Recon/tools/osint_app/index.html): A free and easy-to-use web application that provides a centralized dashboard to quickly generate direct search links to a wide array of public records and online platforms for investigating nonprofit animal rescue organizations. This tool is designed for journalists, researchers, potential donors, and the public to perform effective due diligence. 
-    - **Key Features**:
-      - **All-in-One Dashboard**: Combines dozens of search tools into a single interface.
-      - **Multi-Faceted Investigation**: Instantly check federal 501(c)(3) status, search state-level charity registries, and access financial documents.
-      - **Reputation & News**: Scan Google News, public review sites, and community forums.
-      - **Efficient Workflow**: Refine searches by location or EIN for more precise results.
+-   **[Launch the Charity Recon Tool](./tools/index.html)**
+    -   **OSINT Dashboard Tab**: Provides a centralized interface to quickly generate direct search links to a wide array of public records (federal/state registrations, financials), news archives, review sites, and online platforms relevant to investigating nonprofit animal rescue organizations.
+    -   **Compliance Checklists Tab**: An interactive, Firebase-powered tool to help donors, volunteers, and adopters assess an organization's transparency and compliance. Create, save, edit, and securely share checklists in the cloud based on a standardized template or your own custom items.
 
 ---
 
@@ -60,9 +54,9 @@ Welcome to the Charity Recon Guide for Animal Rescue Organizations. If you're in
 
 However, the world of charity can be complex. From navigating intricate legal requirements to ensuring financial transparency and upholding the highest ethical standards, running or supporting an animal rescue demands diligence beyond just a love for animals. Mismanagement, even unintentional, can not only jeopardize an organization's future but, more critically, harm the very animals it aims to save and erode public trust.
 
-This guide is your essential companion in promoting transparency, accountability, and excellence within the animal rescue community. We've compiled critical information, practical tips, and valuable resources to help you:
+This guide, along with the integrated Charity Recon Tool, is your essential companion in promoting transparency, accountability, and excellence within the animal rescue community. We've compiled critical information, practical tips, and valuable resources to help you:
 - Understand and fulfill key legal obligations at federal, state, and local levels.
-- Identify reputable organizations and discern potential red flags, ensuring your efforts and donations truly make a difference.
+- Identify reputable organizations and discern potential red flags using both background research (OSINT) and structured assessment (Checklists).
 - Access vital national and state-specific contacts for compliance, licensing, and animal welfare authorities.
 - Empower yourself with the knowledge to establish, operate, or support animal rescues with confidence and integrity.
 
@@ -72,33 +66,34 @@ By utilizing the principles and tools outlined here, you contribute to a stronge
 
 ---
 
-## How to Use This Guide (By Role)
-This guide is designed for everyone in the animal welfare community. Find your role below for tailored advice.
+## How to Use This Guide & Tool (By Role)
+This guide and the integrated tool are designed for everyone in the animal welfare community. Find your role below for tailored advice.
 
 ---
 
 ### For Donors & Supporters
 Your goal is to ensure your contributions make a real impact.
-- **Start with the Basics**: Use the [Quick Start Guide](#quick-start-guide-for-donors) to perform an initial check.
-- **Identify Red Flags**: Review the [Spotting Red Flags](#spotting-red-flags-a-deeper-look) section to learn what warrants a closer look.
-- **Assess Financial Health**: Use the [Resource Hub](#resource-hub) to find the organization's Form 990. Are their program expenses a healthy percentage of their total budget?
-- **Report Concerns**: If you suspect fraud, use the links in the [Resource Hub](#resource-hub) (e.g., FTC, State Attorney General) to file a report.
+- **Start Research**: Use the "OSINT Tool" tab in the [Charity Recon Tool](./tools/index.html) to perform initial checks (501c3 status, financials, state registration).
+- **Identify Red Flags**: Review the [Spotting Red Flags](#spotting-red-flags-a-deeper-look) section to learn what warrants a closer look during your research.
+- **Assess Systematically**: Switch to the "Compliance Checklists" tab. Use the checklist to systematically evaluate the organization's transparency and practices based on your OSINT findings.
+- **Report Concerns**: If you suspect fraud after your investigation, use the links in the [Resource Hub](#resource-hub) (e.g., FTC, State Attorney General) to file a report.
 
 ---
 
 ### For Potential Adopters & Foster Parents
 You are entrusting an organization to provide you with a healthy, well-cared-for animal.
-- **Evaluate Animal Care Practices**: Pay close attention to the red flags related to [Poor Animal Care](#spotting-red-flags-a-deeper-look) and [Evasive About Animals](#spotting-red-flags-a-deeper-look).
-- **Ask Questions**: Inquire about their adoption/foster process, return policies, and the specific animal's history. A transparent organization will provide clear answers.
-- **Check Local Licenses**: Does your state or county require shelters to be licensed? Use the [State-Specific Resources](STATE_RESOURCES.md) to check with your local animal control or department of agriculture.
+- **Research the Org**: Use the "OSINT Tool" tab to check their registration, look for news reports, and scan reviews.
+- **Evaluate Practices**: Switch to the "Compliance Checklists" tab. Pay close attention to items related to animal care, sourcing policies, and adoption processes. Ask the organization direct questions based on the checklist items.
+- **Check Local Licenses**: Does your state or county require shelters to be licensed? Use the links in the [State-Specific Resources](STATE_RESOURCES.md) (or generated by the OSINT tool) to check with your local animal control or department of agriculture.
 
 ---
 
 ### For Rescue Founders & Operators
 You are dedicated to running a compliant, ethical, and effective organization.
-- **Understand Your Obligations**: Thoroughly review the [Key Legal & Compliance Requirements](#key-legal--compliance-requirements) section. This is critical for legal operation.
-- **Build Trust Through Transparency**: Use the [Advanced Investigation Tips](#advanced-investigation-tips) as a guide for what the public looks for. Proactively publish your Form 990, board of directors, and clear operational policies.
-- **Register Correctly**: Ensure you are registered with the IRS, your Secretary of State, and your state's charity office for fundraising.
+- **Understand Obligations**: Thoroughly review the [Key Legal & Compliance Requirements](#key-legal--compliance-requirements) section. This is critical for legal operation.
+- **Self-Assess**: Use the "Compliance Checklists" tab in the [Charity Recon Tool](./tools/index.html) as a self-audit tool. Ensure your organization meets transparency and compliance standards. Save and update your checklist as policies evolve.
+- **Build Trust**: Use the checklist results to identify areas for improvement in transparency. Proactively publish information like your Form 990, board list, and clear operational policies.
+- **Register Correctly**: Ensure you are registered with the IRS, your Secretary of State, and your state's charity office for fundraising. Use the OSINT tool's links to quickly access relevant state agency websites.
 
 [↑ Back To Top](#contents)
 
@@ -155,7 +150,7 @@ Animal rescues must comply with a web of federal, state, and local laws. Failure
 ---
 
 ## Resource Hub
-Use these resources to conduct your research.
+Use these resources to conduct your research. The OSINT tab of the [Charity Recon Tool](./tools/index.html) provides direct search links for many of these.
 
 ### National Resources (U.S.)
 **Charity Databases & Watchdogs**:
