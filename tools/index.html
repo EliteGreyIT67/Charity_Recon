@@ -101,6 +101,7 @@
             </button>
         </header>
 
+        <!-- Main Tab Navigation -->
         <nav class="border-b border-gray-200 dark:border-gray-700 mb-8">
             <div class="-mb-px flex space-x-6" aria-label="Tabs">
                 <button id="tab-osint" class="nav-tab active" data-view="osint-view" role="tab">
@@ -112,7 +113,9 @@
             </div>
         </nav>
         
+        <!-- Main Content Area -->
         <main>
+            <!-- OSINT Tool View -->
             <section id="osint-view" class="view-content">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl font-bold text-gray-900 dark:text-white">OSINT Dashboard</h2>
@@ -190,6 +193,7 @@
                 </div>
             </section>
 
+            <!-- Checklist Tool View -->
             <section id="checklist-view" class="view-content hidden">
                  <div id="checklist-loading-view" class="text-center py-20 card">
                      <i data-lucide="loader-2" class="w-16 h-16 mx-auto text-gray-400 dark:text-gray-500 animate-spin"></i>
@@ -205,6 +209,7 @@
                         <button id="sign-out-btn" class="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow-sm transition-colors">Sign Out</button>
                     </div>
 
+                    <!-- List of all checklists -->
                     <div id="checklist-list-view">
                         <header class="mb-8 text-center">
                             <h1 class="text-3xl font-bold text-gray-800 dark:text-white">Compliance Checklists</h1>
@@ -223,6 +228,7 @@
                             </div>
                         </div>
                         <div id="no-checklists-message" class="text-center py-16 card hidden">
+                             <!-- Content updated dynamically by JS if there's an error -->
                              <i data-lucide="file-x" class="w-20 h-20 mx-auto text-gray-300 dark:text-gray-600 mb-4"></i>
                             <p class="text-2xl font-semibold text-gray-700 dark:text-gray-300">No checklists found.</p>
                             <p class="text-gray-500 dark:text-gray-400">Click "Start New" to begin. Checklists shared with you will also appear here.</p>
@@ -230,6 +236,7 @@
                         <div id="saved-checklists-container" class="space-y-4 max-w-4xl mx-auto"></div>
                     </div>
 
+                    <!-- Single checklist editor view -->
                     <div id="checklist-editor-view" class="hidden card p-6 sm:p-8">
                         <header class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
                              <button id="back-to-list-btn" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-semibold flex items-center space-x-1.5 group mb-2">
@@ -278,6 +285,7 @@
         </footer>
     </div>
     
+    <!-- Modals for Checklist App -->
     <div id="confirmation-modal" class="modal">
         <div class="modal-content bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 shadow-lg text-center">
              <i data-lucide="alert-triangle" class="h-12 w-12 mx-auto mb-4 bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 p-2 rounded-full"></i>
@@ -325,6 +333,7 @@
     </div>
     <div id="toast-container"></div>
 
+    <!-- Embedded State Data -->
     <script id="state-data" type="application/json">
     {
       "states": { "AL": "Alabama", "AK": "Alaska", "AZ": "Arizona", "AR": "Arkansas", "CA": "California", "CO": "Colorado", "CT": "Connecticut", "DE": "Delaware", "DC": "District of Columbia", "FL": "Florida", "GA": "Georgia", "HI": "Hawaii", "ID": "Idaho", "IL": "Illinois", "IN": "Indiana", "IA": "Iowa", "KS": "Kansas", "KY": "Kentucky", "LA": "Louisiana", "ME": "Maine", "MD": "Maryland", "MA": "Massachusetts", "MI": "Michigan", "MN": "Minnesota", "MS": "Mississippi", "MO": "Missouri", "MT": "Montana", "NE": "Nebraska", "NV": "Nevada", "NH": "New Hampshire", "NJ": "New Jersey", "NM": "New Mexico", "NY": "New York", "NC": "North Carolina", "ND": "North Dakota", "OH": "Ohio", "OK": "Oklahoma", "OR": "Oregon", "PA": "Pennsylvania", "RI": "Rhode Island", "SC": "South Carolina", "SD": "South Dakota", "TN": "Tennessee", "TX": "Texas", "UT": "Utah", "VT": "Vermont", "VA": "Virginia", "WA": "Washington", "WV": "West Virginia", "WI": "Wisconsin", "WY": "Wyoming" },
@@ -335,17 +344,22 @@
     }
     </script>
     
+    <!-- Main Application Logic -->
     <script type="module">
         // Firebase Imports
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signInAnonymously, signInWithCustomToken, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, addDoc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, query, serverTimestamp, where, deleteField, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, addDoc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, query, serverTimestamp, where, deleteField, arrayUnion, arrayRemove, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js"; // Added setLogLevel
         
         // --- App State & Config ---
         const App = {
             elements: {},
             data: {},
-            firebase: {},
+            firebase: { // Initialize firebase object
+                db: null,
+                auth: null,
+                appId: 'default-app-id' // Default value
+            },
             state: {
                 currentView: 'osint-view',
                 userId: null,
@@ -360,70 +374,151 @@
 
             // --- INITIALIZATION ---
             init() {
+                setLogLevel('debug'); // Enable Firestore debug logging
+                console.log("App initializing...");
                 this.cacheDOMElements();
+                this.bindMethods(); // Ensure 'this' context is correct
                 this.setupEventListeners();
                 this.initTheme();
-                this.initializeFirebase();
+                this.initializeFirebase(); // Call Firebase init
                 this.loadStateData();
                 lucide.createIcons();
                 this.switchView('osint-view');
             },
+
+             bindMethods() {
+                // Manually bind methods that lose 'this' context in callbacks/event listeners
+                const methodsToBind = [
+                    'loadStateData', 'populateStates', 'toggleTheme', 'switchView', 
+                    'handleOsintSubmit', 'clearOsintResults', 'handleAccordionClick', 
+                    'startChecklistFromOsint', 'handleSignOut', 'renderChecklistForm', 
+                    'showChecklistSubView', 'listenForChecklists', 'handleSaveChecklist', 
+                    'handleDeleteChecklist', 'handleManageSharing', 'handleAddMember', 
+                    'handleRemoveMember', 'filterAndRenderListView', 'updateDynamicToolLinks', 
+                    'addCategory', 'handleChecklistContainerClick', 'handleChecklistContainerInput', 
+                    'handleChecklistContainerChange', 'closeModal', 'showStatus', 'renderListView', 
+                    'setupAuthListener', 'handleAutoSignIn', 'setSaveButtonState', 'buildChecklistUI',
+                    'updateChecklistPermissions', 'renderCategoryHTML', 'renderItemHTML',
+                    'openConfirmationModal', 'populateMembersList', 'openModal', 'initializeFirebase' // Added initializeFirebase
+                ];
+                 methodsToBind.forEach(method => {
+                    if (typeof this[method] === 'function') {
+                        this[method] = this[method].bind(this);
+                    } else {
+                        console.warn(`Method ${method} not found for binding.`);
+                    }
+                });
+            },
             
             initializeFirebase() {
                  try {
+                    // Use environment variables provided by the platform
                     const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+                     const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id'; // Get app_id
+
                     if (!firebaseConfig.apiKey || !firebaseConfig.projectId) {
                         throw new Error("Firebase configuration was not provided by the environment.");
                     }
+                    console.log("[Firebase] Initializing Firebase with config:", firebaseConfig); // Log config
                     const app = initializeApp(firebaseConfig);
                     this.firebase.db = getFirestore(app);
                     this.firebase.auth = getAuth(app);
+                     // Make sure appId is valid before storing
+                     this.firebase.appId = appId && typeof appId === 'string' ? appId.replace(/[^a-zA-Z0-9_-]/g, '_') : 'default-app-id'; // Sanitize or default
+                    console.log("[Firebase] Firebase initialized successfully. Using App ID for paths:", this.firebase.appId);
                     this.setupAuthListener();
                 } catch (error) {
-                    console.error("Firebase Initialization Failed:", error);
-                    this.elements.checklistAuthError.textContent = `Error: Could not connect backend. ${error.message}`;
-                    this.elements.checklistLoadingView.querySelector('i').style.display = 'none';
+                    console.error("[Firebase] Initialization Failed:", error);
+                     if (this.elements.checklistAuthError) { // Check if element exists
+                         this.elements.checklistAuthError.textContent = `Error: Could not connect backend. ${error.message}`;
+                     }
+                     if (this.elements.checklistLoadingView) { // Check if element exists
+                        const spinner = this.elements.checklistLoadingView.querySelector('i');
+                        if (spinner) spinner.style.display = 'none';
+                    }
                 }
             },
 
             setupAuthListener() {
+                console.log("[Auth] Setting up auth listener...");
+                 if (!this.firebase.auth) {
+                    console.error("[Auth] Firebase auth is not initialized. Cannot set up listener.");
+                    return;
+                 }
                 onAuthStateChanged(this.firebase.auth, async (user) => {
+                     console.log("[Auth] State changed. User:", user ? user.uid : 'null'); // Log auth state change
                     if (user) {
                         this.state.userId = user.uid;
-                        this.elements.userName.textContent = user.isAnonymous ? 'Anonymous User' : 'Authenticated User';
-                        this.elements.userId.textContent = user.uid;
+                         if(this.elements.userName) this.elements.userName.textContent = user.isAnonymous ? 'Anonymous User' : 'Authenticated User';
+                         if(this.elements.userId) this.elements.userId.textContent = user.uid;
                         
-                        const userRef = doc(this.firebase.db, 'users', user.uid);
-                        // Attempt to update lastSeen, handle potential permission errors gracefully
+                        // Construct the correct path for the user document
+                        const userDocPath = `artifacts/${this.firebase.appId}/users/${user.uid}`;
+                         console.log("[Auth] Authenticated user path:", userDocPath); // Log user path
+                        const userRef = doc(this.firebase.db, userDocPath);
                         try {
+                           console.log("[Firestore] Attempting to set user lastSeen...");
                            await setDoc(userRef, { lastSeen: serverTimestamp() }, { merge: true });
+                           console.log("[Firestore] User lastSeen updated successfully.");
                         } catch (error) {
-                           console.warn("Could not update user lastSeen:", error.message);
-                           // Continue even if this fails, as reading checklists might still work.
+                           // This might fail if rules deny write access to 'users' initially for anon
+                           console.warn("[Firestore] Could not update user lastSeen:", error.message, "Path:", userDocPath);
                         }
 
 
-                        this.state.isAuthReady = true;
-                        this.elements.checklistLoadingView.classList.add('hidden');
-                        this.elements.checklistMainContent.classList.remove('hidden');
-                        this.showChecklistSubView('list');
-                        this.listenForChecklists();
+                        if (!this.state.isAuthReady) { // Check if auth wasn't ready before
+                            this.state.isAuthReady = true;
+                            console.log("[App] Auth ready, initial setup complete."); 
+                             if(this.elements.checklistLoadingView) this.elements.checklistLoadingView.classList.add('hidden');
+                             if(this.elements.checklistMainContent) this.elements.checklistMainContent.classList.remove('hidden');
+                            this.showChecklistSubView('list');
+                            this.listenForChecklists(); // Attach listener now that auth is ready
+                        } else {
+                            console.log("[App] Auth state changed for already ready user, re-attaching listener.");
+                            this.listenForChecklists(); // Re-attach listener if auth changes (e.g., token refresh)
+                        }
                     } else {
-                        this.handleAutoSignIn();
+                        // User signed out or not signed in
+                         if (this.state.listUnsubscribe) { // Detach listener if user signs out
+                            console.log("[App] User signed out, detaching checklist listener."); // Added log
+                            this.state.listUnsubscribe();
+                            this.state.listUnsubscribe = null;
+                        }
+                        this.state.isAuthReady = false;
+                        this.state.userId = null;
+                         if(this.elements.checklistLoadingView) this.elements.checklistLoadingView.classList.remove('hidden'); // Show loading again
+                         if(this.elements.checklistMainContent) this.elements.checklistMainContent.classList.add('hidden');
+                         if(this.elements.checklistAuthError) this.elements.checklistAuthError.textContent = "Signing in..."; // Indicate sign-in attempt
+                        this.handleAutoSignIn(); // Attempt to sign in again (e.g., anonymously)
                     }
                 });
             },
 
             async handleAutoSignIn() {
+                 console.log("[Auth] Attempting auto sign-in..."); // Added log
+                 if (!this.firebase.auth) {
+                     console.error("[Auth] Cannot auto sign-in, auth not initialized.");
+                     if(this.elements.checklistAuthError) this.elements.checklistAuthError.textContent = `Authentication failed: Service not ready.`;
+                     return;
+                 }
                 try {
-                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                        await signInWithCustomToken(this.firebase.auth, __initial_auth_token);
+                    const initialToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+                    if (initialToken) {
+                         console.log("[Auth] Using custom token for sign-in."); // Added log
+                        await signInWithCustomToken(this.firebase.auth, initialToken);
                     } else {
+                         console.log("[Auth] Using anonymous sign-in."); // Added log
                         await signInAnonymously(this.firebase.auth);
                     }
+                      console.log("[Auth] Auto sign-in successful."); // Added log
+                       if(this.elements.checklistAuthError) this.elements.checklistAuthError.textContent = ""; // Clear sign-in message
                 } catch (error) {
-                    console.error("Automatic sign-in failed:", error);
-                    this.elements.checklistAuthError.textContent = `Authentication failed: ${error.message}`;
+                    console.error("[Auth] Automatic sign-in failed:", error);
+                     if(this.elements.checklistAuthError) this.elements.checklistAuthError.textContent = `Authentication failed: ${error.message}`;
+                     if(this.elements.checklistLoadingView) {
+                         const spinner = this.elements.checklistLoadingView.querySelector('i');
+                         if (spinner) spinner.style.display = 'none'; // Hide spinner on auth failure
+                    }
                 }
             },
 
@@ -435,16 +530,20 @@
                     this.data.stateResources = data.stateResources;
                     this.data.stateAnimalWelfareResources = data.stateAnimalWelfareResources;
                     this.populateStates();
+                     console.log("[Data] State data loaded successfully.");
                 } catch (error) {
-                    console.error(error);
-                    this.elements.errorMessage.textContent = 'Error: Could not load state resources.';
-                    this.elements.errorMessage.classList.remove('hidden');
+                    console.error("[Data] Error loading state data:", error);
+                     if(this.elements.errorMessage) {
+                         this.elements.errorMessage.textContent = 'Error: Could not load state resources.';
+                         this.elements.errorMessage.classList.remove('hidden');
+                     }
                 }
             },
 
             // --- UI & EVENT HANDLING ---
 
             cacheDOMElements() {
+                 console.log("[UI] Caching DOM elements...");
                 const ids = [
                     'theme-toggle', 'search-form', 'generate-button', 'clear-button', 'org-name', 'person-name',
                     'org-ein', 'location', 'domain-name', 'social-handle', 'state-select', 'results-container',
@@ -462,60 +561,70 @@
                     'edit-modal', 'edit-modal-title', 'edit-modal-input', 'edit-modal-error', 'edit-modal-save-btn',
                     'start-checklist-from-osint-btn'
                 ];
-                ids.forEach(id => { this.elements[id.replace(/-(\w)/g, (_, c) => c.toUpperCase())] = document.getElementById(id); });
+                ids.forEach(id => { 
+                    const element = document.getElementById(id);
+                    // No warning needed here, just assign if found
+                    this.elements[id.replace(/-(\w)/g, (_, c) => c.toUpperCase())] = element; 
+                });
+                 console.log("[UI] DOM elements cached.");
             },
 
             setupEventListeners() {
-                // Main App
-                this.elements.themeToggle.addEventListener('click', () => this.toggleTheme());
-                this.elements.tabOsint.addEventListener('click', () => this.switchView('osint-view'));
-                this.elements.tabChecklist.addEventListener('click', () => this.switchView('checklist-view'));
+                 console.log("[UI] Setting up event listeners...");
+                 // Check if elements exist before adding listeners
+                if (this.elements.themeToggle) this.elements.themeToggle.addEventListener('click', this.toggleTheme);
+                if (this.elements.tabOsint) this.elements.tabOsint.addEventListener('click', () => this.switchView('osint-view'));
+                if (this.elements.tabChecklist) this.elements.tabChecklist.addEventListener('click', () => this.switchView('checklist-view'));
 
-                // OSINT Tool
-                this.elements.searchForm.addEventListener('submit', (e) => this.handleOsintSubmit(e));
-                this.elements.clearButton.addEventListener('click', () => this.clearOsintResults());
-                this.elements.accordionContainer.addEventListener('click', (e) => this.handleAccordionClick(e));
-                this.elements.startChecklistFromOsintBtn.addEventListener('click', () => this.startChecklistFromOsint());
+                if (this.elements.searchForm) this.elements.searchForm.addEventListener('submit', this.handleOsintSubmit);
+                if (this.elements.clearButton) this.elements.clearButton.addEventListener('click', this.clearOsintResults);
+                 if (this.elements.accordionContainer) this.elements.accordionContainer.addEventListener('click', this.handleAccordionClick);
+                if (this.elements.startChecklistFromOsintBtn) this.elements.startChecklistFromOsintBtn.addEventListener('click', this.startChecklistFromOsint);
 
-                // Checklist Tool
-                this.elements.signOutBtn.addEventListener('click', () => this.handleSignOut());
-                this.elements.newChecklistBtn.addEventListener('click', () => this.renderChecklistForm(null));
-                this.elements.backToListBtn.addEventListener('click', () => {
-                    if (this.state.currentChecklistUnsubscribe) this.state.currentChecklistUnsubscribe();
+                if (this.elements.signOutBtn) this.elements.signOutBtn.addEventListener('click', this.handleSignOut);
+                if (this.elements.newChecklistBtn) this.elements.newChecklistBtn.addEventListener('click', () => this.renderChecklistForm(null));
+                if (this.elements.backToListBtn) this.elements.backToListBtn.addEventListener('click', () => {
+                    if (this.state.currentChecklistUnsubscribe) {
+                        this.state.currentChecklistUnsubscribe();
+                        this.state.currentChecklistUnsubscribe = null; // Clear listener ref
+                    }
                     this.showChecklistSubView('list');
-                    this.listenForChecklists();
+                    this.listenForChecklists(); 
                 });
-                this.elements.saveChecklistBtn.addEventListener('click', () => this.handleSaveChecklist(true));
-                this.elements.deleteChecklistBtn.addEventListener('click', () => this.handleDeleteChecklist());
-                this.elements.shareChecklistBtn.addEventListener('click', () => this.handleManageSharing());
-                this.elements.addMemberForm.addEventListener('submit', (e) => this.handleAddMember(e));
-                this.elements.shareMembersList.addEventListener('click', (e) => {
-                    if (e.target.closest('.remove-member-btn')) {
-                        const memberId = e.target.closest('.remove-member-btn').dataset.memberId;
-                        this.handleRemoveMember(memberId);
+                if (this.elements.saveChecklistBtn) this.elements.saveChecklistBtn.addEventListener('click', () => this.handleSaveChecklist(true));
+                if (this.elements.deleteChecklistBtn) this.elements.deleteChecklistBtn.addEventListener('click', this.handleDeleteChecklist);
+                if (this.elements.shareChecklistBtn) this.elements.shareChecklistBtn.addEventListener('click', this.handleManageSharing);
+                if (this.elements.addMemberForm) this.elements.addMemberForm.addEventListener('submit', this.handleAddMember);
+                 if (this.elements.shareMembersList) this.elements.shareMembersList.addEventListener('click', (e) => {
+                     if (e.target.closest('.remove-member-btn')) {
+                         const memberId = e.target.closest('.remove-member-btn').dataset.memberId;
+                         this.handleRemoveMember(memberId);
                     }
                 });
-                this.elements.checklistSearchInput.addEventListener('input', () => this.filterAndRenderListView());
-                this.elements.checklistOrgNameInput.addEventListener('input', () => {
-                    this.elements.checklistTitle.textContent = this.elements.checklistOrgNameInput.value.trim() || "New Checklist";
+                if (this.elements.checklistSearchInput) this.elements.checklistSearchInput.addEventListener('input', this.filterAndRenderListView);
+                if (this.elements.checklistOrgNameInput) this.elements.checklistOrgNameInput.addEventListener('input', () => {
+                   if (this.elements.checklistTitle) this.elements.checklistTitle.textContent = this.elements.checklistOrgNameInput.value.trim() || "New Checklist";
                     this.updateDynamicToolLinks();
                     this.handleSaveChecklist(false);
                 });
-                this.elements.checklistSummaryNotes.addEventListener('input', () => this.handleSaveChecklist(false));
-                this.elements.addCategoryBtn.addEventListener('click', () => this.addCategory());
-                this.elements.checklistItemsContainer.addEventListener('click', (e) => this.handleChecklistContainerClick(e));
-                this.elements.checklistItemsContainer.addEventListener('input', (e) => this.handleChecklistContainerInput(e));
-                this.elements.checklistItemsContainer.addEventListener('change', (e) => this.handleChecklistContainerChange(e));
+                if (this.elements.checklistSummaryNotes) this.elements.checklistSummaryNotes.addEventListener('input', () => this.handleSaveChecklist(false));
+                if (this.elements.addCategoryBtn) this.elements.addCategoryBtn.addEventListener('click', this.addCategory);
+                if (this.elements.checklistItemsContainer) {
+                    this.elements.checklistItemsContainer.addEventListener('click', this.handleChecklistContainerClick);
+                    this.elements.checklistItemsContainer.addEventListener('input', this.handleChecklistContainerInput);
+                    this.elements.checklistItemsContainer.addEventListener('change', this.handleChecklistContainerChange);
+                }
                 
                 // Modals
                 document.querySelectorAll('.modal').forEach(modal => {
                     modal.addEventListener('click', (e) => { if (e.target === modal) this.closeModal(modal); });
                     modal.querySelectorAll('[data-dismiss="modal"]').forEach(btn => btn.addEventListener('click', () => this.closeModal(modal)));
                 });
-                this.elements.modalConfirmBtn.addEventListener('click', () => {
+                if (this.elements.modalConfirmBtn) this.elements.modalConfirmBtn.addEventListener('click', () => {
                     this.state.confirmAction?.();
-                    this.closeModal(this.elements.confirmationModal);
+                    if (this.elements.confirmationModal) this.closeModal(this.elements.confirmationModal);
                 });
+                 console.log("[UI] Event listeners set up.");
             },
 
             // --- THEME & VIEW MANAGEMENT ---
@@ -524,25 +633,37 @@
                 if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                     document.documentElement.classList.add('dark');
                 }
+                 this.updateThemeIcons(); // Update icons on initial load
             },
             
             toggleTheme() {
                 document.documentElement.classList.toggle('dark');
                 localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+                 this.updateThemeIcons(); // Update icons after toggle
+            },
+            
+             updateThemeIcons() {
+                const isDark = document.documentElement.classList.contains('dark');
+                const sunIcon = this.elements.themeToggle?.querySelector('[data-lucide="sun"]');
+                const moonIcon = this.elements.themeToggle?.querySelector('[data-lucide="moon"]');
+                if (sunIcon) sunIcon.style.display = isDark ? 'none' : 'block';
+                if (moonIcon) moonIcon.style.display = isDark ? 'block' : 'none';
             },
             
             switchView(viewId) {
                 this.state.currentView = viewId;
                 document.querySelectorAll('.view-content').forEach(el => el.classList.add('hidden'));
-                document.getElementById(viewId).classList.remove('hidden');
+                const viewElement = document.getElementById(viewId);
+                 if(viewElement) viewElement.classList.remove('hidden');
 
                 document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
-                document.getElementById(`tab-${viewId.split('-')[0]}`).classList.add('active');
+                 const tabElement = document.getElementById(`tab-${viewId.split('-')[0]}`);
+                 if(tabElement) tabElement.classList.add('active');
             },
             
             showChecklistSubView(subView) {
-                this.elements.checklistListView.classList.toggle('hidden', subView !== 'list');
-                this.elements.checklistEditorView.classList.toggle('hidden', subView !== 'editor');
+                 if(this.elements.checklistListView) this.elements.checklistListView.classList.toggle('hidden', subView !== 'list');
+                 if(this.elements.checklistEditorView) this.elements.checklistEditorView.classList.toggle('hidden', subView !== 'editor');
             },
 
             // --- OSINT TOOL LOGIC ---
@@ -659,43 +780,94 @@
             // --- CHECKLIST APP LOGIC ---
             
             listenForChecklists() {
-                if (this.state.listUnsubscribe) this.state.listUnsubscribe();
-                if (!this.state.userId || !this.firebase.db) {
-                    console.warn("Checklist listener: User or DB not ready.");
+                 if (!this.firebase.db) {
+                    console.error("[Firestore] Database not initialized. Cannot listen.");
                     return;
                 }
+                if (this.state.listUnsubscribe) {
+                    console.log("[Firestore] Detaching previous checklist listener.");
+                    this.state.listUnsubscribe();
+                    this.state.listUnsubscribe = null;
+                }
+                
+                if (!this.state.isAuthReady || !this.state.userId) {
+                    console.warn("[Firestore] Auth not ready, cannot listen for checklists.");
+                    this.renderListView([]); // Clear list display
+                    if(this.elements.noChecklistsMessage) {
+                        this.elements.noChecklistsMessage.classList.remove('hidden'); // Show "No checklists"
+                        this.elements.noChecklistsMessage.innerHTML = `<div class="flex flex-col items-center"><i data-lucide="log-in" class="w-20 h-20 text-gray-400 mb-4"></i><p class="text-xl font-semibold">Please Sign In</p><p class="text-sm">Cannot load checklists until authenticated.</p></div>`;
+                        lucide.createIcons();
+                    }
+                    return;
+                }
+                
+                console.log(`[Firestore] Setting up checklist listener for user: ${this.state.userId}`);
+                const checklistsCollectionPath = `artifacts/${this.firebase.appId}/checklists`;
+                console.log("[Firestore] Querying collection:", checklistsCollectionPath); 
 
                 const q = query(
-                    collection(this.firebase.db, 'checklists'),
+                     collection(this.firebase.db, checklistsCollectionPath), 
                     where('memberIds', 'array-contains', this.state.userId)
                 );
                 
                 this.state.listUnsubscribe = onSnapshot(q, (querySnapshot) => {
+                     console.log("[Firestore] Checklist snapshot received:", querySnapshot.docs.length, "docs");
                     const checklists = [];
                     querySnapshot.forEach((doc) => {
                         checklists.push({ id: doc.id, ...doc.data() });
                     });
                     this.renderListView(checklists);
+                     if (this.elements.statusMessage && this.elements.statusMessage.textContent.includes("Could not load")) {
+                        this.showStatus(this.elements.statusMessage, "", 'info', 0);
+                     }
                 }, (error) => {
-                    console.error("Error listening for checklists:", error);
-                    // Check if it's a permission error specifically
-                    if (error.code === 'permission-denied') {
-                        this.showStatus(this.elements.statusMessage, "Permission denied. Check Firestore rules.", 'error');
+                    console.error("[Firestore] Error listening for checklists:", error);
+                     const errorElement = this.elements.statusMessage || this.elements.checklistAuthError; 
+                     const displayError = (msg) => {
+                         if (errorElement) this.showStatus(errorElement, msg, 'error', null);
+                         if (this.elements.noChecklistsMessage) {
+                             this.elements.noChecklistsMessage.innerHTML = `<div class="flex flex-col items-center"><i data-lucide="alert-triangle" class="w-20 h-20 text-red-400 mb-4"></i><p class="text-xl font-semibold">Error Loading Checklists</p><p class="text-sm">${msg}</p></div>`;
+                             this.elements.noChecklistsMessage.classList.remove('hidden');
+                             lucide.createIcons();
+                         }
+                         this.renderListView([]); 
+                     };
+
+                    if (error.code === 'permission-denied') { 
+                        displayError("Permission denied. Please check Firestore security rules.");
+                    } else if (error.code === 'failed-precondition') {
+                         displayError("Query failed. This often means a required Firestore index is missing. Check the developer console for a link to create it.");
                     } else {
-                         this.showStatus(this.elements.statusMessage, "Could not load checklists.", 'error');
+                         displayError(`Error loading checklists: ${error.message}`);
                     }
                 });
             },
 
             renderChecklistForm(checklistId = null, prefilledOrgName = '') {
-                if (this.state.listUnsubscribe) this.state.listUnsubscribe();
-                if (this.state.currentChecklistUnsubscribe) this.state.currentChecklistUnsubscribe();
+                 if (!this.firebase.db) {
+                     console.error("[Firestore] Database not initialized. Cannot render form.");
+                     return;
+                 }
+                if (this.state.listUnsubscribe) { 
+                     console.log("[Firestore] Detaching list listener to open editor.");
+                     this.state.listUnsubscribe();
+                     this.state.listUnsubscribe = null;
+                 }
+                if (this.state.currentChecklistUnsubscribe) { 
+                     console.log("[Firestore] Detaching existing editor listener.");
+                     this.state.currentChecklistUnsubscribe();
+                     this.state.currentChecklistUnsubscribe = null;
+                 }
                 
-                this.elements.checklistItemsContainer.innerHTML = '';
+                 if (this.elements.checklistItemsContainer) this.elements.checklistItemsContainer.innerHTML = '';
                 this.state.currentChecklistData = null;
+                 const checklistsCollectionPath = `artifacts/${this.firebase.appId}/checklists`; 
 
                 if (checklistId) {
-                    this.state.currentChecklistUnsubscribe = onSnapshot(doc(this.firebase.db, 'checklists', checklistId), (doc) => {
+                     const docPath = `${checklistsCollectionPath}/${checklistId}`;
+                     console.log("[Firestore] Attaching listener to doc:", docPath);
+                    this.state.currentChecklistUnsubscribe = onSnapshot(doc(this.firebase.db, docPath), (doc) => {
+                         console.log("[Firestore] Single checklist snapshot received. Exists:", doc.exists());
                         if (!doc.exists()) {
                             this.showStatus(this.elements.statusMessage, "Checklist not found.", 'error');
                             this.showChecklistSubView('list');
@@ -704,8 +876,9 @@
                         }
                         
                         const data = { id: doc.id, ...doc.data() };
-                        const role = data.members ? data.members[this.state.userId] : null; // Check if members exists
+                        const role = data.members ? data.members[this.state.userId] : null; 
                         if (!role) {
+                             console.warn(`[Auth] User ${this.state.userId} not found in members of ${checklistId}`);
                             this.showStatus(this.elements.statusMessage, "Access denied.", 'error');
                             this.showChecklistSubView('list');
                             this.listenForChecklists();
@@ -715,16 +888,18 @@
                         this.state.currentChecklistData = data;
                         this.buildChecklistUI(data);
                         this.updateChecklistPermissions(data, role);
-                    }, (error) => { // Added error handling for the snapshot listener itself
-                        console.error("Error fetching checklist details:", error);
+                    }, (error) => { 
+                        console.error("[Firestore] Error fetching checklist details:", error);
                         this.showStatus(this.elements.statusMessage, "Error loading checklist details.", 'error');
                         this.showChecklistSubView('list');
                     });
                 } else {
+                     console.log("[App] Creating new checklist form data.");
                     this.state.currentChecklistData = {
                         id: null, orgName: prefilledOrgName,
                         categories: JSON.parse(JSON.stringify(this.getChecklistMasterTemplate())),
-                        summary: '', members: { [this.state.userId]: 'owner' }
+                        summary: '', members: { [this.state.userId]: 'owner' },
+                        memberIds: [this.state.userId] 
                     };
                     this.buildChecklistUI(this.state.currentChecklistData);
                     this.updateChecklistPermissions(this.state.currentChecklistData, 'owner');
@@ -733,42 +908,54 @@
             },
 
             buildChecklistUI(data) {
+                 if (!this.elements.checklistItemsContainer || !this.elements.checklistSummaryNotes) return;
                 this.elements.checklistItemsContainer.innerHTML = '';
-                (data.categories || []).forEach(category => { // Add default empty array
+                (data.categories || []).forEach(category => {
                     const categoryEl = document.createElement('div');
                     categoryEl.innerHTML = this.renderCategoryHTML(category);
                     this.elements.checklistItemsContainer.appendChild(categoryEl.firstElementChild);
                 });
                 this.elements.checklistSummaryNotes.value = data.summary || '';
                 this.updateDynamicToolLinks();
+                 lucide.createIcons();
             },
 
             updateChecklistPermissions(data, role) {
                 const isViewer = role === 'viewer';
                 const isOwner = role === 'owner';
                 
-                this.elements.checklistOrgNameInput.value = data.orgName || '';
-                this.elements.checklistTitle.textContent = data.orgName || 'New Checklist';
+                 if (this.elements.checklistOrgNameInput) this.elements.checklistOrgNameInput.value = data.orgName || '';
+                 if (this.elements.checklistTitle) this.elements.checklistTitle.textContent = data.orgName || 'New Checklist';
                 
-                this.elements.deleteChecklistBtn.classList.toggle('hidden', !isOwner || !data.id);
-                this.elements.shareChecklistBtn.classList.toggle('hidden', !isOwner || !data.id);
-                this.elements.saveChecklistBtn.classList.toggle('hidden', isViewer);
-                this.elements.addCategoryBtn.classList.toggle('hidden', isViewer);
+                 if (this.elements.deleteChecklistBtn) this.elements.deleteChecklistBtn.classList.toggle('hidden', !isOwner || !data.id);
+                 if (this.elements.shareChecklistBtn) this.elements.shareChecklistBtn.classList.toggle('hidden', !isOwner || !data.id);
+                 if (this.elements.saveChecklistBtn) this.elements.saveChecklistBtn.classList.toggle('hidden', isViewer);
+                 if (this.elements.addCategoryBtn) this.elements.addCategoryBtn.classList.toggle('hidden', isViewer);
                 
-                this.elements.checklistOrgNameInput.disabled = isViewer;
-                this.elements.checklistSummaryNotes.disabled = isViewer;
+                 if (this.elements.checklistOrgNameInput) this.elements.checklistOrgNameInput.disabled = isViewer;
+                 if (this.elements.checklistSummaryNotes) this.elements.checklistSummaryNotes.disabled = isViewer;
 
-                this.elements.checklistItemsContainer.querySelectorAll('input, textarea, button').forEach(el => {
-                     // Allow navigation buttons even for viewers
-                    const isNavButton = el.id === 'back-to-list-btn' || el.closest('[data-action="toggle-category"]');
-                    el.disabled = isViewer && !isNavButton;
-                });
+                 if (this.elements.checklistItemsContainer) {
+                    this.elements.checklistItemsContainer.querySelectorAll('input, textarea, button').forEach(el => {
+                        const isActionAllowedForViewer = el.closest('[data-action="toggle-category"]');
+                        el.disabled = isViewer && !isActionAllowedForViewer;
+                    });
+                }
             },
 
             async handleSaveChecklist(force = false) {
                 clearTimeout(this.state.saveTimeout);
                 const saveAction = async () => {
-                    if (!this.state.userId || !this.state.currentChecklistData) return;
+                    if (!this.state.userId || !this.state.currentChecklistData) {
+                        console.warn("[Firestore] Save attempted without user or data.");
+                        return;
+                     }
+                      if (!this.firebase.db) {
+                        console.error("[Firestore] Save failed: Database not initialized.");
+                        this.showStatus(this.elements.statusMessage, "Error: Database connection lost.", 'error');
+                        return;
+                    }
+
                     const orgName = this.elements.checklistOrgNameInput.value.trim();
                     if (!orgName) {
                         this.elements.checklistOrgNameError.classList.remove('hidden');
@@ -779,42 +966,66 @@
                     this.state.currentChecklistData.orgName = orgName;
                     this.state.currentChecklistData.summary = this.elements.checklistSummaryNotes.value;
                     
-                    // Ensure memberIds array exists and is synced before saving
-                    const currentMembers = this.state.currentChecklistData.members || {};
+                    const currentMembers = this.state.currentChecklistData.members || { [this.state.userId]: 'owner' };
                     const memberIds = Object.keys(currentMembers);
+                     this.state.currentChecklistData.members = currentMembers;
+                     this.state.currentChecklistData.memberIds = memberIds;
+
 
                     const dataToSave = {
                         orgName: this.state.currentChecklistData.orgName,
-                        categories: this.state.currentChecklistData.categories || [], // Ensure categories exist
-                        summary: this.state.currentChecklistData.summary || '', // Ensure summary exists
-                        members: currentMembers, // Save the full members map
-                        memberIds: memberIds, // Save the derived memberIds array
+                        categories: this.state.currentChecklistData.categories || [],
+                        summary: this.state.currentChecklistData.summary || '',
+                        members: currentMembers,
+                        memberIds: memberIds, 
                         lastUpdated: serverTimestamp()
                     };
+                     const checklistsCollectionPath = `artifacts/${this.firebase.appId}/checklists`; 
 
                     this.setSaveButtonState(true);
                     try {
                         let docRef;
+                        let docPath;
                         if (this.state.currentChecklistData.id) {
-                            docRef = doc(this.firebase.db, 'checklists', this.state.currentChecklistData.id);
+                            // Update existing document
+                            docPath = `${checklistsCollectionPath}/${this.state.currentChecklistData.id}`;
+                            console.log("[Firestore] Updating existing checklist at:", docPath); // Log path
+                            docRef = doc(this.firebase.db, docPath);
                             await updateDoc(docRef, dataToSave);
                         } else {
-                            // On creation, ensure the creator is owner and in memberIds
-                             dataToSave.members = { [this.state.userId]: 'owner' };
+                             // Create new document
+                            dataToSave.members = { [this.state.userId]: 'owner' };
                             dataToSave.memberIds = [this.state.userId];
-                            docRef = await addDoc(collection(this.firebase.db, 'checklists'), dataToSave);
+                            console.log("[Firestore] Creating new checklist in:", checklistsCollectionPath, "with data:", dataToSave); // Log path and data
+                            docRef = await addDoc(collection(this.firebase.db, checklistsCollectionPath), dataToSave);
                             
-                            // Immediately update local state with new ID and re-render
-                            this.state.currentChecklistData.id = docRef.id;
-                            this.renderChecklistForm(docRef.id); // Re-render to attach snapshot listener
+                            const newChecklistId = docRef.id;
+                            console.log("[Firestore] New checklist created with ID:", newChecklistId);
+
+                            // Update local state *only after* DB confirms creation
+                            this.state.currentChecklistData.id = newChecklistId; // Set the ID
+                             this.state.currentChecklistData.members = dataToSave.members; 
+                             this.state.currentChecklistData.memberIds = dataToSave.memberIds; 
+
+                            if (this.state.currentChecklistUnsubscribe) this.state.currentChecklistUnsubscribe(); 
+
+                            const newDocPath = `${checklistsCollectionPath}/${newChecklistId}`;
+                             console.log("[Firestore] Attaching listener to newly created doc:", newDocPath);
+                            this.state.currentChecklistUnsubscribe = onSnapshot(doc(this.firebase.db, newDocPath), (/* updatedDoc */) => {
+                                console.log(`[Firestore] Listener attached and received update for ${newChecklistId}`);
+                            }, (error) => {
+                                console.error(`[Firestore] Error attaching listener to new checklist ${newChecklistId}:`, error);
+                            });
+
+                            this.updateChecklistPermissions(this.state.currentChecklistData, 'owner');
                         }
                         this.showStatus(this.elements.statusMessage, "Checklist saved!", 'success');
                     } catch (error) {
-                        console.error("Error saving checklist: ", error);
+                        console.error("[Firestore] Error saving checklist: ", error);
                          if (error.code === 'permission-denied') {
-                             this.showStatus(this.elements.statusMessage, "Permission denied. You might not have edit rights.", 'error');
+                             this.showStatus(this.elements.statusMessage, "Permission denied. Check Firestore rules.", 'error', null);
                         } else {
-                            this.showStatus(this.elements.statusMessage, `Error saving: ${error.message}`, 'error');
+                            this.showStatus(this.elements.statusMessage, `Error saving: ${error.message}`, 'error', null);
                         }
                     } finally {
                         this.setSaveButtonState(false);
@@ -826,6 +1037,7 @@
             
             async handleAddMember(e) {
                 e.preventDefault();
+                 if (!this.firebase.db) return;
                 const newMemberId = this.elements.addMemberId.value.trim();
                 const role = this.elements.addMemberRole.value;
                  if (!newMemberId || !this.state.currentChecklistData || !this.state.currentChecklistData.id) return;
@@ -833,29 +1045,31 @@
                  this.showStatus(this.elements.shareStatusMessage, "Adding member...", 'info', null);
 
                 try {
-                     // Check if user already exists
                     if (this.state.currentChecklistData.members && this.state.currentChecklistData.members[newMemberId]) {
                         throw new Error("User is already a member.");
                     }
                     
-                    const checklistRef = doc(this.firebase.db, 'checklists', this.state.currentChecklistData.id);
+                    const checklistsCollectionPath = `artifacts/${this.firebase.appId}/checklists`; // Use correct path
+                    const checklistRef = doc(this.firebase.db, checklistsCollectionPath, this.state.currentChecklistData.id);
                     await updateDoc(checklistRef, {
                         [`members.${newMemberId}`]: role,
-                        memberIds: arrayUnion(newMemberId) // Also update the memberIds array
+                        memberIds: arrayUnion(newMemberId)
                     });
                     this.showStatus(this.elements.shareStatusMessage, "Member added!", 'success');
-                    // No need to manually update local state, snapshot listener will handle it.
-                    this.elements.addMemberId.value = ''; // Clear input
+                    this.elements.addMemberId.value = '';
                 } catch (error) {
                     console.error("Error adding member:", error);
-                    this.showStatus(this.elements.shareStatusMessage, `Error adding member: ${error.message}`, 'error');
+                     if (error.code === 'permission-denied') {
+                        this.showStatus(this.elements.shareStatusMessage, `Error: Permission denied. Only owners can add members.`, 'error');
+                     } else {
+                        this.showStatus(this.elements.shareStatusMessage, `Error adding member: ${error.message}`, 'error');
+                    }
                 }
             },
 
             async handleRemoveMember(memberId) {
-                 if (!memberId || !this.state.currentChecklistData || !this.state.currentChecklistData.id || memberId === this.state.userId) return; // Cannot remove self
-                
-                 // Double check ownership locally before attempting DB operation (UI should prevent this, but good practice)
+                 if (!this.firebase.db) return;
+                 if (!memberId || !this.state.currentChecklistData || !this.state.currentChecklistData.id || memberId === this.state.userId) return; 
                  if (!this.state.currentChecklistData.members || this.state.currentChecklistData.members[this.state.userId] !== 'owner') {
                      this.showStatus(this.elements.shareStatusMessage, "Only the owner can remove members.", 'error');
                      return;
@@ -864,24 +1078,36 @@
                  this.showStatus(this.elements.shareStatusMessage, "Removing member...", 'info', null);
 
                  try {
-                    const checklistRef = doc(this.firebase.db, 'checklists', this.state.currentChecklistData.id);
+                     const checklistsCollectionPath = `artifacts/${this.firebase.appId}/checklists`; // Use correct path
+                    const checklistRef = doc(this.firebase.db, checklistsCollectionPath, this.state.currentChecklistData.id);
                     await updateDoc(checklistRef, {
                         [`members.${memberId}`]: deleteField(),
-                        memberIds: arrayRemove(memberId) // Also update the memberIds array
+                        memberIds: arrayRemove(memberId)
                     });
                     this.showStatus(this.elements.shareStatusMessage, "Member removed!", 'success');
-                     // No need to manually update local state, snapshot listener will handle it.
                 } catch (error) {
                      console.error("Error removing member:", error);
-                    this.showStatus(this.elements.shareStatusMessage, `Error removing member: ${error.message}`, 'error');
+                      if (error.code === 'permission-denied') {
+                         this.showStatus(this.elements.shareStatusMessage, `Error: Permission denied. Only owners can remove members.`, 'error');
+                      } else {
+                         this.showStatus(this.elements.shareStatusMessage, `Error removing member: ${error.message}`, 'error');
+                     }
                 }
             },
             
-            // --- RENDER FUNCTIONS (simplified for brevity) ---
+            // --- RENDER FUNCTIONS ---
             renderListView(checklists) {
                 const container = this.elements.savedChecklistsContainer;
-                container.innerHTML = ''; // Clear previous list
-                this.elements.noChecklistsMessage.classList.toggle('hidden', checklists.length > 0);
+                 if (!container) return; // Add check
+                container.innerHTML = '';
+                 if(this.elements.noChecklistsMessage) this.elements.noChecklistsMessage.classList.toggle('hidden', checklists.length > 0);
+
+                 if (this.elements.noChecklistsMessage && this.elements.noChecklistsMessage.textContent.includes("Permission denied")) {
+                     this.elements.noChecklistsMessage.classList.add('hidden'); 
+                    this.elements.noChecklistsMessage.innerHTML = `<div class="flex flex-col items-center"><i data-lucide="file-x" class="w-20 h-20 text-gray-400 mb-4"></i><p class="text-xl font-semibold">No Checklists Found</p><p class="text-sm">Click "Start New" to create one.</p></div>`;
+                    lucide.createIcons();
+                 }
+
 
                 const sortedChecklists = checklists.sort((a, b) => (b.lastUpdated?.toDate() || 0) - (a.lastUpdated?.toDate() || 0));
 
@@ -892,7 +1118,7 @@
                     card.addEventListener('click', () => this.renderChecklistForm(list.id));
                     
                     const lastUpdated = list.lastUpdated ? list.lastUpdated.toDate().toLocaleString() : 'N/A';
-                    const role = list.members ? list.members[this.state.userId] : 'Unknown'; // Handle missing members map
+                    const role = list.members ? list.members[this.state.userId] : 'Unknown';
 
                     card.innerHTML = `
                         <div class="flex justify-between items-start">
@@ -903,21 +1129,25 @@
                     `;
                     container.appendChild(card);
                 });
-                this.filterAndRenderListView(); // Apply search filter
+                this.filterAndRenderListView();
             },
             
             filterAndRenderListView() {
+                 if (!this.elements.checklistSearchInput || !this.elements.savedChecklistsContainer || !this.elements.noChecklistsMessage) return; // Add checks
                 const searchTerm = this.elements.checklistSearchInput.value.toLowerCase();
                 const cards = this.elements.savedChecklistsContainer.querySelectorAll('[data-id]');
                 let visibleCount = 0;
                 cards.forEach(card => {
-                    const title = card.querySelector('h3').textContent.toLowerCase();
+                    const titleElement = card.querySelector('h3');
+                     const title = titleElement ? titleElement.textContent.toLowerCase() : '';
                     const isVisible = title.includes(searchTerm);
                     card.style.display = isVisible ? '' : 'none';
                     if (isVisible) visibleCount++;
                 });
-                // Update no checklists message based on filtered count
-                this.elements.noChecklistsMessage.classList.toggle('hidden', cards.length === 0 || visibleCount > 0);
+                const hasAnyChecklists = Array.from(this.elements.savedChecklistsContainer.children).some(el => el.style.display !== 'none');
+                const isErrorDisplayed = this.elements.noChecklistsMessage.textContent.includes("Error");
+                this.elements.noChecklistsMessage.classList.toggle('hidden', hasAnyChecklists || isErrorDisplayed);
+
              },
 
             renderCategoryHTML(category) {
@@ -925,9 +1155,9 @@
                     <div class="category-block bg-gray-50/50 dark:bg-gray-800/50 rounded-lg border border-gray-200/80 dark:border-gray-700/80 expanded" data-category-id="${category.id}">
                         <div class="flex justify-between items-center p-4 cursor-pointer" data-action="toggle-category">
                             <h3 class="category-title text-xl font-semibold text-gray-700 dark:text-gray-300">${category.name}</h3>
-                            <i data-lucide="chevron-right" class="category-toggle-icon text-gray-500 transform rotate-90"></i>
+                            <i data-lucide="chevron-down" class="category-toggle-icon text-gray-500 chevron-icon transform rotate-180"></i>
                         </div>
-                        <div class="category-content px-4 pb-4">
+                        <div class="category-content open px-4 pb-4">
                              <div class="space-y-5 border-t border-gray-200 dark:border-gray-700 pt-4">
                                 ${ (category.items || []).map(item => this.renderItemHTML(item, category.id)).join('')}
                                 <button class="add-item-button mt-4 w-full text-sm btn btn-secondary" data-action="add-item">Add Item</button>
@@ -951,13 +1181,14 @@
                     </div>`;
              },
              
-             // --- HELPERS & UTILITIES ---
+            // --- HELPERS & UTILITIES ---
             
             closeModal(modalElement) {
                 if (modalElement) modalElement.style.display = 'none';
             },
 
             openConfirmationModal(title, message, onConfirm) {
+                 if (!this.elements.confirmationModal || !this.elements.modalTitle || !this.elements.modalMessage) return;
                 this.elements.modalTitle.textContent = title;
                 this.elements.modalMessage.textContent = message;
                 this.state.confirmAction = onConfirm;
@@ -965,6 +1196,7 @@
             },
             
              updateDynamicToolLinks() {
+                 if (!this.elements.checklistOrgNameInput || !this.elements.checklistItemsContainer) return;
                 const orgName = this.elements.checklistOrgNameInput.value.trim();
                 if (!orgName) return;
 
@@ -973,16 +1205,12 @@
 
                 toolLinks.forEach(link => {
                     const baseUrl = link.dataset.baseUrl;
-                    // Prevent appending name if it's already there (e.g., from previous update)
-                    if (!link.href.endsWith(encodedOrgName)) {
-                       link.href = `${baseUrl}${encodedOrgName}`;
-                    }
+                    link.href = `${baseUrl}${encodedOrgName}`;
                 });
              },
-             // Add other helper functions from checklist app logic here if needed...
               handleSignOut() {
+                 if (!this.firebase.auth) return;
                 signOut(this.firebase.auth).catch(error => console.error("Sign out error", error));
-                // Auth listener will handle UI changes
             },
 
             handleChecklistContainerClick(e) {
@@ -992,15 +1220,16 @@
                 const categoryEl = target.closest('.category-block');
                 const itemEl = target.closest('.checklist-item');
                 const categoryId = categoryEl?.dataset.categoryId;
-                const itemId = itemEl?.dataset.itemId;
 
-                if (action === 'toggle-category') {
+                if (action === 'toggle-category' && categoryEl) {
                     categoryEl.classList.toggle('expanded');
-                    target.querySelector('.category-toggle-icon')?.classList.toggle('rotate-90');
-                } else if (action === 'add-item') {
+                    const icon = categoryEl.querySelector('.category-toggle-icon');
+                    if (icon) icon.classList.toggle('rotate-180'); // Use rotate-180 for chevron-down
+                    const content = categoryEl.querySelector('.category-content');
+                     if(content) content.classList.toggle('open');
+                } else if (action === 'add-item' && categoryId) {
                     this.addItem(categoryId);
                 }
-                // Add handlers for edit/delete if needed later
             },
             
              handleChecklistContainerInput(e) {
@@ -1010,11 +1239,11 @@
                 const categoryId = itemEl?.dataset.categoryId;
                 const itemId = itemEl?.dataset.itemId;
 
-                 const category = this.state.currentChecklistData.categories.find(c => c.id === categoryId);
-                 const item = category?.items.find(i => i.id === itemId);
+                 const category = this.state.currentChecklistData.categories?.find(c => c.id === categoryId);
+                 const item = category?.items?.find(i => i.id === itemId);
                  if (item) {
                      item.notes = target.value;
-                     this.handleSaveChecklist(false); // Debounced save
+                     this.handleSaveChecklist(false);
                  }
             },
 
@@ -1025,42 +1254,48 @@
                  const categoryId = itemEl?.dataset.categoryId;
                  const itemId = itemEl?.dataset.itemId;
 
-                 const category = this.state.currentChecklistData.categories.find(c => c.id === categoryId);
-                 const item = category?.items.find(i => i.id === itemId);
+                 const category = this.state.currentChecklistData.categories?.find(c => c.id === categoryId);
+                 const item = category?.items?.find(i => i.id === itemId);
                  if (item) {
                      item.checked = target.checked;
-                     this.handleSaveChecklist(true); // Force save on check/uncheck
+                     this.handleSaveChecklist(true);
                  }
             },
             
             addItem(categoryId) {
-                 if (!this.state.currentChecklistData) return;
+                 if (!this.state.currentChecklistData || !this.state.currentChecklistData.categories) return;
                  const category = this.state.currentChecklistData.categories.find(c => c.id === categoryId);
                  if (!category) return;
 
-                 const newItem = { id: `item_${Date.now()}`, text: "New Item - Click to Edit", isCustom: true, checked: false, notes: "" };
+                 const newItem = { id: `item_${Date.now()}_${Math.random().toString(16).slice(2)}`, text: "New Item", isCustom: true, checked: false, notes: "" };
+                  if (!category.items) category.items = []; // Ensure items array exists
                  category.items.push(newItem);
-                 this.buildChecklistUI(this.state.currentChecklistData); // Re-render
-                 this.handleSaveChecklist(true); // Save immediately
+                 this.buildChecklistUI(this.state.currentChecklistData);
+                 this.handleSaveChecklist(true);
             },
             
             addCategory() {
                 if (!this.state.currentChecklistData) return;
-                const newCategory = { id: `cat_${Date.now()}`, name: "New Category - Click to Edit", isCustom: true, items: [] };
+                const newCategory = { id: `cat_${Date.now()}_${Math.random().toString(16).slice(2)}`, name: "New Category", isCustom: true, items: [] };
+                 if (!this.state.currentChecklistData.categories) this.state.currentChecklistData.categories = []; // Ensure categories array exists
                 this.state.currentChecklistData.categories.push(newCategory);
-                this.buildChecklistUI(this.state.currentChecklistData); // Re-render
-                this.handleSaveChecklist(true); // Save immediately
+                this.buildChecklistUI(this.state.currentChecklistData);
+                this.handleSaveChecklist(true);
             },
              handleDeleteChecklist() {
                  if (!this.state.currentChecklistData?.id) return;
+                  const checklistsCollectionPath = `artifacts/${this.firebase.appId}/checklists`; // Use correct path
                  this.openConfirmationModal(
                      "Delete Checklist?",
                      `Permanently delete "${this.state.currentChecklistData.orgName}"?`,
                      async () => {
                          try {
-                             await deleteDoc(doc(this.firebase.db, 'checklists', this.state.currentChecklistData.id));
+                              const docPath = `${checklistsCollectionPath}/${this.state.currentChecklistData.id}`;
+                             await deleteDoc(doc(this.firebase.db, docPath));
                              this.showChecklistSubView('list');
+                             this.listenForChecklists(); // Refresh list after delete
                          } catch (error) {
+                             console.error("Error deleting checklist:", error);
                              this.showStatus(this.elements.statusMessage, `Error deleting: ${error.message}`, 'error');
                          }
                      }
@@ -1068,51 +1303,151 @@
              },
               handleManageSharing() {
                  if (!this.state.currentChecklistData?.id) return;
-                 // Add logic to fetch users if needed, or assume cached
-                 this.populateMembersList(); // Populate the list in the modal
-                 this.elements.shareStatusMessage.textContent = ''; // Clear previous messages
+                 this.populateMembersList();
+                  if (this.elements.shareStatusMessage) this.elements.shareStatusMessage.textContent = '';
                  this.openModal(this.elements.manageShareModal);
              },
              
              populateMembersList() {
+                 if (!this.elements.shareMembersList) return;
                 const listEl = this.elements.shareMembersList;
-                listEl.innerHTML = ''; // Clear existing list
+                listEl.innerHTML = '';
                 const members = this.state.currentChecklistData?.members || {};
-                const ownerId = Object.keys(members).find(id => members[id] === 'owner'); // Find the owner
 
                 Object.entries(members).forEach(([id, role]) => {
                     const isSelf = id === this.state.userId;
                     const isOwner = role === 'owner';
                     listEl.innerHTML += `
                         <div class="flex items-center justify-between p-2 bg-gray-100 dark:bg-gray-700 rounded-md">
-                            <span class="text-sm font-medium text-gray-800 dark:text-gray-200">${id} ${isSelf ? '(You)' : ''}</span>
+                            <span class="text-sm font-medium text-gray-800 dark:text-gray-200">${id.substring(0,8)}... ${isSelf ? '(You)' : ''}</span>
                             <div class="flex items-center space-x-2">
                                <span class="text-xs uppercase px-2 py-0.5 rounded bg-gray-300 dark:bg-gray-600">${role}</span>
-                               ${!isOwner && this.state.currentChecklistData.members[this.state.userId] === 'owner' ? // Only owner can remove others
+                               ${!isOwner && this.state.currentChecklistData.members[this.state.userId] === 'owner' ?
                                `<button class="remove-member-btn p-1 text-red-500 hover:text-red-700" data-member-id="${id}" aria-label="Remove member"><i data-lucide="x-circle" class="w-4 h-4"></i></button>` : ''}
                             </div>
                          </div>`;
                  });
-                 lucide.createIcons(); // Re-render icons if needed
+                 lucide.createIcons();
              },
              openModal(modalElement) {
                 if(modalElement) modalElement.style.display = 'block';
              },
 
-            // Other necessary checklist methods...
              handleAccordionClick(e) {
                 const button = e.target.closest('button.accordion-header');
                 if (button) {
                     const targetId = button.dataset.target;
+                     if (!targetId) return; // Exit if no target specified
                     const content = document.getElementById(targetId);
                     const chevron = button.querySelector('.chevron-icon');
                     const isExpanded = button.getAttribute('aria-expanded') === 'true';
                     
                     button.setAttribute('aria-expanded', !isExpanded);
-                    content.classList.toggle('open');
-                    chevron.classList.toggle('rotate-180');
+                    if(content) content.classList.toggle('open');
+                    if(chevron) chevron.classList.toggle('rotate-180');
                 }
-                // Add copy logic if needed later
+            },
+            
+            showToast(message, type = 'success') {
+                 if (!this.elements.toastContainer) return;
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                toast.innerHTML = `<i data-lucide="check-circle" class="w-5 h-5"></i><span>${message}</span>`;
+                this.elements.toastContainer.appendChild(toast);
+                lucide.createIcons();
+                setTimeout(() => toast.classList.add('show'), 10);
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    toast.addEventListener('transitionend', () => toast.remove());
+                }, 3000);
+            },
+            
+            populateStates() {
+                 if (!this.data.states || !this.elements.stateSelect) return;
+                const fragment = document.createDocumentFragment();
+                for (const [abbr, name] of Object.entries(this.data.states)) {
+                    const option = document.createElement('option');
+                    option.value = abbr;
+                    option.textContent = name;
+                    fragment.appendChild(option);
+                }
+                 // Clear existing options before appending
+                 this.elements.stateSelect.innerHTML = '<option value="">Select a State (Optional)</option>'; 
+                this.elements.stateSelect.appendChild(fragment);
+            },
+            
+            createAccordionSectionHTML(id, title, icon, links, isOpen = false) {
+                if (!links || links.length === 0) return '';
+                const linksHtml = links.map(link => this.createLinkHTML(link.name, link.url)).join('');
+                return `
+                    <div class="card overflow-hidden">
+                        <h2>
+                            <button class="accordion-header w-full" aria-expanded="${isOpen}" data-target="${id}-content">
+                                <span class="flex items-center space-x-3"><i data-lucide="${icon}" class="w-6 h-6 text-indigo-500"></i><span class="text-xl font-semibold">${title}</span></span>
+                                <i data-lucide="chevron-down" class="chevron-icon ${isOpen ? 'rotate-180' : ''}"></i>
+                            </button>
+                        </h2>
+                        <div id="${id}-content" class="accordion-content px-5 pb-5 ${isOpen ? 'open' : ''}">
+                            <div class="space-y-3 border-t border-gray-200 dark:border-gray-700 pt-4">${linksHtml}</div>
+                        </div>
+                    </div>`;
+            },
+            
+            createLinkHTML(text, href) {
+                return `
+                    <div class="result-link-card">
+                        <a href="${href}" target="_blank" rel="noopener noreferrer" class="flex-grow font-medium text-gray-700 dark:text-gray-200 truncate pr-4">${text}</a>
+                        <a href="${href}" target="_blank" rel="noopener noreferrer" class="text-indigo-500 hover:text-indigo-600">
+                           <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+                        </a>
+                    </div>`;
+            },
+            getChecklistMasterTemplate() {
+                // Return a deep copy to prevent mutation of the original template
+                return JSON.parse(JSON.stringify([
+                    { id: "cat_fed_state", name: "Federal & State Compliance", isCustom: false, items: [
+                        { id: "fed_irs_status", text: "IRS 501(c)(3) status verified?", link: "https://apps.irs.gov/app/eos/", linkText: "IRS Search", isCustom: false, checked: false },
+                        { id: "fed_form_990", text: "IRS Form 990 accessible & reviewed?", link: "https://projects.propublica.org/nonprofits/search?q=", linkText: "ProPublica Search", isCustom: false, checked: false },
+                        { id: "rep_bbb_rating", text: "Better Business Bureau (BBB) rating checked?", link: "https://www.bbb.org/search?find_text=", linkText: "BBB Search", isCustom: false, checked: false },
+                    ]},
+                    // Add more default categories if needed
+                ]));
+            },
+            
+             setSaveButtonState(isSaving) {
+                 if (!this.elements.saveChecklistBtn || !this.elements.saveButtonText || !this.elements.saveSpinner) return;
+                this.elements.saveButtonText.textContent = isSaving ? 'Saving...' : 'Save';
+                this.elements.saveSpinner.classList.toggle('hidden', !isSaving);
+                this.elements.saveChecklistBtn.disabled = isSaving;
+            },
+            
+            showStatus(element, message, type = 'success', duration = 3000) {
+                 if (!element) {
+                    console.warn(`Attempted to show status "${message}" on a null element.`);
+                    return; // Avoid error if element doesn't exist
+                }
+                const colors = { success: 'text-green-600', error: 'text-red-600', info: 'text-gray-600' };
+                const darkColors = { success: 'dark:text-green-400', error: 'dark:text-red-400', info: 'dark:text-gray-400' };
+                element.textContent = message;
+                element.className = `mt-4 text-center font-medium ${colors[type] || colors.info} ${darkColors[type] || darkColors.info}`; // Default to info
+                 // If duration is null, don't set a timeout to clear it
+                 if (duration !== null) {
+                    // Clear previous timeout if exists
+                    if (element._statusTimeout) clearTimeout(element._statusTimeout); 
+                    
+                    element._statusTimeout = setTimeout(() => {
+                        // Only clear the message if it hasn't been overwritten by a subsequent status update
+                        if (element.textContent === message) {
+                             element.textContent = '';
+                             element.className = 'mt-4 text-center font-medium'; // Reset class
+                        }
+                         delete element._statusTimeout; // Clean up timeout reference
+                     }, duration);
+                 } else {
+                     // If duration is null, clear any existing timeout
+                      if (element._statusTimeout) clearTimeout(element._statusTimeout);
+                      delete element._statusTimeout; 
+                 }
             },
         };
 
@@ -1120,3 +1455,4 @@
     </script>
 </body>
 </html>
+
