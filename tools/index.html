@@ -56,7 +56,7 @@
         .visible-fade { opacity: 1; transform: translateY(0); visibility: visible; }
         select.form-input { -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-chevron-down'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.75rem center; background-size: 1.25em; }
         html.dark select.form-input { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23d1d5db' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-chevron-down'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); }
-        ::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; } ::-webkit-scrollbar-thumb:hover { background: #555; }
+        ::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: transparent; } ::webkit-scrollbar-thumb { background: #888; border-radius: 4px; } ::-webkit-scrollbar-thumb:hover { background: #555; }
         #toast-container { @apply fixed bottom-5 right-5 flex flex-col items-end space-y-2 z-50; }
         .toast { @apply flex items-center space-x-3 px-4 py-3 rounded-lg shadow-lg text-white transition-all duration-300; transform: translateX(120%); opacity: 0; }
         .toast.show { transform: translateX(0); opacity: 1; }
@@ -64,7 +64,7 @@
         .skeleton-loader { @apply bg-gray-200 dark:bg-gray-700 rounded-md animate-pulse; }
         .nav-tab { @apply px-4 py-2 font-semibold text-gray-500 dark:text-gray-400 rounded-t-lg border-b-2 border-transparent transition-colors; }
         .nav-tab.active { @apply text-indigo-600 dark:text-indigo-400 border-indigo-600 dark:border-indigo-400; }
-        
+
         /* Checklist-specific styles */
         #checklist-items-container::-webkit-scrollbar { width: 8px; }
         #checklist-items-container::-webkit-scrollbar-track { background: var(--scrollbar-track-bg); border-radius: 4px; }
@@ -125,7 +125,7 @@
                 </button>
             </div>
         </nav>
-        
+
         <main>
             <section id="login-view" class="view-content hidden">
                 <div class="max-w-md mx-auto card p-8 mt-10">
@@ -136,7 +136,7 @@
                         <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Charity Recon Login</h2>
                     </div>
                     <p class="text-gray-600 dark:text-gray-300 mb-6">Sign in to save and sync your compliance checklists.</p>
-                    
+
                     <form id="email-login-form" class="space-y-4">
                         <div class="input-group">
                             <i data-lucide="mail" class="input-icon"></i>
@@ -146,7 +146,7 @@
                             <i data-lucide="lock" class="input-icon"></i>
                             <input type="password" id="login-password" class="form-input" placeholder="Password" required>
                         </div>
-                        
+
                         <p id="login-error-message" class="text-red-500 text-sm text-center hidden"></p>
 
                         <div class="flex flex-col sm:flex-row gap-3">
@@ -176,7 +176,7 @@
                     <h2 class="text-3xl font-bold text-gray-900 dark:text-white">OSINT Dashboard</h2>
                     <p class="mt-2 max-w-2xl mx-auto text-gray-600 dark:text-gray-300">Enter an organization's details to generate a dashboard of direct links for your investigation.</p>
                 </div>
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="grid grid-cols-1 lg:col-cols-3 gap-8">
                     <aside class="lg:col-span-1">
                         <div class="card p-6 sticky top-8">
                             <h2 class="text-xl font-semibold mb-4">Investigation Details</h2>
@@ -203,7 +203,7 @@
                                 </div>
                                 <div class="input-group">
                                     <i data-lucide="at-sign" class="input-icon"></i>
-                                    <input type="text" id="social-handle" class="form-input" aria-label="Social Media Handle (Optional)" placeholder="Social Media Handle (e.g., happypaws)">
+                                    <input type="text" id="social-handle" class="form-input" aria-label="Social Media Handle (Optional)" placeholder="Social Media Handle (e.g., @happypaws)">
                                 </div>
                                 <div class="input-group">
                                     <i data-lucide="map-pin" class="input-icon"></i>
@@ -321,13 +321,13 @@
                 </div>
             </section>
         </main>
-        
+
         <footer class="text-center mt-24 pt-8 border-t dark:border-gray-700 text-sm text-gray-500 dark:text-gray-400">
             <p><strong>Disclaimer:</strong> This tool aggregates links to public information. Always verify data from multiple sources.</p>
             <p class="mt-2">Created as an open-source project. View on <a href="https://github.com/EliteGreyIT67/Charity_Recon" class="text-indigo-500 hover:underline">GitHub</a>.</p>
         </footer>
     </div>
-    
+
     <div id="confirmation-modal" class="modal">
         <div class="modal-content bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 shadow-lg text-center">
              <i data-lucide="alert-triangle" class="h-12 w-12 mx-auto mb-4 bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 p-2 rounded-full"></i>
@@ -414,7 +414,7 @@
         "NJ": [{ "n": "Dept. of Agriculture - Division of Animal Health", "u": "https://www.nj.gov/agriculture/divisions/ah/" }],
         "NM": [{ "n": "Livestock Board", "u": "https://www.nmlbonline.com/" }],
         "NY": [{ "n": "Dept. of Agriculture and Markets - Division of Animal Industry", "u": "https://agriculture.ny.gov/animals" }],
-        "NC": [{ "n": "Dept. of Agriculture & Consumer Services - Veterinary Division", "u": "https://www.ncagr.gov/vet/" }],
+        "NC": [{ "n": "Dept.of Agriculture & Consumer Services - Veterinary Division", "u": "https://www.ncagr.gov/vet/" }],
         "ND": [{ "n": "Board of Animal Health", "u": "https://www.nd.gov/ndboa/" }],
         "OH": [{ "n": "Dept. of Agriculture - Division of Animal Health", "u": "https://agri.ohio.gov/divisions/animal-health" }],
         "OK": [{ "n": "Dept. of Agriculture, Food and Forestry - Animal Industry Services", "u": "https://ag.ok.gov/divisions/animal-industry-services/" }],
@@ -435,7 +435,7 @@
       }
     }
     </script>
-    
+
     <script type="module">
         // Firebase Imports
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
@@ -452,7 +452,7 @@
             signInWithPopup
         } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, getDoc, addDoc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, query, serverTimestamp, where, deleteField, arrayUnion, arrayRemove, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js"; 
-        
+
         // --- App State & Config ---
         const App = {
             elements: {},
@@ -511,34 +511,29 @@
                     }
                 });
             },
-            
+
             initializeFirebase() {
                  try {
-                    // --- Firebase configuration hardcoded as provided by user ---
-                    const firebaseConfig = {
-                      apiKey: "AIzaSyCSLAD2acFHCmf8bkJwQx_puLcb-HARyJE",
-                      authDomain: "rescue-compliance-app.firebaseapp.com",
-                      databaseURL: "https://rescue-compliance-app-default-rtdb.firebaseio.com",
-                      projectId: "rescue-compliance-app",
-                      storageBucket: "rescue-compliance-app.firebasestorage.app",
-                      messagingSenderId: "354094080932",
-                      appId: "1:354094080932:web:7c9aeb9b0036e6542d5731",
-                      measurementId: "G-CL6TNFWL0L"
-                    };
+                    // --- Use the global __firebase_config provided by the runtime (FIXED) ---
+                    const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
 
-                    // --- Use the appId from the config and sanitize it, matching original logic ---
-                    const appId = (firebaseConfig.appId && typeof firebaseConfig.appId === 'string') 
+                    // --- Use the appId from the config and sanitize it for firestore paths ---
+                    // Note: If __app_id is defined (Canvas environment), use that for the artifact path,
+                    // otherwise fall back to derivation from firebaseConfig, if available.
+                    const appId = typeof __app_id !== 'undefined' ? __app_id : (
+                                (firebaseConfig.appId && typeof firebaseConfig.appId === 'string') 
                                 ? firebaseConfig.appId.replace(/[^a-zA-Z0-9_-]/g, '_') 
-                                : 'default-app-id';
+                                : 'default-app-id'
+                            );
 
                     if (!firebaseConfig.apiKey || !firebaseConfig.projectId) {
                         throw new Error("Firebase configuration is missing or invalid.");
                     }
-                    console.log("[Firebase] Initializing Firebase with config:", firebaseConfig); 
+                    console.log("[Firebase] Initializing Firebase with runtime config:", firebaseConfig); 
                     const app = initializeApp(firebaseConfig);
                     this.firebase.db = getFirestore(app);
                     this.firebase.auth = getAuth(app);
-                     this.firebase.appId = appId; // Use the sanitized appId
+                    this.firebase.appId = appId; // Use the sanitized appId
                     console.log("[Firebase] Firebase initialized successfully. Using App ID for paths:", this.firebase.appId);
                     this.setupAuthListener();
                 } catch (error) {
@@ -567,7 +562,7 @@
                  }
                 onAuthStateChanged(this.firebase.auth, async (user) => {
                      console.log("[Auth] State changed. User:", user ? user.uid : 'null');
-                    
+
                     if (user) {
                         // USER IS SIGNED IN
                         this.state.userId = user.uid;
@@ -583,7 +578,7 @@
 
                         // Hide login screen
                         if (this.elements.loginView) this.elements.loginView.classList.add('hidden');
-                        
+
                         // Show main app content (tabs, current view, footer)
                         document.querySelectorAll('nav, footer').forEach(el => el.classList.remove('hidden'));
                         const currentViewElement = document.getElementById(this.state.currentView || 'osint-view');
@@ -638,11 +633,11 @@
                         // Show the login screen
                         if (this.elements.loginView) this.elements.loginView.classList.remove('hidden');
                         if (this.elements.loginErrorMessage) this.elements.loginErrorMessage.classList.add('hidden'); // Clear previous errors
-                        
+
                         // Ensure checklist specific views are hidden
                         if(this.elements.checklistLoadingView) this.elements.checklistLoadingView.classList.add('hidden');
                         if(this.elements.checklistMainContent) this.elements.checklistMainContent.classList.add('hidden');
-                        
+
                         // Attempt auto sign-in only if a token might be available
                         this.handleAutoSignIn(); 
                     }
@@ -782,7 +777,7 @@
                     this.elements.checklistItemsContainer.addEventListener('input', this.handleChecklistContainerInput);
                     this.elements.checklistItemsContainer.addEventListener('change', this.handleChecklistContainerChange);
                 }
-                
+
                 // Modals
                 document.querySelectorAll('.modal').forEach(modal => {
                     modal.addEventListener('click', (e) => { if (e.target === modal) this.closeModal(modal); });
@@ -796,11 +791,11 @@
             },
 
             // --- THEME & VIEW MANAGEMENT ---
-            
+
             initTheme() {
                 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
                 const savedTheme = localStorage.getItem('theme');
-                 
+
                 if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
                     document.documentElement.classList.add('dark');
                 } else {
@@ -808,13 +803,13 @@
                 }
                  this.updateThemeIcons(); 
             },
-            
+
             toggleTheme() {
                 document.documentElement.classList.toggle('dark');
                 localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
                  this.updateThemeIcons(); 
             },
-            
+
              updateThemeIcons() {
                 const isDark = document.documentElement.classList.contains('dark');
                 // Update both potential theme toggles
@@ -827,7 +822,7 @@
                     }
                  });
             },
-            
+
             switchView(viewId) {
                  // Only switch if user is logged in (auth is ready and user exists)
                  if (!this.state.isAuthReady || !this.state.userId) {
@@ -845,7 +840,7 @@
                  const tabElement = document.getElementById(`tab-${viewId.split('-')[0]}`);
                  if(tabElement) tabElement.classList.add('active');
             },
-            
+
             showChecklistSubView(subView) {
                  if(this.elements.checklistListView) this.elements.checklistListView.classList.toggle('hidden', subView !== 'list');
                  if(this.elements.checklistEditorView) this.elements.checklistEditorView.classList.toggle('hidden', subView !== 'editor');
@@ -880,7 +875,7 @@
                         return;
                     }
                     this.elements.errorMessage.classList.add('hidden');
-                    
+
                     const sections = this.buildLinkSections(inputs);
                     this.renderOsintResults(inputs.orgName, sections);
                     this.elements.skeletonContainer.classList.add('hidden');
@@ -904,66 +899,117 @@
             },
 
             buildLinkSections(inputs) {
-                // This function remains the same as before, but adds the Animal Welfare section
                 const { orgName, personName, orgEin, location, domainName, socialHandle, selectedState } = inputs;
                 const encodedOrgName = encodeURIComponent(orgName);
                 const plusEncodedOrgName = orgName.replace(/\s/g, '+');
                 const einWithoutHyphen = orgEin.replace(/-/g, '');
+                const plusEncodedPersonName = personName ? personName.replace(/\s/g, '+') : '';
+                const plusEncodedLocation = location ? location.replace(/\s/g, '+') : '';
                 const sections = [];
-
-                // --- NEW SECTION: State Animal Welfare Resources ---
-                // Add this section *first* if a state is selected and data exists
+                const domain = domainName.replace(/^(https?:\/\/)?(www\.)?/, '');
+                
+                // 1. State Animal Welfare Resources
                 if (selectedState && this.data.stateAnimalWelfareResources && this.data.stateAnimalWelfareResources[selectedState] && this.data.stateAnimalWelfareResources[selectedState].length > 0) {
-                     // Check if state data exists
                     sections.push({
                         id: 'state-animal',
-                        title: `${this.data.states[selectedState]} Animal Welfare`, // Dynamic title using state name
-                        icon: 'shield-plus', // Using shield-plus icon
-                        isOpen: true, // Open by default
-                        links: this.data.stateAnimalWelfareResources[selectedState].map(r => ({ name: r.n, url: r.u })) // Map links from state_data.json
+                        title: `${this.data.states[selectedState]} Animal Welfare`,
+                        icon: 'shield-plus',
+                        isOpen: true,
+                        links: this.data.stateAnimalWelfareResources[selectedState].map(r => ({ name: r.n, url: r.u }))
                     });
                 }
-                // --- END NEW SECTION ---
 
-                // --- Existing State-Level Section ---
+                // 2. State-Level Compliance
                 if (selectedState && this.data.stateResources && this.data.stateResources[selectedState]) {
                     sections.push({
                         id: 'state',
                         title: `${this.data.states[selectedState]} State-Level`,
                         icon: 'building-2',
                         isOpen: true,
-                        links: this.data.stateResources[selectedState].map(r => ({ name: r.n, url: r.u })) // Map links from state_data.json
+                        links: this.data.stateResources[selectedState].map(r => ({ name: r.n, url: r.u }))
                     });
                 }
 
-                // --- Remaining sections (Federal, News, etc.) ---
+                // 3. Federal Financial & Legal
                 sections.push({
                     id: 'financial', title: 'Federal Financial & Legal', icon: 'landmark', isOpen: true,
                     links: [
                         { name: 'IRS Tax Exempt Org Search', url: 'https://apps.irs.gov/app/eos/' },
                         { name: 'ProPublica Nonprofit Explorer', url: orgEin ? `https://projects.propublica.org/nonprofits/organizations/${einWithoutHyphen}` : `https://projects.propublica.org/nonprofits/search?q=${plusEncodedOrgName}` },
                         { name: 'Candid (Guidestar)', url: `https://candid.org/search?q=${orgEin || encodedOrgName}` },
-                         // Added USDA APHIS link for consistency with checklist app
                          { name: 'USDA APHIS Search', url: 'https://aphis.my.site.com/PublicSearchTool/s/' },
                     ]
                 });
-                
+
+                // 4. News & Public Perception
                 sections.push({
                     id: 'news', title: 'News & Public Perception', icon: 'newspaper', isOpen: false,
                     links: [
-                        { name: 'Google News', url: `https://www.google.com/search?q=%22${encodedOrgName}%22&tbm=nws` },
+                        { name: 'Google News Search', url: `https://www.google.com/search?q=%22${encodedOrgName}%22&tbm=nws` },
                         { name: 'Google Reviews Search', url: `https://www.google.com/search?q=%22${encodedOrgName}%22+reviews` },
                         { name: 'Reddit Search', url: `https://www.reddit.com/search/?q=%22${encodedOrgName}%22` },
                         { name: 'Better Business Bureau', url: `https://www.bbb.org/search?find_text=${encodedOrgName}` },
-                         // Added Charity Navigator link for consistency
-                         { name: 'Charity Navigator', url: `https://www.charitynavigator.org/search?q=${orgEin || encodedOrgName}` },
+                        { name: 'Charity Navigator', url: `https://www.charitynavigator.org/search?q=${orgEin || encodedOrgName}` },
                     ]
                 });
+
+                // --- ENHANCED OSINT SECTIONS START HERE ---
+
+                // 5. Personnel & Affiliations
+                if (personName || orgName) {
+                    sections.push({
+                        id: 'personnel', title: 'Personnel & Affiliations', icon: 'user-check', isOpen: false,
+                        links: [
+                            { name: `LinkedIn Search for ${personName || orgName}`, url: `https://www.linkedin.com/search/results/all/?keywords=${encodeURIComponent(personName || orgName)}` },
+                            { name: `Google Scholar Search for ${personName || orgName}`, url: `https://scholar.google.com/scholar?q=${encodeURIComponent(personName || orgName)}` },
+                            { name: 'State Professional License Search (Varies by State)', url: `https://www.google.com/search?q=${plusEncodedOrgName}+${plusEncodedPersonName}+professional+license+verification` },
+                            { name: 'SEC EDGAR (Public Affiliates)', url: `https://www.sec.gov/edgar/search/index` }
+                        ].filter(link => personName || link.name.includes('LinkedIn') || link.name.includes('SEC EDGAR'))
+                    });
+                }
+
+                // 6. Online Presence & Domain Intelligence
+                if (domain) {
+                    sections.push({
+                        id: 'online', title: 'Online Presence & Domain Intel', icon: 'globe', isOpen: false,
+                        links: [
+                            { name: 'Whois Domain Lookup', url: `https://www.whois.com/whois/${domain}` },
+                            { name: 'Website Hosting/IP Lookup', url: `https://viewdns.info/iphistory/?domain=${domain}` },
+                            { name: 'Archive.org Wayback Machine', url: `https://web.archive.org/web/*/${domain}` },
+                            { name: 'SSL/Certificate Check', url: `https://www.ssllabs.com/ssltest/analyze.html?d=${domain}` },
+                            { name: `Google Cache Search`, url: `https://www.google.com/search?q=cache%3A${domain}` },
+                        ]
+                    });
+                }
+
+                // 7. Social Media Deep Dive
+                if (socialHandle || orgName) {
+                    const handleOrOrg = socialHandle.replace(/^@/, '') || orgName;
+                    sections.push({
+                        id: 'social', title: 'Social Media Deep Dive', icon: 'at-sign', isOpen: false,
+                        links: [
+                            { name: 'X/Twitter Search', url: `https://twitter.com/search?q=${encodeURIComponent(handleOrOrg)}` },
+                            { name: 'Facebook Search', url: `https://www.facebook.com/search/top/?q=${encodeURIComponent(handleOrOrg)}` },
+                            { name: 'Instagram Profile Check', url: `https://www.instagram.com/${handleOrOrg.toLowerCase()}/` },
+                            { name: 'YouTube Channel Search', url: `https://www.youtube.com/results?search_query=${encodeURIComponent(handleOrOrg)}` },
+                        ]
+                    });
+                }
                 
-                // Add other sections like Personnel, Online Presence etc. as needed here...
-                // (Code for Personnel, Online Presence, Social Deep Dive, Court Records, Advanced omitted for brevity, but should remain as they were)
+                // 8. Legal & Court Records
+                if (orgName) {
+                    sections.push({
+                        id: 'legal', title: 'Legal & Court Records', icon: 'gavel', isOpen: false,
+                        links: [
+                            { name: 'Pacer (Federal Court Records) Search', url: `https://www.pacer.gov/` }, 
+                            { name: 'Search for Litigation (Google)', url: `https://www.google.com/search?q=%22${encodedOrgName}%22+litigation+or+lawsuit` },
+                            { name: `Local/County Court Records (Search for ${location || 'County'})`, url: `https://www.google.com/search?q=${plusEncodedOrgName}+court+records+${plusEncodedLocation}` },
+                        ]
+                    });
+                }
 
-
+                // --- ENHANCED OSINT SECTIONS END HERE ---
+                
                 return sections;
             },
 
@@ -978,7 +1024,7 @@
                 this.resetGenerateButton();
                 lucide.createIcons();
             },
-            
+
             clearOsintResults() {
                  this.elements.searchForm.reset();
                  this.elements.resultsContainer.classList.remove('visible-fade');
@@ -990,15 +1036,15 @@
                     this.elements.placeholder.classList.remove('hidden');
                 }, 500);
             },
-            
+
             resetGenerateButton() {
                  this.elements.generateButton.disabled = false;
                  this.elements.generateButton.innerHTML = `<i data-lucide="search" class="w-5 h-5"></i><span>Generate</span>`;
                  lucide.createIcons();
             },
-            
+
             // --- CHECKLIST APP LOGIC ---
-            
+
             listenForChecklists() {
                  if (!this.firebase.db) {
                     console.error("[Firestore] Database not initialized. Cannot listen.");
@@ -1009,7 +1055,7 @@
                     this.state.listUnsubscribe();
                     this.state.listUnsubscribe = null;
                 }
-                
+
                 // *** IMPORTANT: Now requires logged-in user ***
                 if (!this.state.isAuthReady || !this.state.userId) {
                     console.warn("[Firestore] Auth not ready or user not logged in, cannot listen for checklists.");
@@ -1023,7 +1069,7 @@
                     if (this.elements.checklistMainContent) this.elements.checklistMainContent.classList.remove('hidden'); // Show main (which contains the message)
                     return;
                 }
-                
+
                 // Show loading view while fetching
                 if (this.elements.checklistLoadingView) this.elements.checklistLoadingView.classList.remove('hidden');
                 if (this.elements.checklistMainContent) this.elements.checklistMainContent.classList.add('hidden');
@@ -1038,14 +1084,14 @@
                     where('memberIds', 'array-contains', this.state.userId)
                     // Consider adding: orderBy('lastUpdated', 'desc') - Requires Index
                 );
-                
+
                 this.state.listUnsubscribe = onSnapshot(q, (querySnapshot) => {
                      console.log("[Firestore] Checklist snapshot received:", querySnapshot.docs.length, "docs");
                     const checklists = [];
                     querySnapshot.forEach((doc) => {
                         checklists.push({ id: doc.id, ...doc.data() });
                     });
-                    
+
                      // Hide loading, show content AFTER data received
                      if (this.elements.checklistLoadingView) this.elements.checklistLoadingView.classList.add('hidden');
                      if (this.elements.checklistMainContent) this.elements.checklistMainContent.classList.remove('hidden');
@@ -1057,12 +1103,14 @@
                      }
                 }, (error) => {
                     console.error("[Firestore] Error listening for checklists:", error);
+                     // *** IMPORTANT FIX: Ensure that the error message is clear about permission issues ***
+                     const displayMessage = `Missing or insufficient permissions. This may mean the required Firestore index is not created, or the security rules are preventing the LIST operation for your user ID (${this.state.userId}).`;
+
                      const errorElement = this.elements.statusMessage || this.elements.checklistAuthError; 
                      const displayError = (msg) => {
                          if (errorElement) this.showStatus(errorElement, msg, 'error', null);
                          if (this.elements.noChecklistsMessage) {
-                             this.elements.noChecklistsMessage.innerHTML = `<div class="flex flex-col items-center"><i data-lucide="alert-triangle" class="w-20 h-20 text-red-400 mb-4"></i><p class="text-xl font-semibold">Error Loading Checklists</p><p class="text-sm">${msg}</p></div>`;
-                             this.elements.noChecklistsMessage.classList.remove('hidden');
+                             this.elements.noChecklistsMessage.innerHTML = `<div class="flex flex-col items-center"><i data-lucide="alert-triangle" class="w-20 h-20 text-red-400 mb-4"></i><p class="text-xl font-semibold">Error Loading Checklists</p><p class="text-sm">${displayMessage}</p></div>`;
                              lucide.createIcons();
                          }
                          if (this.elements.checklistLoadingView) this.elements.checklistLoadingView.classList.add('hidden'); // Hide loading on error
@@ -1070,14 +1118,7 @@
                          this.showChecklistSubView('list'); // Ensure list view is visible to show error
                          this.renderListView([]); 
                      };
-
-                    if (error.code === 'permission-denied') { 
-                        displayError("Permission denied. Please check Firestore security rules.");
-                    } else if (error.code === 'failed-precondition') {
-                         displayError("Query failed. This often means a required Firestore index is missing. Check the developer console for a link to create it.");
-                    } else {
-                         displayError(`Error loading checklists: ${error.message}`);
-                    }
+                    displayError(displayMessage);
                 });
             },
 
@@ -1092,7 +1133,7 @@
                     this.switchView('osint-view'); // Switch back to OSINT or show login
                     return;
                 }
-                 
+
                 if (this.state.listUnsubscribe) { 
                      console.log("[Firestore] Detaching list listener to open editor.");
                      this.state.listUnsubscribe();
@@ -1103,7 +1144,7 @@
                      this.state.currentChecklistUnsubscribe();
                      this.state.currentChecklistUnsubscribe = null;
                  }
-                
+
                  if (this.elements.checklistItemsContainer) this.elements.checklistItemsContainer.innerHTML = '';
                 this.state.currentChecklistData = null;
                  const checklistsCollectionPath = `artifacts/${this.firebase.appId}/checklists`; 
@@ -1119,7 +1160,7 @@
                             this.listenForChecklists();
                             return;
                         }
-                        
+
                         const data = { id: doc.id, ...doc.data() };
                         const role = data.members ? data.members[this.state.userId] : null; 
                         if (!role) {
@@ -1129,7 +1170,7 @@
                             this.listenForChecklists();
                             return;
                         }
-                        
+
                         this.state.currentChecklistData = data;
                         this.buildChecklistUI(data);
                         this.updateChecklistPermissions(data, role);
@@ -1169,15 +1210,15 @@
             updateChecklistPermissions(data, role) {
                 const isViewer = role === 'viewer';
                 const isOwner = role === 'owner';
-                
+
                  if (this.elements.checklistOrgNameInput) this.elements.checklistOrgNameInput.value = data.orgName || '';
                  if (this.elements.checklistTitle) this.elements.checklistTitle.textContent = data.orgName || 'New Checklist';
-                
+
                  if (this.elements.deleteChecklistBtn) this.elements.deleteChecklistBtn.classList.toggle('hidden', !isOwner || !data.id);
                  if (this.elements.shareChecklistBtn) this.elements.shareChecklistBtn.classList.toggle('hidden', !isOwner || !data.id);
                  if (this.elements.saveChecklistBtn) this.elements.saveChecklistBtn.classList.toggle('hidden', isViewer);
                  if (this.elements.addCategoryBtn) this.elements.addCategoryBtn.classList.toggle('hidden', isViewer);
-                
+
                  if (this.elements.checklistOrgNameInput) this.elements.checklistOrgNameInput.disabled = isViewer;
                  if (this.elements.checklistSummaryNotes) this.elements.checklistSummaryNotes.disabled = isViewer;
 
@@ -1213,10 +1254,10 @@
                         return;
                     }
                     this.elements.checklistOrgNameError.classList.add('hidden');
-                    
+
                     this.state.currentChecklistData.orgName = orgName;
                     this.state.currentChecklistData.summary = this.elements.checklistSummaryNotes.value;
-                    
+
                     // Ensure members and memberIds are correctly set/updated
                     const currentMembers = this.state.currentChecklistData.members || { [this.state.userId]: 'owner' };
                     const memberIds = Object.keys(currentMembers);
@@ -1250,7 +1291,7 @@
                             dataToSave.memberIds = [this.state.userId];
                             console.log("[Firestore] Creating new checklist in:", checklistsCollectionPath, "with data:", dataToSave); 
                             docRef = await addDoc(collection(this.firebase.db, checklistsCollectionPath), dataToSave);
-                            
+
                             const newChecklistId = docRef.id;
                             console.log("[Firestore] New checklist created with ID:", newChecklistId);
 
@@ -1273,7 +1314,7 @@
                             }, (error) => {
                                 console.error(`[Firestore] Error attaching listener to new checklist ${newChecklistId}:`, error);
                             });
-                             
+
                              // Update UI elements that depend on the ID (like share/delete buttons)
                             this.updateChecklistPermissions(this.state.currentChecklistData, 'owner'); 
                         }
@@ -1292,25 +1333,25 @@
                 if (force) { await saveAction(); } 
                 else { this.state.saveTimeout = setTimeout(saveAction, 1500); }
             },
-            
+
             async handleAddMember(e) {
                 e.preventDefault();
                  if (!this.firebase.db) return;
                 const newMemberId = this.elements.addMemberId.value.trim();
                 const role = this.elements.addMemberRole.value;
                  if (!newMemberId || !this.state.currentChecklistData || !this.state.currentChecklistData.id) return;
-                 
+
                  this.showStatus(this.elements.shareStatusMessage, "Adding member...", 'info', null);
 
                 try {
                     if (this.state.currentChecklistData.members && this.state.currentChecklistData.members[newMemberId]) {
                         throw new Error("User is already a member.");
                     }
-                    
+
                     const checklistsCollectionPath = `artifacts/${this.firebase.appId}/checklists`; 
                     const checklistRef = doc(this.firebase.db, checklistsCollectionPath, this.state.currentChecklistData.id);
-                    
-                    // Firestore update using dot notation for map field and arrayUnion for array field
+
+                    // Firestore update using dot notation for map field and arrayUnion for array element
                     await updateDoc(checklistRef, {
                         [`members.${newMemberId}`]: role,         // Add to members map
                         memberIds: arrayUnion(newMemberId)      // Add to memberIds array
@@ -1324,7 +1365,7 @@
                     if (!this.state.currentChecklistData.memberIds.includes(newMemberId)) {
                         this.state.currentChecklistData.memberIds.push(newMemberId);
                     }
-                    
+
                     this.showStatus(this.elements.shareStatusMessage, "Member added!", 'success');
                     this.elements.addMemberId.value = '';
                     this.populateMembersList(); // Refresh the list in the modal
@@ -1345,13 +1386,13 @@
                      this.showStatus(this.elements.shareStatusMessage, "Only the owner can remove members.", 'error');
                      return;
                  }
-                 
+
                  this.showStatus(this.elements.shareStatusMessage, "Removing member...", 'info', null);
 
                  try {
                      const checklistsCollectionPath = `artifacts/${this.firebase.appId}/checklists`; 
                     const checklistRef = doc(this.firebase.db, checklistsCollectionPath, this.state.currentChecklistData.id);
-                    
+
                     // Use deleteField for map key and arrayRemove for array element
                     await updateDoc(checklistRef, {
                         [`members.${memberId}`]: deleteField(), // Remove from members map
@@ -1377,7 +1418,7 @@
                      }
                 }
             },
-            
+
             renderListView(checklists) {
                 const container = this.elements.savedChecklistsContainer;
                  if (!container) return; 
@@ -1398,7 +1439,7 @@
                     card.className = 'p-5 bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-transparent hover:border-indigo-500/50';
                     card.dataset.id = list.id;
                     card.addEventListener('click', () => this.renderChecklistForm(list.id));
-                    
+
                     const lastUpdated = list.lastUpdated ? list.lastUpdated.toDate().toLocaleString() : 'N/A';
                     const role = list.members && this.state.userId ? list.members[this.state.userId] : 'Unknown'; // Check userId exists
 
@@ -1413,7 +1454,7 @@
                 });
                 this.filterAndRenderListView();
             },
-            
+
             filterAndRenderListView() {
                  if (!this.elements.checklistSearchInput || !this.elements.savedChecklistsContainer || !this.elements.noChecklistsMessage) return; 
                 const searchTerm = this.elements.checklistSearchInput.value.toLowerCase();
@@ -1430,7 +1471,7 @@
                  const hasAnyCardsAtAll = this.elements.savedChecklistsContainer.children.length > 0;
                  // Determine if the "no checklists" message should show
                  const shouldShowNoChecklists = !hasAnyCardsAtAll || (hasAnyCardsAtAll && visibleCount === 0);
-                
+
                 // Only hide the message if it's NOT displaying an error/login prompt
                 if (!this.elements.noChecklistsMessage.textContent.includes("Error") && !this.elements.noChecklistsMessage.textContent.includes("Sign In")) {
                     this.elements.noChecklistsMessage.classList.toggle('hidden', !shouldShowNoChecklists);
@@ -1453,7 +1494,7 @@
                         </div>
                     </div>`;
             },
-            
+
             renderItemHTML(item, categoryId) {
                 const toolButtonHtml = item.link ? `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="contextual-tool-button mt-1.5 flex items-center space-x-2 text-sm text-indigo-600 dark:text-indigo-400 hover:underline" data-base-url="${item.link}"><i data-lucide="external-link" class="h-4 w-4"></i><span>${item.linkText || 'Open Tool'}</span></a>` : '';
                 return `
@@ -1468,9 +1509,9 @@
                         </div>
                     </div>`;
              },
-             
+
             // --- HELPERS & UTILITIES ---
-            
+
             closeModal(modalElement) {
                 if (modalElement) modalElement.style.display = 'none';
             },
@@ -1482,7 +1523,7 @@
                 this.state.confirmAction = onConfirm; // Store the action
                 this.elements.confirmationModal.style.display = 'block';
             },
-            
+
              updateDynamicToolLinks() {
                  if (!this.elements.checklistOrgNameInput || !this.elements.checklistItemsContainer) return;
                 const orgName = this.elements.checklistOrgNameInput.value.trim();
@@ -1527,7 +1568,7 @@
                 if (!this.firebase.auth || !this.elements.loginEmail || !this.elements.loginPassword || !this.elements.loginErrorMessage) return;
                 const email = this.elements.loginEmail.value;
                 const password = this.elements.loginPassword.value;
-                
+
                 // Show loading/disable button (optional)
                 this.elements.loginErrorMessage.classList.add('hidden'); // Hide previous errors
 
@@ -1586,7 +1627,7 @@
                         this.elements.loginErrorMessage.classList.remove('hidden');
                     });
             },
-            
+
             // --- Checklist Handlers ---
              handleChecklistContainerClick(e) {
                 const target = e.target.closest('[data-action]');
@@ -1600,9 +1641,9 @@
                     // Find content and icon relative to the category element
                     const content = categoryEl.querySelector('.category-content');
                     const icon = categoryEl.querySelector('.category-toggle-icon');
-                    
+
                     const isOpen = content && content.classList.contains('open');
-                    
+
                     if (content) content.classList.toggle('open');
                     if (icon) icon.classList.toggle('rotate-180', !isOpen); // Add rotate class if it wasn't open
                     categoryEl.classList.toggle('expanded', !isOpen);
@@ -1612,7 +1653,7 @@
                 }
                 // Add handlers for edit/delete later if needed
             },
-            
+
              handleChecklistContainerInput(e) {
                 const target = e.target.closest('[data-action="update-note"]');
                 if (!target || !this.state.currentChecklistData) return;
@@ -1642,7 +1683,7 @@
                      this.handleSaveChecklist(true); // Force save on check change
                  }
             },
-            
+
             addItem(categoryId) {
                  if (!this.state.currentChecklistData || !this.state.currentChecklistData.categories) return;
                  const category = this.state.currentChecklistData.categories.find(c => c.id === categoryId);
@@ -1665,7 +1706,7 @@
                  this.buildChecklistUI(this.state.currentChecklistData); // Re-render the UI
                  this.handleSaveChecklist(true); // Force save
             },
-            
+
             addCategory() {
                 if (!this.state.currentChecklistData) return;
                  // Simple prompt for now
@@ -1694,7 +1735,7 @@
                               const docPath = `${checklistsCollectionPath}/${this.state.currentChecklistData.id}`;
                              await deleteDoc(doc(this.firebase.db, docPath));
                              console.log(`[Firestore] Checklist ${this.state.currentChecklistData.id} deleted.`);
-                             
+
                              // Clear current view and go back to list
                              this.state.currentChecklistData = null; 
                              if (this.state.currentChecklistUnsubscribe) {
@@ -1719,12 +1760,12 @@
                   if (this.elements.shareStatusMessage) this.elements.shareStatusMessage.textContent = ''; // Clear previous status
                  this.openModal(this.elements.manageShareModal);
              },
-             
+
              async populateMembersList() {
                  if (!this.elements.shareMembersList || !this.state.currentChecklistData) return;
                 const listEl = this.elements.shareMembersList;
                 listEl.innerHTML = '<div class="text-center text-sm text-gray-500">Loading members...</div>'; // Loading state
-                
+
                 const members = this.state.currentChecklistData.members || {};
                 const memberIds = Object.keys(members);
 
@@ -1744,7 +1785,7 @@
                     const displayName = profile?.displayName || `User (${id.substring(0, 6)}...)`; // Fallback display name
                     const isSelf = id === this.state.userId;
                     const isOwner = role === 'owner';
-                    
+
                     listEl.innerHTML += `
                         <div class="flex items-center justify-between p-2 bg-gray-100 dark:bg-gray-700 rounded-md text-sm">
                             <div class="flex flex-col">
@@ -1762,7 +1803,7 @@
                  });
                  lucide.createIcons(); // Re-render icons after adding HTML
              },
-             
+
              async fetchUserProfiles(userIds) {
                  if (!this.firebase.db || userIds.length === 0) return {};
                  const profiles = {};
@@ -1787,7 +1828,7 @@
                          // Don't block UI, just might show IDs instead of names
                      }
                  }
-                
+
                 // Populate result from cache
                 userIds.forEach(id => {
                     profiles[id] = this.state.allUsersCache[id]; 
@@ -1811,7 +1852,7 @@
                     const content = document.getElementById(targetId);
                     const chevron = accordionButton.querySelector('.chevron-icon');
                     const isExpanded = accordionButton.getAttribute('aria-expanded') === 'true';
-                    
+
                     accordionButton.setAttribute('aria-expanded', !isExpanded);
                     if(content) content.classList.toggle('open');
                     if(chevron) chevron.classList.toggle('rotate-180');
@@ -1830,7 +1871,7 @@
                     }
                  }
             },
-            
+
             showToast(message, type = 'success') {
                  if (!this.elements.toastContainer) return;
                 const toast = document.createElement('div');
@@ -1845,13 +1886,13 @@
                     toast.addEventListener('transitionend', () => toast.remove()); // Remove from DOM after fade out
                 }, 3000);
             },
-            
+
             // Helper function for clipboard copy
             copyToClipboard(text, button) {
                 navigator.clipboard.writeText(text).then(() => {
                     const isCopyAll = button.classList.contains('copy-all-btn');
                     this.showToast(isCopyAll ? 'All links copied!' : 'Link copied!');
-                    
+
                     const originalIconHTML = button.innerHTML;
                     button.innerHTML = `<i data-lucide="check" class="w-5 h-5 text-green-500"></i>`; // Success icon
                     lucide.createIcons();
@@ -1864,7 +1905,7 @@
                     this.showToast('Failed to copy!', 'error');
                 });
             },
-            
+
             populateStates() {
                  if (!this.data.states || !this.elements.stateSelect) return;
                 const fragment = document.createDocumentFragment();
@@ -1880,7 +1921,7 @@
                  this.elements.stateSelect.innerHTML = '<option value="">Select a State (Optional)</option>'; 
                 this.elements.stateSelect.appendChild(fragment);
             },
-            
+
             createAccordionSectionHTML(id, title, icon, links, isOpen = false) {
                 if (!links || links.length === 0) return '';
                 const linksHtml = links.map(link => this.createLinkHTML(link.name, link.url)).join('');
@@ -1908,7 +1949,7 @@
                         </div>
                     </div>`;
             },
-            
+
             createLinkHTML(text, href) {
                  // Basic URL validation (check for http/https)
                  const isValidUrl = href && (href.startsWith('http://') || href.startsWith('https://'));
@@ -1960,14 +2001,14 @@
                     ]}
                 ]));
             },
-            
+
              setSaveButtonState(isSaving) {
                  if (!this.elements.saveChecklistBtn || !this.elements.saveButtonText || !this.elements.saveSpinner) return;
                 this.elements.saveButtonText.textContent = isSaving ? 'Saving...' : 'Save';
                 this.elements.saveSpinner.classList.toggle('hidden', !isSaving);
                 this.elements.saveChecklistBtn.disabled = isSaving;
             },
-            
+
             showStatus(element, message, type = 'success', duration = 3000) {
                  if (!element) {
                     console.warn(`Attempted to show status "${message}" on a null element.`);
@@ -1977,7 +2018,7 @@
                 const darkColors = { success: 'dark:text-green-400', error: 'dark:text-red-400', info: 'dark:text-gray-400' };
                 element.textContent = message;
                 element.className = `mt-4 text-center font-medium ${colors[type] || colors.info} ${darkColors[type] || darkColors.info}`; 
-                
+
                  // Clear previous timeout if exists
                  if (element._statusTimeout) clearTimeout(element._statusTimeout); 
 
