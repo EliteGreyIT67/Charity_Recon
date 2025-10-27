@@ -1,88 +1,84 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-
-    // Helper: Is the user signed in?
+    
+    // --- Helper Functions ---
     function isAuthenticated() {
       return request.auth != null;
     }
-
-    // Helper: Get the UID of the user making the request.
     function requesterUid() {
-      // Must be authenticated to use this function
       return request.auth.uid;
     }
+    
+    // Checks membership on the existing document (resource.data)
+    function isMember(doc) {
+      return doc.data != null && 'members' in doc.data && requesterUid() in doc.data.members;
+    }
+    
+    // Checks if the user is the owner on the existing document
+    function isOwner(doc) {
+      return isMember(doc) && doc.data.members[requesterUid()] == 'owner';
+    }
+    
+    // Checks if the user is an owner or editor on the existing document
+    function isEditorOrOwner(doc) {
+      return isMember(doc) && (doc.data.members[requesterUid()] in ['owner', 'editor']);
+    }
+    
+    // --- Application Collections under Artifacts Path ---
 
-    // Match the specific structure used by the application
+    // Checklist Collection Match
     match /artifacts/{appId}/checklists/{checklistId} {
       
-      // Check if the user is a member of the existing document (resource.data)
-      function isMember() {
-         // resource.data exists on get, update, delete
-         return isAuthenticated() && resource.data.members[requesterUid()] != null;
-      }
-      
-      // Check if the user is the owner of the existing document (resource.data)
-      function isOwner() {
-        return isMember() && resource.data.members[requesterUid()] == 'owner';
-      }
-      
-      // Check if the user is an owner or editor of the existing document (resource.data)
-      function isEditorOrOwner() {
-         return isMember() && (resource.data.members[requesterUid()] == 'owner' || resource.data.members[requesterUid()] == 'editor');
-      }
+      // READ (Single Doc): Allow if the authenticated user is a member (owner/editor/viewer)
+      allow get: if isAuthenticated() && isMember(resource);
 
-      // READ (get): Allow if the user is authenticated and is a member of the existing document.
-      allow get: if isMember();
-
-      // LIST (query): Allow only if the query specifically filters by the requester's UID in 'memberIds'.
-      // NOTE: This rule requires an array index on the 'memberIds' field.
+      // LIST (Query): Allow only if authenticated AND the query correctly filters by 
+      // the user's ID in the 'memberIds' array. This enforces the required index usage.
       allow list: if isAuthenticated()
                   && request.query.where.size() == 1
                   && request.query.where[0].fieldPath == 'memberIds'
                   && request.query.where[0].op == 'array-contains'
                   && request.query.where[0].value == requesterUid();
 
-      // CREATE: Allow if authenticated, and the incoming data sets the requester as 'owner' 
-      // and they are the ONLY member listed in memberIds.
+      // CREATE: Allow if authenticated AND the user includes themselves in the incoming data
+      // as the 'owner' in the 'members' map and in the 'memberIds' array.
       allow create: if isAuthenticated()
                     && request.resource.data.members[requesterUid()] == 'owner'
-                    && request.resource.data.memberIds.hasAll([requesterUid()])
-                    && request.resource.data.memberIds.size() == 1;
+                    && requesterUid() in request.resource.data.memberIds;
 
-      // --- UPDATED RULE (Fixes Save Error) ---
-      // Allow update if:
-      // 1. The user is the Owner (can change anything)
-      // 2. The user is an Editor AND the membership fields are not being changed.
-      //    We check for set equality (ignoring order) on memberIds.
-      allow update: if isOwner()
-                    || ( 
-                         isEditorOrOwner()
-                         && request.resource.data.members == resource.data.members // Map comparison
-                         // Check that the arrays contain the same items, regardless of order
-                         && request.resource.data.memberIds.hasAll(resource.data.memberIds)
-                         && resource.data.memberIds.hasAll(request.resource.data.memberIds)
-                       );
+      // UPDATE: Allow if authenticated, and either:
+      // 1. The user is the owner (can change everything, including membership)
+      // 2. The user is an owner/editor AND they are NOT attempting to change membership fields
+      allow update: if isAuthenticated() && isMember(resource) && (
+        isOwner(resource) || 
+        (
+          isEditorOrOwner(resource) &&
+          // Enforce no change to security-sensitive fields for editors
+          request.resource.data.members == resource.data.members &&
+          request.resource.data.memberIds == resource.data.memberIds
+        )
+      );
 
-      // DELETE: Allow only if the user is the owner of the existing document.
-      allow delete: if isOwner();
+      // DELETE: Allow only if the user is the owner of the document.
+      allow delete: if isAuthenticated() && isOwner(resource);
     }
-
-     // Match the specific structure used by the application for user data
+    
+    // Users Collection Match (for storing user profiles used in sharing)
     match /artifacts/{appId}/users/{userId} {
-      // Allow any authenticated user to read user profiles (needed for sharing/display name lookup).
+      // Allow any authenticated user to read user profiles for sharing purposes.
       allow get: if isAuthenticated();
-
-      // Allow authenticated users to create or update their OWN user document.
+      
+      // Allow authenticated users to create or update only their OWN user document.
       allow write: if isAuthenticated() && requesterUid() == userId;
 
       // Disallow listing all users or deleting user documents from the client.
       allow list, delete: if false;
     }
 
-     // Default deny for any other paths not explicitly matched
-     match /{document=**} {
-       allow read, write: if false;
-     }
+    // Default deny for any other paths not explicitly matched
+    match /{document=**} {
+      allow read, write: if false;
+    }
   }
 }
