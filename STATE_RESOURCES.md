@@ -1,7 +1,9 @@
 <a id="contents"></a>
 # State-Specific Resources for Animal Rescue Organizations
 
-*Suggestion: Government agency information, websites, and contact details can change. To ensure the accuracy of this valuable resource, consider periodically verifying the links and information provided below. You might also find it helpful to add a "Last Updated: 06-01-2025" note at the top of this document.*
+*Last Updated: October 26, 2025*
+
+*Government agency information, websites, and contact details can change. To ensure the accuracy of this valuable resource, consider periodically verifying the links and information provided below.*
 
 Each state has its own regulations, registration requirements, and consumer complaint contacts.
 Use the expandable section below for direct links to your state’s:
@@ -65,7 +67,7 @@ Use the expandable section below for direct links to your state’s:
 - [Wyoming](#wyoming)
 </details>
 
-## Alabama
+### Alabama
 
 -   [Alabama State Website](https://www.alabama.gov/)
 -   [Alabama Attorney General's Office](https://www.alabamaag.gov/)
@@ -76,10 +78,11 @@ Use the expandable section below for direct links to your state’s:
     -   [Consumer Complaint](https://www.alabamaag.gov/consumer-complaint/)
     -   [Business Lookup](https://ago.igovsolution.net/online/Lookups/Business.aspx)
 -   [Alabama Agriculture & Industries – Animal Industries](https://agi.alabama.gov/animalindustries/)
+-   [Business Entity Search](https://www.sos.alabama.gov/government-records/business-entity-records)
 
 [↑ Back To Top](#contents)
 
-## Alaska
+### Alaska
 
 -   [Alaska State Website](https://www.alaska.gov/)
 -   [Alaska Department of Law](https://law.alaska.gov/index.html)
@@ -90,8 +93,9 @@ Use the expandable section below for direct links to your state’s:
     -   Email: consumerprotection@alaska.gov
     -   [Search Online for Registered Charities and Paid Solicitors](https://online-registrations-law.alaska.gov/TLP/WebDoc/?link=PubQry)
     -   [Charity & Paid Solicitor Registration](https://law.alaska.gov/department/civil/consumer/charityreg.html)
-    -   [Charitable Solicitations Act](https://www.akleg.gov/basis/statutes.asp#45.50.471)
+    -   [Charitable Solicitations Act](https://www.akleg.gov/basis/statutes.asp#45.68.010)
     -   [File a Consumer Complaint](https://law.alaska.gov/department/civil/consumer/cp_complaint.html)
+-   [Business Entity Search](https://www.commerce.alaska.gov/cbp/main/search/entities)
 
 [↑ Back To Top](#contents)
 
@@ -102,12 +106,12 @@ Use the expandable section below for direct links to your state’s:
     -   Address: 1275 W. Washington St, Phoenix, AZ 85007
     -   Phone: (602) 542-5025
     -   Email: consumerinfo@azag.gov
-    -   [eCorp entity search](https://ecorp.azcc.gov/EntitySearch/Index)
     -   [Fraud and Scams](https://www.azag.gov/consumer)
     -   [File a Consumer Complaint](https://www.azag.gov/complaints/consumer)
     -   [Public Records Request](https://www.azag.gov/media/public-records-request)
 -   [Arizona Secretary of State](https://azsos.gov/)
-    -   [Charity Department](https://apps.azsos.gov/scripts/Charity_Search.dll)
+    -   [Charity Department](https://azsos.gov/business/other-services/veterans-charities-organizations)
+-   [Business Entity Search](https://ecorp.azcc.gov/EntitySearch/Index)
 
 [↑ Back To Top](#contents)
 
@@ -126,6 +130,7 @@ Use the expandable section below for direct links to your state’s:
     -   Phone: (501) 682-2007, (800) 482-8982
     -   Email: oag@arkansasag.gov
     -   [File a Complaint](https://arkansasag.gov/file-a-complaint/)
+-   [Business Entity Search](https://www.ark.org/corp-search/index.php)
 
 [↑ Back To Top](#contents)
 
@@ -139,6 +144,7 @@ Use the expandable section below for direct links to your state’s:
     -   Phone: (916) 210-6400
     -   [Consumer Complaint](https://oag.ca.gov/contact/consumer-complaint-against-business-or-company)
 -   [California Department of Food and Agriculture - Animal Health and Food Safety Services](https://www.cdfa.ca.gov/ahfss/)
+-   [Business Entity Search](https://bizfileonline.sos.ca.gov/search/business)
 
 [↑ Back To Top](#contents)
 
@@ -150,7 +156,6 @@ Use the expandable section below for direct links to your state’s:
     -   Address: 1700 Broadway, Suite 550, Denver, CO 80290
     -   Phone: (303) 894-2200
     -   Email: charitable@coloradosos.gov
-    -   [Search](https://www.coloradosos.gov/ccsa/pages/search/basic.xhtml)
     -   [Charitable Solicitations](https://www.sos.state.co.us/pubs/info_center/laws/Title6/Title6Article16.html)
     -   [File a Complaint (PDF)](https://www.coloradosos.gov/pubs/charities/forms/CHAR_COMP.pdf)
 -   [Colorado Attorney General](https://coag.gov/)
@@ -158,6 +163,7 @@ Use the expandable section below for direct links to your state’s:
     -   Address: 1300 Broadway, 7th Floor, Denver, CO 80203
     -   Phone: (800) 222-4444
     -   [File a Complaint](https://coag.gov/file-complaint/)
+-   [Business Entity Search](https://www.sos.state.co.us/biz/BusinessEntityCriteriaExt.do?resetTransTyp=Y)
 
 [↑ Back To Top](#contents)
 
@@ -171,6 +177,7 @@ Use the expandable section below for direct links to your state’s:
     -   Phone: (860) 713-6170
     -   Email: dcp.publiccharities@ct.gov
     -   [File a Complaint](https://portal.ct.gov/dcp/file-a-complaint)
+-   [Business Entity Search](https://service.ct.gov/business/s/onlinebusinesssearch)
 
 [↑ Back To Top](#contents)
 
@@ -183,6 +190,7 @@ Use the expandable section below for direct links to your state’s:
     -   Email: attorney.general@state.de.us
     -   [Consumer Complaints](https://attorneygeneral.delaware.gov/fraud/cmu/complaint/)
 -   [Corporate Forms and Certificates for an Exempt Corporation](https://corp.delaware.gov/corpformsexemptcorp09/)
+-   [Business Entity Search](https://icis.corp.delaware.gov/Ecorp/EntitySearch/NameSearch.aspx)
 
 [↑ Back To Top](#contents)
 
@@ -199,6 +207,7 @@ Use the expandable section below for direct links to your state’s:
     -   Phone: (202) 727-3400
     -   Email: nonprofit@dc.gov
     -   [Submit a Consumer Complaint](https://oag.dc.gov/consumer-protection/other-consumer-help-agencies-and-websites/submit-consumer-complaint)
+-   [Business Entity Search](https://corponline.dlcp.dc.gov/BizEntitySearch.aspx)
 
 [↑ Back To Top](#contents)
 
@@ -217,7 +226,7 @@ Use the expandable section below for direct links to your state’s:
     -   [File A Complaint](https://www.myfloridalegal.com/how-to-contact-us/file-a-complaint)
 -   [Department of State](https://dos.fl.gov/)
     -   [Division of Corporations](https://dos.fl.gov/sunbiz/)
-    -   [Search Records](https://dos.fl.gov/sunbiz/search/)
+-   [Business Entity Search](http://search.sunbiz.org/Inquiry/CorporationSearch/ByName)
 
 [↑ Back To Top](#contents)
 
@@ -238,6 +247,7 @@ Use the expandable section below for direct links to your state’s:
     -   [Animals](https://agr.georgia.gov/animals)
     -   [Reporting Animal Cruelty](https://agr.georgia.gov/reporting-animal-cruelty)
     -   [All ISDA Laws and Rules](https://agr.georgia.gov/laws-and-rules/all-isda-laws-and-rules/#AnimalLaws)
+-   [Business Entity Search](https://ecorp.sos.ga.gov/BusinessSearch)
 
 [↑ Back To Top](#contents)
 
@@ -251,6 +261,7 @@ Use the expandable section below for direct links to your state’s:
     -   Phone: (808) 586-1480
     -   Email: ATG.Charities@hawaii.gov
 -   [Department of Agriculture](https://hdoa.hawaii.gov/)
+-   [Business Entity Search](https://hbe.ehawaii.gov/documents/search.html)
 
 [↑ Back To Top](#contents)
 
@@ -263,12 +274,12 @@ Use the expandable section below for direct links to your state’s:
     -   Phone: (208) 334-2424, (800) 432-3545
     -   [Complaint Forms](https://www.ag.idaho.gov/office-resources/online-forms/)
 -   [Secretary of State](https://sos.idaho.gov/)
-    -   [Business Search](https://sosbiz.idaho.gov/search/business)
 -   [Department of Agriculture](https://agri.idaho.gov/)
     -   [Animal Industries Division](https://agri.idaho.gov/animals/)
     -   [Complaints & Concerns](https://agri.idaho.gov/animals/complaints-concerns/)
     -   [File a Complaint](https://agri.idaho.gov/animals/complaints-concerns/file-a-complaint/)
     -   [All ISDA Laws and Rules](https://agri.idaho.gov/laws-and-rules/all-isda-laws-and-rules/#AnimalLaws)
+-   [Business Entity Search](https://sosbiz.idaho.gov/search/business)
 
 [↑ Back To Top](#contents)
 
@@ -285,6 +296,7 @@ Use the expandable section below for direct links to your state’s:
 -   [Department of Agriculture](https://agr.illinois.gov/)
     -   [Animal Health & Welfare](https://agr.illinois.gov/animals/animalhealth.html)
     -   [A-Z License List](https://agr.illinois.gov/licenses/a-z-license-list.html)
+-   [Business Entity Search](https://apps.ilsos.gov/corporatellc/)
 
 [↑ Back To Top](#contents)
 
@@ -297,6 +309,7 @@ Use the expandable section below for direct links to your state’s:
     -   Phone: (317) 232-6330, (800) 382-5516
     -   [Consumer Complaint Form](https://inoag.my.salesforce-sites.com/ConsumerComplaintForm)
 -   [Indiana State Department of Agriculture](https://www.in.gov/isda/)
+-   [Business Entity Search](https://bsd.sos.in.gov/publicbusinesssearch)
 
 [↑ Back To Top](#contents)
 
@@ -309,7 +322,7 @@ Use the expandable section below for direct links to your state’s:
     -   Phone: (515) 281-5926
     -   [File a Consumer Complaint](https://www.iowaattorneygeneral.gov/for-consumers/file-a-consumer-complaint)
 -   [Secretary of State](https://sos.iowa.gov/)
-    -   [Business Entities Search](https://sos.iowa.gov/search/business/search.aspx)
+-   [Business Entity Search](https://sos.iowa.gov/search/business/search.aspx)
 
 [↑ Back To Top](#contents)
 
@@ -317,7 +330,6 @@ Use the expandable section below for direct links to your state’s:
 
 -   [Kansas State Website](https://www.kansas.gov/)
 -   [Office of the Secretary of State](https://www.sos.ks.gov/)
-    -   [Search](https://www.sos.ks.gov/eforms/BusinessEntity/Search.aspx)
     -   Address: 120 S.W. 10th Street, Memorial Hall, 1st Floor, Topeka, KS 66612
     -   Phone: (785) 296-4564
 -   [Office of the Attorney General](https://www.ag.ks.gov/)
@@ -328,6 +340,7 @@ Use the expandable section below for direct links to your state’s:
     -   [Charitable Organization and Solicitations Act](https://www.ksrevisor.org/statutes/chapters/ch17/017_017_0059.html)
     -   [File a Complaint](https://www.ag.ks.gov/file-a-complaint/charity-fraud)
 -   [Department of Agriculture](https://www.agriculture.ks.gov/)
+-   [Business Entity Search](https://www.sos.ks.gov/eforms/BusinessEntity/Search.aspx)
 
 [↑ Back To Top](#contents)
 
@@ -344,6 +357,7 @@ Use the expandable section below for direct links to your state’s:
 -   [Secretary of State](https://sos.ky.gov/Pages/default.aspx)
     -   [Business Filings & Records Online Services](https://sos.ky.gov/bus/business-filings/OnlineServices/Pages/default.aspx)
 -   [Department of Agriculture](https://www.kyagr.com/)
+-   [Business Entity Search](https://sosbes.sos.ky.gov/BusSearchNProfile/search.aspx)
 
 [↑ Back To Top](#contents)
 
@@ -354,7 +368,6 @@ Use the expandable section below for direct links to your state’s:
     -   [Public Protection Division](https://www.ag.state.la.us/Division/PublicProtection)
     -   [Charity Registration Page](https://www.ag.state.la.us/Charities)
     -   [Registered Charities](https://www.ag.state.la.us/Charity/Registration/Listing)
-    -   [Search for Louisiana Business Filings](https://coraweb.sos.la.gov/CommercialSearch/CommercialSearch.aspx)
     -   Address: P. O. Box 94095, Baton Rouge, LA 70804-9095
     -   Phone: (225) 326-6465, (800) 351-4889
     -   Email: ConsumerInfo@ag.louisiana.gov
@@ -363,6 +376,7 @@ Use the expandable section below for direct links to your state’s:
     -   [Animals](https://www.ldaf.la.gov/animals)
     -   [File a complaint or report a violation](https://www.ldaf.la.gov/about/contact/complaints)
     -   [Laws, rules, and regulations](https://www.ldaf.la.gov/about/laws-regulations)
+-   [Business Entity Search](https://coraweb.sos.la.gov/CommercialSearch/CommercialSearch.aspx)
 
 [↑ Back To Top](#contents)
 
@@ -376,13 +390,13 @@ Use the expandable section below for direct links to your state’s:
     -   Email: consumer.mediation@maine.gov
     -   [Complaint Form](https://me.accessgov.com/ag/Forms/Page/ag/charitablecomplaint/0)
 -   [Department of Secretary of State](https://www.maine.gov/sos/)
-    -   [Search Corporate Names](https://apps3.web.maine.gov/nei-sos-icrs/ICRS?MainPage=x)
     -   [Charitable Solicitations Act](http://www.mainelegislature.org/legis/statutes/9/title9sec5003.html)
 -   [Department of Agriculture, Conservation and Forestry](https://www.maine.gov/dacf/)
     -   [Animals & Plants](https://www.maine.gov/dacf/animals/)
     -   [Animal Welfare Program](https://www.maine.gov/dacf/ahw/animal_welfare/index.shtml)
         -   [Animal Shelters](https://www.maine.gov/dacf/ahw/animal_welfare/shelters.shtml)
         -   [Statutes and Rules](https://www.maine.gov/dacf/ahw/animal_welfare/statutes_rules.shtml)
+-   [Business Entity Search](https://apps3.web.maine.gov/nei-sos-icrs/ICRS?MainPage=x)
 
 [↑ Back To Top](#contents)
 
@@ -400,6 +414,7 @@ Use the expandable section below for direct links to your state’s:
 -   [Department of Agriculture](https://mda.maryland.gov/pages/default.aspx)
     -   [Animal Health Program](https://mda.maryland.gov/AnimalHealth/Pages/default.aspx)
     -   [Regulations](https://mda.maryland.gov/AnimalHealth/Pages/Regulations.aspx)
+-   [Business Entity Search](https://egov.maryland.gov/BusinessExpress/EntitySearch)
 
 [↑ Back To Top](#contents)
 
@@ -411,10 +426,10 @@ Use the expandable section below for direct links to your state’s:
     -   [Public Charities Filing Search](https://masscharities.my.site.com/FilingSearch/s/)
     -   [File a complaint](https://www.mass.gov/how-to/file-a-complaint-about-a-charity-or-non-profit)
 -   [Secretary of the Commonwealth of Massachusetts](https://www.sec.state.ma.us/)
-    -   [MA Corporations Search](https://corp.sec.state.ma.us/corpweb/CorpSearch/CorpSearch.aspx)
 -   [Department of Agricultural Resources](https://www.mass.gov/orgs/massachusetts-department-of-agricultural-resources)
     -   [Division of Animal Health](https://www.mass.gov/info-details/division-of-animal-health)
     -   [Animal Shelter and Rescue Program](https://www.mass.gov/animal-shelter-and-rescue-program)
+-   [Business Entity Search](https://corp.sec.state.ma.us/corpweb/CorpSearch/CorpSearch.aspx)
 
 [↑ Back To Top](#contents)
 
@@ -431,6 +446,7 @@ Use the expandable section below for direct links to your state’s:
 -   [Department of Agriculture](https://www.michigan.gov/mdard)
     -   [Animal Health](https://www.michigan.gov/mdard/animals)
     -   [File a Complaint](https://www.michigan.gov/mdard/about/contact-mdard)
+-   [Business Entity Search](https://mibusinessregistry.lara.state.mi.us/search/business)
 
 [↑ Back To Top](#contents)
 
@@ -439,10 +455,10 @@ Use the expandable section below for direct links to your state’s:
 -   [Minnesota State Website](https://mn.gov/)
 -   [Office of the Attorney General](https://www.ag.state.mn.us/default.asp)
     -   [Charities Division](https://www.ag.state.mn.us/Charity/)
-        -   [Search Organization Database](https://www.ag.state.mn.us/Charity/Search/Default.asp)
     -   Address: 445 Minnesota Street, St. Paul, MN 55101-2130
     -   Phone: (651) 757-1496, (800) 657-3787
     -   [File a Complaint](https://www.ag.state.mn.us/Charity/FileAComplaint.asp)
+-   [Business Entity Search](https://mblsportal.sos.state.mn.us/Business/Search)
 
 [↑ Back To Top](#contents)
 
@@ -460,6 +476,7 @@ Use the expandable section below for direct links to your state’s:
     -   Address: P.O. Box 22947, Jackson, MS 39225-2947
     -   Phone: (601) 359-4230, (800) 281-4418
     -   [File a Complaint](https://www.ms.gov/dfa/consumer_complaint/)
+-   [Business Entity Search](https://corp.sos.ms.gov/corp/portal/c/page/corpBusinessIdSearch/portal.aspx?#clear=1)
 
 [↑ Back To Top](#contents)
 
@@ -471,11 +488,11 @@ Use the expandable section below for direct links to your state’s:
     -   Address: P. O Box 899, Jefferson City MO 65102
     -   Phone: (573) 751-3321
     -   [Consumer Complaint](https://app.ago.mo.gov/app/consumercomplaint)
--   [Missouri Business Filings](https://bsd.sos.mo.gov/BusinessEntity/BESearch.aspx?SearchType=0)
 -   [Missouri Department of Agriculture - Animal Health Division](https://agriculture.mo.gov/animals/ACFA/)
     -   Address: 1616 Missouri Blvd PO Box 630 Jefferson City, MO 65109
     -   Email: Animal.Health@mda.mo.gov
     -   Phone: (573) 751-3377
+-   [Business Entity Search](https://bsd.sos.mo.gov/BusinessEntity/BESearch.aspx?SearchType=0)
 
 [↑ Back To Top](#contents)
 
@@ -488,7 +505,7 @@ Use the expandable section below for direct links to your state’s:
     -   Phone: (406) 444-4500, (800) 481-6896
     -   Email: contactocp@mt.gov
     -   [Complaint Against a Non-Profit Organization](https://dojmt.gov/office-of-consumer-protection/complaint-against-a-non-profit-organization/)
--   [Business Search](https://biz.sosmt.gov/search/business)
+-   [Business Entity Search](https://biz.sosmt.gov/search/business)
 
 [↑ Back To Top](#contents)
 
@@ -501,6 +518,7 @@ Use the expandable section below for direct links to your state’s:
     -   Phone: (402) 471-2682, (800) 727-6432
     -   Email: ago.consumer@nebraska.gov
     -   [File A Complaint](https://www.nebraska.gov/apps-ago-complaints/?preSelect=CP_COMPLAINT)
+-   [Business Entity Search](https://www.nebraska.gov/sos/corp/corpsearch.cgi?nav=search)
 
 [↑ Back To Top](#contents)
 
@@ -508,7 +526,6 @@ Use the expandable section below for direct links to your state’s:
 
 -   [Nevada State Website](https://nv.gov/)
 -   [Secretary of State](https://www.nvsos.gov/sos)
-    -   [Search](https://esos.nv.gov/EntitySearch/OnlineEntitySearch)
     -   [Charitable Organizations](https://www.nvsos.gov/sos/licensing/charitable-organizations)
     -   Address: 202 North Carson Street, Carson City, NV 89701
     -   Phone: (775) 684-5708
@@ -520,6 +537,7 @@ Use the expandable section below for direct links to your state’s:
     -   Phone: (702) 486-3132, (888) 434-9989
     -   [CSU Complaints & FAQ](https://ag.nv.gov/Complaints)
     -   [File a Complaint](https://ag.nv.gov/uploadedFiles/agnvgov/Content/Complaints/BCP-ComplaintForm.pdf)
+-   [Business Entity Search](https://esos.nv.gov/EntitySearch/OnlineEntitySearch)
 
 [↑ Back To Top](#contents)
 
@@ -534,8 +552,8 @@ Use the expandable section below for direct links to your state’s:
     -   Email: charitabletrustsunit@doj.nh.gov
     -   [Consumer Complaints](https://www.doj.nh.gov/citizens/consumer-protection-antitrust-bureau/consumer-complaints)
 -   [Secretary of State](https://www.sos.nh.gov/)
-    -   [Search](https://quickstart.sos.nh.gov/online/BusinessInquire)
     -   [NH-SOS - Corporation](https://sos.nh.gov/corporation-ucc-securities/corporation/)
+-   [Business Entity Search](https://quickstart.sos.nh.gov/online/BusinessInquire)
 
 [↑ Back To Top](#contents)
 
@@ -549,6 +567,7 @@ Use the expandable section below for direct links to your state’s:
     -   Phone: (973) 504-6215, (800) 242-5846
     -   Email: askconsumeraffairs@dca.lps.state.nj.us
     -   [To File a Complaint](https://www.njconsumeraffairs.gov/Pages/Consumer-Complaints.aspx)
+-   [Business Entity Search](https://www.njportal.com/DOR/BusinessNameSearch/Search/BusinessName)
 
 [↑ Back To Top](#contents)
 
@@ -562,6 +581,7 @@ Use the expandable section below for direct links to your state’s:
     -   Phone: (505) 717-3500
     -   Email: Charity.Registrar@nmag.gov
     -   [Submit a Complaint](https://nmdoj.gov/get-help/submit-a-complaint/)
+-   [Business Entity Search](https://enterprise.sos.nm.gov/search/business)
 
 [↑ Back To Top](#contents)
 
@@ -576,6 +596,7 @@ Use the expandable section below for direct links to your state’s:
     -   Email: charities.bureau@ag.ny.gov
     -   [File a charity complaint](https://formsnym.ag.ny.gov/OAGOnlineSubmissionForm/faces/OAGCBHome)
 -   [NYS Department of Agriculture and Markets - Division of Animal Industry](https://agriculture.ny.gov/animals)
+-   [Business Entity Search](https://apps.dos.ny.gov/publicInquiry/)
 
 [↑ Back To Top](#contents)
 
@@ -583,7 +604,6 @@ Use the expandable section below for direct links to your state’s:
 
 -   [North Carolina State Website](https://www.nc.gov/)
 -   [Office of the Secretary of State](https://www.sosnc.gov/)
-    -   [Search](https://www.sosnc.gov/search/index/csl)
     -   [Charities Enforcement](https://www.sosnc.gov/divisions/charities/enforcement)
     -   [Charities & Fundraisers Search](https://www.sosnc.gov/online_services/search/by_title/_charities)
     -   Address: P.O. Box 29622, Raleigh, NC 27626-0622
@@ -594,6 +614,7 @@ Use the expandable section below for direct links to your state’s:
     -   Address: 9001 Mail Service Center, Raleigh, NC 27699-9001
     -   Phone: (919) 716-6000, (877) 566-7226
     -   [File a Complaint](https://ncdoj.gov/file-a-complaint/)
+-   [Business Entity Search](https://www.sosnc.gov/online_services/search/by_title/search_Business_Registration)
 
 [↑ Back To Top](#contents)
 
@@ -611,6 +632,7 @@ Use the expandable section below for direct links to your state’s:
     -   Phone: (701) 328-2210
     -   Email: ndag@nd.gov
     -   [General Complaint](https://attorneygeneral.nd.gov/consumer-resources/general-complaint/)
+-   [Business Entity Search](https://firststop.sos.nd.gov/search/business)
 
 [↑ Back To Top](#contents)
 
@@ -624,6 +646,7 @@ Use the expandable section below for direct links to your state’s:
     -   Phone: (614) 466-3180, (800) 282-0515
     -   Email: CharitableLaw@OhioAGO.gov
     -   [File a Complaint](https://charitablecomplaint.ohioattorneygeneral.gov/)
+-   [Business Entity Search](https://businesssearch.ohiosos.gov/)
 
 [↑ Back To Top](#contents)
 
@@ -641,6 +664,7 @@ Use the expandable section below for direct links to your state’s:
     -   Phone: (405) 521-2029
     -   Email: ConsumerProtection@oag.ok.gov
     -   [Charitable Organization Complaint Form (PDF)](https://oklahoma.gov/content/dam/ok/en/oag/documents/complaints/2017charitableorganizationcomplaint.pdf)
+-   [Business Entity Search](https://www.sos.ok.gov/corp/corpinquiryfind.aspx)
 
 [↑ Back To Top](#contents)
 
@@ -658,6 +682,7 @@ Use the expandable section below for direct links to your state’s:
     -   [Nonprofit Services](https://sos.oregon.gov/business/Pages/nonprofit.aspx)
     -   Address: Public Service Building, 255 Capitol Street NE, Suite 151, Salem, OR 97310-1327
     -   Phone: (503) 986-2200
+-   [Business Entity Search](https://sos.oregon.gov/business/Pages/find.aspx)
 
 [↑ Back To Top](#contents)
 
@@ -675,6 +700,7 @@ Use the expandable section below for direct links to your state’s:
     -   Address: 14th Floor Strawberry Square, Harrisburg, PA 17120
     -   Phone: (717) 783-2853
     -   [Submit a Complaint](https://www.attorneygeneral.gov/submit-a-complaint/)
+-   [Business Entity Search](https://file.dos.pa.gov/search/business)
 
 [↑ Back To Top](#contents)
 
@@ -683,7 +709,6 @@ Use the expandable section below for direct links to your state’s:
 -   [Rhode Island State Website](https://www.ri.gov/)
 -   [Dept. of Business Regulation](https://dbr.ri.gov/)
     -   [Securities Division](https://dbr.ri.gov/divisions/securities/)
-    -   [Business Look up](https://elicensing.ri.gov/Lookup/LicenseLookup.aspx)
         -   Address: John O. Pastore Center, 1151 Pontiac Ave, 69-1, Cranston RI 02920
     -   Phone: (401) 462-9583
     -   [Have a Question or Complaint?](https://dbr.ri.gov/questioncomplaints)
@@ -691,6 +716,7 @@ Use the expandable section below for direct links to your state’s:
     -   Address: 150 South Main Street, Providence, RI 02903
     -   Phone: (401) 274-4400
     -   [File a Consumer Complaint](https://riag.ri.gov/forms/consumer-complaint)
+-   [Business Entity Search](http://business.sos.ri.gov/CorpWeb/CorpSearch/CorpSearch.aspx)
 
 [↑ Back To Top](#contents)
 
@@ -707,6 +733,7 @@ Use the expandable section below for direct links to your state’s:
     -   Address: Rembert Dennis Building, 1000 Assembly Street, Room 519, Columbia, S.C. 29201
     -   Phone: (803) 734-3970
     -   [Submit a Complaint](https://www.scag.gov/inside-the-office/legal-services-division/securities/enforcement/submit-a-complaint/)
+-   [Business Entity Search](https://businessfilings.sc.gov/BusinessFiling/Entity/Search)
 
 [↑ Back To Top](#contents)
 
@@ -722,7 +749,7 @@ Use the expandable section below for direct links to your state’s:
     -   Email: consumerhelp@state.sd.us
     -   [Complaint Form](https://consumer.sd.gov/complaintform.aspx)
 -   [Secretary of State](https://sdsos.gov/business-services/corporations/corporate-forms/nonprofit-corporations.aspx)
-    -   [Filings Search](https://sosenterprise.sd.gov/BusinessServices/Business/FilingSearch.aspx)
+-   [Business Entity Search](https://sosenterprise.sd.gov/BusinessServices/Business/FilingSearch.aspx)
 
 [↑ Back To Top](#contents)
 
@@ -740,6 +767,7 @@ Use the expandable section below for direct links to your state’s:
     -   Address: P. O. Box 20207, Nashville, TN 37202-0207
     -   Phone: (615) 741-3491
     -   [Nonprofit Complaint Form (PDF)](https://www.tn.gov/content/dam/tn/attorneygeneral/documents/nonprofits/nonprofitcomplaintform.pdf)
+-   [Business Entity Search](https://tncab.tnsos.gov/business-entity-search)
 
 [↑ Back To Top](#contents)
 
@@ -755,6 +783,7 @@ Use the expandable section below for direct links to your state’s:
     -   [Nonprofit Organizations](https://www.sos.state.tx.us/corp/nonprofit_org.shtml)
     -   Address: P.O. Box 13697, Austin, Texas 78711-3697
     -   Phone: (512) 463-5555
+-   [Business Entity Search](https://www.sos.state.tx.us/corp/sosda/index.shtml)
 
 [↑ Back To Top](#contents)
 
@@ -767,6 +796,7 @@ Use the expandable section below for direct links to your state’s:
     -   Phone: (801) 530-6601
     -   Email: consumerprotection@utah.gov
     -   [DCP Complaints](https://db.dcp.utah.gov/complaints.html)
+-   [Business Entity Search](https://businessregistration.utah.gov/EntitySearch/OnlineEntitySearch)
 
 [↑ Back To Top](#contents)
 
@@ -780,6 +810,7 @@ Use the expandable section below for direct links to your state’s:
     -   Phone: (802) 656-3183, (800) 649-2424
     -   Email: ago.cap@vermont.gov
     -   [Complaint Form](http://ago.vermont.gov/consumer-assistance-program-complaint-form)
+-   [Business Entity Search](https://bizfilings.vermont.gov/business/businesssearch)
 
 [↑ Back To Top](#contents)
 
@@ -796,6 +827,7 @@ Use the expandable section below for direct links to your state’s:
     -   Address: 202 North Ninth Street, Richmond, Virginia 23219
     -   Phone: (804) 786-2071
     -   [OAG Online Consumer Complaint Form](https://www.oag.state.va.us/consumercomplaintform/form/start)
+-   [Business Entity Search](https://cis.scc.virginia.gov/EntitySearch/Index)
 
 [↑ Back To Top](#contents)
 
@@ -813,6 +845,7 @@ Use the expandable section below for direct links to your state’s:
     -   Phone: (206) 464-6684, (800) 551-4636
     -   Email: charities@atg.wa.gov
     -   [General Consumer Complaint Form](https://fortress.wa.gov/atg/formhandler/ago/ComplaintForm.aspx)
+-   [Business Entity Search](https://ccfs.sos.wa.gov/#/AdvancedSearch)
 
 [↑ Back To Top](#contents)
 
@@ -830,6 +863,7 @@ Use the expandable section below for direct links to your state’s:
     -   Address: Post Office Box 1789, Charleston WV 25326
     -   Phone: (304) 558-8986, (800) 368-8808
     -   Email: consumer@wvago.gov
+-   [Business Entity Search](https://apps.wv.gov/SOS/BusinessEntitySearch/)
 
 [↑ Back To Top](#contents)
 
@@ -847,6 +881,7 @@ Use the expandable section below for direct links to your state’s:
     -   Email: DATCPHotline@Wisconsin.gov
 -   [Department of Justice](https://www.doj.state.wi.us/)
     -   [How to File a Consumer Complaint](https://www.doj.state.wi.us/dls/consumer-protection/how-file-consumer-complaint)
+-   [Business Entity Search](https://apps.dfi.wi.gov/apps/corpsearch/search.aspx)
 
 [↑ Back To Top](#contents)
 
@@ -863,6 +898,6 @@ Use the expandable section below for direct links to your state’s:
     -   Address: 2020 Carey Avenue, Suites 600 & 700, Cheyenne, WY 82002
     -   Phone: (307) 777-7311
     -   [Business/UCC Division](https://sos.wyo.gov/Business/Default.aspx)
-    -   [Search](https://wyobiz.wyo.gov/Business/FilingSearch.aspx)
+-   [Business Entity Search](https://wyobiz.wyo.gov/Business/FilingSearch.aspx)
 
-
+[↑ Back To Top](#contents)
