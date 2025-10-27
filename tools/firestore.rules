@@ -9,68 +9,68 @@ service cloud.firestore {
 
     // Helper: Get the UID of the user making the request.
     function requesterUid() {
+      // Must be authenticated to use this function
       return request.auth.uid;
     }
 
     // Match the specific structure used by the application
     match /artifacts/{appId}/checklists/{checklistId} {
-
-      // --- Removed helper functions that used get() ---
-      // Helper: Check membership based on *EXISTING* document data (resource.data)
+      
+      // Check if the user is a member of the existing document (resource.data)
       function isMember() {
-         return isAuthenticated() && resource.data != null && 'members' in resource.data && requesterUid() in resource.data.members;
+         // resource.data exists on get, update, delete
+         return isAuthenticated() && resource.data.members[requesterUid()] != null;
       }
-      // Helper: Check ownership based on *EXISTING* document data (resource.data)
+      
+      // Check if the user is the owner of the existing document (resource.data)
       function isOwner() {
         return isMember() && resource.data.members[requesterUid()] == 'owner';
       }
-      // Helper: Check editor/owner based on *EXISTING* document data (resource.data)
+      
+      // Check if the user is an owner or editor of the existing document (resource.data)
       function isEditorOrOwner() {
          return isMember() && (resource.data.members[requesterUid()] == 'owner' || resource.data.members[requesterUid()] == 'editor');
       }
 
-      // READ (Single Doc): Allow if the user is found in the members map of the *EXISTING* document data.
-      // Use resource.data here as 'get' requires the document to exist.
-      allow get: if isAuthenticated() && resource.data != null && 'members' in resource.data && requesterUid() in resource.data.members;
+      // READ (get): Allow if the user is authenticated and is a member of the existing document.
+      allow get: if isMember();
 
-
-      // LIST (Query): Allow if authenticated AND the query correctly filters by the user's ID in 'memberIds'.
-      // This rule remains the same and is crucial.
+      // LIST (query): Allow only if the query specifically filters by the requester's UID in 'memberIds'.
+      // NOTE: This rule requires an array index on the 'memberIds' field.
       allow list: if isAuthenticated()
                   && request.query.where.size() == 1
                   && request.query.where[0].fieldPath == 'memberIds'
                   && request.query.where[0].op == 'array-contains'
                   && request.query.where[0].value == requesterUid();
 
-      // CREATE: Allow if authenticated, the incoming data sets the user as owner,
-      // and the incoming data includes the user in the memberIds array.
-      // Use request.resource.data for incoming data.
+      // CREATE: Allow if authenticated, and the incoming data sets the requester as 'owner' 
+      // and they are the ONLY member listed in memberIds.
       allow create: if isAuthenticated()
                     && request.resource.data.members[requesterUid()] == 'owner'
-                    && requesterUid() in request.resource.data.memberIds;
+                    && request.resource.data.memberIds.hasAll([requesterUid()])
+                    && request.resource.data.memberIds.size() == 1;
 
-      // UPDATE: (Simplified Logic)
-      // Allow if the user is a member of the *EXISTING* doc AND
-      //   EITHER the user is the *EXISTING* owner (can change anything)
-      //   OR the user is an *EXISTING* editor/owner AND they are NOT changing membership fields.
-      allow update: if isMember() && // Check membership on existing doc (resource.data)
-                    (
-                       isOwner() || // Check ownership on existing doc
-                       (
-                         isEditorOrOwner() && // Check editor/owner on existing doc
-                         request.resource.data.members == resource.data.members && // Compare incoming members to existing
-                         request.resource.data.memberIds == resource.data.memberIds // Compare incoming memberIds to existing
-                       )
-                     );
+      // --- UPDATED RULE (Fixes Save Error) ---
+      // Allow update if:
+      // 1. The user is the Owner (can change anything)
+      // 2. The user is an Editor AND the membership fields are not being changed.
+      //    We check for set equality (ignoring order) on memberIds.
+      allow update: if isOwner()
+                    || ( 
+                         isEditorOrOwner()
+                         && request.resource.data.members == resource.data.members // Map comparison
+                         // Check that the arrays contain the same items, regardless of order
+                         && request.resource.data.memberIds.hasAll(resource.data.memberIds)
+                         && resource.data.memberIds.hasAll(request.resource.data.memberIds)
+                       );
 
-      // DELETE: Allow only if the user is the owner of the *EXISTING* document data.
-      // Use resource.data here.
+      // DELETE: Allow only if the user is the owner of the existing document.
       allow delete: if isOwner();
     }
 
      // Match the specific structure used by the application for user data
     match /artifacts/{appId}/users/{userId} {
-      // Allow any authenticated user to read user profiles.
+      // Allow any authenticated user to read user profiles (needed for sharing/display name lookup).
       allow get: if isAuthenticated();
 
       // Allow authenticated users to create or update their OWN user document.
@@ -86,4 +86,3 @@ service cloud.firestore {
      }
   }
 }
-
