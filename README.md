@@ -10,7 +10,7 @@ Welcome to Charity Recon! This guide and integrated web tool empower animal resc
 
 ## Quick Start Guide for Donors
 In a hurry? Here are three essential steps to quickly vet an organization using the tool:
- 1. **Launch the Tool**: Open the [Charity Recon Tool](https://elitegreyit67.github.io/Charity_Recon/tools/index.html).
+ 1. **Launch the Tool**: Open the [Charity Recon Tool](https://elitegreyit67.github.io/Charity_Recon/tools/osint_app/index.html).
  2. **Generate Links**: On the "OSINT Tool" tab, enter the organization's name and click "Generate".
  3. **Verify Status**: Use the generated links in the "Federal Financial & Legal" section to check their 501(c)(3) status on the IRS website and review financials on ProPublica.
  4. **Start a Checklist**: Switch to the "Compliance Checklists" tab within the same tool. Click "Start New Checklist," enter the organization's name, and use the checklist items to assess their transparency based on your findings. Checklists are saved securely to your account.
@@ -43,7 +43,7 @@ In a hurry? Here are three essential steps to quickly vet an organization using 
 ## The Charity Recon Tool
 This project features a single, powerful web application that integrates two key functionalities:
 
--   **[Launch the Charity Recon Tool](https://elitegreyit67.github.io/Charity_Recon/tools/index.html)**
+-   **[Launch the Charity Recon Tool](https://elitegreyit67.github.io/Charity_Recon/tools/osint_app/index.html)**
     -   **OSINT Dashboard Tab**: Provides a centralized interface to quickly generate direct search links to a wide array of public records (federal/state registrations, financials), news archives, review sites, and online platforms relevant to investigating nonprofit animal rescue organizations.
     -   **Compliance Checklists Tab**: An interactive, Firebase-powered tool to help donors, volunteers, and adopters assess an organization's transparency and compliance. Create, save, edit, and securely share checklists in the cloud based on a standardized template or your own custom items.
 
@@ -73,7 +73,7 @@ This guide and the integrated tool are designed for everyone in the animal welfa
 
 ### For Donors & Supporters
 Your goal is to ensure your contributions make a real impact.
-- **Start Research**: Use the "OSINT Tool" tab in the [Charity Recon Tool](https://elitegreyit67.github.io/Charity_Recon/tools/index.html) to perform initial checks (501c3 status, financials, state registration).
+- **Start Research**: Use the "OSINT Tool" tab in the [Charity Recon Tool](https://elitegreyit67.github.io/Charity_Recon/tools/osint_app/index.html) to perform initial checks (501c3 status, financials, state registration).
 - **Identify Red Flags**: Review the [Spotting Red Flags](#spotting-red-flags-a-deeper-look) section to learn what warrants a closer look during your research.
 - **Assess Systematically**: Switch to the "Compliance Checklists" tab. Use the checklist to systematically evaluate the organization's transparency and practices based on your OSINT findings.
 - **Report Concerns**: If you suspect fraud after your investigation, use the links in the [Resource Hub](#resource-hub) (e.g., FTC, State Attorney General) to file a report.
