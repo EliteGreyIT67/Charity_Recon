@@ -95,27 +95,18 @@
                     <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Charity Recon Tool</h1>
                 </div>
             </div>
-             <div id="user-info-header" class="hidden items-center space-x-4">
+             <div id="user-info-header" class="flex items-center space-x-4">
                  <div class="text-right text-sm">
-                     <span class="font-medium" id="user-name-header"></span>
-                     <span class="block text-xs text-gray-500 dark:text-gray-400" id="user-id-header"></span>
+                     <span class="font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300 px-2 py-1 rounded-full text-xs">Local Storage Mode</span>
                  </div>
-                <button id="sign-out-btn-header" class="btn btn-secondary !px-3 !py-1.5 flex items-center space-x-1">
-                    <i data-lucide="log-out" class="w-4 h-4"></i>
-                    <span>Sign Out</span>
-                 </button>
                 <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" aria-label="Toggle dark mode">
                     <i data-lucide="sun" class="w-6 h-6 block dark:hidden"></i>
                     <i data-lucide="moon" class="w-6 h-6 hidden dark:block"></i>
                 </button>
             </div>
-            <button id="theme-toggle-logged-out" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors hidden" aria-label="Toggle dark mode">
-                <i data-lucide="sun" class="w-6 h-6 block dark:hidden"></i>
-                <i data-lucide="moon" class="w-6 h-6 hidden dark:block"></i>
-            </button>
         </header>
 
-        <nav class="border-b border-gray-200 dark:border-gray-700 mb-8 hidden">
+        <nav class="border-b border-gray-200 dark:border-gray-700 mb-8">
             <div class="-mb-px flex space-x-6" aria-label="Tabs">
                 <button id="tab-osint" class="nav-tab active" data-view="osint-view" role="tab">
                     <span class="flex items-center"><i data-lucide="search" class="w-5 h-5 mr-2"></i>OSINT Tool</span>
@@ -127,56 +118,13 @@
         </nav>
 
         <main>
-            <section id="login-view" class="view-content hidden">
-                <div class="max-w-md mx-auto card p-8 mt-10">
-                    <div class="flex items-center space-x-3 mb-6">
-                        <div class="bg-indigo-600 p-2 rounded-lg">
-                            <i data-lucide="paw-print" class="w-6 h-6 text-white"></i>
-                        </div>
-                        <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Charity Recon Login</h2>
-                    </div>
-                    <p class="text-gray-600 dark:text-gray-300 mb-6">Sign in to save and sync your compliance checklists.</p>
-
-                    <form id="email-login-form" class="space-y-4">
-                        <div class="input-group">
-                            <i data-lucide="mail" class="input-icon"></i>
-                            <input type="email" id="login-email" class="form-input" placeholder="Email" required>
-                        </div>
-                        <div class="input-group">
-                            <i data-lucide="lock" class="input-icon"></i>
-                            <input type="password" id="login-password" class="form-input" placeholder="Password" required>
-                        </div>
-
-                        <p id="login-error-message" class="text-red-500 text-sm text-center hidden"></p>
-
-                        <div class="flex flex-col sm:flex-row gap-3">
-                            <button type="submit" id="email-login-btn" class="btn btn-primary w-full justify-center">Sign In</button>
-                            <button type="button" id="email-signup-btn" class="btn btn-secondary w-full justify-center">Sign Up</button>
-                        </div>
-                    </form>
-
-                    <div class="relative my-6">
-                        <div class="absolute inset-0 flex items-center" aria-hidden="true">
-                            <div class="w-full border-t border-gray-300 dark:border-gray-600"></div>
-                        </div>
-                        <div class="relative flex justify-center">
-                            <span class="bg-white dark:bg-gray-800 px-2 text-sm text-gray-500 dark:text-gray-400">Or</span>
-                        </div>
-                    </div>
-
-                    <button id="google-signin-btn" class="btn bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 w-full flex items-center justify-center space-x-2">
-                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path><path fill="none" d="M0 0h48v48H0z"></path></svg>
-                        <span>Sign in with Google</span>
-                    </button>
-                </div>
-            </section>
-
-            <section id="osint-view" class="view-content hidden">
+            <!-- OSINT VIEW -->
+            <section id="osint-view" class="view-content">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl font-bold text-gray-900 dark:text-white">OSINT Dashboard</h2>
                     <p class="mt-2 max-w-2xl mx-auto text-gray-600 dark:text-gray-300">Enter an organization's details to generate a dashboard of direct links for your investigation.</p>
                 </div>
-                <div class="grid grid-cols-1 lg:col-cols-3 gap-8">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <aside class="lg:col-span-1">
                         <div class="card p-6 sticky top-8">
                             <h2 class="text-xl font-semibold mb-4">Investigation Details</h2>
@@ -248,17 +196,13 @@
                 </div>
             </section>
 
+            <!-- CHECKLIST VIEW -->
             <section id="checklist-view" class="view-content hidden">
-                 <div id="checklist-loading-view" class="text-center py-20 card">
-                     <i data-lucide="loader-2" class="w-16 h-16 mx-auto text-gray-400 dark:text-gray-500 animate-spin"></i>
-                     <p class="mt-4 text-lg font-semibold text-gray-600 dark:text-gray-400">Connecting to checklist service...</p>
-                     <p id="checklist-auth-error" class="mt-2 text-red-500 dark:text-red-400 text-sm"></p>
-                </div>
-                <div id="checklist-main-content" class="hidden">
+                <div id="checklist-main-content">
                     <div id="checklist-list-view">
                         <header class="mb-8 text-center">
                             <h1 class="text-3xl font-bold text-gray-800 dark:text-white">Compliance Checklists</h1>
-                            <p class="text-gray-500 dark:text-gray-400 mt-2 text-lg">Your cloud-synced checklists for ensuring animal welfare standards.</p>
+                            <p class="text-gray-500 dark:text-gray-400 mt-2 text-lg">Your locally saved checklists for ensuring animal welfare standards.</p>
                         </header>
                          <div class="mb-6 flex justify-center">
                             <button id="new-checklist-btn" class="btn btn-primary flex items-center justify-center space-x-2">
@@ -275,7 +219,7 @@
                         <div id="no-checklists-message" class="text-center py-16 card hidden">
                              <i data-lucide="file-x" class="w-20 h-20 mx-auto text-gray-300 dark:text-gray-600 mb-4"></i>
                             <p class="text-2xl font-semibold text-gray-700 dark:text-gray-300">No checklists found.</p>
-                            <p class="text-gray-500 dark:text-gray-400">Click "Start New" to begin. Checklists shared with you will also appear here.</p>
+                            <p class="text-gray-500 dark:text-gray-400">Click "Start New" to begin.</p>
                         </div>
                         <div id="saved-checklists-container" class="space-y-4 max-w-4xl mx-auto"></div>
                     </div>
@@ -307,9 +251,6 @@
                                 <i data-lucide="trash-2" class="w-5 h-5"></i><span>Delete</span>
                             </button>
                              <div class="flex flex-col sm:flex-row sm:justify-end gap-3 flex-wrap">
-                                <button id="share-checklist-btn" class="hidden w-full sm:w-auto bg-purple-500 hover:bg-purple-600 text-white font-semibold py-3 px-5 rounded-lg transition-colors flex items-center justify-center space-x-2">
-                                     <i data-lucide="users" class="w-5 h-5"></i><span>Share</span>
-                                 </button>
                                  <button id="save-checklist-btn" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg shadow-md flex items-center justify-center space-x-2 disabled:opacity-50">
                                     <span id="save-button-text">Save</span>
                                     <i id="save-spinner" data-lucide="loader-2" class="h-5 w-5 hidden spinner"></i>
@@ -339,47 +280,13 @@
             </div>
         </div>
     </div>
-    <div id="manage-share-modal" class="modal">
-        <div class="modal-content bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 shadow-lg">
-             <i data-lucide="users" class="h-12 w-12 mx-auto mb-4 bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400 p-2 rounded-full"></i>
-            <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-2 text-center">Manage Access</h3>
-            <form id="add-member-form" class="mt-6 mb-6 space-y-3">
-                <p class="text-sm text-gray-600 dark:text-gray-400">Invite new member by their User ID:</p>
-                <div class="flex flex-col sm:flex-row sm:space-x-2 gap-3 sm:gap-0">
-                    <input type="text" id="add-member-id" class="flex-1 w-full p-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500" placeholder="User ID" required>
-                    <select id="add-member-role" class="w-full sm:w-auto p-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500">
-                        <option value="editor">Editor</option>
-                        <option value="viewer">Viewer</option>
-                    </select>
-                </div>
-                <button type="submit" id="add-member-btn" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">Add Member</button>
-                <p id="share-status-message" class="text-center text-sm font-medium"></p>
-            </form>
-            <div class="border-t border-gray-200 dark:border-gray-700 pt-4">
-                <h4 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-3">Current Members</h4>
-                <div id="share-members-list" class="space-y-2 max-h-48 overflow-y-auto"></div>
-            </div>
-            <button data-dismiss="modal" class="w-full mt-8 btn btn-secondary">Close</button>
-        </div>
-    </div>
-    <div id="edit-modal" class="modal">
-        <div class="modal-content bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 shadow-lg">
-            <h3 id="edit-modal-title" class="text-xl font-semibold text-gray-800 dark:text-white mb-4 text-center">Edit</h3>
-            <input type="text" id="edit-modal-input" class="w-full p-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500" placeholder="">
-            <p id="edit-modal-error" class="text-red-500 dark:text-red-400 text-sm mt-1 hidden"></p>
-            <div class="flex justify-center space-x-4 mt-6">
-                <button data-dismiss="modal" class="flex-1 btn btn-secondary">Cancel</button>
-                <button id="edit-modal-save-btn" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">Save</button>
-            </div>
-        </div>
-    </div>
     <div id="toast-container"></div>
 
     <script id="state-data" type="application/json">
     {
       "states": { "AL": "Alabama", "AK": "Alaska", "AZ": "Arizona", "AR": "Arkansas", "CA": "California", "CO": "Colorado", "CT": "Connecticut", "DE": "Delaware", "DC": "District of Columbia", "FL": "Florida", "GA": "Georgia", "HI": "Hawaii", "ID": "Idaho", "IL": "Illinois", "IN": "Indiana", "IA": "Iowa", "KS": "Kansas", "KY": "Kentucky", "LA": "Louisiana", "ME": "Maine", "MD": "Maryland", "MA": "Massachusetts", "MI": "Michigan", "MN": "Minnesota", "MS": "Mississippi", "MO": "Missouri", "MT": "Montana", "NE": "Nebraska", "NV": "Nevada", "NH": "New Hampshire", "NJ": "New Jersey", "NM": "New Mexico", "NY": "New York", "NC": "North Carolina", "ND": "North Dakota", "OH": "Ohio", "OK": "Oklahoma", "OR": "Oregon", "PA": "Pennsylvania", "RI": "Rhode Island", "SC": "South Carolina", "SD": "South Dakota", "TN": "Tennessee", "TX": "Texas", "UT": "Utah", "VT": "Vermont", "VA": "Virginia", "WA": "Washington", "WV": "West Virginia", "WI": "Wisconsin", "WY": "Wyoming" },
       "stateResources": {
-        "AL": [{ "n": "AG Charity Search", "u": "https://ago.alabama.gov/ConsumerLicense" }, { "n": "SOS Business Search", "u": "https://www.sos.alabama.gov/business-entities/search" }], "AK": [{ "n": "Dept. of Law Charity Search", "u": "https://www.law.alaska.gov/department/civil/consumer/charityreg_search.html" }, { "n": "Dept. of Commerce Business Search", "u": "https://www.commerce.alaska.gov/cbp/main/search/entities" }], "AZ": [{ "n": "SOS Charity Search", "u": "https://apps.azsos.gov/apps/tntp/se.html" }, { "n": "Corporation Commission Business Search", "u": "https://ecorp.azcc.gov/EntitySearch/Index" }], "AR": [{ "n": "SOS Charity Search", "u": "https://www.sos.arkansas.gov/business-commercial-services-bcs/charitable-entities/charity-search/" }, { "n": "SOS Business Search", "u": "https://www.sos.arkansas.gov/corps/search_all.php" }], "CA": [{ "n": "DOJ Charity Search", "u": "https://rct.doj.ca.gov/Verification/Web/Search.aspx?facility=Y" }, { "n": "SOS Business Search", "u": "https://bizfileonline.sos.ca.gov/search/business" }], "CO": [{ "n": "SOS Charity Search", "u": "https://www.sos.state.co.us/ccis/home.do" }, { "n": "SOS Business Search", "u": "https://www.sos.state.co.us/biz/BusinessEntityCriteria.do" }], "CT": [{ "n": "DCP License Lookup", "u": "https://www.elicense.ct.gov/Lookup/LicenseLookup.aspx" }, { "n": "SOS Business Search", "u": "https://service.ct.gov/business/s/onlinebusinesssearch" }], "DE": [{ "n": "Division of Corporations Search", "u": "https://icis.corp.delaware.gov/Ecorp/EntitySearch/NameSearch.aspx" }], "FL": [{ "n": "DACS Charity Search", "u": "https://csapp.fdacs.gov/cspublicapp/giftgiversquery/giftgiversquery.aspx" }, { "n": "SunBiz Business Search", "u": "http://dos.myflorida.com/sunbiz/search/" }], "GA": [{ "n": "SOS Charity Search", "u": "https://sos.ga.gov/charities-search" }, { "n": "SOS Business Search", "u": "https://ecorp.sos.ga.gov/BusinessSearch" }], "HI": [{ "n": "AG Charity Search", "u": "https://charities.ehawaii.gov/charity/search.html" }, { "n": "DCCA Business Search", "u": "https://hbe.ehawaii.gov/documents/search.html" }], "ID": [{ "n": "SOS Business Search", "u": "https://sosbiz.idaho.gov/search/business" }], "IL": [{ "n": "AG Charity Search", "u": "https://www.illinoisattorneygeneral.gov/charities/search/index.jsp" }, { "n": "SOS Business Search", "u": "https://apps.ilsos.gov/corporatellc/" }], "IN": [{ "n": "INBiz Business Search", "u": "https://inbiz.in.gov/BOS/Home/Search" }], "IA": [{ "n": "SOS Business Search", "u": "https://sos.iowa.gov/search/business/search.aspx" }], "KS": [{ "n": "SOS Charity Search", "u": "https://www.kssos.org/charities/search_charities.aspx" }, { "n": "SOS Business Search", "u": "https://www.kansas.gov/bess/flow/main?execution=e1s1" }], "KY": [{ "n": "AG Charity Search", "u": "https://ag.ky.gov/Priorities/Protecting-Kentuckians/charity/Pages/search.aspx" }, { "n": "SOS Business Search", "u": "https://web.sos.ky.gov/ftsearch/" }], "LA": [{ "n": "SOS Charity/Business Search", "u": "https://coraweb.sos.la.gov/CommercialSearch/CommercialSearch.aspx" }], "ME": [{ "n": "Dept. of Professional & Financial Regulation Search", "u": "https://www.pfr.maine.gov/almsonline/almsquery/welcome.aspx?board=4280" }, { "n": "SOS Business Search", "u": "https://apps1.web.maine.gov/cgi-bin/online/corporations/name_search.pl" }], "MD": [{ "n": "SOS Charity Search", "u": "https://sos.maryland.gov/charity/Pages/SearchCharity.aspx" }, { "n": "Dept. of Assessments and Taxation Business Search", "u": "https://egov.maryland.gov/businessexpress/entitysearch" }], "MA": [{ "n": "AG Charity Search", "u": "https://www.mass.gov/info-details/search-public-charities-filings" }, { "n": "SOS Business Search", "u": "https://corp.sec.state.ma.us/corpweb/corpsearch/corpsearch.aspx" }], "MI": [{ "n": "AG Charity Search", "u": "https://www.ag.state.mi.us/charitabletrust/frmDisclaimer.aspx" }, { "n": "LARA Business Search", "u": "https://cofs.lara.state.mi.us/SearchApi/Search/Search" }], "MN": [{ "n": "AG Charity Search", "u": "https://www.ag.state.mn.us/Charity/Search/" }, { "n": "SOS Business Search", "u": "https://mblsportal.sos.state.mn.us/Business/Search" }], "MS": [{ "n": "SOS Charity Search", "u": "https://charities.sos.ms.gov/online/portal/ch/page/charities-search/Portal.aspx" }, { "n": "SOS Business Search", "u": "https://corp.sos.ms.gov/corp/portal/c/page/corpbusinessidsearch/portal.aspx" }], "MO": [{ "n": "AG Charity Search", "u": "https://ago.mo.gov/civil-division/check-a-charity/search-charities" }, { "n": "SOS Business Search", "u": "https://bsd.sos.mo.gov/BusinessEntity/BESearch.aspx?SearchType=0" }], "MT": [{ "n": "SOS Business Search", "u": "https://biz.sosmt.gov/search/business" }], "NE": [{ "n": "SOS Business Search", "u": "https://www.nebraska.gov/sos/corp/corpsearch.cgi" }], "NV": [{ "n": "SOS Charity/Business Search", "u": "https://www.nvsos.gov/sos/businesses/search" }], "NH": [{ "n": "AG Registered Charities", "u": "https://www.doj.nh.gov/charitable-trusts/registered-charities.htm" }, { "n": "SOS Business Search", "u": "https://quickstart.sos.nh.gov/online/BusinessInquire" }], "NJ": [{ "n": "Division of Consumer Affairs Charity Search", "u": "https://charportal.dca.njoag.gov/Charity-Registration/CHR-Public-Search-Page/" }, { "n": "Dept. of Treasury Business Search", "u": "https://www.njportal.com/dor/businessnamesearch/" }], "NM": [{ "n": "AG Charity Search", "u": "https://www.nmag.gov/charities.aspx" }, { "n": "SOS Business Search", "u": "https://portal.sos.state.nm.us/BFS/online/CorporationBusinessSearch" }], "NY": [{ "n": "AG Charity Search", "u": "https://www.charitiesnys.com/RegistrySearch/search_charities.jsp" }, { "n": "Dept. of State Business Search", "u": "https://apps.dos.ny.gov/publicInquiry/" }], "NC": [{ "n": "SOS Charity Search", "u": "https://www.sosnc.gov/search/index/char" }, { "n": "SOS Business Search", "u": "https://www.sosnc.gov/search/index/corp" }], "ND": [{ "n": "SOS Charity/Business Search", "u": "https://firststop.sos.nd.gov/search/business" }], "OH": [{ "n": "AG Charity Search", "u": "https://charitableregistration.ohioattorneygeneral.gov/Charities/s/" }, { "n": "SOS Business Search", "u": "https://businesssearch.ohiosos.gov/" }], "OK": [{ "n": "SOS Charity/Business Search", "u": "https://www.sos.ok.gov/business/search.aspx" }], "OR": [{ "n": "DOJ Charity Search", "u": "https://www.doj.state.or.us/charitable-activities/charities-search/" }, { "n": "SOS Business Search", "u": "https://egov.sos.state.or.us/br/pkg_web_name_srch_inq.login" }], "PA": [{ "n": "Dept. of State Charity Search", "u": "https://www.charities.dos.pa.gov/SearchforCharities.aspx" }, { "n": "Dept. of State Business Search", "u": "https://www.corporations.pa.gov/search/bussearch" }], "RI": [{ "n": "Dept. of Business Regulation Search", "u": "https://dbr.ri.gov/public-records-search" }, { "n": "SOS Business Search", "u": "https://business.sos.ri.gov/CorpWeb/CorpSearch/CorpSearch.aspx" }], "SC": [{ "n": "SOS Charity Search", "u": "https://search.scsos.com/charities" }, { "n": "SOS Business Search", "u": "https://businessfilings.sc.gov/BusinessFiling/Entity/Search" }], "SD": [{ "n": "SOS Business Search", "u": "https://sos.sd.gov/business-services/business-search.aspx" }], "TN": [{ "n": "SOS Charity Search", "u": "https://sos.tn.gov/charitable/search" }, { "n": "SOS Business Search", "u": "https://tnbear.tn.gov/Edison/Public/BusinessNameSearch" }], "TX": [{ "n": "SOS Business Search", "u": "https://direct.sos.state.tx.us/corp/lagmenu.asp" }], "UT": [{ "n": "Division of Consumer Protection Charity Search", "u": "https://dcp.utah.gov/charities-public-search/" }, { "n": "Dept. of Commerce Business Search", "u": "https://secure.utah.gov/bes/" }], "VT": [{ "n": "SOS Business Search", "u": "https://bizfilings.vermont.gov/online/BusinessInquire/" }], "VA": [{ "n": "DACS Charity Search", "u": "https://cos.vdacs.virginia.gov/cgi-bin/char_search.cgi" }, { "n": "State Corporation Commission Business Search", "u": "httpss://cis.scc.virginia.gov/" }], "WA": [{ "n": "SOS Charity Search", "u": "https://www.sos.wa.gov/charities/search-for-a-charity" }, { "n": "SOS Business Search", "u": "https://www.sos.wa.gov/corporations-charities/search-details-and-documents" }], "WV": [{ "n": "SOS Charity/Business Search", "u": "https://apps.wv.gov/SOS/BusinessEntitySearch/" }], "WI": [{ "n": "DFI Charity Search", "u": "https://wdfi.org/apps/CharitySearch/Search.aspx" }, { "n": "DFI Business Search", "u": "https://www.wdfi.org/apps/CorpSearch/Search.aspx" }], "WY": [{ "n": "SOS Business Search", "u": "https://wyobiz.wyo.gov/Business/FilingSearch.aspx" }]
+        "AL": [{ "n": "AG Charity Search", "u": "https://ago.alabama.gov/ConsumerLicense" }, { "n": "SOS Business Search", "u": "https://www.sos.alabama.gov/business-entities/search" }], "AK": [{ "n": "Dept. of Law Charity Search", "u": "https://www.law.alaska.gov/department/civil/consumer/charityreg_search.html" }, { "n": "Dept. of Commerce Business Search", "u": "https://www.commerce.alaska.gov/cbp/main/search/entities" }], "AZ": [{ "n": "SOS Charity Search", "u": "https://apps.azsos.gov/apps/tntp/se.html" }, { "n": "Corporation Commission Business Search", "u": "https://ecorp.azcc.gov/EntitySearch/Index" }], "AR": [{ "n": "SOS Charity Search", "u": "https://www.sos.arkansas.gov/business-commercial-services-bcs/charitable-entities/charity-search/" }, { "n": "SOS Business Search", "u": "https://www.sos.arkansas.gov/corps/search_all.php" }], "CA": [{ "n": "DOJ Charity Search", "u": "https://rct.doj.ca.gov/Verification/Web/Search.aspx?facility=Y" }, { "n": "SOS Business Search", "u": "https://bizfileonline.sos.ca.gov/search/business" }], "CO": [{ "n": "SOS Charity Search", "u": "https://www.sos.state.co.us/ccis/home.do" }, { "n": "SOS Business Search", "u": "https://www.sos.state.co.us/biz/BusinessEntityCriteria.do" }], "CT": [{ "n": "DCP License Lookup", "u": "https://www.elicense.ct.gov/Lookup/LicenseLookup.aspx" }, { "n": "SOS Business Search", "u": "https://service.ct.gov/business/s/onlinebusinesssearch" }], "DE": [{ "n": "Division of Corporations Search", "u": "https://icis.corp.delaware.gov/Ecorp/EntitySearch/NameSearch.aspx" }], "FL": [{ "n": "DACS Charity Search", "u": "https://csapp.fdacs.gov/cspublicapp/giftgiversquery/giftgiversquery.aspx" }, { "n": "SunBiz Business Search", "u": "http://dos.myflorida.com/sunbiz/search/" }], "GA": [{ "n": "SOS Charity Search", "u": "https://sos.ga.gov/charities-search" }, { "n": "SOS Business Search", "u": "https://ecorp.sos.ga.gov/BusinessSearch" }], "HI": [{ "n": "AG Charity Search", "u": "https://charities.ehawaii.gov/charity/search.html" }, { "n": "DCCA Business Search", "u": "https://hbe.ehawaii.gov/documents/search.html" }], "ID": [{ "n": "SOS Business Search", "u": "https://sosbiz.idaho.gov/search/business" }], "IL": [{ "n": "AG Charity Search", "u": "https://www.illinoisattorneygeneral.gov/charities/search/index.jsp" }, { "n": "SOS Business Search", "u": "https://apps.ilsos.gov/corporatellc/" }], "IN": [{ "n": "INBiz Business Search", "u": "https://inbiz.in.gov/BOS/Home/Search" }], "IA": [{ "n": "SOS Business Search", "u": "https://sos.iowa.gov/search/business/search.aspx" }], "KS": [{ "n": "SOS Charity Search", "u": "https://www.kssos.org/charities/search_charities.aspx" }, { "n": "SOS Business Search", "u": "https://www.kansas.gov/bess/flow/main?execution=e1s1" }], "KY": [{ "n": "AG Charity Search", "u": "https://ag.ky.gov/Priorities/Protecting-Kentuckians/charity/Pages/search.aspx" }, { "n": "SOS Business Search", "u": "https://web.sos.ky.gov/ftsearch/" }], "LA": [{ "n": "SOS Charity/Business Search", "u": "https://coraweb.sos.la.gov/CommercialSearch/CommercialSearch.aspx" }], "ME": [{ "n": "Dept. of Professional & Financial Regulation Search", "u": "https://www.pfr.maine.gov/almsonline/almsquery/welcome.aspx?board=4280" }, { "n": "SOS Business Search", "u": "https://apps1.web.maine.gov/cgi-bin/online/corporations/name_search.pl" }], "MD": [{ "n": "SOS Charity Search", "u": "https://sos.maryland.gov/charity/Pages/SearchCharity.aspx" }, { "n": "Dept. of Assessments and Taxation Business Search", "u": "https://egov.maryland.gov/businessexpress/entitysearch" }], "MA": [{ "n": "AG Charity Search", "u": "https://www.mass.gov/info-details/search-public-charities-filings" }, { "n": "SOS Business Search", "u": "https://corp.sec.state.ma.us/corpweb/corpsearch/corpsearch.aspx" }], "MI": [{ "n": "AG Charity Search", "u": "https://www.ag.state.mi.us/charitabletrust/frmDisclaimer.aspx" }, { "n": "LARA Business Search", "u": "https://cofs.lara.state.mi.us/SearchApi/Search/Search" }], "MN": [{ "n": "AG Charity Search", "u": "https://www.ag.state.mn.us/Charity/Search/" }, { "n": "SOS Business Search", "u": "https://mblsportal.sos.state.mn.us/Business/Search" }], "MS": [{ "n": "SOS Charity Search", "u": "https://charities.sos.ms.gov/online/portal/ch/page/charities-search/Portal.aspx" }, { "n": "SOS Business Search", "u": "https://corp.sos.ms.gov/corp/portal/c/page/corpbusinessidsearch/portal.aspx" }], "MO": [{ "n": "AG Charity Search", "u": "https://ago.mo.gov/civil-division/check-a-charity/search-charities" }, { "n": "SOS Business Search", "u": "https://bsd.sos.mo.gov/BusinessEntity/BESearch.aspx?SearchType=0" }], "MT": [{ "n": "SOS Business Search", "u": "https://biz.sosmt.gov/search/business" }], "NE": [{ "n": "SOS Business Search", "u": "https://www.nebraska.gov/sos/corp/corpsearch.cgi" }], "NV": [{ "n": "SOS Charity/Business Search", "u": "https://www.nvsos.gov/sos/businesses/search" }], "NH": [{ "n": "AG Registered Charities", "u": "https://www.doj.nh.gov/charitable-trusts/registered-charities.htm" }, { "n": "SOS Business Search", "u": "https://quickstart.sos.nh.gov/online/BusinessInquire" }], "NJ": [{ "n": "Division of Consumer Affairs Charity Search", "u": "https://charportal.dca.njoag.gov/Charity-Registration/CHR-Public-Search-Page/" }, { "n": "Dept. of Treasury Business Search", "u": "https://www.njportal.com/dor/businessnamesearch/" }], "NM": [{ "n": "AG Charity Search", "u": "https://www.nmag.gov/charities.aspx" }, { "n": "SOS Business Search", "u": "https://portal.sos.state.nm.us/BFS/online/CorporationBusinessSearch" }], "NY": [{ "n": "AG Charity Search", "u": "https://www.charitiesnys.com/RegistrySearch/search_charities.jsp" }, { "n": "Dept. of State Business Search", "u": "https://apps.dos.ny.gov/publicInquiry/" }], "NC": [{ "n": "SOS Charity Search", "u": "https://www.sosnc.gov/search/index/char" }, { "n": "SOS Business Search", "u": "https://www.sosnc.gov/search/index/corp" }], "ND": [{ "n": "SOS Charity/Business Search", "u": "https://firststop.sos.nd.gov/search/business" }], "OH": [{ "n": "AG Charity Search", "u": "https://charitableregistration.ohioattorneygeneral.gov/Charities/s/" }, { "n": "SOS Business Search", "u": "https://businesssearch.ohiosos.gov/" }], "OK": [{ "n": "SOS Charity/Business Search", "u": "https://www.sos.ok.gov/business/search.aspx" }], "OR": [{ "n": "DOJ Charity Search", "u": "https://www.doj.state.or.us/charitable-activities/charities-search/" }, { "n": "SOS Business Search", "u": "https://egov.sos.state.or.us/br/pkg_web_name_srch_inq.login" }], "PA": [{ "n": "Dept. of State Charity Search", "u": "https://www.charities.dos.pa.gov/SearchforCharities.aspx" }, { "n": "Dept. of State Business Search", "u": "https://www.corporations.pa.gov/search/bussearch" }], "RI": [{ "n": "Dept. of Business Regulation Search", "u": "https://dbr.ri.gov/public-records-search" }, { "n": "SOS Business Search", "u": "https://business.sos.ri.gov/CorpWeb/CorpSearch/CorpSearch.aspx" }], "SC": [{ "n": "SOS Charity Search", "u": "https://search.scsos.com/charities" }, { "n": "SOS Business Search", "u": "https://businessfilings.sc.gov/BusinessFiling/Entity/Search" }], "SD": [{ "n": "SOS Business Search", "u": "https://sosenterprise.sd.gov/BusinessServices/Business/FilingSearch.aspx" }], "TN": [{ "n": "SOS Charity Search", "u": "https://tncab.tnsos.gov/portal/registered-charities-search" }, { "n": "SOS Business Search", "u": "https://tnbear.tn.gov/Edison/Public/BusinessNameSearch" }], "TX": [{ "n": "SOS Business Search", "u": "https://direct.sos.state.tx.us/corp/lagmenu.asp" }], "UT": [{ "n": "Division of Consumer Protection Charity Search", "u": "https://db.dcp.utah.gov/registered.html" }, { "n": "Dept. of Commerce Business Search", "u": "https://secure.utah.gov/bes/" }], "VT": [{ "n": "SOS Business Search", "u": "https://bizfilings.vermont.gov/online/BusinessInquire/" }], "VA": [{ "n": "DACS Charity Search", "u": "https://cos.vdacs.virginia.gov/cgi-bin/char_search.cgi" }, { "n": "State Corporation Commission Business Search", "u": "https://cis.scc.virginia.gov/EntitySearch/Index" }], "WA": [{ "n": "SOS Charity Search", "u": "https://ccfs.sos.wa.gov/#/" }, { "n": "SOS Business Search", "u": "https://ccfs.sos.wa.gov/#/AdvancedSearch" }], "WV": [{ "n": "SOS Charity/Business Search", "u": "https://apps.wv.gov/SOS/BusinessEntitySearch/" }], "WI": [{ "n": "DFI Charity Search", "u": "https://apps.dfi.wi.gov/ice/berg/Registration/Search.aspx" }, { "n": "DFI Business Search", "u": "https://www.wdfi.org/apps/CorpSearch/Search.aspx" }], "WY": [{ "n": "SOS Business Search", "u": "https://wyobiz.wyo.gov/Business/FilingSearch.aspx" }]
       },
       "stateAnimalWelfareResources": {
         "AL": [{ "n": "Dept. of Agriculture and Industries - Animal Industries Division", "u": "http://www.agi.alabama.gov/divisions/animal-industries" }],
@@ -394,7 +301,7 @@
         "GA": [{ "n": "Dept. of Agriculture - Animal Industry Division", "u": "https://agr.georgia.gov/animal-industry" }],
         "HI": [{ "n": "Dept. of Agriculture - Animal Industry Division", "u": "https://hdoa.hawaii.gov/ai/" }],
         "ID": [{ "n": "State Dept. of Agriculture - Division of Animal Industries", "u": "https://agri.idaho.gov/main/animals/" }],
-        "IL": [{ "n": "Dept. of Agriculture - Bureau of Animal Health and Welfare", "u": "https://agr.illinois.gov/animals/animal-health-and-welfare.html" }],
+        "IL": [{ "n": "Dept. of Agriculture - Bureau of Animal Health and Welfare", "u": "https://agr.illinois.gov/animals/animalhealth.html" }],
         "IN": [{ "n": "State Board of Animal Health", "u": "https://www.in.gov/boah/" }],
         "IA": [{ "n": "Dept. of Agriculture and Land Stewardship - Animal Industry Bureau", "u": "https://iowaagriculture.gov/animal-industry-bureau" }],
         "KS": [{ "n": "Dept. of Agriculture - Division of Animal Health", "u": "https://agriculture.ks.gov/divisions-programs/division-of-animal-health" }],
@@ -415,7 +322,7 @@
         "NM": [{ "n": "Livestock Board", "u": "https://www.nmlbonline.com/" }],
         "NY": [{ "n": "Dept. of Agriculture and Markets - Division of Animal Industry", "u": "https://agriculture.ny.gov/animals" }],
         "NC": [{ "n": "Dept.of Agriculture & Consumer Services - Veterinary Division", "u": "https://www.ncagr.gov/vet/" }],
-        "ND": [{ "n": "Board of Animal Health", "u": "https://www.nd.gov/ndboa/" }],
+        "ND": [{ "n": "Board of Animal Health", "u": "https://www.ndda.nd.gov/divisions/animal-health/north-dakota-state-board-animal-health" }],
         "OH": [{ "n": "Dept. of Agriculture - Division of Animal Health", "u": "https://agri.ohio.gov/divisions/animal-health" }],
         "OK": [{ "n": "Dept. of Agriculture, Food and Forestry - Animal Industry Services", "u": "https://ag.ok.gov/divisions/animal-industry-services/" }],
         "OR": [{ "n": "Dept. of Agriculture - Animal Health and Identification", "u": "https://www.oregon.gov/oda/programs/animalhealth/pages/animalhealth.aspx" }],
@@ -437,71 +344,40 @@
     </script>
 
     <script type="module">
-        // Firebase Imports
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        // Import necessary auth methods
-        import { 
-            getAuth, 
-            onAuthStateChanged, 
-            signInAnonymously, // Keep for fallback if needed later, but not used for login screen
-            signInWithCustomToken, 
-            signOut,
-            signInWithEmailAndPassword,
-            createUserWithEmailAndPassword,
-            GoogleAuthProvider,
-            signInWithPopup
-        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, addDoc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, query, serverTimestamp, where, deleteField, arrayUnion, arrayRemove, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js"; 
-
         // --- App State & Config ---
         const App = {
             elements: {},
             data: {},
-            firebase: { 
-                db: null,
-                auth: null,
-                appId: 'default-app-id' // Default value
-            },
             state: {
                 currentView: 'osint-view',
-                userId: null,
                 currentChecklistData: null,
-                listUnsubscribe: null,
-                currentChecklistUnsubscribe: null,
-                confirmAction: null,
                 saveTimeout: null,
-                isAuthReady: false,
-                allUsersCache: {},
             },
 
             // --- INITIALIZATION ---
             init() {
-                setLogLevel('debug'); // Enable Firestore debug logging
-                console.log("App initializing...");
+                console.log("App initializing (Local Storage Mode)...");
                 this.cacheDOMElements();
                 this.bindMethods(); 
                 this.setupEventListeners();
                 this.initTheme();
-                this.initializeFirebase(); 
                 this.loadStateData();
+                this.listenForChecklists();
                 lucide.createIcons();
-                // Don't switch view here, wait for auth state
             },
 
              bindMethods() {
                 const methodsToBind = [
                     'loadStateData', 'populateStates', 'toggleTheme', 'switchView', 
                     'handleOsintSubmit', 'clearOsintResults', 'handleAccordionClick', 
-                    'startChecklistFromOsint', 'handleSignOut', 'renderChecklistForm', 
+                    'startChecklistFromOsint', 'renderChecklistForm', 
                     'showChecklistSubView', 'listenForChecklists', 'handleSaveChecklist', 
-                    'handleDeleteChecklist', 'handleManageSharing', 'handleAddMember', 
-                    'handleRemoveMember', 'filterAndRenderListView', 'updateDynamicToolLinks', 
+                    'handleDeleteChecklist', 'filterAndRenderListView', 'updateDynamicToolLinks', 
                     'addCategory', 'handleChecklistContainerClick', 'handleChecklistContainerInput', 
                     'handleChecklistContainerChange', 'closeModal', 'showStatus', 'renderListView', 
-                    'setupAuthListener', 'handleAutoSignIn', 'setSaveButtonState', 'buildChecklistUI',
-                    'updateChecklistPermissions', 'renderCategoryHTML', 'renderItemHTML',
-                    'openConfirmationModal', 'populateMembersList', 'openModal', 'initializeFirebase',
-                    'handleEmailLogin', 'handleEmailSignUp', 'handleGoogleSignIn' // Add new handlers
+                    'setSaveButtonState', 'buildChecklistUI',
+                    'renderCategoryHTML', 'renderItemHTML',
+                    'openConfirmationModal', 'openModal'
                 ];
                  methodsToBind.forEach(method => {
                     if (typeof this[method] === 'function') {
@@ -510,164 +386,6 @@
                         console.warn(`Method ${method} not found for binding.`);
                     }
                 });
-            },
-
-            initializeFirebase() {
-                 try {
-                    // --- Use the global __firebase_config provided by the runtime (FIXED) ---
-                    const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-
-                    // --- Use the appId from the config and sanitize it for firestore paths ---
-                    // Note: If __app_id is defined (Canvas environment), use that for the artifact path,
-                    // otherwise fall back to derivation from firebaseConfig, if available.
-                    const appId = typeof __app_id !== 'undefined' ? __app_id : (
-                                (firebaseConfig.appId && typeof firebaseConfig.appId === 'string') 
-                                ? firebaseConfig.appId.replace(/[^a-zA-Z0-9_-]/g, '_') 
-                                : 'default-app-id'
-                            );
-
-                    if (!firebaseConfig.apiKey || !firebaseConfig.projectId) {
-                        throw new Error("Firebase configuration is missing or invalid.");
-                    }
-                    console.log("[Firebase] Initializing Firebase with runtime config:", firebaseConfig); 
-                    const app = initializeApp(firebaseConfig);
-                    this.firebase.db = getFirestore(app);
-                    this.firebase.auth = getAuth(app);
-                    this.firebase.appId = appId; // Use the sanitized appId
-                    console.log("[Firebase] Firebase initialized successfully. Using App ID for paths:", this.firebase.appId);
-                    this.setupAuthListener();
-                } catch (error) {
-                    console.error("[Firebase] Initialization Failed:", error);
-                     if (this.elements.checklistAuthError) { 
-                         this.elements.checklistAuthError.textContent = `Error: Could not connect backend. ${error.message}`;
-                     }
-                     if (this.elements.loginErrorMessage) { // Show error on login screen too
-                         this.elements.loginErrorMessage.textContent = `Initialization Error: ${error.message}`;
-                         this.elements.loginErrorMessage.classList.remove('hidden');
-                     }
-                     // Show login screen with error, hide main content
-                     document.querySelectorAll('nav, .view-content, footer').forEach(el => el.classList.add('hidden'));
-                     if (this.elements.loginView) this.elements.loginView.classList.remove('hidden');
-                     if (this.elements.themeToggleLoggedOut) this.elements.themeToggleLoggedOut.classList.remove('hidden'); // Show basic theme toggle
-                     if (this.elements.userInfoHeader) this.elements.userInfoHeader.classList.add('hidden'); // Hide user info header
-                }
-            },
-
-            // --- MODIFIED AUTH LISTENER ---
-            setupAuthListener() {
-                console.log("[Auth] Setting up auth listener...");
-                 if (!this.firebase.auth) {
-                    console.error("[Auth] Firebase auth is not initialized. Cannot set up listener.");
-                    return;
-                 }
-                onAuthStateChanged(this.firebase.auth, async (user) => {
-                     console.log("[Auth] State changed. User:", user ? user.uid : 'null');
-
-                    if (user) {
-                        // USER IS SIGNED IN
-                        this.state.userId = user.uid;
-                        const displayName = user.isAnonymous ? 'Anonymous User' : (user.displayName || user.email || 'Authenticated User');
-                        const displayId = user.uid;
-
-                        // Update header user info
-                        if (this.elements.userNameHeader) this.elements.userNameHeader.textContent = displayName;
-                        if (this.elements.userIdHeader) this.elements.userIdHeader.textContent = `ID: ${displayId}`;
-                        if (this.elements.userInfoHeader) this.elements.userInfoHeader.classList.remove('hidden');
-                        if (this.elements.themeToggleLoggedOut) this.elements.themeToggleLoggedOut.classList.add('hidden'); // Hide basic theme toggle
-
-
-                        // Hide login screen
-                        if (this.elements.loginView) this.elements.loginView.classList.add('hidden');
-
-                        // Show main app content (tabs, current view, footer)
-                        document.querySelectorAll('nav, footer').forEach(el => el.classList.remove('hidden'));
-                        const currentViewElement = document.getElementById(this.state.currentView || 'osint-view');
-                        if (currentViewElement) currentViewElement.classList.remove('hidden');
-
-
-                        // --- Original logic below ---
-                        const userDocPath = `artifacts/${this.firebase.appId}/users/${user.uid}`;
-                        const userRef = doc(this.firebase.db, userDocPath);
-                        try {
-                           // Attempt to write user doc - might be needed for first login
-                           await setDoc(userRef, { 
-                               lastSeen: serverTimestamp(),
-                               displayName: displayName // Store display name for sharing lookup
-                           }, { merge: true });
-                           console.log(`[Firestore] User doc updated/created for ${user.uid}`);
-                        } catch (error) {
-                           console.warn("[Firestore] Could not update user doc:", error.message);
-                        }
-
-                        if (!this.state.isAuthReady) {
-                            this.state.isAuthReady = true;
-                            if(this.elements.checklistLoadingView) this.elements.checklistLoadingView.classList.add('hidden');
-                            if(this.elements.checklistMainContent) this.elements.checklistMainContent.classList.remove('hidden');
-                            this.showChecklistSubView('list'); // Default to list view on login
-                            this.listenForChecklists();
-                        } else {
-                            // If auth state changes while already logged in (e.g., token refresh), re-listen
-                            this.listenForChecklists();
-                        }
-                    } else {
-                        // --- NO USER IS SIGNED IN ---
-                        this.state.isAuthReady = false;
-                        this.state.userId = null;
-                        if (this.state.listUnsubscribe) {
-                            this.state.listUnsubscribe();
-                            this.state.listUnsubscribe = null;
-                        }
-                        if (this.state.currentChecklistUnsubscribe) {
-                            this.state.currentChecklistUnsubscribe();
-                            this.state.currentChecklistUnsubscribe = null;
-                        }
-
-                        // Hide main app content and user info header
-                        document.querySelectorAll('nav, .view-content, footer').forEach(el => {
-                            if (el.id !== 'login-view') el.classList.add('hidden');
-                        });
-                        if (this.elements.userInfoHeader) this.elements.userInfoHeader.classList.add('hidden');
-                        if (this.elements.themeToggleLoggedOut) this.elements.themeToggleLoggedOut.classList.remove('hidden'); // Show basic theme toggle
-
-
-                        // Show the login screen
-                        if (this.elements.loginView) this.elements.loginView.classList.remove('hidden');
-                        if (this.elements.loginErrorMessage) this.elements.loginErrorMessage.classList.add('hidden'); // Clear previous errors
-
-                        // Ensure checklist specific views are hidden
-                        if(this.elements.checklistLoadingView) this.elements.checklistLoadingView.classList.add('hidden');
-                        if(this.elements.checklistMainContent) this.elements.checklistMainContent.classList.add('hidden');
-
-                        // Attempt auto sign-in only if a token might be available
-                        this.handleAutoSignIn(); 
-                    }
-                });
-            },
-
-            // --- MODIFIED AUTO SIGN IN ---
-            async handleAutoSignIn() {
-                 console.log("[Auth] Attempting auto sign-in...");
-                 if (!this.firebase.auth) {
-                     console.error("[Auth] Cannot auto sign-in, auth not initialized.");
-                     return;
-                 }
-                try {
-                    const initialToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-                    if (initialToken) {
-                         console.log("[Auth] Using custom token for sign-in.");
-                        await signInWithCustomToken(this.firebase.auth, initialToken);
-                         // onAuthStateChanged will handle UI updates
-                    } else {
-                         console.log("[Auth] No custom token found. Waiting for user interaction on login screen.");
-                        // *** No automatic sign-in here - user needs to interact with the login form ***
-                    }
-                } catch (error) {
-                    console.error("[Auth] Custom token sign-in failed:", error);
-                     if(this.elements.loginErrorMessage) { // Show error on login screen
-                         this.elements.loginErrorMessage.textContent = `Auto Sign-in Error: ${error.message}`;
-                         this.elements.loginErrorMessage.classList.remove('hidden');
-                     }
-                }
             },
 
             loadStateData() {
@@ -698,24 +416,15 @@
                     'org-ein', 'location', 'domain-name', 'social-handle', 'state-select', 'results-container',
                     'placeholder', 'error-message', 'results-title', 'accordion-container', 'toast-container',
                     'skeleton-container', 'tab-osint', 'tab-checklist', 'osint-view', 'checklist-view',
-                    'checklist-loading-view', 'checklist-main-content', 'checklist-auth-error', 
-                    // User info moved to header
-                    'user-info-header', 'user-name-header', 'user-id-header', 'sign-out-btn-header', 'theme-toggle-logged-out',
-                    // Original user info (now unused, but keep refs just in case)
-                    'user-info', 'user-name', 'user-id', 'sign-out-btn',
+                    
                     'checklist-list-view', 'new-checklist-btn',
                     'checklist-search-input', 'no-checklists-message', 'saved-checklists-container',
                     'checklist-editor-view', 'back-to-list-btn', 'checklist-title', 'checklist-org-name-input',
                     'checklist-org-name-error', 'checklist-items-container', 'add-category-btn',
-                    'checklist-summary-notes', 'delete-checklist-btn', 'share-checklist-btn', 'save-checklist-btn',
+                    'checklist-summary-notes', 'delete-checklist-btn', 'save-checklist-btn',
                     'save-button-text', 'save-spinner', 'status-message', 'confirmation-modal', 'modal-title',
-                    'modal-message', 'modal-confirm-btn', 'manage-share-modal', 'add-member-form', 'add-member-id',
-                    'add-member-role', 'add-member-btn', 'share-status-message', 'share-members-list',
-                    'edit-modal', 'edit-modal-title', 'edit-modal-input', 'edit-modal-error', 'edit-modal-save-btn',
-                    'start-checklist-from-osint-btn',
-                    // Add new login elements
-                    'login-view', 'email-login-form', 'login-email', 'login-password', 
-                    'login-error-message', 'email-login-btn', 'email-signup-btn', 'google-signin-btn'
+                    'modal-message', 'modal-confirm-btn', 
+                    'start-checklist-from-osint-btn'
                 ];
                 ids.forEach(id => { 
                     const element = document.getElementById(id);
@@ -727,7 +436,6 @@
             setupEventListeners() {
                  console.log("[UI] Setting up event listeners...");
                 if (this.elements.themeToggle) this.elements.themeToggle.addEventListener('click', this.toggleTheme);
-                if (this.elements.themeToggleLoggedOut) this.elements.themeToggleLoggedOut.addEventListener('click', this.toggleTheme); // Listener for logged-out toggle
                 if (this.elements.tabOsint) this.elements.tabOsint.addEventListener('click', () => this.switchView('osint-view'));
                 if (this.elements.tabChecklist) this.elements.tabChecklist.addEventListener('click', () => this.switchView('checklist-view'));
 
@@ -736,34 +444,15 @@
                  if (this.elements.accordionContainer) this.elements.accordionContainer.addEventListener('click', this.handleAccordionClick);
                 if (this.elements.startChecklistFromOsintBtn) this.elements.startChecklistFromOsintBtn.addEventListener('click', this.startChecklistFromOsint);
 
-                // Sign out button in header
-                if (this.elements.signOutBtnHeader) this.elements.signOutBtnHeader.addEventListener('click', this.handleSignOut); 
-
-                // --- Login View Listeners ---
-                if (this.elements.emailLoginForm) this.elements.emailLoginForm.addEventListener('submit', this.handleEmailLogin);
-                if (this.elements.emailSignupBtn) this.elements.emailSignupBtn.addEventListener('click', this.handleEmailSignUp);
-                if (this.elements.googleSigninBtn) this.elements.googleSigninBtn.addEventListener('click', this.handleGoogleSignIn);
-
-                // --- Checklist Listeners (remain the same) ---
+                // --- Checklist Listeners ---
                 if (this.elements.newChecklistBtn) this.elements.newChecklistBtn.addEventListener('click', () => this.renderChecklistForm(null));
                 if (this.elements.backToListBtn) this.elements.backToListBtn.addEventListener('click', () => {
-                    if (this.state.currentChecklistUnsubscribe) {
-                        this.state.currentChecklistUnsubscribe();
-                        this.state.currentChecklistUnsubscribe = null; 
-                    }
                     this.showChecklistSubView('list');
                     this.listenForChecklists(); 
                 });
                 if (this.elements.saveChecklistBtn) this.elements.saveChecklistBtn.addEventListener('click', () => this.handleSaveChecklist(true));
                 if (this.elements.deleteChecklistBtn) this.elements.deleteChecklistBtn.addEventListener('click', this.handleDeleteChecklist);
-                if (this.elements.shareChecklistBtn) this.elements.shareChecklistBtn.addEventListener('click', this.handleManageSharing);
-                if (this.elements.addMemberForm) this.elements.addMemberForm.addEventListener('submit', this.handleAddMember);
-                 if (this.elements.shareMembersList) this.elements.shareMembersList.addEventListener('click', (e) => {
-                     if (e.target.closest('.remove-member-btn')) {
-                         const memberId = e.target.closest('.remove-member-btn').dataset.memberId;
-                         this.handleRemoveMember(memberId);
-                    }
-                });
+                
                 if (this.elements.checklistSearchInput) this.elements.checklistSearchInput.addEventListener('input', this.filterAndRenderListView);
                 if (this.elements.checklistOrgNameInput) this.elements.checklistOrgNameInput.addEventListener('input', () => {
                    if (this.elements.checklistTitle) this.elements.checklistTitle.textContent = this.elements.checklistOrgNameInput.value.trim() || "New Checklist";
@@ -812,26 +501,18 @@
 
              updateThemeIcons() {
                 const isDark = document.documentElement.classList.contains('dark');
-                // Update both potential theme toggles
-                 [this.elements.themeToggle, this.elements.themeToggleLoggedOut].forEach(toggle => {
-                    if (toggle) {
-                        const sunIcon = toggle.querySelector('[data-lucide="sun"]');
-                        const moonIcon = toggle.querySelector('[data-lucide="moon"]');
-                        if (sunIcon) sunIcon.style.display = isDark ? 'none' : 'block';
-                        if (moonIcon) moonIcon.style.display = isDark ? 'block' : 'none';
-                    }
-                 });
+                if (this.elements.themeToggle) {
+                    const sunIcon = this.elements.themeToggle.querySelector('[data-lucide="sun"]');
+                    const moonIcon = this.elements.themeToggle.querySelector('[data-lucide="moon"]');
+                    if (sunIcon) sunIcon.style.display = isDark ? 'none' : 'block';
+                    if (moonIcon) moonIcon.style.display = isDark ? 'block' : 'none';
+                }
             },
 
             switchView(viewId) {
-                 // Only switch if user is logged in (auth is ready and user exists)
-                 if (!this.state.isAuthReady || !this.state.userId) {
-                    console.log("[UI] Prevented view switch - user not logged in.");
-                    return; 
-                 }
                 this.state.currentView = viewId;
                 document.querySelectorAll('.view-content').forEach(el => {
-                    if (el.id !== 'login-view') el.classList.add('hidden'); // Ensure login view remains hidden
+                    el.classList.add('hidden');
                 });
                 const viewElement = document.getElementById(viewId);
                  if(viewElement) viewElement.classList.remove('hidden');
@@ -888,12 +569,6 @@
                     this.showToast("Please enter an organization name first.", "error");
                     return;
                 }
-                 // Ensure user is logged in before switching
-                 if (!this.state.isAuthReady || !this.state.userId) {
-                    this.showToast("Please sign in to use checklists.", "error");
-                     // Optionally, show login view or prompt
-                    return; 
-                 }
                 this.switchView('checklist-view');
                 this.renderChecklistForm(null, orgName);
             },
@@ -953,8 +628,6 @@
                     ]
                 });
 
-                // --- ENHANCED OSINT SECTIONS START HERE ---
-
                 // 5. Personnel & Affiliations
                 if (personName || orgName) {
                     sections.push({
@@ -1007,12 +680,9 @@
                         ]
                     });
                 }
-
-                // --- ENHANCED OSINT SECTIONS END HERE ---
                 
                 return sections;
             },
-
 
             renderOsintResults(orgName, sections) {
                 this.elements.resultsTitle.textContent = `Investigation for: "${orgName}"`;
@@ -1043,153 +713,64 @@
                  lucide.createIcons();
             },
 
-            // --- CHECKLIST APP LOGIC ---
+            // --- CHECKLIST APP LOGIC (LOCAL STORAGE) ---
 
             listenForChecklists() {
-                 if (!this.firebase.db) {
-                    console.error("[Firestore] Database not initialized. Cannot listen.");
-                    return;
-                }
-                if (this.state.listUnsubscribe) {
-                    console.log("[Firestore] Detaching previous checklist listener.");
-                    this.state.listUnsubscribe();
-                    this.state.listUnsubscribe = null;
-                }
-
-                // *** IMPORTANT: Now requires logged-in user ***
-                if (!this.state.isAuthReady || !this.state.userId) {
-                    console.warn("[Firestore] Auth not ready or user not logged in, cannot listen for checklists.");
-                    this.renderListView([]); // Clear list display
-                    if(this.elements.noChecklistsMessage) {
-                        this.elements.noChecklistsMessage.classList.remove('hidden'); 
-                        this.elements.noChecklistsMessage.innerHTML = `<div class="flex flex-col items-center"><i data-lucide="log-in" class="w-20 h-20 text-gray-400 mb-4"></i><p class="text-xl font-semibold">Please Sign In</p><p class="text-sm">Sign in to view or create checklists.</p></div>`;
+                // In local storage mode, we just read from localStorage
+                try {
+                    const savedData = localStorage.getItem('charity_recon_checklists');
+                    const checklists = savedData ? JSON.parse(savedData) : [];
+                    
+                    this.showChecklistSubView('list');
+                    this.renderListView(checklists); 
+                } catch (error) {
+                    console.error("Error reading checklists from localStorage:", error);
+                    if (this.elements.noChecklistsMessage) {
+                        this.elements.noChecklistsMessage.innerHTML = `<div class="flex flex-col items-center"><i data-lucide="alert-triangle" class="w-20 h-20 text-red-400 mb-4"></i><p class="text-xl font-semibold">Error Loading Checklists</p></div>`;
                         lucide.createIcons();
                     }
-                    if (this.elements.checklistLoadingView) this.elements.checklistLoadingView.classList.add('hidden'); // Hide loading spinner if shown
-                    if (this.elements.checklistMainContent) this.elements.checklistMainContent.classList.remove('hidden'); // Show main (which contains the message)
-                    return;
+                    this.renderListView([]);
                 }
-
-                // Show loading view while fetching
-                if (this.elements.checklistLoadingView) this.elements.checklistLoadingView.classList.remove('hidden');
-                if (this.elements.checklistMainContent) this.elements.checklistMainContent.classList.add('hidden');
-
-
-                console.log(`[Firestore] Setting up checklist listener for user: ${this.state.userId}`);
-                const checklistsCollectionPath = `artifacts/${this.firebase.appId}/checklists`;
-                console.log("[Firestore] Querying collection:", checklistsCollectionPath); 
-
-                const q = query(
-                     collection(this.firebase.db, checklistsCollectionPath), 
-                    where('memberIds', 'array-contains', this.state.userId)
-                    // Consider adding: orderBy('lastUpdated', 'desc') - Requires Index
-                );
-
-                this.state.listUnsubscribe = onSnapshot(q, (querySnapshot) => {
-                     console.log("[Firestore] Checklist snapshot received:", querySnapshot.docs.length, "docs");
-                    const checklists = [];
-                    querySnapshot.forEach((doc) => {
-                        checklists.push({ id: doc.id, ...doc.data() });
-                    });
-
-                     // Hide loading, show content AFTER data received
-                     if (this.elements.checklistLoadingView) this.elements.checklistLoadingView.classList.add('hidden');
-                     if (this.elements.checklistMainContent) this.elements.checklistMainContent.classList.remove('hidden');
-                     this.showChecklistSubView('list'); // Ensure list view is shown
-
-                    this.renderListView(checklists); 
-                     if (this.elements.statusMessage && this.elements.statusMessage.textContent.includes("Could not load")) {
-                        this.showStatus(this.elements.statusMessage, "", 'info', 0);
-                     }
-                }, (error) => {
-                    console.error("[Firestore] Error listening for checklists:", error);
-                     // *** IMPORTANT FIX: Ensure that the error message is clear about permission issues ***
-                     const displayMessage = `Missing or insufficient permissions. This may mean the required Firestore index is not created, or the security rules are preventing the LIST operation for your user ID (${this.state.userId}).`;
-
-                     const errorElement = this.elements.statusMessage || this.elements.checklistAuthError; 
-                     const displayError = (msg) => {
-                         if (errorElement) this.showStatus(errorElement, msg, 'error', null);
-                         if (this.elements.noChecklistsMessage) {
-                             this.elements.noChecklistsMessage.innerHTML = `<div class="flex flex-col items-center"><i data-lucide="alert-triangle" class="w-20 h-20 text-red-400 mb-4"></i><p class="text-xl font-semibold">Error Loading Checklists</p><p class="text-sm">${displayMessage}</p></div>`;
-                             lucide.createIcons();
-                         }
-                         if (this.elements.checklistLoadingView) this.elements.checklistLoadingView.classList.add('hidden'); // Hide loading on error
-                         if (this.elements.checklistMainContent) this.elements.checklistMainContent.classList.remove('hidden'); // Show main content (with error message)
-                         this.showChecklistSubView('list'); // Ensure list view is visible to show error
-                         this.renderListView([]); 
-                     };
-                    displayError(displayMessage);
-                });
             },
 
              renderChecklistForm(checklistId = null, prefilledOrgName = '') {
-                 if (!this.firebase.db) {
-                     console.error("[Firestore] Database not initialized. Cannot render form.");
-                     return;
-                 }
-                // --- Ensure user is logged in before allowing creation/edit ---
-                if (!this.state.isAuthReady || !this.state.userId) {
-                    this.showToast("Please sign in to manage checklists.", "error");
-                    this.switchView('osint-view'); // Switch back to OSINT or show login
-                    return;
-                }
-
-                if (this.state.listUnsubscribe) { 
-                     console.log("[Firestore] Detaching list listener to open editor.");
-                     this.state.listUnsubscribe();
-                     this.state.listUnsubscribe = null;
-                 }
-                if (this.state.currentChecklistUnsubscribe) { 
-                     console.log("[Firestore] Detaching existing editor listener.");
-                     this.state.currentChecklistUnsubscribe();
-                     this.state.currentChecklistUnsubscribe = null;
-                 }
-
-                 if (this.elements.checklistItemsContainer) this.elements.checklistItemsContainer.innerHTML = '';
+                if (this.elements.checklistItemsContainer) this.elements.checklistItemsContainer.innerHTML = '';
                 this.state.currentChecklistData = null;
-                 const checklistsCollectionPath = `artifacts/${this.firebase.appId}/checklists`; 
 
                 if (checklistId) {
-                     const docPath = `${checklistsCollectionPath}/${checklistId}`;
-                     console.log("[Firestore] Attaching listener to doc:", docPath);
-                    this.state.currentChecklistUnsubscribe = onSnapshot(doc(this.firebase.db, docPath), (doc) => {
-                         console.log("[Firestore] Single checklist snapshot received. Exists:", doc.exists());
-                        if (!doc.exists()) {
-                            this.showStatus(this.elements.statusMessage, "Checklist not found.", 'error');
-                            this.showChecklistSubView('list');
-                            this.listenForChecklists();
-                            return;
-                        }
+                    // Load from LocalStorage
+                    const savedData = localStorage.getItem('charity_recon_checklists');
+                    const checklists = savedData ? JSON.parse(savedData) : [];
+                    const data = checklists.find(c => c.id === checklistId);
 
-                        const data = { id: doc.id, ...doc.data() };
-                        const role = data.members ? data.members[this.state.userId] : null; 
-                        if (!role) {
-                             console.warn(`[Auth] User ${this.state.userId} not found in members of ${checklistId}`);
-                            this.showStatus(this.elements.statusMessage, "Access denied.", 'error');
-                            this.showChecklistSubView('list');
-                            this.listenForChecklists();
-                            return;
-                        }
-
-                        this.state.currentChecklistData = data;
-                        this.buildChecklistUI(data);
-                        this.updateChecklistPermissions(data, role);
-                    }, (error) => { 
-                        console.error("[Firestore] Error fetching checklist details:", error);
-                        this.showStatus(this.elements.statusMessage, "Error loading checklist details.", 'error');
+                    if (!data) {
+                        this.showStatus(this.elements.statusMessage, "Checklist not found.", 'error');
                         this.showChecklistSubView('list');
-                        this.listenForChecklists(); // Go back to list on error
-                    });
+                        return;
+                    }
+
+                    this.state.currentChecklistData = data;
+                    this.buildChecklistUI(data);
+                    
+                    // Update header fields
+                    if (this.elements.checklistOrgNameInput) this.elements.checklistOrgNameInput.value = data.orgName || '';
+                    if (this.elements.checklistTitle) this.elements.checklistTitle.textContent = data.orgName || 'New Checklist';
+                    if (this.elements.deleteChecklistBtn) this.elements.deleteChecklistBtn.classList.remove('hidden');
+
                 } else {
                      console.log("[App] Creating new checklist form data.");
                     this.state.currentChecklistData = {
                         id: null, orgName: prefilledOrgName,
                         categories: JSON.parse(JSON.stringify(this.getChecklistMasterTemplate())),
-                        summary: '', members: { [this.state.userId]: 'owner' },
-                        memberIds: [this.state.userId] 
+                        summary: '', 
+                        lastUpdated: new Date().toISOString()
                     };
                     this.buildChecklistUI(this.state.currentChecklistData);
-                    this.updateChecklistPermissions(this.state.currentChecklistData, 'owner');
+                    
+                    // Update header fields
+                    if (this.elements.checklistOrgNameInput) this.elements.checklistOrgNameInput.value = prefilledOrgName || '';
+                    if (this.elements.checklistTitle) this.elements.checklistTitle.textContent = prefilledOrgName || 'New Checklist';
+                    if (this.elements.deleteChecklistBtn) this.elements.deleteChecklistBtn.classList.add('hidden');
                 }
                 this.showChecklistSubView('editor');
             },
@@ -1207,46 +788,10 @@
                  lucide.createIcons();
             },
 
-            updateChecklistPermissions(data, role) {
-                const isViewer = role === 'viewer';
-                const isOwner = role === 'owner';
-
-                 if (this.elements.checklistOrgNameInput) this.elements.checklistOrgNameInput.value = data.orgName || '';
-                 if (this.elements.checklistTitle) this.elements.checklistTitle.textContent = data.orgName || 'New Checklist';
-
-                 if (this.elements.deleteChecklistBtn) this.elements.deleteChecklistBtn.classList.toggle('hidden', !isOwner || !data.id);
-                 if (this.elements.shareChecklistBtn) this.elements.shareChecklistBtn.classList.toggle('hidden', !isOwner || !data.id);
-                 if (this.elements.saveChecklistBtn) this.elements.saveChecklistBtn.classList.toggle('hidden', isViewer);
-                 if (this.elements.addCategoryBtn) this.elements.addCategoryBtn.classList.toggle('hidden', isViewer);
-
-                 if (this.elements.checklistOrgNameInput) this.elements.checklistOrgNameInput.disabled = isViewer;
-                 if (this.elements.checklistSummaryNotes) this.elements.checklistSummaryNotes.disabled = isViewer;
-
-                 if (this.elements.checklistItemsContainer) {
-                    this.elements.checklistItemsContainer.querySelectorAll('input:not([type="checkbox"]), textarea, button:not([data-action="toggle-category"])').forEach(el => {
-                        el.disabled = isViewer;
-                    });
-                     // Checkboxes should reflect state but might not be disabled depending on desired UX for viewers
-                     this.elements.checklistItemsContainer.querySelectorAll('input[type="checkbox"]').forEach(el => {
-                         el.disabled = isViewer; // Disable changing state for viewers
-                     });
-                     // Hide action buttons for viewers
-                     this.elements.checklistItemsContainer.querySelectorAll('.add-item-button').forEach(el => el.classList.toggle('hidden', isViewer));
-                }
-            },
-
             async handleSaveChecklist(force = false) {
                 clearTimeout(this.state.saveTimeout);
                 const saveAction = async () => {
-                    if (!this.state.userId || !this.state.currentChecklistData) {
-                        console.warn("[Firestore] Save attempted without user or data.");
-                        return;
-                     }
-                      if (!this.firebase.db) {
-                        console.error("[Firestore] Save failed: Database not initialized.");
-                        this.showStatus(this.elements.statusMessage, "Error: Database connection lost.", 'error');
-                        return;
-                    }
+                    if (!this.state.currentChecklistData) return;
 
                     const orgName = this.elements.checklistOrgNameInput.value.trim();
                     if (!orgName) {
@@ -1257,75 +802,38 @@
 
                     this.state.currentChecklistData.orgName = orgName;
                     this.state.currentChecklistData.summary = this.elements.checklistSummaryNotes.value;
-
-                    // Ensure members and memberIds are correctly set/updated
-                    const currentMembers = this.state.currentChecklistData.members || { [this.state.userId]: 'owner' };
-                    const memberIds = Object.keys(currentMembers);
-                     this.state.currentChecklistData.members = currentMembers; // Update local state
-                     this.state.currentChecklistData.memberIds = memberIds;   // Update local state
-
-
-                    const dataToSave = {
-                        orgName: this.state.currentChecklistData.orgName,
-                        categories: this.state.currentChecklistData.categories || [],
-                        summary: this.state.currentChecklistData.summary || '',
-                        members: currentMembers, // Use updated map
-                        memberIds: memberIds,    // Use updated array
-                        lastUpdated: serverTimestamp()
-                    };
-                     const checklistsCollectionPath = `artifacts/${this.firebase.appId}/checklists`; 
+                    this.state.currentChecklistData.lastUpdated = new Date().toISOString();
 
                     this.setSaveButtonState(true);
+                    
                     try {
-                        let docRef;
-                        let docPath;
+                        // Get all checklists
+                        const savedData = localStorage.getItem('charity_recon_checklists');
+                        let checklists = savedData ? JSON.parse(savedData) : [];
+
                         if (this.state.currentChecklistData.id) {
-                            // Update existing document
-                            docPath = `${checklistsCollectionPath}/${this.state.currentChecklistData.id}`;
-                            console.log("[Firestore] Updating existing checklist at:", docPath); 
-                            docRef = doc(this.firebase.db, docPath);
-                            await updateDoc(docRef, dataToSave);
+                            // Update existing
+                            const index = checklists.findIndex(c => c.id === this.state.currentChecklistData.id);
+                            if (index !== -1) {
+                                checklists[index] = this.state.currentChecklistData;
+                            } else {
+                                checklists.push(this.state.currentChecklistData);
+                            }
                         } else {
-                             // Create new document - Ensure initial owner/memberIds are set
-                            dataToSave.members = { [this.state.userId]: 'owner' };
-                            dataToSave.memberIds = [this.state.userId];
-                            console.log("[Firestore] Creating new checklist in:", checklistsCollectionPath, "with data:", dataToSave); 
-                            docRef = await addDoc(collection(this.firebase.db, checklistsCollectionPath), dataToSave);
-
-                            const newChecklistId = docRef.id;
-                            console.log("[Firestore] New checklist created with ID:", newChecklistId);
-
-                            // Critical: Update local state with the new ID and correct members info
-                            this.state.currentChecklistData.id = newChecklistId; 
-                            this.state.currentChecklistData.members = dataToSave.members; 
-                            this.state.currentChecklistData.memberIds = dataToSave.memberIds; 
-
-                            // Detach any previous listener (should be null, but safe check)
-                            if (this.state.currentChecklistUnsubscribe) this.state.currentChecklistUnsubscribe(); 
-
-                            // Attach listener to the newly created document
-                            const newDocPath = `${checklistsCollectionPath}/${newChecklistId}`;
-                            console.log("[Firestore] Attaching listener to newly created doc:", newDocPath);
-                            this.state.currentChecklistUnsubscribe = onSnapshot(doc(this.firebase.db, newDocPath), (/* updatedDoc */) => {
-                                // We might receive the initial write back, log it
-                                console.log(`[Firestore] Listener attached and received update for ${newChecklistId}`);
-                                // Re-render or update permissions if needed based on updatedDoc.data()
-                                // For now, just logging is fine as the main update happened locally.
-                            }, (error) => {
-                                console.error(`[Firestore] Error attaching listener to new checklist ${newChecklistId}:`, error);
-                            });
-
-                             // Update UI elements that depend on the ID (like share/delete buttons)
-                            this.updateChecklistPermissions(this.state.currentChecklistData, 'owner'); 
+                            // Create new
+                            const newId = `checklist_${Date.now()}`;
+                            this.state.currentChecklistData.id = newId;
+                            checklists.push(this.state.currentChecklistData);
+                            if (this.elements.deleteChecklistBtn) this.elements.deleteChecklistBtn.classList.remove('hidden');
                         }
+
+                        // Save back to localStorage
+                        localStorage.setItem('charity_recon_checklists', JSON.stringify(checklists));
+
                         this.showStatus(this.elements.statusMessage, "Checklist saved!", 'success');
                     } catch (error) {
-                        console.error("[Firestore] Error saving checklist: ", error);
-                         if (error.code === 'permission-denied') {
-                             this.showStatus(this.elements.statusMessage, "Permission denied. Check Firestore rules.", 'error', null);
-                        } else {
-                            this.showStatus(this.elements.statusMessage, `Error saving: ${error.message}`, 'error', null);
-                        }
+                        console.error("Error saving checklist: ", error);
+                        this.showStatus(this.elements.statusMessage, `Error saving: ${error.message}`, 'error', null);
                     } finally {
                         this.setSaveButtonState(false);
                     }
@@ -1334,105 +842,15 @@
                 else { this.state.saveTimeout = setTimeout(saveAction, 1500); }
             },
 
-            async handleAddMember(e) {
-                e.preventDefault();
-                 if (!this.firebase.db) return;
-                const newMemberId = this.elements.addMemberId.value.trim();
-                const role = this.elements.addMemberRole.value;
-                 if (!newMemberId || !this.state.currentChecklistData || !this.state.currentChecklistData.id) return;
-
-                 this.showStatus(this.elements.shareStatusMessage, "Adding member...", 'info', null);
-
-                try {
-                    if (this.state.currentChecklistData.members && this.state.currentChecklistData.members[newMemberId]) {
-                        throw new Error("User is already a member.");
-                    }
-
-                    const checklistsCollectionPath = `artifacts/${this.firebase.appId}/checklists`; 
-                    const checklistRef = doc(this.firebase.db, checklistsCollectionPath, this.state.currentChecklistData.id);
-
-                    // Firestore update using dot notation for map field and arrayUnion for array element
-                    await updateDoc(checklistRef, {
-                        [`members.${newMemberId}`]: role,         // Add to members map
-                        memberIds: arrayUnion(newMemberId)      // Add to memberIds array
-                    });
-
-                    // --- Update local state AFTER successful DB update ---
-                    if (!this.state.currentChecklistData.members) this.state.currentChecklistData.members = {};
-                    this.state.currentChecklistData.members[newMemberId] = role;
-                    if (!this.state.currentChecklistData.memberIds) this.state.currentChecklistData.memberIds = [];
-                    // Avoid duplicate adds locally if somehow already there
-                    if (!this.state.currentChecklistData.memberIds.includes(newMemberId)) {
-                        this.state.currentChecklistData.memberIds.push(newMemberId);
-                    }
-
-                    this.showStatus(this.elements.shareStatusMessage, "Member added!", 'success');
-                    this.elements.addMemberId.value = '';
-                    this.populateMembersList(); // Refresh the list in the modal
-                } catch (error) {
-                    console.error("Error adding member:", error);
-                     if (error.code === 'permission-denied') {
-                        this.showStatus(this.elements.shareStatusMessage, `Error: Permission denied. Only owners can add members.`, 'error');
-                     } else {
-                        this.showStatus(this.elements.shareStatusMessage, `Error adding member: ${error.message}`, 'error');
-                    }
-                }
-            },
-
-            async handleRemoveMember(memberId) {
-                 if (!this.firebase.db) return;
-                 if (!memberId || !this.state.currentChecklistData || !this.state.currentChecklistData.id || memberId === this.state.userId) return; 
-                 if (!this.state.currentChecklistData.members || this.state.currentChecklistData.members[this.state.userId] !== 'owner') {
-                     this.showStatus(this.elements.shareStatusMessage, "Only the owner can remove members.", 'error');
-                     return;
-                 }
-
-                 this.showStatus(this.elements.shareStatusMessage, "Removing member...", 'info', null);
-
-                 try {
-                     const checklistsCollectionPath = `artifacts/${this.firebase.appId}/checklists`; 
-                    const checklistRef = doc(this.firebase.db, checklistsCollectionPath, this.state.currentChecklistData.id);
-
-                    // Use deleteField for map key and arrayRemove for array element
-                    await updateDoc(checklistRef, {
-                        [`members.${memberId}`]: deleteField(), // Remove from members map
-                        memberIds: arrayRemove(memberId)      // Remove from memberIds array
-                    });
-
-                    // --- Update local state AFTER successful DB update ---
-                    if (this.state.currentChecklistData.members) {
-                        delete this.state.currentChecklistData.members[memberId];
-                    }
-                    if (this.state.currentChecklistData.memberIds) {
-                        this.state.currentChecklistData.memberIds = this.state.currentChecklistData.memberIds.filter(id => id !== memberId);
-                    }
-
-                    this.showStatus(this.elements.shareStatusMessage, "Member removed!", 'success');
-                    this.populateMembersList(); // Refresh the list in the modal
-                } catch (error) {
-                     console.error("Error removing member:", error);
-                      if (error.code === 'permission-denied') {
-                         this.showStatus(this.elements.shareStatusMessage, `Error: Permission denied. Only owners can remove members.`, 'error');
-                      } else {
-                         this.showStatus(this.elements.shareStatusMessage, `Error removing member: ${error.message}`, 'error');
-                     }
-                }
-            },
-
             renderListView(checklists) {
                 const container = this.elements.savedChecklistsContainer;
                  if (!container) return; 
                 container.innerHTML = '';
                  if(this.elements.noChecklistsMessage) {
                     this.elements.noChecklistsMessage.classList.toggle('hidden', checklists.length > 0);
-                     // Reset message content if it was an error
-                     if (this.elements.noChecklistsMessage.textContent.includes("Error") || this.elements.noChecklistsMessage.textContent.includes("Sign In")) {
-                         this.elements.noChecklistsMessage.innerHTML = `<div class="flex flex-col items-center"><i data-lucide="file-x" class="w-20 h-20 text-gray-400 mb-4"></i><p class="text-xl font-semibold">No Checklists Found</p><p class="text-sm">Click "Start New" to create one.</p></div>`;
-                        lucide.createIcons();
-                    }
                  }
 
-                const sortedChecklists = checklists.sort((a, b) => (b.lastUpdated?.toDate() || 0) - (a.lastUpdated?.toDate() || 0));
+                const sortedChecklists = checklists.sort((a, b) => new Date(b.lastUpdated) - new Date(a.lastUpdated));
 
                 sortedChecklists.forEach(list => {
                     const card = document.createElement('div');
@@ -1440,13 +858,12 @@
                     card.dataset.id = list.id;
                     card.addEventListener('click', () => this.renderChecklistForm(list.id));
 
-                    const lastUpdated = list.lastUpdated ? list.lastUpdated.toDate().toLocaleString() : 'N/A';
-                    const role = list.members && this.state.userId ? list.members[this.state.userId] : 'Unknown'; // Check userId exists
+                    const lastUpdated = list.lastUpdated ? new Date(list.lastUpdated).toLocaleString() : 'N/A';
 
                     card.innerHTML = `
                         <div class="flex justify-between items-start">
                             <h3 class="text-xl font-bold text-gray-800 dark:text-white truncate pr-4">${list.orgName || 'Untitled Checklist'}</h3>
-                            <span class="flex-shrink-0 text-xs font-semibold uppercase px-2 py-0.5 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">${role}</span>
+                            <span class="flex-shrink-0 text-xs font-semibold uppercase px-2 py-0.5 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">Local</span>
                         </div>
                         <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Last updated: ${lastUpdated}</p>
                     `;
@@ -1467,16 +884,10 @@
                     card.style.display = isVisible ? '' : 'none';
                     if (isVisible) visibleCount++;
                 });
-                 // Check if *any* cards exist, even if hidden by filter
+                 
                  const hasAnyCardsAtAll = this.elements.savedChecklistsContainer.children.length > 0;
-                 // Determine if the "no checklists" message should show
                  const shouldShowNoChecklists = !hasAnyCardsAtAll || (hasAnyCardsAtAll && visibleCount === 0);
-
-                // Only hide the message if it's NOT displaying an error/login prompt
-                if (!this.elements.noChecklistsMessage.textContent.includes("Error") && !this.elements.noChecklistsMessage.textContent.includes("Sign In")) {
-                    this.elements.noChecklistsMessage.classList.toggle('hidden', !shouldShowNoChecklists);
-                }
-
+                 this.elements.noChecklistsMessage.classList.toggle('hidden', !shouldShowNoChecklists);
              },
 
             renderCategoryHTML(category) {
@@ -1545,89 +956,6 @@
                 });
              },
 
-              handleSignOut() {
-                 if (!this.firebase.auth) return;
-                signOut(this.firebase.auth).then(() => {
-                    console.log("[Auth] Sign out successful.");
-                    // Clear local state immediately for faster UI update before onAuthStateChanged triggers
-                    this.state.isAuthReady = false;
-                    this.state.userId = null;
-                    if (this.state.listUnsubscribe) this.state.listUnsubscribe();
-                    if (this.state.currentChecklistUnsubscribe) this.state.currentChecklistUnsubscribe();
-                    this.state.listUnsubscribe = null;
-                    this.state.currentChecklistUnsubscribe = null;
-                    this.state.currentChecklistData = null;
-                    this.renderListView([]); // Clear UI immediately
-                    // onAuthStateChanged will handle showing the login screen
-                }).catch(error => console.error("[Auth] Sign out error", error));
-            },
-
-            // --- AUTH HANDLERS ---
-            handleEmailLogin(e) {
-                e.preventDefault();
-                if (!this.firebase.auth || !this.elements.loginEmail || !this.elements.loginPassword || !this.elements.loginErrorMessage) return;
-                const email = this.elements.loginEmail.value;
-                const password = this.elements.loginPassword.value;
-
-                // Show loading/disable button (optional)
-                this.elements.loginErrorMessage.classList.add('hidden'); // Hide previous errors
-
-                signInWithEmailAndPassword(this.firebase.auth, email, password)
-                    .then((userCredential) => {
-                        console.log("Email login successful:", userCredential.user.uid);
-                        // onAuthStateChanged will handle UI update
-                    })
-                    .catch((error) => {
-                        this.elements.loginErrorMessage.textContent = `Login Failed: ${error.message}`;
-                        this.elements.loginErrorMessage.classList.remove('hidden');
-                        // Re-enable button (optional)
-                    });
-            },
-
-            handleEmailSignUp(e) {
-                e.preventDefault();
-                 if (!this.firebase.auth || !this.elements.loginEmail || !this.elements.loginPassword || !this.elements.loginErrorMessage) return;
-                const email = this.elements.loginEmail.value;
-                const password = this.elements.loginPassword.value;
-
-                // Show loading/disable button (optional)
-                 this.elements.loginErrorMessage.classList.add('hidden'); // Hide previous errors
-
-                createUserWithEmailAndPassword(this.firebase.auth, email, password)
-                    .then((userCredential) => {
-                        console.log("Email sign-up successful:", userCredential.user.uid);
-                         // onAuthStateChanged will handle UI update
-                    })
-                    .catch((error) => {
-                         this.elements.loginErrorMessage.textContent = `Sign Up Failed: ${error.message}`;
-                        this.elements.loginErrorMessage.classList.remove('hidden');
-                         // Re-enable button (optional)
-                    });
-            },
-
-            handleGoogleSignIn() {
-                 if (!this.firebase.auth || !this.elements.loginErrorMessage) return;
-                const provider = new GoogleAuthProvider();
-                 this.elements.loginErrorMessage.classList.add('hidden'); // Hide previous errors
-
-                signInWithPopup(this.firebase.auth, provider)
-                    .then((result) => {
-                        console.log("Google login successful:", result.user.uid);
-                        // onAuthStateChanged will handle UI update
-                    })
-                    .catch((error) => {
-                         // Handle specific errors like popup blocked
-                         if (error.code === 'auth/popup-blocked') {
-                            this.elements.loginErrorMessage.textContent = 'Popup blocked by browser. Please allow popups for this site.';
-                        } else if (error.code === 'auth/popup-closed-by-user') {
-                             this.elements.loginErrorMessage.textContent = 'Sign-in window closed before completion.';
-                        } else {
-                            this.elements.loginErrorMessage.textContent = `Google Sign-In Error: ${error.message}`;
-                        }
-                        this.elements.loginErrorMessage.classList.remove('hidden');
-                    });
-            },
-
             // --- Checklist Handlers ---
              handleChecklistContainerClick(e) {
                 const target = e.target.closest('[data-action]');
@@ -1651,7 +979,6 @@
                 } else if (action === 'add-item' && categoryId) {
                     this.addItem(categoryId);
                 }
-                // Add handlers for edit/delete later if needed
             },
 
              handleChecklistContainerInput(e) {
@@ -1689,7 +1016,6 @@
                  const category = this.state.currentChecklistData.categories.find(c => c.id === categoryId);
                  if (!category) return;
 
-                 // Simple prompt for now, could use edit-modal later
                  const newItemText = prompt("Enter text for the new checklist item:", "New Item");
                  if (newItemText === null || newItemText.trim() === '') return; // User cancelled or entered empty
 
@@ -1697,11 +1023,11 @@
                  const newItem = { 
                      id: `item_${Date.now()}_${Math.random().toString(16).slice(2)}`, 
                      text: newItemText.trim(), 
-                     isCustom: true, // Assuming items added this way are custom
+                     isCustom: true, 
                      checked: false, 
                      notes: "" 
                  };
-                  if (!category.items) category.items = []; // Ensure items array exists
+                  if (!category.items) category.items = []; 
                  category.items.push(newItem);
                  this.buildChecklistUI(this.state.currentChecklistData); // Re-render the UI
                  this.handleSaveChecklist(true); // Force save
@@ -1709,134 +1035,45 @@
 
             addCategory() {
                 if (!this.state.currentChecklistData) return;
-                 // Simple prompt for now
                  const newCategoryName = prompt("Enter name for the new category:", "New Category");
                  if (newCategoryName === null || newCategoryName.trim() === '') return;
 
                 const newCategory = { 
                     id: `cat_${Date.now()}_${Math.random().toString(16).slice(2)}`, 
                     name: newCategoryName.trim(), 
-                    isCustom: true, // Assuming categories added this way are custom
+                    isCustom: true, 
                     items: [] 
                 };
-                 if (!this.state.currentChecklistData.categories) this.state.currentChecklistData.categories = []; // Ensure categories array exists
+                 if (!this.state.currentChecklistData.categories) this.state.currentChecklistData.categories = []; 
                 this.state.currentChecklistData.categories.push(newCategory);
-                this.buildChecklistUI(this.state.currentChecklistData); // Re-render
-                this.handleSaveChecklist(true); // Force save
+                this.buildChecklistUI(this.state.currentChecklistData); 
+                this.handleSaveChecklist(true); 
             },
+
              handleDeleteChecklist() {
-                 if (!this.state.currentChecklistData?.id || !this.firebase.db) return;
-                  const checklistsCollectionPath = `artifacts/${this.firebase.appId}/checklists`; 
+                 if (!this.state.currentChecklistData?.id) return;
                  this.openConfirmationModal(
                      "Delete Checklist?",
                      `Are you sure you want to permanently delete the "${this.state.currentChecklistData.orgName || 'Untitled Checklist'}" checklist? This cannot be undone.`,
-                     async () => {
+                     () => {
                          try {
-                              const docPath = `${checklistsCollectionPath}/${this.state.currentChecklistData.id}`;
-                             await deleteDoc(doc(this.firebase.db, docPath));
-                             console.log(`[Firestore] Checklist ${this.state.currentChecklistData.id} deleted.`);
+                            const savedData = localStorage.getItem('charity_recon_checklists');
+                            let checklists = savedData ? JSON.parse(savedData) : [];
+                            checklists = checklists.filter(c => c.id !== this.state.currentChecklistData.id);
+                            localStorage.setItem('charity_recon_checklists', JSON.stringify(checklists));
 
                              // Clear current view and go back to list
                              this.state.currentChecklistData = null; 
-                             if (this.state.currentChecklistUnsubscribe) {
-                                 this.state.currentChecklistUnsubscribe();
-                                 this.state.currentChecklistUnsubscribe = null;
-                             }
                              this.showChecklistSubView('list');
                              this.listenForChecklists(); // Refresh list view
                          } catch (error) {
-                             console.error("[Firestore] Error deleting checklist:", error);
+                             console.error("Error deleting checklist:", error);
                              this.showStatus(this.elements.statusMessage, `Error deleting: ${error.message}`, 'error');
                          }
                      }
                  );
              },
-              handleManageSharing() {
-                 if (!this.state.currentChecklistData?.id) {
-                     this.showToast("Cannot share an unsaved checklist.", "error");
-                     return;
-                 }
-                 this.populateMembersList(); // Load current members into the modal
-                  if (this.elements.shareStatusMessage) this.elements.shareStatusMessage.textContent = ''; // Clear previous status
-                 this.openModal(this.elements.manageShareModal);
-             },
-
-             async populateMembersList() {
-                 if (!this.elements.shareMembersList || !this.state.currentChecklistData) return;
-                const listEl = this.elements.shareMembersList;
-                listEl.innerHTML = '<div class="text-center text-sm text-gray-500">Loading members...</div>'; // Loading state
-
-                const members = this.state.currentChecklistData.members || {};
-                const memberIds = Object.keys(members);
-
-                // Fetch display names if available
-                const userProfiles = await this.fetchUserProfiles(memberIds);
-
-                listEl.innerHTML = ''; // Clear loading/previous content
-
-                if (memberIds.length === 0) {
-                    listEl.innerHTML = '<div class="text-center text-sm text-gray-500">Only you have access.</div>';
-                    return;
-                }
-
-                memberIds.forEach((id) => {
-                    const role = members[id];
-                    const profile = userProfiles[id];
-                    const displayName = profile?.displayName || `User (${id.substring(0, 6)}...)`; // Fallback display name
-                    const isSelf = id === this.state.userId;
-                    const isOwner = role === 'owner';
-
-                    listEl.innerHTML += `
-                        <div class="flex items-center justify-between p-2 bg-gray-100 dark:bg-gray-700 rounded-md text-sm">
-                            <div class="flex flex-col">
-                                <span class="font-medium text-gray-800 dark:text-gray-200">${displayName} ${isSelf ? '(You)' : ''}</span>
-                                <span class="text-xs text-gray-500 dark:text-gray-400">${id}</span>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                               <span class="text-xs font-semibold uppercase px-2 py-0.5 rounded bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-200">${role}</span>
-                               ${(!isOwner && this.state.currentChecklistData.members[this.state.userId] === 'owner') ? 
-                               `<button class="remove-member-btn p-1 rounded-full text-red-500 hover:bg-red-100 dark:hover:bg-red-900/50" data-member-id="${id}" aria-label="Remove member ${displayName}">
-                                   <i data-lucide="x-circle" class="w-4 h-4"></i>
-                                </button>` : ''}
-                            </div>
-                         </div>`;
-                 });
-                 lucide.createIcons(); // Re-render icons after adding HTML
-             },
-
-             async fetchUserProfiles(userIds) {
-                 if (!this.firebase.db || userIds.length === 0) return {};
-                 const profiles = {};
-                 const idsToFetch = userIds.filter(id => !this.state.allUsersCache[id]); // Fetch only if not cached
-
-                 if (idsToFetch.length > 0) {
-                     const userDocPromises = idsToFetch.map(id => {
-                        const userDocPath = `artifacts/${this.firebase.appId}/users/${id}`;
-                        return getDoc(doc(this.firebase.db, userDocPath));
-                     });
-                     try {
-                        const userDocs = await Promise.all(userDocPromises);
-                        userDocs.forEach(doc => {
-                            if (doc.exists()) {
-                                this.state.allUsersCache[doc.id] = doc.data(); // Cache the data
-                            } else {
-                                 this.state.allUsersCache[doc.id] = null; // Cache null if doc doesn't exist
-                            }
-                        });
-                     } catch (error) {
-                         console.error("[Firestore] Error fetching user profiles:", error);
-                         // Don't block UI, just might show IDs instead of names
-                     }
-                 }
-
-                // Populate result from cache
-                userIds.forEach(id => {
-                    profiles[id] = this.state.allUsersCache[id]; 
-                });
-                return profiles;
-            },
-
-
+             
              openModal(modalElement) {
                 if(modalElement) modalElement.style.display = 'block';
              },
@@ -1980,7 +1217,6 @@
                         { id: "fed_irs_status", text: "IRS 501(c)(3) status verified?", link: "https://apps.irs.gov/app/eos/", linkText: "IRS Search", isCustom: false, checked: false, notes: "" },
                         { id: "fed_form_990", text: "IRS Form 990 accessible & reviewed?", link: "https://projects.propublica.org/nonprofits/search?q=", linkText: "ProPublica Search", isCustom: false, checked: false, notes: "" },
                         { id: "rep_bbb_rating", text: "Better Business Bureau (BBB) rating checked?", link: "https://www.bbb.org/search?find_text=", linkText: "BBB Search", isCustom: false, checked: false, notes: "" },
-                         // Added more detailed items based on your animal_checklist_app/index.html
                          { id: "fed_aphis_license", text: "APHIS license status verified (if applicable)?", link: "https://aphis.my.site.com/PublicSearchTool/s/", linkText: "APHIS Search", isCustom: false, checked: false, notes: "" },
                          { id: "state_charity_reg", text: "Registered with State Charity Officials?", link: "https://www.nasconet.org/resources/state-government/", linkText: "NASCO Directory", isCustom: false, checked: false, notes: "" },
                          { id: "state_local_licenses", text: "Necessary state/local animal shelter/rescue licenses obtained?", isCustom: false, checked: false, notes: "" }
@@ -1995,7 +1231,6 @@
                         { id: "op_medical_records", text: "Comprehensive medical records (vaccinations, spay/neuter) are provided with adoptions?", isCustom: false, checked: false, notes: "" }
                     ]},
                      { id: "cat_reputation_acc", name: "Reputation & Accountability", isCustom: false, items: [
-                        // BBB moved to federal/state section
                          { id: "rep_watchdog_sites", text: "Charity watchdog sites (e.g., Charity Navigator, GuideStar) reviewed?", link: "https://www.charitynavigator.org/", linkText: "Charity Navigator", isCustom: false, checked: false, notes: "" },
                          { id: "rep_news_archives", text: "News archives and search engines checked for significant negative press or legal issues?", isCustom: false, checked: false, notes: "" }
                     ]}
@@ -2031,7 +1266,7 @@
                          delete element._statusTimeout; 
                      }, duration);
                  } else {
-                      delete element._statusTimeout; // Ensure no timeout is pending if duration is null
+                      delete element._statusTimeout; 
                  }
             },
         };
@@ -2040,3 +1275,5 @@
     </script>
 </body>
 </html>
+
+
