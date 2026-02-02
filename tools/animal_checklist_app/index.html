@@ -69,33 +69,20 @@
 
     <main id="app-container" class="relative max-w-5xl mx-auto p-4 md:p-8">
         
-        <div class="absolute top-4 right-4 z-20 no-print">
+        <div class="absolute top-4 right-4 z-20 no-print flex items-center space-x-2">
+             <span class="text-xs font-semibold uppercase px-2 py-1 rounded bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Local Mode</span>
             <button id="dark-mode-toggle" class="p-2 rounded-full bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300 transition-colors" aria-label="Toggle dark mode">
                 <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
                 <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
             </button>
         </div>
         
-        <div id="loading-view" class="text-center py-20">
-             <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 mx-auto text-slate-400 dark:text-slate-500 animate-spin" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h5M4 12a8 8 0 018-8v0a8 8 0 018 8v0a8 8 0 01-8 8v0a8 8 0 01-8-8v0z" /></svg>
-             <p class="mt-4 text-lg font-semibold text-slate-600 dark:text-slate-400">Connecting to services...</p>
-             <p id="auth-error" class="mt-2 text-red-500 dark:text-red-400 text-sm"></p>
-        </div>
-
-
-        <div id="main-content" class="hidden">
-            <div id="user-info" class="mb-4 p-3 bg-sky-100 dark:bg-sky-900/50 border border-sky-200 dark:border-sky-800 text-sky-800 dark:text-sky-300 rounded-lg text-sm flex justify-between items-center">
-                <div>
-                    <p><strong>Welcome,</strong> <span id="user-name"></span></p>
-                    <p class="mt-1 text-xs text-sky-600 dark:text-sky-400">User ID: <span id="user-id"></span></p>
-                </div>
-                <button id="sign-out-btn" class="bg-sky-500 hover:bg-sky-600 text-white font-semibold py-2 px-4 rounded-lg shadow-sm transition-colors">Sign Out</button>
-            </div>
+        <div id="main-content">
             
             <section id="list-view">
                 <header class="mb-8 text-center">
                     <h1 class="text-4xl md:text-5xl font-bold text-slate-800 dark:text-slate-200">Rescue Compliance</h1>
-                    <p class="text-slate-500 dark:text-slate-400 mt-2 text-lg">Your cloud-synced checklists for ensuring animal welfare standards.</p>
+                    <p class="text-slate-500 dark:text-slate-400 mt-2 text-lg">Your locally saved checklists for ensuring animal welfare standards.</p>
                 </header>
 
                 <nav class="list-view-actions mb-6 flex flex-col sm:flex-row gap-3">
@@ -126,7 +113,7 @@
                 <div id="no-checklists-message" class="text-center py-16 bg-white dark:bg-slate-800 rounded-lg shadow-sm hidden">
                      <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 mx-auto text-slate-300 dark:text-slate-600 mb-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                     <p class="text-2xl font-semibold text-slate-700 dark:text-slate-300">No checklists found.</p>
-                    <p class="text-slate-500 dark:text-slate-400">Click "Start New" to begin. Checklists shared with you will appear here.</p>
+                    <p class="text-slate-500 dark:text-slate-400">Click "Start New" to begin.</p>
                 </div>
                 <div id="saved-checklists-container" class="space-y-4"></div>
             </section>
@@ -160,10 +147,6 @@
                         <span>Delete</span>
                     </button>
                     <div class="flex flex-col sm:flex-row sm:justify-end gap-3 flex-wrap">
-                         <button id="share-checklist-btn" class="w-full sm:w-auto bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 px-5 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 hidden">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-2.144M12 6a3 3 0 11-6 0 3 3 0 016 0zM4 9a3 3 0 013-3h1m-1 14v-2a3 3 0 013-3h4a3 3 0 013 3v2m-6 2h-2a3 3 0 01-3-3V9a3 3 0 013-3h2" /></svg>
-                            <span>Manage Access</span>
-                        </button>
                          <button id="copy-checklist-btn" class="w-full sm:w-auto bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 font-semibold py-3 px-5 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
                             <span>Copy as Text</span>
@@ -203,33 +186,6 @@
             </div>
         </div>
     </div>
-    <div id="manage-share-modal" class="modal">
-        <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 p-2 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-2.144M12 6a3 3 0 11-6 0 3 3 0 016 0zM4 9a3 3 0 013-3h1m-1 14v-2a3 3 0 013-3h4a3 3 0 013 3v2m-6 2h-2a3 3 0 01-3-3V9a3 3 0 013-3h2" /></svg>
-            <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-2 text-center">Manage Access</h3>
-            
-            <form id="add-member-form" class="mt-6 mb-6 space-y-3">
-                <p class="text-sm text-slate-600 dark:text-slate-400">Invite new member by their User ID:</p>
-                <div class="flex flex-col sm:flex-row sm:space-x-2 gap-3 sm:gap-0">
-                    <input type="text" id="add-member-id" class="flex-1 w-full p-3 border border-slate-300 dark:border-slate-600 dark:bg-slate-900 rounded-lg shadow-sm focus:ring-2 focus:ring-sky-500" placeholder="User ID" required>
-                    <select id="add-member-role" class="w-full sm:w-auto p-3 border border-slate-300 dark:border-slate-600 dark:bg-slate-900 rounded-lg shadow-sm focus:ring-2 focus:ring-sky-500">
-                        <option value="editor">Editor</option>
-                        <option value="viewer">Viewer</option>
-                    </select>
-                </div>
-                <button type="submit" id="add-member-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">Add Member</button>
-                <p id="share-status-message" class="text-center text-sm font-medium"></p>
-            </form>
-
-            <div class="border-t border-slate-200 dark:border-slate-700 pt-4">
-                <h4 class="text-lg font-semibold text-slate-700 dark:text-slate-300 mb-3">Current Members</h4>
-                <div id="share-members-list" class="space-y-2 max-h-48 overflow-y-auto">
-                    </div>
-            </div>
-
-            <button data-dismiss="modal" class="w-full mt-8 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition-colors">Close</button>
-        </div>
-    </div>
     <div id="edit-modal" class="modal">
         <div class="modal-content bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-lg">
             <h3 id="edit-modal-title" class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-4 text-center">Edit</h3>
@@ -243,21 +199,11 @@
         </div>
     </div>
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signInAnonymously, signInWithCustomToken, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, addDoc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, query, serverTimestamp, where, getDocs, deleteField, writeBatch } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        import { getStorage, ref, uploadBytes, deleteObject, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
-
         // --- App State ---
-        let db, auth, storage;
         let currentChecklistData = null;
-        let listUnsubscribe = null;
-        let currentChecklistUnsubscribe = null;
-        let userId = null;
-        let allUsersCache = {};
-        const ui = {};
         let confirmAction = null;
         let saveTimeout = null;
+        const ui = {};
         
         // --- Master Template for new checklists ---
         const checklistMasterTemplate = [
@@ -291,117 +237,30 @@
             cacheDOMElements();
             setupTheme();
             renderExternalTools();
-            initializeFirebase();
-        }
-        
-        function initializeFirebase() {
-             try {
-                // --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-                // User-provided Firebase config
-                // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-                const firebaseConfig = {
-                  apiKey: "AIzaSyCSLAD2acFHCmf8bkJwQx_puLcb-HARyJE",
-                  authDomain: "rescue-compliance-app.firebaseapp.com",
-                  projectId: "rescue-compliance-app",
-                  storageBucket: "rescue-compliance-app.firebasestorage.app",
-                  messagingSenderId: "354094080932",
-                  appId: "1:354094080932:web:7c9aeb9b0036e6542d5731",
-                  measurementId: "G-CL6TNFWL0L"
-                };
-                
-                // Check if the config is valid before initializing
-                if (!firebaseConfig.apiKey || !firebaseConfig.projectId) {
-                    throw new Error("Firebase configuration is missing or invalid.");
-                }
-                // --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
-                const app = initializeApp(firebaseConfig);
-                db = getFirestore(app);
-                auth = getAuth(app);
-                storage = getStorage(app);
-
-                // Attach event listeners only after successful initialization
-                attachEventListeners();
-                setupAuthListener();
-
-            } catch (error) {
-                console.error("Firebase Initialization Failed:", error);
-                ui.authError.textContent = `Error: Could not connect to backend services. ${error.message}`;
-                helpers.showView('loading'); // Stay on loading view with error
-            }
-        }
-
-        function setupAuthListener() {
-            onAuthStateChanged(auth, async (user) => {
-                if (user) {
-                    userId = user.uid;
-                    const isNewUser = user.metadata.creationTime === user.metadata.lastSignInTime;
-                    
-                    ui.userName.textContent = user.isAnonymous ? 'Anonymous User' : (user.displayName || 'Authenticated User');
-                    ui.userId.textContent = user.uid;
-                    
-                    // Save/update user profile in 'users' collection for sharing lookup
-                    if (!user.isAnonymous && isNewUser) {
-                        try {
-                            const userRef = doc(db, 'users', user.uid);
-                            await setDoc(userRef, { 
-                                displayName: user.displayName || `User ${user.uid.substring(0, 5)}`
-                            }, { merge: true });
-                        } catch (error) {
-                            console.error("Error saving user profile:", error);
-                        }
-                    }
-
-                    helpers.showView('main');
-                    listenForChecklists();
-                } else {
-                    // No user signed in, attempt to sign in automatically
-                    handleAutoSignIn();
-                }
-            });
-        }
-        
-        async function handleAutoSignIn() {
-            try {
-                // Try to get a token if it's injected (e.g., in a secure environment)
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
-                    // Fallback to anonymous sign-in for open access
-                    await signInAnonymously(auth);
-                }
-            } catch (error) {
-                console.error("Automatic sign-in failed:", error);
-                ui.authError.textContent = `Authentication failed: ${error.message}`;
-            }
+            // Directly load checklists from local storage
+            listenForChecklists();
         }
         
         function cacheDOMElements() {
             const ids = [
                 'app-container', 'list-view', 'checklist-view', 'new-checklist-btn', 'back-to-list-btn', 
-                'save-checklist-btn', 'delete-checklist-btn', 'share-checklist-btn', 'print-checklist-btn', 'copy-checklist-btn', 
+                'save-checklist-btn', 'delete-checklist-btn', 'print-checklist-btn', 'copy-checklist-btn', 
                 'add-category-btn', 'dark-mode-toggle', 'sun-icon', 'moon-icon', 'org-name-input', 'org-name-input-print-header', 
                 'org-name-error', 'checklist-items-container', 'checklist-title', 'saved-checklists-container', 'search-input', 
-                'no-checklists-message', 'status-message', 'user-info', 'confirmation-modal', 'main-content',
-                'modal-title', 'modal-message', 'modal-confirm-btn', 'manage-share-modal', 'share-members-list',
-                'add-member-form', 'add-member-id', 'add-member-role', 'add-member-btn', 'share-status-message',
-                'loading-view', 'edit-modal', 'edit-modal-title', 'edit-modal-label', 'edit-modal-input',
-                'edit-modal-error', 'edit-modal-save-btn', 'save-button-text', 'save-spinner', 'auth-error', 'sign-out-btn',
-                'external-tools-grid', 'user-id', 'user-name', 'info-modal', 'info-modal-title', 'info-modal-message'
+                'no-checklists-message', 'status-message', 'confirmation-modal', 'main-content',
+                'modal-title', 'modal-message', 'modal-confirm-btn',
+                'edit-modal', 'edit-modal-title', 'edit-modal-label', 'edit-modal-input',
+                'edit-modal-error', 'edit-modal-save-btn', 'save-button-text', 'save-spinner',
+                'external-tools-grid', 'info-modal', 'info-modal-title', 'info-modal-message'
             ];
             ids.forEach(id => { ui[id.replace(/-(\w)/g, (match, p1) => p1.toUpperCase())] = document.getElementById(id); });
         }
 
         function attachEventListeners() {
-            ui.signOutBtn.addEventListener('click', handleSignOut);
             ui.newChecklistBtn.addEventListener('click', () => renderChecklistForm(null));
             ui.backToListBtn.addEventListener('click', () => {
-                if (currentChecklistUnsubscribe) {
-                    currentChecklistUnsubscribe();
-                    currentChecklistUnsubscribe = null;
-                }
                 helpers.showSubView('list');
-                listenForChecklists(); // Re-attach list listener
+                listenForChecklists(); 
             });
             ui.saveChecklistBtn.addEventListener('click', () => handleSaveChecklist(true));
             ui.deleteChecklistBtn.addEventListener('click', handleDeleteChecklist);
@@ -410,15 +269,7 @@
                 window.print();
             });
             ui.copyChecklistBtn.addEventListener('click', handleCopyChecklistText);
-            ui.shareChecklistBtn.addEventListener('click', handleManageSharing);
-            ui.addMemberForm.addEventListener('submit', handleAddMember);
-            ui.shareMembersList.addEventListener('click', (e) => {
-                if (e.target.closest('.remove-member-btn')) {
-                    const memberId = e.target.closest('.remove-member-btn').dataset.memberId;
-                    handleRemoveMember(memberId);
-                }
-            });
-
+           
             ui.searchInput.addEventListener('input', filterAndRenderListView);
             ui.orgNameInput.addEventListener('input', () => {
                 ui.checklistTitle.textContent = ui.orgNameInput.value.trim() || "New Checklist";
@@ -446,36 +297,12 @@
                 const isDark = document.documentElement.classList.contains('dark');
                 helpers.applyTheme(isDark ? 'light' : 'dark');
             });
-        }
-        
-        async function handleSignOut() {
-            try {
-                const wasAnonymous = auth.currentUser.isAnonymous;
-                await signOut(auth);
-                
-                // After sign out, onAuthStateChanged will trigger the auto-sign-in logic.
-                if(wasAnonymous) {
-                    helpers.openInfoModal("Signed Out", "You have signed out of your anonymous session. Any checklists you created are now inaccessible unless they were shared with another user.");
-                }
-                
-                // Clear local state
-                userId = null;
-                if (listUnsubscribe) listUnsubscribe();
-                if (currentChecklistUnsubscribe) currentChecklistUnsubscribe();
-                renderListView([]);
-                helpers.showView('loading');
-
-            } catch (error) {
-                console.error("Sign-out error:", error);
-            }
+            
+            // Attach event listeners after theme setup
+            attachEventListeners();
         }
         
         const helpers = {
-            showView: (view) => {
-                ui.loadingView.classList.toggle('hidden', view !== 'loading');
-                ui.mainContent.classList.toggle('hidden', view !== 'main');
-                if (view === 'main') helpers.showSubView('list');
-            },
             showSubView: (subView) => {
                 ui.listView.classList.toggle('hidden', subView !== 'list');
                 ui.checklistView.classList.toggle('hidden', subView !== 'checklist');
@@ -574,41 +401,24 @@
             generateUniqueId: () => `id_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
         };
 
-        // --- Firestore Data Functions ---
+        // --- Data Functions (LocalStorage) ---
 
-        /**
-         * Listens for all checklists the current user is a member of.
-         * NOTE FOR DEVELOPERS: For this query to work, you MUST create a composite index in your
-         * Firestore database. The query fails silently without it. Go to your Firestore console,
-         * find the error message with a link to create the index, and create it.
-         * The index will be on the 'checklists' collection for the 'members' map field.
-         */
         function listenForChecklists() {
-            if (listUnsubscribe) listUnsubscribe();
-            if (!userId) return;
-
-            const q = query(
-                collection(db, 'checklists'),
-                where(`members.${userId}`, 'in', ['owner', 'editor', 'viewer'])
-            );
-            
-            listUnsubscribe = onSnapshot(q, (querySnapshot) => {
-                const checklists = [];
-                querySnapshot.forEach((doc) => {
-                    checklists.push({ id: doc.id, ...doc.data() });
-                });
+             try {
+                const savedData = localStorage.getItem('charity_recon_checklists_standalone');
+                const checklists = savedData ? JSON.parse(savedData) : [];
                 renderListView(checklists);
-            }, (error) => {
-                console.error("Error listening for checklists:", error);
-                helpers.showStatus(ui.statusMessage, "Could not load checklists. Check Firestore rules and indexes.", 'error');
-            });
+            } catch (error) {
+                console.error("Error reading checklists:", error);
+                renderListView([]);
+            }
         }
 
-        async function handleSaveChecklist(force = false) {
+        function handleSaveChecklist(force = false) {
             clearTimeout(saveTimeout);
 
-            const saveAction = async () => {
-                if (!userId || !currentChecklistData) return;
+            const saveAction = () => {
+                if (!currentChecklistData) return;
 
                 const orgName = ui.orgNameInput.value.trim();
                 if (!orgName) {
@@ -617,28 +427,32 @@
                 }
                 ui.orgNameError.classList.add('hidden');
 
-                // Update local data first
                 currentChecklistData.orgName = orgName;
-                
-                const dataToSave = {
-                    orgName: currentChecklistData.orgName,
-                    categories: currentChecklistData.categories,
-                    lastUpdated: serverTimestamp()
-                };
+                currentChecklistData.lastUpdated = new Date().toISOString();
 
                 helpers.setSaveButtonState(true);
 
                 try {
-                    let docRef;
+                     const savedData = localStorage.getItem('charity_recon_checklists_standalone');
+                    let checklists = savedData ? JSON.parse(savedData) : [];
+                    
                     if (currentChecklistData.id) {
-                        docRef = doc(db, 'checklists', currentChecklistData.id);
-                        await updateDoc(docRef, dataToSave);
+                         // Update
+                        const index = checklists.findIndex(c => c.id === currentChecklistData.id);
+                        if(index !== -1) {
+                            checklists[index] = currentChecklistData;
+                        } else {
+                             checklists.push(currentChecklistData);
+                        }
                     } else {
-                        dataToSave.members = { [userId]: 'owner' };
-                        const collectionRef = collection(db, 'checklists');
-                        docRef = await addDoc(collectionRef, dataToSave);
-                        renderChecklistForm(docRef.id); // Re-render with the new ID
+                         // Create
+                        currentChecklistData.id = helpers.generateUniqueId();
+                        checklists.push(currentChecklistData);
+                        renderChecklistForm(currentChecklistData.id); // Update UI with ID
                     }
+
+                    localStorage.setItem('charity_recon_checklists_standalone', JSON.stringify(checklists));
+                    
                     helpers.showStatus(ui.statusMessage, "Checklist saved!", 'success');
                 } catch (error) {
                     console.error("Error saving checklist: ", error);
@@ -649,28 +463,25 @@
             };
 
             if (force) {
-                await saveAction();
+                saveAction();
             } else {
                 saveTimeout = setTimeout(saveAction, 1500); // Debounce auto-save
             }
         }
 
-        async function handleDeleteChecklist() {
+        function handleDeleteChecklist() {
             if (!currentChecklistData?.id) return;
-            if (currentChecklistData.members[userId] !== 'owner') {
-                helpers.showStatus(ui.statusMessage, "Only the owner can delete this checklist.", 'error');
-                return;
-            }
 
             helpers.openConfirmationModal(
                 "Delete Checklist?",
-                `Are you sure you want to permanently delete the "${currentChecklistData.orgName}" checklist? This cannot be undone for any members.`,
-                async () => {
+                `Are you sure you want to permanently delete the "${currentChecklistData.orgName}" checklist? This cannot be undone.`,
+                () => {
                     try {
-                        const docRef = doc(db, 'checklists', currentChecklistData.id);
-                        await deleteDoc(docRef);
+                        const savedData = localStorage.getItem('charity_recon_checklists_standalone');
+                        let checklists = savedData ? JSON.parse(savedData) : [];
+                        checklists = checklists.filter(c => c.id !== currentChecklistData.id);
+                        localStorage.setItem('charity_recon_checklists_standalone', JSON.stringify(checklists));
                         
-                        if (currentChecklistUnsubscribe) currentChecklistUnsubscribe();
                         helpers.showSubView('list');
                         listenForChecklists();
                     } catch (error) {
@@ -681,124 +492,6 @@
             );
         }
 
-        async function handleManageSharing() {
-            if (!currentChecklistData?.id) return;
-            helpers.showStatus(ui.shareStatusMessage, "", 'info', 0);
-            ui.addMemberId.value = '';
-            await populateMembersList();
-            helpers.openModal(ui.manageShareModal);
-        }
-
-        async function populateMembersList() {
-            const listEl = ui.shareMembersList;
-            listEl.innerHTML = '<div class="text-center">Loading members...</div>';
-            
-            const memberIds = Object.keys(currentChecklistData.members);
-            await cacheUserProfiles(memberIds);
-
-            listEl.innerHTML = ''; 
-            
-            memberIds.forEach(id => {
-                const user = allUsersCache[id];
-                const role = currentChecklistData.members[id];
-                const isOwner = role === 'owner';
-                const isSelf = id === userId;
-
-                listEl.innerHTML += `
-                    <div class="flex items-center justify-between p-2 bg-slate-100 dark:bg-slate-700 rounded-md">
-                        <div>
-                            <p class="font-semibold text-sm text-slate-800 dark:text-slate-200">${user?.displayName || 'Anonymous User'} ${isSelf ? '(You)' : ''}</p>
-                            <p class="text-xs text-slate-500 dark:text-slate-400">ID: ${id}</p>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <span class="text-sm font-medium text-slate-600 dark:text-slate-300 capitalize">${role}</span>
-                            ${(!isOwner && currentChecklistData.members[userId] === 'owner') ? `
-                            <button class="remove-member-btn p-1.5 rounded-full hover:bg-red-100 dark:hover:bg-red-900/50" data-member-id="${id}" aria-label="Remove member">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" /></svg>
-                            </button>
-                            ` : ''}
-                        </div>
-                    </div>
-                `;
-            });
-        }
-        
-        async function cacheUserProfiles(userIds) {
-            const idsToFetch = userIds.filter(id => !allUsersCache[id]);
-            if (idsToFetch.length === 0) return;
-
-            try {
-                const userRefs = idsToFetch.map(id => doc(db, 'users', id));
-                const userDocs = await Promise.all(userRefs.map(ref => getDoc(ref)));
-                
-                userDocs.forEach(doc => {
-                    if (doc.exists()) {
-                        allUsersCache[doc.id] = doc.data();
-                    } else {
-                        // Cache a placeholder for users without a profile doc (e.g., anonymous users)
-                        allUsersCache[doc.id] = { displayName: 'Anonymous/Unknown User' }; 
-                    }
-                });
-            } catch (error) {
-                console.error("Error fetching user profiles:", error);
-            }
-        }
-        
-        async function handleAddMember(e) {
-            e.preventDefault();
-            const newMemberId = ui.addMemberId.value.trim();
-            const role = ui.addMemberRole.value;
-            if (!newMemberId) return;
-
-            helpers.showStatus(ui.shareStatusMessage, "Validating user...", 'info', null);
-
-            try {
-                if (currentChecklistData.members[newMemberId]) {
-                    throw new Error("User is already a member.");
-                }
-                
-                const checklistRef = doc(db, 'checklists', currentChecklistData.id);
-                await updateDoc(checklistRef, {
-                    [`members.${newMemberId}`]: role
-                });
-                
-                // Pre-fetch new user's profile for immediate UI update
-                await cacheUserProfiles([newMemberId]);
-                currentChecklistData.members[newMemberId] = role;
-                
-                helpers.showStatus(ui.shareStatusMessage, "Member added!", 'success');
-                ui.addMemberId.value = '';
-                await populateMembersList();
-
-            } catch (error) {
-                console.error("Error adding member:", error);
-                helpers.showStatus(ui.shareStatusMessage, `Error: ${error.message}`, 'error');
-            }
-        }
-        
-        async function handleRemoveMember(memberId) {
-            if (!memberId || memberId === userId) return; 
-            if (currentChecklistData.members[userId] !== 'owner') {
-                 helpers.showStatus(ui.shareStatusMessage, "Only the owner can remove members.", 'error');
-                return;
-            }
-
-            try {
-                const checklistRef = doc(db, 'checklists', currentChecklistData.id);
-                await updateDoc(checklistRef, {
-                    [`members.${memberId}`]: deleteField()
-                });
-
-                delete currentChecklistData.members[memberId];
-                helpers.showStatus(ui.shareStatusMessage, "Member removed!", 'success');
-                await populateMembersList();
-
-            } catch (error) {
-                console.error("Error removing member:", error);
-                helpers.showStatus(ui.shareStatusMessage, `Error: ${error.message}`, 'error');
-            }
-        }
-        
         // --- UI Rendering Functions ---
 
         function renderListView(checklists) {
@@ -806,7 +499,7 @@
             container.innerHTML = '';
             ui.noChecklistsMessage.classList.toggle('hidden', checklists.length > 0);
 
-            const sortedChecklists = checklists.sort((a, b) => (b.lastUpdated?.toDate() || 0) - (a.lastUpdated?.toDate() || 0));
+            const sortedChecklists = checklists.sort((a, b) => new Date(b.lastUpdated || 0) - new Date(a.lastUpdated || 0));
 
             sortedChecklists.forEach(list => {
                 const card = document.createElement('div');
@@ -814,13 +507,12 @@
                 card.dataset.id = list.id;
                 card.addEventListener('click', () => renderChecklistForm(list.id));
                 
-                const lastUpdated = list.lastUpdated ? list.lastUpdated.toDate().toLocaleString() : 'N/A';
-                const role = list.members[userId];
+                const lastUpdated = list.lastUpdated ? new Date(list.lastUpdated).toLocaleString() : 'N/A';
 
                 card.innerHTML = `
                     <div class="flex justify-between items-start">
                         <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 truncate pr-4">${list.orgName || 'Untitled Checklist'}</h3>
-                        <span class="flex-shrink-0 text-xs font-semibold uppercase px-2 py-0.5 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300">${role}</span>
+                        <span class="flex-shrink-0 text-xs font-semibold uppercase px-2 py-0.5 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Local</span>
                     </div>
                     <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Last updated: ${lastUpdated}</p>
                 `;
@@ -843,50 +535,40 @@
         }
 
         function renderChecklistForm(checklistId = null) {
-            if (listUnsubscribe) listUnsubscribe();
-            if (currentChecklistUnsubscribe) currentChecklistUnsubscribe();
-            
             ui.checklistItemsContainer.innerHTML = '';
             currentChecklistData = null;
 
             if (checklistId) {
-                currentChecklistUnsubscribe = onSnapshot(doc(db, 'checklists', checklistId), (doc) => {
-                    if (!doc.exists()) {
-                        console.error("Checklist not found or access denied.");
-                        helpers.showStatus(ui.statusMessage, "Checklist not found.", 'error');
-                        helpers.showSubView('list');
-                        listenForChecklists();
-                        return;
-                    }
-                    
-                    const data = { id: doc.id, ...doc.data() };
-                    const role = data.members[userId];
+                const savedData = localStorage.getItem('charity_recon_checklists_standalone');
+                const checklists = savedData ? JSON.parse(savedData) : [];
+                const data = checklists.find(c => c.id === checklistId);
 
-                    if (!role) {
-                        console.error("User does not have access to this checklist.");
-                        helpers.showStatus(ui.statusMessage, "Access denied.", 'error');
-                        helpers.showSubView('list');
-                        listenForChecklists();
-                        return;
-                    }
-                    
-                    currentChecklistData = data;
-                    buildChecklistUI(data);
-                    updateChecklistPermissions(data, role);
-                }, (error) => {
-                    console.error("Error listening to checklist:", error);
-                    helpers.showStatus(ui.statusMessage, "Error loading checklist.", 'error');
-                });
+                if (!data) {
+                    helpers.showStatus(ui.statusMessage, "Checklist not found.", 'error');
+                    helpers.showSubView('list');
+                    return;
+                }
+                
+                currentChecklistData = data;
+                buildChecklistUI(data);
+                
+                ui.orgNameInput.value = data.orgName || '';
+                ui.orgNameInputPrintHeader.textContent = data.orgName || "New Checklist";
+                ui.checklistTitle.textContent = data.orgName || 'New Checklist';
+                ui.deleteChecklistBtn.classList.remove('hidden');
 
             } else {
                 currentChecklistData = {
                     id: null,
                     orgName: '',
-                    categories: JSON.parse(JSON.stringify(checklistMasterTemplate)),
-                    members: { [userId]: 'owner' }
+                    categories: JSON.parse(JSON.stringify(checklistMasterTemplate))
                 };
                 buildChecklistUI(currentChecklistData);
-                updateChecklistPermissions(currentChecklistData, 'owner');
+                
+                ui.orgNameInput.value = '';
+                ui.orgNameInputPrintHeader.textContent = "New Checklist";
+                ui.checklistTitle.textContent = 'New Checklist';
+                ui.deleteChecklistBtn.classList.add('hidden');
             }
 
             helpers.showSubView('checklist');
@@ -899,27 +581,6 @@
                 categoryEl.innerHTML = renderCategory(category);
                 ui.checklistItemsContainer.appendChild(categoryEl.firstElementChild);
             });
-        }
-
-        function updateChecklistPermissions(data, role) {
-            const isViewer = role === 'viewer';
-            const isOwner = role === 'owner';
-            
-            ui.orgNameInput.value = data.orgName || '';
-            ui.orgNameInputPrintHeader.textContent = data.orgName || "New Checklist";
-            ui.checklistTitle.textContent = data.orgName || 'New Checklist';
-            
-            ui.deleteChecklistBtn.classList.toggle('hidden', !isOwner || !data.id);
-            ui.shareChecklistBtn.classList.toggle('hidden', !isOwner || !data.id);
-            ui.saveChecklistBtn.classList.toggle('hidden', isViewer);
-            ui.addCategoryBtn.classList.toggle('hidden', isViewer);
-            
-            ui.orgNameInput.disabled = isViewer;
-            ui.checklistItemsContainer.querySelectorAll('input, textarea, button').forEach(el => {
-                const isDisabled = isViewer && !el.closest('[data-action="open-tool-modal"]') && !el.closest('#copy-checklist-btn') && !el.closest('#print-checklist-btn');
-                el.disabled = isDisabled;
-            });
-            ui.checklistItemsContainer.querySelectorAll('.file-input-wrapper, .item-actions, .category-actions .delete-button, .category-actions .edit-button, .add-item-button').forEach(el => el.classList.toggle('hidden', isViewer));
         }
 
         function renderCategory(category) {
@@ -982,28 +643,7 @@
                     </div>
                     <div class="pl-10 mt-2 space-y-3">
                         <textarea class="notes-input w-full p-2 text-sm border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-md focus:ring-1 focus:ring-sky-500 focus:border-sky-500 transition-shadow" data-action="update-note" placeholder="Add notes...">${item.notes || ''}</textarea>
-                        <div class="attachment-section">
-                            <div class="attachment-list space-y-2">
-                                ${item.attachments?.map(att => renderAttachment(att)).join('') || ''}
-                            </div>
-                            <div class="attachment-actions mt-2">
-                                <label class="file-input-wrapper text-sm text-slate-600 dark:text-slate-400 hover:text-sky-600 dark:hover:text-sky-400 cursor-pointer">
-                                    + Add Attachment
-                                    <input type="file" class="hidden" data-action="add-attachment">
-                                </label>
-                                <span class="upload-status text-xs ml-2"></span>
-                            </div>
-                        </div>
                     </div>
-                </div>
-            `;
-        }
-        
-        function renderAttachment(attachment) {
-            return `
-                <div class="attachment-item flex items-center justify-between p-2 bg-slate-100 dark:bg-slate-700/70 rounded-md" data-filename="${attachment.fileName}">
-                    <a href="${attachment.url}" target="_blank" rel="noopener noreferrer" class="flex-1 truncate text-sm text-indigo-600 dark:text-indigo-400 hover:underline no-print-url" title="${attachment.fileName}">${attachment.fileName}</a>
-                    <button class="delete-attachment-btn p-1 rounded-full hover:bg-red-100 dark:hover:bg-red-900/50" data-action="delete-attachment" aria-label="Delete attachment"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></button>
                 </div>
             `;
         }
@@ -1057,12 +697,7 @@
                 'delete-category': () => deleteCategory(categoryId),
                 'add-item': () => addItem(categoryId),
                 'edit-item': () => editItem(categoryId, itemId),
-                'delete-item': () => deleteItem(categoryId, itemId),
-                'delete-attachment': () => {
-                    const attachmentEl = target.closest('.attachment-item');
-                    const fileName = attachmentEl?.dataset.filename;
-                    deleteAttachment(categoryId, itemId, fileName);
-                }
+                'delete-item': () => deleteItem(categoryId, itemId)
             };
 
             if (actions[action]) {
@@ -1101,12 +736,6 @@
                 if (item) {
                     item.checked = target.checked;
                     handleSaveChecklist(true); // Force save on check
-                }
-            } else if (action === 'add-attachment') {
-                const file = target.files[0];
-                if (file) {
-                    const uploadStatusEl = itemEl.querySelector('.upload-status');
-                    handleAttachmentUpload(file, categoryId, itemId, uploadStatusEl);
                 }
             }
         }
@@ -1193,76 +822,6 @@
             );
         }
         
-        async function handleAttachmentUpload(file, categoryId, itemId, uploadStatusElement) {
-            if (!file) return;
-
-            if (!currentChecklistData.id) {
-                helpers.showStatus(uploadStatusElement, "Saving checklist first...", 'info', null);
-                await handleSaveChecklist(true);
-                if (!currentChecklistData.id) {
-                    helpers.showStatus(uploadStatusElement, "Please enter an organization name before adding attachments.", 'error');
-                    return;
-                }
-            }
-
-            helpers.showStatus(uploadStatusElement, `Uploading...`, 'info', null);
-            
-            // Use a stable app ID, falling back to projectId if no specific one is injected
-            const appId = typeof __app_id !== 'undefined' ? __app_id : (auth.app.options.projectId || 'default-app-id');
-            const storagePath = `artifacts/${appId}/users/${userId}/checklists/${currentChecklistData.id}/${itemId}/${file.name}`;
-
-            try {
-                const storageRef = ref(storage, storagePath);
-                const snapshot = await uploadBytes(storageRef, file);
-                const downloadURL = await getDownloadURL(snapshot.ref);
-
-                const category = currentChecklistData.categories.find(c => c.id === categoryId);
-                const item = category?.items.find(i => i.id === itemId);
-
-                if (item) {
-                    if (!item.attachments) item.attachments = [];
-                    item.attachments.push({ fileName: file.name, url: downloadURL, type: file.type, size: file.size, path: storagePath });
-                    
-                    buildChecklistUI(currentChecklistData);
-                    await handleSaveChecklist(true);
-                    helpers.showStatus(uploadStatusElement, `Upload complete!`, 'success');
-                }
-            } catch (error) {
-                console.error("Error uploading attachment:", error);
-                helpers.showStatus(uploadStatusElement, `Upload failed.`, 'error');
-            }
-        }
-        
-        async function deleteAttachment(categoryId, itemId, fileName) {
-            const category = currentChecklistData.categories.find(c => c.id === categoryId);
-            const item = category?.items.find(i => i.id === itemId);
-            const attachment = item?.attachments.find(att => att.fileName === fileName);
-            if (!attachment) return;
-
-            helpers.openConfirmationModal("Delete Attachment?", `Are you sure you want to delete the file "${fileName}"?`,
-                async () => {
-                    try {
-                        const storageRef = ref(storage, attachment.path);
-                        await deleteObject(storageRef);
-                        
-                        item.attachments = item.attachments.filter(att => att.fileName !== fileName);
-                        buildChecklistUI(currentChecklistData);
-                        await handleSaveChecklist(true);
-                    } catch (error) {
-                        console.error("Error deleting attachment:", error);
-                        if (error.code === 'storage/object-not-found') {
-                           // File doesn't exist in storage, so just remove it from the list
-                           item.attachments = item.attachments.filter(att => att.fileName !== fileName);
-                           buildChecklistUI(currentChecklistData);
-                           await handleSaveChecklist(true);
-                        } else {
-                           helpers.showStatus(ui.statusMessage, `Error deleting file: ${error.message}`, 'error');
-                        }
-                    }
-                }
-            );
-        }
-        
         function handleCopyChecklistText() {
             if (!currentChecklistData) return;
             let text = `Checklist for: ${currentChecklistData.orgName}\n\n`;
@@ -1288,3 +847,5 @@
     </script>
 </body>
 </html>
+
+
