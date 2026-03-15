@@ -704,6 +704,24 @@ Use the expandable section below for direct links to your state’s:
 
 [↑ Back To Top](#contents)
 
+### Puerto Rico
+
+**Note: No specific charitable solicitation/registration requirement.** Non-profit organizations incorporate and file annual reports through the Department of State.
+
+-   [Puerto Rico Government Portal](https://www.pr.gov/)
+-   [Department of State - Registry of Corporations and Entities](https://www.estado.pr.gov/)
+    -   [Entity Search / Registro de Corporaciones y Entidades](https://rcp.estado.pr.gov/en/search)
+-   [Departamento de Asuntos del Consumidor (DACO)](https://www.daco.pr.gov/) – Primary agency for consumer protection, fraud/scams, and complaints (including charity-related issues)
+    -   Address: Centro Gubernamental Minillas, Ave. José De Diego Pda. 22, Torre Norte Piso 7, San Juan, PR 00940
+    -   Phone: (787) 722-7555
+    -   [File a Complaint (Querella) – Online Portal](https://serviciosenlinea.daco.pr.gov/)
+-   [Departamento de Justicia](https://www.justicia.pr.gov/) – Attorney General equivalent for investigations
+    -   [File Complaints / Querellas](https://www.justicia.pr.gov/querellas-2/)
+-   [Animal Welfare & Rescue Licensing](https://oeca.salud.pr.gov/) – Oficina Estatal para el Control de Animales (OECA)
+    -   Website: [oeca.salud.pr.gov](https://oeca.salud.pr.gov/)
+
+[↑ Back To Top](#contents)
+
 ### Rhode Island
 
 -   [Rhode Island State Website](https://www.ri.gov/)
