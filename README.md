@@ -33,7 +33,6 @@ In a hurry? Here are three essential steps to quickly vet an organization using 
    - [Local Requirements](#local-requirements)
 - [Resource Hub](#resource-hub)
    - [National Resources (U.S.)](#national-resources-us)
-   > **Note**: State & Territory-Specific Resources now include Puerto Rico (first U.S. territory covered).
    - [International Resources](INTERNATIONAL_RESOURCES.md)
 - [Advanced Investigation Tips](#advanced-investigation-tips)
 - [Glossary of Common Terms](#glossary-of-common-terms)
@@ -147,12 +146,12 @@ Animal rescues must comply with a web of federal, state, and local laws. Failure
 - **Zoning & Business Permits**: Local ordinances control where a physical shelter can operate and may require a business license.
 - **Animal Control Ordinances**: City or county laws dictate rules on the number of animals that can be kept, leash laws, and individual animal licensing.
 
-[↑ Back ToTop](#contents)
+[↑ Back To Top](#contents)
 
 ---
 
 ## Resource Hub
-Use these resources to conduct your research. The OSINT tab of the [Charity Recon Tool](https://elitegreyit67.github.io/Charity_Recon/tools/index.html) provides direct search links for many of these.
+Use these resources to conduct your research. The OSINT tab of the [Charity Recon Tool](https://elitegreyit67.github.io/Charity_Recon/tools/osint_app/index.html) provides direct search links for many of these.
 
 ### National Resources (U.S.)
 **Charity Databases & Watchdogs**:
@@ -169,6 +168,8 @@ Use these resources to conduct your research. The OSINT tab of the [Charity Reco
 - **FTC - Report Fraud**: [ReportFraud.ftc.gov](https://ReportFraud.ftc.gov) - For deceptive practices.
 - **FBI - Internet Crime Complaint Center (IC3)**: [https://ic3.gov](https://ic3.gov)
 - **NASCO - State Charity Officials**: [nasconet.org](https://nasconet.org) - Links to all state-level charity regulators.
+
+> **Note**: State & Territory-Specific Resources now include Puerto Rico (first U.S. territory covered).
 
 ### International Resources
 This guide is primarily U.S.-focused, but similar principles apply globally. For starting points for other countries, see our [International Resources Guide](INTERNATIONAL_RESOURCES.md).
@@ -197,7 +198,7 @@ This guide is primarily U.S.-focused, but similar principles apply globally. For
 - **Fiscal Sponsor**: A registered 501(c)(3) organization that provides financial and legal oversight to a non-exempt project or group, allowing them to solicit tax-deductible donations.
 - **No-Kill**: A philosophy where an animal shelter aims to save all healthy and treatable animals, typically defined as saving 90% or more of the animals that enter their care. This status should be backed by publicly available data.
 
-[↑ Back ToTop](#contents)
+[↑ Back To Top](#contents)
 
 ---
 
