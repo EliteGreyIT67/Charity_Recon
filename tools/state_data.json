@@ -1,0 +1,832 @@
+{
+  "states": {
+    "AL": "Alabama",
+    "AK": "Alaska",
+    "AZ": "Arizona",
+    "AR": "Arkansas",
+    "CA": "California",
+    "CO": "Colorado",
+    "CT": "Connecticut",
+    "DE": "Delaware",
+    "DC": "District of Columbia",
+    "FL": "Florida",
+    "GA": "Georgia",
+    "HI": "Hawaii",
+    "ID": "Idaho",
+    "IL": "Illinois",
+    "IN": "Indiana",
+    "IA": "Iowa",
+    "KS": "Kansas",
+    "KY": "Kentucky",
+    "LA": "Louisiana",
+    "ME": "Maine",
+    "MD": "Maryland",
+    "MA": "Massachusetts",
+    "MI": "Michigan",
+    "MN": "Minnesota",
+    "MS": "Mississippi",
+    "MO": "Missouri",
+    "MT": "Montana",
+    "NE": "Nebraska",
+    "NV": "Nevada",
+    "NH": "New Hampshire",
+    "NJ": "New Jersey",
+    "NM": "New Mexico",
+    "NY": "New York",
+    "NC": "North Carolina",
+    "ND": "North Dakota",
+    "OH": "Ohio",
+    "OK": "Oklahoma",
+    "OR": "Oregon",
+    "PA": "Pennsylvania",
+    "PR": "Puerto Rico",
+    "RI": "Rhode Island",
+    "SC": "South Carolina",
+    "SD": "South Dakota",
+    "TN": "Tennessee",
+    "TX": "Texas",
+    "UT": "Utah",
+    "VT": "Vermont",
+    "VA": "Virginia",
+    "WA": "Washington",
+    "WV": "West Virginia",
+    "WI": "Wisconsin",
+    "WY": "Wyoming"
+  },
+  "stateResources": {
+    "AK": [
+      {
+        "n": "Dept. of Law Charity Search",
+        "u": "https://www.law.alaska.gov/department/civil/consumer/charities_list.html"
+      },
+      {
+        "n": "Dept. of Commerce Business Search",
+        "u": "https://www.commerce.alaska.gov/cbp/main/search/entities"
+      }
+    ],
+    "AL": [
+      {
+        "n": "AG Charity Search",
+        "u": "https://www.alabamaag.gov/consumer-protection/charitable-organizations/"
+      },
+      {
+        "n": "SOS Business Search",
+        "u": "https://www.sos.alabama.gov/government-records/business-entity-records"
+      }
+    ],
+    "AR": [
+      {
+        "n": "SOS Charity Search",
+        "u": "https://www.sos.arkansas.gov/corps/charity/index.php"
+      },
+      {
+        "n": "SOS Business Search",
+        "u": "https://www.sos.arkansas.gov/corps/search_all.php"
+      }
+    ],
+    "AZ": [
+      {
+        "n": "AG Charity Search",
+        "u": "https://www.azag.gov/charities"
+      },
+      {
+        "n": "Corporation Commission Business Search",
+        "u": "https://ecorp.azcc.gov/entitysearch/index"
+      }
+    ],
+    "CA": [
+      {
+        "n": "DOJ Charity Search",
+        "u": "https://rct.doj.ca.gov/Verification/Web/Search.aspx?facility=Y"
+      },
+      {
+        "n": "SOS Business Search",
+        "u": "https://bizfileonline.sos.ca.gov/search/business"
+      }
+    ],
+    "CO": [
+      {
+        "n": "SOS Charity Search",
+        "u": "https://www.sos.state.co.us/pubs/charities/charitableHome.html"
+      },
+      {
+        "n": "SOS Business Search",
+        "u": "https://www.sos.state.co.us/biz/BusinessEntityCriteria.do"
+      }
+    ],
+    "CT": [
+      {
+        "n": "DCP License Lookup",
+        "u": "https://www.elicense.ct.gov/lookup/licenselookup.aspx"
+      },
+      {
+        "n": "SOS Business Search",
+        "u": "https://service.ct.gov/business/s/onlinebusinesssearch"
+      }
+    ],
+    "DC": [
+      {
+        "n": "OAG / Nonprofits & Consumer Protection",
+        "u": "https://oag.dc.gov/consumer-protection"
+      },
+      {
+        "n": "DLCP Business Entity Search",
+        "u": "https://corponline.dlcp.dc.gov/BizEntitySearch.aspx"
+      }
+    ],
+    "DE": [
+      {
+        "n": "Division of Corporations Search",
+        "u": "https://icis.corp.delaware.gov/Ecorp/EntitySearch/NameSearch.aspx"
+      }
+    ],
+    "FL": [
+      {
+        "n": "DACS Charity Search",
+        "u": "https://csapp.fdacs.gov/cspublicapp/giftgiversquery/giftgiversquery.aspx"
+      },
+      {
+        "n": "SunBiz Business Search",
+        "u": "http://dos.myflorida.com/sunbiz/search/"
+      }
+    ],
+    "GA": [
+      {
+        "n": "SOS Charity Search",
+        "u": "https://sos.ga.gov/charities-division-georgia-secretary-states-office"
+      },
+      {
+        "n": "SOS Business Search",
+        "u": "https://ecorp.sos.ga.gov/BusinessSearch"
+      }
+    ],
+    "HI": [
+      {
+        "n": "AG Charity Search",
+        "u": "https://charity.ehawaii.gov/charity/new-search.html"
+      },
+      {
+        "n": "DCCA Business Search",
+        "u": "https://hbe.ehawaii.gov/documents/search.html"
+      }
+    ],
+    "IA": [
+      {
+        "n": "SOS Business Search",
+        "u": "https://sos.iowa.gov/search/business/search.aspx"
+      }
+    ],
+    "ID": [
+      {
+        "n": "SOS Business Search",
+        "u": "https://sosbiz.idaho.gov/search/business"
+      }
+    ],
+    "IL": [
+      {
+        "n": "AG Charity Search",
+        "u": "https://charitable.illinoisattorneygeneral.gov/search"
+      },
+      {
+        "n": "SOS Business Search",
+        "u": "https://apps.ilsos.gov/corporatellc/"
+      }
+    ],
+    "IN": [
+      {
+        "n": "INBiz Business Search",
+        "u": "https://inbiz.in.gov/BOS/Home/Search"
+      }
+    ],
+    "KS": [
+      {
+        "n": "AG Charity Search",
+        "u": "https://ag.ks.gov/offices/charitable-gaming"
+      },
+      {
+        "n": "SOS Business Search",
+        "u": "https://www.kansas.gov/businesscenter/"
+      }
+    ],
+    "KY": [
+      {
+        "n": "AG Charity Search",
+        "u": "https://ag.ky.gov/Resources/Consumer-Resources/charity/Pages/default.aspx"
+      },
+      {
+        "n": "SOS Business Search",
+        "u": "https://web.sos.ky.gov/ftsearch/"
+      }
+    ],
+    "LA": [
+      {
+        "n": "SOS Charity/Business Search",
+        "u": "https://coraweb.sos.la.gov/CommercialSearch/CommercialSearch.aspx"
+      }
+    ],
+    "MA": [
+      {
+        "n": "AG Charity Search",
+        "u": "https://www.mass.gov/info-details/search-public-charities-filings"
+      },
+      {
+        "n": "SOS Business Search",
+        "u": "https://corp.sec.state.ma.us/corpweb/corpsearch/corpsearch.aspx"
+      }
+    ],
+    "MD": [
+      {
+        "n": "SOS Charity Search",
+        "u": "https://sos.maryland.gov/Charity/pages/default.aspx"
+      },
+      {
+        "n": "Dept. of Assessments and Taxation Business Search",
+        "u": "https://egov.maryland.gov/businessexpress/entitysearch"
+      }
+    ],
+    "ME": [
+      {
+        "n": "Dept. of Professional & Financial Regulation Search",
+        "u": "https://www.maine.gov/pfr/consumer/licensee-search"
+      },
+      {
+        "n": "SOS Business Search",
+        "u": "https://apps3.web.maine.gov/nei-sos-icrs/ICRS?MainPage=x"
+      }
+    ],
+    "MI": [
+      {
+        "n": "AG Charity Search",
+        "u": "https://www.ag.state.mi.us/charitabletrust/frmDisclaimer.aspx"
+      },
+      {
+        "n": "LARA Business Search",
+        "u": "https://cofs.lara.state.mi.us/SearchApi/Search/Search"
+      }
+    ],
+    "MN": [
+      {
+        "n": "AG Charity Search",
+        "u": "https://www.ag.state.mn.us/Charity/Search/"
+      },
+      {
+        "n": "SOS Business Search",
+        "u": "https://mblsportal.sos.state.mn.us/Business/Search"
+      }
+    ],
+    "MO": [
+      {
+        "n": "AG Charity Search",
+        "u": "https://ago.mo.gov/get-help/programs-services-from-a-z/charity/"
+      },
+      {
+        "n": "SOS Business Search",
+        "u": "https://bsd.sos.mo.gov/BusinessEntity/BESearch.aspx?SearchType=0"
+      }
+    ],
+    "MS": [
+      {
+        "n": "SOS Charity Search",
+        "u": "https://charities.sos.ms.gov/online/portal/ch/page/charities-search/portal.aspx"
+      },
+      {
+        "n": "SOS Business Search",
+        "u": "https://corp.sos.ms.gov/corp/portal/c/page/corpbusinessidsearch/portal.aspx"
+      }
+    ],
+    "MT": [
+      {
+        "n": "SOS Business Search",
+        "u": "https://biz.sosmt.gov/search/business"
+      }
+    ],
+    "NC": [
+      {
+        "n": "SOS Charity Search",
+        "u": "https://www.sosnc.gov/online_services/search/by_title/search_charities"
+      },
+      {
+        "n": "SOS Business Search",
+        "u": "https://www.sosnc.gov/online_services/search/by_title/search_Business_Registration"
+      }
+    ],
+    "ND": [
+      {
+        "n": "SOS Charity/Business Search",
+        "u": "https://firststop.sos.nd.gov/search"
+      }
+    ],
+    "NE": [
+      {
+        "n": "SOS Business Search",
+        "u": "https://www.nebraska.gov/sos/corp/corpsearch.cgi"
+      }
+    ],
+    "NH": [
+      {
+        "n": "AG Registered Charities",
+        "u": "https://www.doj.nh.gov/charitable-trusts/registered-charities.htm"
+      },
+      {
+        "n": "SOS Business Search",
+        "u": "https://quickstart.sos.nh.gov/online/BusinessInquire"
+      }
+    ],
+    "NJ": [
+      {
+        "n": "Division of Consumer Affairs Charity Search",
+        "u": "https://charportal.dca.njoag.gov/Charity-Registration/CHR-Public-Search-Page/"
+      },
+      {
+        "n": "Dept. of Treasury Business Search",
+        "u": "https://www.njportal.com/dor/businessnamesearch/"
+      }
+    ],
+    "NM": [
+      {
+        "n": "AG Charity Search",
+        "u": "https://nmag.gov/charities/"
+      },
+      {
+        "n": "SOS Business Search",
+        "u": "https://portal.sos.state.nm.us/BFS/online/CorporationBusinessSearch"
+      }
+    ],
+    "NV": [
+      {
+        "n": "SOS Charity/Business Search",
+        "u": "https://www.nvsos.gov/sos/businesses"
+      }
+    ],
+    "NY": [
+      {
+        "n": "AG Charity Search",
+        "u": "https://www.charitiesnys.com/RegistrySearch/search_charities.jsp"
+      },
+      {
+        "n": "Dept. of State Business Search",
+        "u": "https://apps.dos.ny.gov/publicInquiry/"
+      }
+    ],
+    "OH": [
+      {
+        "n": "AG Charity Search",
+        "u": "https://charitableregistration.ohioattorneygeneral.gov/"
+      },
+      {
+        "n": "SOS Business Search",
+        "u": "https://businesssearch.ohiosos.gov/"
+      }
+    ],
+    "OK": [
+      {
+        "n": "SOS Charity/Business Search",
+        "u": "https://www.sos.ok.gov/corp/corpInquiryFind.aspx"
+      }
+    ],
+    "OR": [
+      {
+        "n": "DOJ Charity Search",
+        "u": "https://www.doj.state.or.us/charitable-activities/"
+      },
+      {
+        "n": "SOS Business Search",
+        "u": "https://secure.sos.state.or.us/cbrmanager/"
+      }
+    ],
+    "PA": [
+      {
+        "n": "Dept. of State Charity Search",
+        "u": "https://file.dos.pa.gov/"
+      },
+      {
+        "n": "Dept. of State Business Search",
+        "u": "https://www.corporations.pa.gov/search/bussearch"
+      }
+    ],
+    "PR": [
+      {
+        "n": "Dept. of State Entity Search",
+        "u": "https://rcp.estado.pr.gov/en/search"
+      },
+      {
+        "n": "DACO Consumer Protection",
+        "u": "https://www.daco.pr.gov/"
+      }
+    ],
+    "RI": [
+      {
+        "n": "Dept. of Business Regulation Search",
+        "u": "https://dbr.ri.gov/public-records-request"
+      },
+      {
+        "n": "SOS Business Search",
+        "u": "https://business.sos.ri.gov/CorpWeb/CorpSearch/CorpSearch.aspx"
+      }
+    ],
+    "SC": [
+      {
+        "n": "SOS Charity Search",
+        "u": "https://search.scsos.com/charities"
+      },
+      {
+        "n": "SOS Business Search",
+        "u": "https://businessfilings.sc.gov/BusinessFiling/Entity/Search"
+      }
+    ],
+    "SD": [
+      {
+        "n": "SOS Business Search",
+        "u": "https://sosenterprise.sd.gov/BusinessServices/Business/FilingSearch.aspx"
+      }
+    ],
+    "TN": [
+      {
+        "n": "SOS Charity Search",
+        "u": "http://sos.tn.gov/charities/services/charitable-entity-search"
+      },
+      {
+        "n": "SOS Business Search",
+        "u": "https://sos.tn.gov/search"
+      }
+    ],
+    "TX": [
+      {
+        "n": "SOS Business Search",
+        "u": "https://direct.sos.state.tx.us/corp/sosda/index.shtml"
+      }
+    ],
+    "UT": [
+      {
+        "n": "Division of Consumer Protection Charity Search",
+        "u": "https://dcp.utah.gov/for-businesses/charities/"
+      },
+      {
+        "n": "Dept. of Commerce Business Search",
+        "u": "https://secure.utah.gov/bes/"
+      }
+    ],
+    "VA": [
+      {
+        "n": "DACS Charity Search",
+        "u": "https://cos.vdacs.virginia.gov/cgi-bin/char_search.cgi"
+      },
+      {
+        "n": "State Corporation Commission Business Search",
+        "u": "https://cis.scc.virginia.gov/EntitySearch/Index"
+      }
+    ],
+    "VT": [
+      {
+        "n": "SOS Business Search",
+        "u": "https://bizfilings.vermont.gov/online/BusinessInquire/"
+      }
+    ],
+    "WA": [
+      {
+        "n": "SOS Charity Search",
+        "u": "https://www.sos.wa.gov/corporations-charities/nonprofits-charities/charitable-organizations"
+      },
+      {
+        "n": "SOS Business Search",
+        "u": "https://www.sos.wa.gov/corporations-charities/"
+      }
+    ],
+    "WI": [
+      {
+        "n": "DFI Charity Search",
+        "u": "https://wdfi.org/apps/CharitySearch/Search.aspx"
+      },
+      {
+        "n": "DFI Business Search",
+        "u": "https://www.wdfi.org/apps/CorpSearch/Search.aspx"
+      }
+    ],
+    "WV": [
+      {
+        "n": "SOS Charity/Business Search",
+        "u": "https://apps.wv.gov/SOS/BusinessEntitySearch/"
+      }
+    ],
+    "WY": [
+      {
+        "n": "SOS Business Search",
+        "u": "https://wyobiz.wyo.gov/business/filingsearch.aspx"
+      }
+    ]
+  },
+  "stateAnimalWelfareResources": {
+    "AK": [
+      {
+        "n": "Dept. of Environmental Conservation - Office of the State Veterinarian",
+        "u": "https://dec.alaska.gov/eh/vet/"
+      }
+    ],
+    "AL": [
+      {
+        "n": "Dept. of Agriculture and Industries - Animal Industries Division",
+        "u": "https://agi.alabama.gov/animalindustries/"
+      }
+    ],
+    "AR": [
+      {
+        "n": "Dept. of Agriculture - Livestock and Poultry Commission",
+        "u": "https://www.agriculture.arkansas.gov/livestock-poultry/"
+      }
+    ],
+    "AZ": [
+      {
+        "n": "Dept. of Agriculture - Animal Services Division",
+        "u": "https://agriculture.az.gov/animals"
+      }
+    ],
+    "CA": [
+      {
+        "n": "Dept. of Food and Agriculture - Animal Health and Food Safety Services",
+        "u": "https://www.cdfa.ca.gov/ahfss/"
+      }
+    ],
+    "CO": [
+      {
+        "n": "Dept. of Agriculture - Animal Health Division",
+        "u": "https://ag.colorado.gov/animals"
+      }
+    ],
+    "CT": [
+      {
+        "n": "Dept. of Agriculture - State Animal Control",
+        "u": "https://portal.ct.gov/doag/regulatory/regulatory/animal-control-division"
+      }
+    ],
+    "DC": [
+      {
+        "n": "DC Department of Health (animal-related programs)",
+        "u": "https://dchealth.dc.gov/"
+      }
+    ],
+    "DE": [
+      {
+        "n": "Dept. of Agriculture - Poultry and Animal Health",
+        "u": "https://agriculture.delaware.gov/poultry-animal-health/"
+      }
+    ],
+    "FL": [
+      {
+        "n": "Dept. of Agriculture and Consumer Services - Division of Animal Industry",
+        "u": "https://www.fdacs.gov/Divisions-Offices/Animal-Industry"
+      }
+    ],
+    "GA": [
+      {
+        "n": "Dept. of Agriculture - Animal Industry Division",
+        "u": "https://agr.georgia.gov/animals"
+      }
+    ],
+    "HI": [
+      {
+        "n": "Dept. of Agriculture - Animal Industry Division",
+        "u": "https://hdoa.hawaii.gov/ai/"
+      }
+    ],
+    "IA": [
+      {
+        "n": "Dept. of Agriculture and Land Stewardship - Animal Industry Bureau",
+        "u": "https://iowaagriculture.gov/animal-industry-bureau"
+      }
+    ],
+    "ID": [
+      {
+        "n": "State Dept. of Agriculture - Division of Animal Industries",
+        "u": "https://agri.idaho.gov/main/animals/"
+      }
+    ],
+    "IL": [
+      {
+        "n": "Dept. of Agriculture - Bureau of Animal Health and Welfare",
+        "u": "https://agr.illinois.gov/animals/animalhealth.html"
+      }
+    ],
+    "IN": [
+      {
+        "n": "State Board of Animal Health",
+        "u": "https://www.in.gov/boah/"
+      }
+    ],
+    "KS": [
+      {
+        "n": "Dept. of Agriculture - Division of Animal Health",
+        "u": "https://agriculture.ks.gov/divisions-programs/division-of-animal-health"
+      }
+    ],
+    "KY": [
+      {
+        "n": "Dept. of Agriculture - Office of the State Veterinarian",
+        "u": "https://www.kyagr.com/statevet/"
+      }
+    ],
+    "LA": [
+      {
+        "n": "Dept. of Agriculture and Forestry - Animal Health & Food Safety",
+        "u": "https://www.ldaf.state.la.us/about/organization/ahfs"
+      }
+    ],
+    "MA": [
+      {
+        "n": "Dept. of Agricultural Resources - Division of Animal Health",
+        "u": "https://www.mass.gov/info-details/division-of-animal-health"
+      }
+    ],
+    "MD": [
+      {
+        "n": "Dept. of Agriculture - Animal Health",
+        "u": "https://mda.maryland.gov/animalhealth/Pages/default.aspx"
+      }
+    ],
+    "ME": [
+      {
+        "n": "Dept. of Agriculture, Conservation and Forestry - Division of Animal and Plant Health",
+        "u": "https://www.maine.gov/dacf/ahw/animal_health/"
+      }
+    ],
+    "MI": [
+      {
+        "n": "Dept. of Agriculture & Rural Development - Animal Industry Division",
+        "u": "https://www.michigan.gov/mdard/animals"
+      }
+    ],
+    "MN": [
+      {
+        "n": "Board of Animal Health",
+        "u": "https://www.bah.state.mn.us/"
+      }
+    ],
+    "MO": [
+      {
+        "n": "Dept. of Agriculture - Animal Health Division",
+        "u": "https://agriculture.mo.gov/animals/"
+      }
+    ],
+    "MS": [
+      {
+        "n": "Board of Animal Health",
+        "u": "https://www.mbah.ms.gov/"
+      }
+    ],
+    "MT": [
+      {
+        "n": "Dept. of Livestock - Animal Health & Food Safety Division",
+        "u": "https://liv.mt.gov/"
+      }
+    ],
+    "NC": [
+      {
+        "n": "Dept. of Agriculture & Consumer Services - Veterinary Division",
+        "u": "https://www.ncagr.gov/vet/"
+      }
+    ],
+    "ND": [
+      {
+        "n": "Board of Animal Health",
+        "u": "https://www.ndda.nd.gov/divisions/animal-health/north-dakota-state-board-animal-health"
+      }
+    ],
+    "NE": [
+      {
+        "n": "Dept. of Agriculture - Animal Health",
+        "u": "https://nda.nebraska.gov/animal"
+      }
+    ],
+    "NH": [
+      {
+        "n": "Dept. of Agriculture, Markets & Food - Division of Animal Industry",
+        "u": "https://www.agriculture.nh.gov/divisions/animal-industry/index.htm"
+      }
+    ],
+    "NJ": [
+      {
+        "n": "Dept. of Agriculture - Division of Animal Health",
+        "u": "https://www.nj.gov/agriculture/divisions/ah/"
+      }
+    ],
+    "NM": [
+      {
+        "n": "Livestock Board",
+        "u": "https://www.nmlbonline.com/"
+      }
+    ],
+    "NV": [
+      {
+        "n": "Dept. of Agriculture - Division of Animal Industry",
+        "u": "https://agri.nv.gov/animals/animal_home/"
+      }
+    ],
+    "NY": [
+      {
+        "n": "Dept. of Agriculture and Markets - Division of Animal Industry",
+        "u": "https://agriculture.ny.gov/animals"
+      }
+    ],
+    "OH": [
+      {
+        "n": "Dept. of Agriculture - Division of Animal Health",
+        "u": "https://agri.ohio.gov/divisions/animal-health"
+      }
+    ],
+    "OK": [
+      {
+        "n": "Dept. of Agriculture, Food and Forestry - Animal Industry Services",
+        "u": "https://ag.ok.gov/divisions/animal-industry-state-veterinarian/"
+      }
+    ],
+    "OR": [
+      {
+        "n": "Dept. of Agriculture - Animal Health and Identification",
+        "u": "https://www.oregon.gov/oda/animal-health-feeds-livestock-id/pages/default.aspx"
+      }
+    ],
+    "PA": [
+      {
+        "n": "Dept. of Agriculture - Bureau of Animal Health and Diagnostic Services",
+        "u": "https://www.agriculture.pa.gov/animals/health/Pages/default.aspx"
+      }
+    ],
+    "PR": [
+      {
+        "n": "Oficina Estatal para el Control de Animales (OECA)",
+        "u": "https://oeca.salud.pr.gov/"
+      }
+    ],
+    "RI": [
+      {
+        "n": "Dept. of Environmental Management - Division of Agriculture and Forest Environment",
+        "u": "https://dem.ri.gov/natural-resources-bureau/agriculture-and-forest-environment/agriculture/animal-health"
+      }
+    ],
+    "SC": [
+      {
+        "n": "Clemson University - Livestock Poultry Health",
+        "u": "https://www.clemson.edu/public/lph/"
+      }
+    ],
+    "SD": [
+      {
+        "n": "Animal Industry Board",
+        "u": "https://aib.sd.gov/"
+      }
+    ],
+    "TN": [
+      {
+        "n": "Dept. of Agriculture - Animal Health",
+        "u": "https://www.tn.gov/agriculture/animals.html"
+      }
+    ],
+    "TX": [
+      {
+        "n": "Animal Health Commission",
+        "u": "https://www.tahc.texas.gov/"
+      }
+    ],
+    "UT": [
+      {
+        "n": "Dept. of Agriculture and Food - Division of Animal Industry",
+        "u": "https://ag.utah.gov/animal-industry/"
+      }
+    ],
+    "VA": [
+      {
+        "n": "Dept. of Agriculture and Consumer Services - Animal and Food Industry Services",
+        "u": "https://www.vdacs.virginia.gov/animals.shtml"
+      }
+    ],
+    "VT": [
+      {
+        "n": "Agency of Agriculture, Food and Markets - Animal Health",
+        "u": "https://agriculture.vermont.gov/animal-health"
+      }
+    ],
+    "WA": [
+      {
+        "n": "State Dept. of Agriculture - Animal Health Program",
+        "u": "https://agr.wa.gov/departments/animals-livestock-and-pets/animal-health"
+      }
+    ],
+    "WI": [
+      {
+        "n": "Dept. of Agriculture, Trade and Consumer Protection - Division of Animal Health",
+        "u": "https://datcp.wi.gov/Pages/Programs_Services/Programs.aspx"
+      }
+    ],
+    "WV": [
+      {
+        "n": "Dept. of Agriculture - Animal Health",
+        "u": "https://agriculture.wv.gov/divisions/animal-health/"
+      }
+    ],
+    "WY": [
+      {
+        "n": "Livestock Board",
+        "u": "https://wlsb.state.wy.us/"
+      }
+    ]
+  }
+}

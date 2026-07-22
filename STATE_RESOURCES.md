@@ -1,7 +1,7 @@
 <a id="contents"></a>
 # State-Specific Resources for Animal Rescue Organizations
 
-*Last Updated: October 26, 2025*
+*Last Updated: July 22, 2026*
 
 *Government agency information, websites, and contact details can change. To ensure the accuracy of this valuable resource, consider periodically verifying the links and information provided below.*
 
@@ -53,6 +53,7 @@ Use the expandable section below for direct links to your state’s:
 - [Oklahoma](#oklahoma)
 - [Oregon](#oregon)
 - [Pennsylvania](#pennsylvania)
+- [Puerto Rico](#puerto-rico)
 - [Rhode Island](#rhode-island)
 - [South Carolina](#south-carolina)
 - [South Dakota](#south-dakota)

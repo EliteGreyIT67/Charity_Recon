@@ -1,0 +1,16 @@
+{
+  "name": "Charity Recon Tool",
+  "short_name": "Charity Recon",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4f46e5",
+  "description": "Integrated OSINT and compliance checklist tool for investigating nonprofit animal rescue organizations.",
+  "icons": [
+    {
+      "src": "osint_app/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
