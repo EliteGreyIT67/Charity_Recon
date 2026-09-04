@@ -70,7 +70,7 @@ Use the expandable section below for direct links to your state’s:
 
 ### Alabama
 
--   [Alabama State Website](https://www.alabama.gov/) <!-- needs verify: SSL issuer chain issue from audit client; likely fine in browsers -->
+-   [Alabama State Website](https://www.alabama.gov/) <!-- soft TLS: incomplete intermediate chain from audit client; -k returns 200 official alabama.gov -->
 -   [Alabama Attorney General's Office](https://www.alabamaag.gov/)
     -   Address: 501 Washington Avenue, Post Office Box 300152, Montgomery, AL 36130
     -   Phone: (334) 353-1765, (800) 392-5658
@@ -384,8 +384,8 @@ Use the expandable section below for direct links to your state’s:
 ### Maine
 
 -   [Maine State Website](https://www.maine.gov/)
--   [Department of Professional & Financial Regulation](https://www.pfr.maine.gov/ALMSOnline/Welcome.aspx) <!-- needs verify: cookie/redirect loop with some clients; works with cookies -->
-    -   [Search](https://www.pfr.maine.gov/ALMSOnline/ALMSQuery/Welcome.aspx) <!-- needs verify: cookie/redirect loop with some clients; works with cookies -->
+-   [Department of Professional & Financial Regulation](https://www.pfr.maine.gov/ALMSOnline/Welcome.aspx) <!-- verified: 200 with cookie jar; cookieless clients hit AspxAutoDetect redirect loop -->
+    -   [Search](https://www.pfr.maine.gov/ALMSOnline/ALMSQuery/Welcome.aspx) <!-- verified: 200 with cookie jar; cookieless clients hit AspxAutoDetect redirect loop -->
 -   [Department of the Attorney General](https://www.maine.gov/ag/index.shtml)
     -   [Consumer Protection: Charities and Public Benefit Corporations](https://www.maine.gov/ag/consumer/charities/index.shtml)
     -   Email: consumer.mediation@maine.gov
@@ -459,7 +459,7 @@ Use the expandable section below for direct links to your state’s:
     -   Address: 445 Minnesota Street, St. Paul, MN 55101-2130
     -   Phone: (651) 757-1496, (800) 657-3787
     -   [File a Complaint](https://www.ag.state.mn.us/Charity/FileAComplaint.asp)
--   [Business Entity Search](https://mblsportal.sos.state.mn.us/Business/Search) <!-- needs verify: TLS handshake failed from audit client; may work in browsers -->
+-   [Business Entity Search](https://mblsportal.sos.mn.gov/Business/Search) <!-- needs verify: soft TLS from audit client; canonical sos.mn.gov host; may work in browsers -->
 
 [↑ Back To Top](#contents)
 
@@ -838,7 +838,7 @@ Use the expandable section below for direct links to your state’s:
 -   [Virginia State Website](https://www.virginia.gov/)
 -   [Department of Agriculture and Consumer Services](https://www.vdacs.virginia.gov/)
     -   [Charitable Solicitation](https://www.vdacs.virginia.gov/food-charitable-solicitation.shtml)
-    -   [Charitable Organization Database](https://cos.vdacs.virginia.gov/) <!-- needs verify: VA COS char_search.cgi 404; root host live but dedicated search UI unconfirmed -->
+    -   [Charitable Organization Database (VDACS Evoke)](https://vdacs.evokeplatform.com/app/publicPortal)
     -   Address: 102 Governor Street, Richmond, Virginia 23219
     -   Phone: (804) 786-1343
     -   [Charitable Solicitation Complaint Form (PDF)](https://www.vdacs.virginia.gov/pdf/cscomplaint.pdf)

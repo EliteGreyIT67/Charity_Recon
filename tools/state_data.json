@@ -271,7 +271,7 @@
       },
       {
         "n": "SOS Business Search",
-        "u": "https://mblsportal.sos.state.mn.us/Business/Search"
+        "u": "https://mblsportal.sos.mn.gov/Business/Search"
       }
     ],
     "MO": [
@@ -468,8 +468,8 @@
     ],
     "VA": [
       {
-        "n": "DACS Charity Search",
-        "u": "https://cos.vdacs.virginia.gov/"
+        "n": "DACS Charity Search (VDACS Evoke)",
+        "u": "https://vdacs.evokeplatform.com/app/publicPortal"
       },
       {
         "n": "State Corporation Commission Business Search",
