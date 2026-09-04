@@ -296,7 +296,7 @@ Use the expandable section below for direct links to your state’s:
 -   [Department of Agriculture](https://agr.illinois.gov/)
     -   [Animal Health & Welfare](https://agr.illinois.gov/animals/animalhealth.html)
     -   [A-Z License List](https://agr.illinois.gov/licenses/a-z-license-list.html)
--   [Business Entity Search](https://apps.ilsos.gov/corporatellc/) <!-- needs verify: HTTP/2/timeout from audit client; may work in browsers -->
+-   [Business Entity Search](https://apps.ilsos.gov/businessentitysearch/) <!-- needs verify: timeout/TLS from audit client on apps.ilsos.gov; official search path; may work in browsers -->
 
 [↑ Back To Top](#contents)
 
@@ -442,7 +442,7 @@ Use the expandable section below for direct links to your state’s:
     -   Address: P. O. Box 30214, Lansing, MI 48909
     -   Phone: (517) 335-7571
     -   [File a Complaint](https://www.michigan.gov/consumerprotection/complaints)
-    -   [The Charitable Organizations and Solicitations Act](https://www.legislature.mi.gov/mileg.aspx?page=getobject&objectname=mcl-act-169-of-1975)
+    -   [The Charitable Organizations and Solicitations Act](https://www.legislature.mi.gov/Laws/MCL?objectName=MCL-ACT-169-OF-1975)
 -   [Department of Agriculture](https://www.michigan.gov/mdard)
     -   [Animal Health](https://www.michigan.gov/mdard/animals)
     -   [File a Complaint](https://www.michigan.gov/mdard/about/contact-mdard)
@@ -552,7 +552,7 @@ Use the expandable section below for direct links to your state’s:
     -   Email: charitabletrustsunit@doj.nh.gov
     -   [Consumer Complaints](https://www.doj.nh.gov/citizens/consumer-protection-antitrust-bureau/consumer-complaints)
 -   [Secretary of State](https://www.sos.nh.gov/)
-    -   [NH-SOS - Corporation](https://sos.nh.gov/corporation-ucc-securities/corporation/) <!-- needs verify: intermittent 503 from audit client -->
+    -   [NH-SOS - Corporation](https://www.sos.nh.gov/corporations-0)
 -   [Business Entity Search](https://quickstart.sos.nh.gov/online/BusinessInquire)
 
 [↑ Back To Top](#contents)

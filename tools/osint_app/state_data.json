@@ -172,7 +172,7 @@
       },
       {
         "n": "SOS Business Search",
-        "u": "https://apps.ilsos.gov/corporatellc/"
+        "u": "https://apps.ilsos.gov/businessentitysearch/"
       }
     ],
     "IN": [
@@ -250,7 +250,7 @@
       },
       {
         "n": "LARA Business Search",
-        "u": "https://cofs.lara.state.mi.us/SearchApi/Search/Search"
+        "u": "https://mibusinessregistry.lara.state.mi.us/search/business"
       }
     ],
     "MN": [
@@ -390,7 +390,7 @@
       },
       {
         "n": "Dept. of State Business Search",
-        "u": "https://www.corporations.pa.gov/search/bussearch"
+        "u": "https://file.dos.pa.gov/search/business"
       }
     ],
     "RI": [
@@ -588,7 +588,7 @@
     "KS": [
       {
         "n": "Dept. of Agriculture - Division of Animal Health",
-        "u": "https://agriculture.ks.gov/divisions-programs/division-of-animal-health"
+        "u": "https://www.agriculture.ks.gov/divisions-programs/division-of-animal-health"
       }
     ],
     "KY": [
