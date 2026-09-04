@@ -87,17 +87,17 @@
     "AZ": [
       {
         "n": "AG Charity Search",
-        "u": "https://www.azag.gov/charities"
+        "u": "https://azsos.gov/business/other-services/veterans-charities-organizations"
       },
       {
         "n": "Corporation Commission Business Search",
-        "u": "https://ecorp.azcc.gov/entitysearch/index"
+        "u": "https://arizonabusinesscenter.azcc.gov/EntitySearch/Index"
       }
     ],
     "CA": [
       {
         "n": "DOJ Charity Search",
-        "u": "https://rct.doj.ca.gov/Verification/Web/Search.aspx?facility=Y"
+        "u": "https://ca-rcf.evokeplatform.com/app/publicPortal/verification"
       },
       {
         "n": "SOS Business Search",
@@ -189,7 +189,7 @@
       },
       {
         "n": "SOS Business Search",
-        "u": "https://apps.ilsos.gov/corporatellc/"
+        "u": "https://apps.ilsos.gov/businessentitysearch/"
       }
     ],
     "IN": [
@@ -201,7 +201,7 @@
     "KS": [
       {
         "n": "AG Charity Search",
-        "u": "https://ag.ks.gov/offices/charitable-gaming"
+        "u": "https://www.ag.ks.gov/divisions/public-protection/resources/charitable-organization-registration-directory"
       },
       {
         "n": "SOS Business Search",
@@ -211,11 +211,11 @@
     "KY": [
       {
         "n": "AG Charity Search",
-        "u": "https://ag.ky.gov/Resources/Consumer-Resources/charity/Pages/default.aspx"
+        "u": "https://www.ag.ky.gov/Resources/Consumer-Resources/charity/Pages/default.aspx"
       },
       {
         "n": "SOS Business Search",
-        "u": "https://web.sos.ky.gov/ftsearch/"
+        "u": "https://sosbes.sos.ky.gov/BusSearchNProfile/search.aspx"
       }
     ],
     "LA": [
@@ -261,7 +261,7 @@
       },
       {
         "n": "LARA Business Search",
-        "u": "https://cofs.lara.state.mi.us/SearchApi/Search/Search"
+        "u": "https://mibusinessregistry.lara.state.mi.us/search/business"
       }
     ],
     "MN": [
@@ -345,11 +345,11 @@
     "NM": [
       {
         "n": "AG Charity Search",
-        "u": "https://nmag.gov/charities/"
+        "u": "https://nmdoj.gov/get-help/charities/"
       },
       {
         "n": "SOS Business Search",
-        "u": "https://portal.sos.state.nm.us/BFS/online/CorporationBusinessSearch"
+        "u": "https://enterprise.sos.nm.gov/"
       }
     ],
     "NV": [
@@ -401,7 +401,7 @@
       },
       {
         "n": "Dept. of State Business Search",
-        "u": "https://www.corporations.pa.gov/search/bussearch"
+        "u": "https://file.dos.pa.gov/search/business"
       }
     ],
     "PR": [
@@ -453,23 +453,23 @@
     "TX": [
       {
         "n": "SOS Business Search",
-        "u": "https://direct.sos.state.tx.us/corp/sosda/index.shtml"
+        "u": "https://www.sos.state.tx.us/corp/sosda/index.shtml"
       }
     ],
     "UT": [
       {
         "n": "Division of Consumer Protection Charity Search",
-        "u": "https://dcp.utah.gov/for-businesses/charities/"
+        "u": "https://commerce.utah.gov/dcp/for-businesses/charities/"
       },
       {
         "n": "Dept. of Commerce Business Search",
-        "u": "https://secure.utah.gov/bes/"
+        "u": "https://businessregistration.utah.gov/"
       }
     ],
     "VA": [
       {
         "n": "DACS Charity Search",
-        "u": "https://cos.vdacs.virginia.gov/cgi-bin/char_search.cgi"
+        "u": "https://cos.vdacs.virginia.gov/"
       },
       {
         "n": "State Corporation Commission Business Search",
@@ -495,11 +495,11 @@
     "WI": [
       {
         "n": "DFI Charity Search",
-        "u": "https://wdfi.org/apps/CharitySearch/Search.aspx"
+        "u": "https://apps.dfi.wi.gov/ice/berg/Registration/OrganizationCredentialSearch.aspx"
       },
       {
         "n": "DFI Business Search",
-        "u": "https://www.wdfi.org/apps/CorpSearch/Search.aspx"
+        "u": "https://apps.dfi.wi.gov/apps/corpsearch/search.aspx"
       }
     ],
     "WV": [
@@ -615,7 +615,7 @@
     "KS": [
       {
         "n": "Dept. of Agriculture - Division of Animal Health",
-        "u": "https://agriculture.ks.gov/divisions-programs/division-of-animal-health"
+        "u": "https://www.agriculture.ks.gov/divisions-programs/division-of-animal-health"
       }
     ],
     "KY": [
@@ -825,7 +825,7 @@
     "WY": [
       {
         "n": "Livestock Board",
-        "u": "https://wlsb.state.wy.us/"
+        "u": "https://wlsb.state.wy.us/public"
       }
     ]
   }
