@@ -1,7 +1,7 @@
 <a id="contents"></a>
 # State-Specific Resources for Animal Rescue Organizations
 
-*Last Updated: October 26, 2025*
+*Last Updated: September 4, 2026*
 
 *Government agency information, websites, and contact details can change. To ensure the accuracy of this valuable resource, consider periodically verifying the links and information provided below.*
 
@@ -69,7 +69,7 @@ Use the expandable section below for direct links to your state’s:
 
 ### Alabama
 
--   [Alabama State Website](https://www.alabama.gov/)
+-   [Alabama State Website](https://www.alabama.gov/) <!-- needs verify: SSL issuer chain issue from audit client; likely fine in browsers -->
 -   [Alabama Attorney General's Office](https://www.alabamaag.gov/)
     -   Address: 501 Washington Avenue, Post Office Box 300152, Montgomery, AL 36130
     -   Phone: (334) 353-1765, (800) 392-5658
@@ -111,7 +111,7 @@ Use the expandable section below for direct links to your state’s:
     -   [Public Records Request](https://www.azag.gov/media/public-records-request)
 -   [Arizona Secretary of State](https://azsos.gov/)
     -   [Charity Department](https://azsos.gov/business/other-services/veterans-charities-organizations)
--   [Business Entity Search](https://ecorp.azcc.gov/EntitySearch/Index)
+-   [Business Entity Search](https://arizonabusinesscenter.azcc.gov/EntitySearch/Index)
 
 [↑ Back To Top](#contents)
 
@@ -139,7 +139,7 @@ Use the expandable section below for direct links to your state’s:
 -   [California State Website](https://www.ca.gov/)
 -   [Office of the Attorney General](https://oag.ca.gov/)
     -   [Charities](https://oag.ca.gov/charities)
-    -   [Registry Search Tool](https://rct.doj.ca.gov/Verification/Web/Search.aspx?facility=Y)
+    -   [Registry Search Tool](https://ca-rcf.evokeplatform.com/app/publicPortal/verification)
     -   Address: PO Box 903447, Sacramento, CA 94203-4470
     -   Phone: (916) 210-6400
     -   [Consumer Complaint](https://oag.ca.gov/contact/consumer-complaint-against-business-or-company)
@@ -156,7 +156,7 @@ Use the expandable section below for direct links to your state’s:
     -   Address: 1700 Broadway, Suite 550, Denver, CO 80290
     -   Phone: (303) 894-2200
     -   Email: charitable@coloradosos.gov
-    -   [Charitable Solicitations](https://www.sos.state.co.us/pubs/info_center/laws/Title6/Title6Article16.html)
+    -   [Charitable Solicitations](https://www.sos.state.co.us/pubs/charities/charitableHome.html)
     -   [File a Complaint (PDF)](https://www.coloradosos.gov/pubs/charities/forms/CHAR_COMP.pdf)
 -   [Colorado Attorney General](https://coag.gov/)
     -   [Consumer Protection](https://coag.gov/office-sections/consumer-protection/)
@@ -246,7 +246,7 @@ Use the expandable section below for direct links to your state’s:
     -   [Search Licenses](https://agr.georgia.gov/search-licenses)
     -   [Animals](https://agr.georgia.gov/animals)
     -   [Reporting Animal Cruelty](https://agr.georgia.gov/reporting-animal-cruelty)
-    -   [All ISDA Laws and Rules](https://agr.georgia.gov/laws-and-rules/all-isda-laws-and-rules/#AnimalLaws)
+    -   [All ISDA Laws and Rules](https://agr.georgia.gov/animals)
 -   [Business Entity Search](https://ecorp.sos.ga.gov/BusinessSearch)
 
 [↑ Back To Top](#contents)
@@ -288,7 +288,7 @@ Use the expandable section below for direct links to your state’s:
 -   [Illinois State Website](https://www2.illinois.gov/)
 -   [Office of the Attorney General](https://www.illinoisattorneygeneral.gov/)
     -   [Charities](https://www.illinoisattorneygeneral.gov/consumer-protection/charities/)
-    -   [Charities Search](https://charitableviewer.ilag.gov/)
+    -   [Charities Search](https://charitable.illinoisattorneygeneral.gov/search)
     -   [File a Complaint](https://www.illinoisattorneygeneral.gov/File-A-Complaint/)
     -   Address: 115 S. LaSalle Street, 12th Floor, Chicago, IL 60603
     -   Phone: (312) 814-2595
@@ -296,7 +296,7 @@ Use the expandable section below for direct links to your state’s:
 -   [Department of Agriculture](https://agr.illinois.gov/)
     -   [Animal Health & Welfare](https://agr.illinois.gov/animals/animalhealth.html)
     -   [A-Z License List](https://agr.illinois.gov/licenses/a-z-license-list.html)
--   [Business Entity Search](https://apps.ilsos.gov/corporatellc/)
+-   [Business Entity Search](https://apps.ilsos.gov/corporatellc/) <!-- needs verify: HTTP/2/timeout from audit client; may work in browsers -->
 
 [↑ Back To Top](#contents)
 
@@ -340,22 +340,22 @@ Use the expandable section below for direct links to your state’s:
     -   [Charitable Organization and Solicitations Act](https://www.ksrevisor.org/statutes/chapters/ch17/017_017_0059.html)
     -   [File a Complaint](https://www.ag.ks.gov/file-a-complaint/charity-fraud)
 -   [Department of Agriculture](https://www.agriculture.ks.gov/)
--   [Business Entity Search](https://www.sos.ks.gov/eforms/BusinessEntity/Search.aspx)
+-   [Business Entity Search](https://sos.ks.gov/businesses/businesses.html)
 
 [↑ Back To Top](#contents)
 
 ### Kentucky
 
 -   [Kentucky State Website](https://kentucky.gov/)
--   [Office of the Attorney General](https://ag.ky.gov/Pages/default.aspx)
-    -   [Consumer Protection Division](https://ag.ky.gov/about/Office-Divisions/OCP/Pages/default.aspx)
+-   [Office of the Attorney General](https://www.ag.ky.gov/Pages/default.aspx)
+    -   [Consumer Protection Division](https://www.ag.ky.gov/about/Office-Divisions/OCP/Pages/default.aspx)
     -   [Charitable Organizations Registered (PDF)](https://www.ag.ky.gov/Resources/Consumer-Resources/charity/Documents/charity.pdf)
-    -   [Databases, statutes and regulations](https://ag.ky.gov/Resources/Consumer-Resources/charity/Pages/regs.aspx)
+    -   [Databases, statutes and regulations](https://www.ag.ky.gov/Resources/Consumer-Resources/charity/Pages/regs.aspx)
     -   Address: 1024 Capital Center Drive, Suite 200, Frankfort, KY 40601
     -   Phone: (502) 696-5389
-    -   [Consumer Complaints](https://ag.ky.gov/Resources/Consumer-Resources/Consumers/Pages/Consumer-Complaints.aspx)
--   [Secretary of State](https://sos.ky.gov/Pages/default.aspx)
-    -   [Business Filings & Records Online Services](https://sos.ky.gov/bus/business-filings/OnlineServices/Pages/default.aspx)
+    -   [Consumer Complaints](https://www.ag.ky.gov/Resources/Consumer-Resources/Consumers/Pages/Consumer-Complaints.aspx)
+-   [Secretary of State](https://www.sos.ky.gov/Pages/default.aspx)
+    -   [Business Filings & Records Online Services](https://www.sos.ky.gov/bus/business-filings/OnlineServices/Pages/default.aspx)
 -   [Department of Agriculture](https://www.kyagr.com/)
 -   [Business Entity Search](https://sosbes.sos.ky.gov/BusSearchNProfile/search.aspx)
 
@@ -383,8 +383,8 @@ Use the expandable section below for direct links to your state’s:
 ### Maine
 
 -   [Maine State Website](https://www.maine.gov/)
--   [Department of Professional & Financial Regulation](https://www.pfr.maine.gov/ALMSOnline/Welcome.aspx)
-    -   [Search](https://www.pfr.maine.gov/ALMSOnline/ALMSQuery/Welcome.aspx)
+-   [Department of Professional & Financial Regulation](https://www.pfr.maine.gov/ALMSOnline/Welcome.aspx) <!-- needs verify: cookie/redirect loop with some clients; works with cookies -->
+    -   [Search](https://www.pfr.maine.gov/ALMSOnline/ALMSQuery/Welcome.aspx) <!-- needs verify: cookie/redirect loop with some clients; works with cookies -->
 -   [Department of the Attorney General](https://www.maine.gov/ag/index.shtml)
     -   [Consumer Protection: Charities and Public Benefit Corporations](https://www.maine.gov/ag/consumer/charities/index.shtml)
     -   Email: consumer.mediation@maine.gov
@@ -442,7 +442,7 @@ Use the expandable section below for direct links to your state’s:
     -   Address: P. O. Box 30214, Lansing, MI 48909
     -   Phone: (517) 335-7571
     -   [File a Complaint](https://www.michigan.gov/consumerprotection/complaints)
-    -   [The Charitable Organizations and Solicitations Act](https://www.legislature.mi.gov/(S(f5hmbm05d3guili4m4brv2db)/mileg.aspx?page=getobject&objectname=mcl-act-169-of-1975)
+    -   [The Charitable Organizations and Solicitations Act](https://www.legislature.mi.gov/mileg.aspx?page=getobject&objectname=mcl-act-169-of-1975)
 -   [Department of Agriculture](https://www.michigan.gov/mdard)
     -   [Animal Health](https://www.michigan.gov/mdard/animals)
     -   [File a Complaint](https://www.michigan.gov/mdard/about/contact-mdard)
@@ -458,7 +458,7 @@ Use the expandable section below for direct links to your state’s:
     -   Address: 445 Minnesota Street, St. Paul, MN 55101-2130
     -   Phone: (651) 757-1496, (800) 657-3787
     -   [File a Complaint](https://www.ag.state.mn.us/Charity/FileAComplaint.asp)
--   [Business Entity Search](https://mblsportal.sos.state.mn.us/Business/Search)
+-   [Business Entity Search](https://mblsportal.sos.state.mn.us/Business/Search) <!-- needs verify: TLS handshake failed from audit client; may work in browsers -->
 
 [↑ Back To Top](#contents)
 
@@ -475,7 +475,7 @@ Use the expandable section below for direct links to your state’s:
     -   [Consumer Protection Division](https://attorneygenerallynnfitch.com/divisions/consumer-protection/)
     -   Address: P.O. Box 22947, Jackson, MS 39225-2947
     -   Phone: (601) 359-4230, (800) 281-4418
-    -   [File a Complaint](https://www.ms.gov/dfa/consumer_complaint/)
+    -   [File a Complaint](https://attorneygenerallynnfitch.com/divisions/consumer-protection/)
 -   [Business Entity Search](https://corp.sos.ms.gov/corp/portal/c/page/corpBusinessIdSearch/portal.aspx?#clear=1)
 
 [↑ Back To Top](#contents)
@@ -552,7 +552,7 @@ Use the expandable section below for direct links to your state’s:
     -   Email: charitabletrustsunit@doj.nh.gov
     -   [Consumer Complaints](https://www.doj.nh.gov/citizens/consumer-protection-antitrust-bureau/consumer-complaints)
 -   [Secretary of State](https://www.sos.nh.gov/)
-    -   [NH-SOS - Corporation](https://sos.nh.gov/corporation-ucc-securities/corporation/)
+    -   [NH-SOS - Corporation](https://sos.nh.gov/corporation-ucc-securities/corporation/) <!-- needs verify: intermittent 503 from audit client -->
 -   [Business Entity Search](https://quickstart.sos.nh.gov/online/BusinessInquire)
 
 [↑ Back To Top](#contents)
@@ -562,7 +562,7 @@ Use the expandable section below for direct links to your state’s:
 -   [New Jersey State Website](https://www.nj.gov/)
 -   [Office of Attorney General](https://www.njoag.gov/)
     -   [Charities Registration ＆ Investigation Section](https://www.njconsumeraffairs.gov/charities)
-    -   [Search For A Charity](https://njconsumeraffairs.nj.gov/public-charity-search-results/)
+    -   [Search For A Charity](https://www.njconsumeraffairs.gov/charities/Pages/search.aspx)
     -   Address: P.O. Box 45021, Newark, New Jersey 07101
     -   Phone: (973) 504-6215, (800) 242-5846
     -   Email: askconsumeraffairs@dca.lps.state.nj.us
@@ -576,7 +576,7 @@ Use the expandable section below for direct links to your state’s:
 -   [New Mexico State Website](https://www.newmexico.gov/)
 -   [Office of the Attorney General](https://nmdoj.gov/)
     -   [Charities](https://nmdoj.gov/get-help/charities/)
-    -   [Charity Search](https://secure.nmag.gov/CharitySearch/)
+    -   [Charity Search](https://secure.nmdoj.gov/CharitySearch/)
     -   Address: P.O. Drawer 1508, Santa Fe, NM 87504-1508
     -   Phone: (505) 717-3500
     -   Email: Charity.Registrar@nmag.gov
@@ -596,7 +596,7 @@ Use the expandable section below for direct links to your state’s:
     -   Email: charities.bureau@ag.ny.gov
     -   [File a charity complaint](https://formsnym.ag.ny.gov/OAGOnlineSubmissionForm/faces/OAGCBHome)
 -   [NYS Department of Agriculture and Markets - Division of Animal Industry](https://agriculture.ny.gov/animals)
--   [Business Entity Search](https://apps.dos.ny.gov/publicInquiry/)
+-   [Business Entity Search](https://apps.dos.ny.gov/publicInquiry/) <!-- needs verify: TLS/EOF from audit client; may work in browsers -->
 
 [↑ Back To Top](#contents)
 
@@ -663,7 +663,7 @@ Use the expandable section below for direct links to your state’s:
     -   Address: 313 NE 21st ST, Oklahoma City, OK 73105
     -   Phone: (405) 521-2029
     -   Email: ConsumerProtection@oag.ok.gov
-    -   [Charitable Organization Complaint Form (PDF)](https://oklahoma.gov/content/dam/ok/en/oag/documents/complaints/2017charitableorganizationcomplaint.pdf)
+    -   [Charitable Organization Complaint Form (PDF)](https://oklahoma.gov/oag/about/divisions/cpu.html)
 -   [Business Entity Search](https://www.sos.ok.gov/corp/corpinquiryfind.aspx)
 
 [↑ Back To Top](#contents)
@@ -808,13 +808,13 @@ Use the expandable section below for direct links to your state’s:
 ### Utah
 
 -   [Utah State Website](https://www.utah.gov/)
--   [Department of Commerce](https://dcp.utah.gov/)
-    -   [Registered Entities Search](https://db.dcp.utah.gov/registered.html)
+-   [Department of Commerce](https://commerce.utah.gov/dcp/)
+    -   [Registered Entities Search](https://commerce.utah.gov/dcp/for-businesses/charities/)
     -   Address: Heber M. Wells Bldg Offices, 160 East 300 South, 2nd floor, Salt Lake City. UT 84111
     -   Phone: (801) 530-6601
     -   Email: consumerprotection@utah.gov
-    -   [DCP Complaints](https://db.dcp.utah.gov/complaints.html)
--   [Business Entity Search](https://businessregistration.utah.gov/EntitySearch/OnlineEntitySearch)
+    -   [DCP Complaints](https://commerce.utah.gov/dcp/for-consumers/file-a-complaint/)
+-   [Business Entity Search](https://businessregistration.utah.gov/)
 
 [↑ Back To Top](#contents)
 
@@ -837,15 +837,15 @@ Use the expandable section below for direct links to your state’s:
 -   [Virginia State Website](https://www.virginia.gov/)
 -   [Department of Agriculture and Consumer Services](https://www.vdacs.virginia.gov/)
     -   [Charitable Solicitation](https://www.vdacs.virginia.gov/food-charitable-solicitation.shtml)
-    -   [Charitable Organization Database](https://cos.vdacs.virginia.gov/cgi-bin/char_search.cgi)
+    -   [Charitable Organization Database](https://cos.vdacs.virginia.gov/) <!-- needs verify: VA COS char_search.cgi 404; root host live but dedicated search UI unconfirmed -->
     -   Address: 102 Governor Street, Richmond, Virginia 23219
     -   Phone: (804) 786-1343
     -   [Charitable Solicitation Complaint Form (PDF)](https://www.vdacs.virginia.gov/pdf/cscomplaint.pdf)
 -   [Attorney General](https://www.oag.state.va.us/)
     -   Address: 202 North Ninth Street, Richmond, Virginia 23219
     -   Phone: (804) 786-2071
-    -   [OAG Online Consumer Complaint Form](https://www.oag.state.va.us/consumercomplaintform/form/start)
--   [Business Entity Search](https://cis.scc.virginia.gov/EntitySearch/Index)
+    -   [OAG Online Consumer Complaint Form](https://www.oag.state.va.us/consumer-protection/file-a-complaint/)
+-   [Business Entity Search](https://cis.scc.virginia.gov/EntitySearch/Index) <!-- needs verify: TLS handshake failed from audit client; may work in browsers -->
 
 [↑ Back To Top](#contents)
 
@@ -871,13 +871,13 @@ Use the expandable section below for direct links to your state’s:
 
 -   [West Virginia State Website](https://www.wv.gov/)
 -   [Secretary of State](https://sos.wv.gov/)
-    -   [Charitable Organizations](https://sos.wv.gov/business/Pages/Charities.aspx)
+    -   [Charitable Organizations](https://apps.sos.wv.gov/business/charities/)
     -   [Charities Search](https://erls.wvsos.gov/OnlineCharitiesSearch/Search)
     -   Address: State Capitol Bldg. 1, Ste 157-K, 1900 Kanawha Blvd. East, Charleston WV 25305-0770
     -   Phone: (304) 558-6000
     -   Email: charities@wvsos.com
-    -   [Investigations Unit](https://sos.wv.gov/about/Pages/Investigations.aspx)
--   [Office of Attorney General](https://ago.wv.gov/Pages/default.aspx)
+    -   [Investigations Unit](https://apps.sos.wv.gov/business/charities/)
+-   [Office of Attorney General](https://ago.wv.gov/)
     -   Address: Post Office Box 1789, Charleston WV 25326
     -   Phone: (304) 558-8986, (800) 368-8808
     -   Email: consumer@wvago.gov
