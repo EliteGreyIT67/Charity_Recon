@@ -53,6 +53,7 @@ Use the expandable section below for direct links to your state’s:
 - [Oklahoma](#oklahoma)
 - [Oregon](#oregon)
 - [Pennsylvania](#pennsylvania)
+- [Puerto Rico](#puerto-rico)
 - [Rhode Island](#rhode-island)
 - [South Carolina](#south-carolina)
 - [South Dakota](#south-dakota)
